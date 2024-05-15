@@ -62,6 +62,10 @@ export class UserService {
     return await this.prisma.user.create({ data, include: { secrets: true } });
   }
 
+  async createWhatsAppUser(data: Prisma.UserUncheckedCreateInput) {
+    return await this.prisma.user.create({ data, include: { secrets: true } });
+  }
+
   async updateByEmail(email: string, data: Prisma.UserUpdateArgs["data"]) {
     return await this.prisma.user.update({ where: { email }, data });
   }

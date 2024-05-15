@@ -32,6 +32,11 @@ model User {
   provider         Provider
   secrets          Secrets?
   resumes          Resume[]
+  whatsappUserId   String?
+  whatsappUser     WhatsappUser?      @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade)
+
+  @@unique([id])
+  @@index(fields: [whatsappUserId])
 }
 
 model Secrets {
@@ -62,4 +67,23 @@ model Resume {
   @@unique([userId, id])
   @@unique([userId, slug])
   @@index(fields: [userId])
+}
+
+model WhatsappUser {
+  id                    String          @id @default(cuid())
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+  whatsappProfilePicture String?     
+  whatsappName          String
+  whatsappNumber        String     @unique
+  lastSessionSelection  Json       @default("{}")
+  currentSession        Json       @default("{}")
+  previewUrl            String
+  status                Json       @default("{}")
+  lastCvDetails         Json       @default("{}")
+  lastjobDescription    Json       @default("{}")
+  loginToken            String
+  users                 User[]
+
+  @@unique([id])
 }

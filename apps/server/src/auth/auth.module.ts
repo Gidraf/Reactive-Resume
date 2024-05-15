@@ -7,6 +7,7 @@ import { Config } from "../config/schema";
 import { MailModule } from "../mail/mail.module";
 import { UserModule } from "../user/user.module";
 import { UserService } from "../user/user.service";
+import { WhatsAppUserModule } from "../whatsppUser/whatsapp.user.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { DummyStrategy } from "./strategy/dummy.strategy";
@@ -22,7 +23,14 @@ export class AuthModule {
   static register(): DynamicModule {
     return {
       module: AuthModule,
-      imports: [PassportModule, JwtModule, UserModule, MailModule],
+      imports: [
+        PassportModule,
+        JwtModule,
+        UserModule,
+        MailModule,
+        WhatsAppUserModule,
+        WhatsAppUserModule,
+      ],
       controllers: [AuthController],
       providers: [
         AuthService,

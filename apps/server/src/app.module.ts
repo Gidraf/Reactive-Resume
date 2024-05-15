@@ -18,6 +18,7 @@ import { StorageModule } from "./storage/storage.module";
 import { TranslationModule } from "./translation/translation.module";
 import { UserModule } from "./user/user.module";
 import { UtilsModule } from "./utils/utils.module";
+import { WhatsAppUserModule } from "./whatsppUser/whatsapp.user.module";
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { UtilsModule } from "./utils/utils.module";
     PrinterModule,
     TranslationModule,
     ContributorsModule,
+    WhatsAppUserModule,
 
     // Static Assets
     ServeStaticModule.forRoot({
