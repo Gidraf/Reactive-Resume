@@ -1,22 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
-import { RedisService } from "@songkeys/nestjs-redis";
-import Redis from "ioredis";
 import { PrismaService } from "nestjs-prisma";
 
 import { StorageService } from "../storage/storage.service";
 
 @Injectable()
 export class WhatsappUserService {
-  private readonly redis: Redis;
-
   constructor(
     private readonly prisma: PrismaService,
     private readonly storageService: StorageService,
-    private readonly redisService: RedisService,
-  ) {
-    this.redis = this.redisService.getClient();
-  }
+  ) {}
 
   async findOneById(id: string) {
     const user = await this.prisma.whatsappUser.findUniqueOrThrow({
@@ -38,7 +31,7 @@ export class WhatsappUserService {
       if (user) {
         return user;
       }
-      return undefined;
+      return;
     })(whatsappNumber);
 
     return user;
