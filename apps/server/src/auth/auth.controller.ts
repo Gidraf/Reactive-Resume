@@ -22,6 +22,7 @@ import {
   TwoFactorBackupDto,
   TwoFactorDto,
   UpdatePasswordDto,
+  UserDto,
   userSchema,
   UserWithSecrets,
 } from "@reactive-resume/dto";
@@ -93,6 +94,37 @@ export class AuthController {
     else response.status(200).send(responseData);
   }
 
+  private async waHandleAuthenticationResponse(
+    user: UserDto,
+    response: Response,
+    isTwoFactorAuth = false,
+    redirect = false,
+  ) {
+    let status = "authenticated";
+
+    const redirectUrl = new URL(`${this.utils.getUrl()}/auth/callback`);
+
+    const { accessToken, refreshToken } = await this.exchangeToken(
+      user.id,
+      user.email,
+      isTwoFactorAuth,
+    );
+
+    console.log(accessToken);
+
+    response.cookie("Authentication", accessToken, getCookieOptions("access"));
+    response.cookie("Refresh", refreshToken, getCookieOptions("refresh"));
+
+    if (user.twoFactorEnabled && !isTwoFactorAuth) status = "2fa_required";
+
+    const responseData = authResponseSchema.parse({ status, user });
+
+    redirectUrl.searchParams.set("status", status);
+
+    if (redirect) response.redirect(redirectUrl.toString());
+    else response.status(200).send(responseData);
+  }
+
   @Post("register")
   async register(@Body() registerDto: RegisterDto, @Res({ passthrough: true }) response: Response) {
     const user = await this.authService.register(registerDto);
@@ -104,6 +136,17 @@ export class AuthController {
   @UseGuards(LocalGuard)
   async login(@User() user: UserWithSecrets, @Res({ passthrough: true }) response: Response) {
     return this.handleAuthenticationResponse(user, response);
+  }
+
+  @Post("loginwa")
+  async loginWa(
+    @Body() waUser: { userId: string; password: string; identifier: string },
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const user = await this.authService.authenticateWhatsappUser(waUser);
+    // console.log(user);
+    // return "Hi";
+    return this.waHandleAuthenticationResponse(user, response);
   }
 
   @Get("providers")

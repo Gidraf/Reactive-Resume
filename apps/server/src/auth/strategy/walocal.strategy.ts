@@ -6,20 +6,12 @@ import { IStrategyOptions, Strategy } from "passport-local";
 import { AuthService } from "../auth.service";
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy, "local") {
+export class WaLocalStrategy extends PassportStrategy(Strategy, "walocal") {
   constructor(private readonly authService: AuthService) {
     super({ usernameField: "identifier" } as IStrategyOptions);
   }
 
-  async validate(identifier: string, password: string) {
-    try {
-      return await this.authService.authenticate({ identifier, password });
-    } catch (error) {
-      throw new BadRequestException(ErrorMessage.InvalidCredentials);
-    }
-  }
-
-  async validateWa(identifier: string, password: string, userId: string) {
+  async validate(identifier: string, password: string, userId: string) {
     try {
       return await this.authService.authenticateWhatsappUser({ identifier, password, userId });
     } catch (error) {

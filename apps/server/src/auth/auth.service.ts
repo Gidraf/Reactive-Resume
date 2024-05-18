@@ -8,7 +8,14 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { AuthProvidersDto, LoginDto, RegisterDto, UserWithSecrets } from "@reactive-resume/dto";
+import {
+  AuthProvidersDto,
+  LoginDto,
+  RegisterDto,
+  UserDto,
+  UserWithSecrets,
+  WaLoginDto,
+} from "@reactive-resume/dto";
 import { ErrorMessage } from "@reactive-resume/utils";
 import * as bcryptjs from "bcryptjs";
 import { randomBytes } from "crypto";
@@ -46,6 +53,14 @@ export class AuthService {
     if (!isValid) {
       throw new BadRequestException(ErrorMessage.InvalidCredentials);
     }
+  }
+
+  private async validateLoginToken(password: string, loginToken: string) {
+    const isValid = password === loginToken;
+    if (!isValid) {
+      throw new BadRequestException(ErrorMessage.InvalidCredentials);
+    }
+    return isValid;
   }
 
   generateToken(grantType: "access" | "refresh" | "reset" | "verification", payload?: Payload) {
@@ -170,6 +185,26 @@ export class AuthService {
       await this.validatePassword(password, user.secrets?.password);
 
       return user;
+    } catch (error) {
+      throw new BadRequestException(ErrorMessage.InvalidCredentials);
+    }
+  }
+
+  async authenticateWhatsappUser({ identifier, password, userId }: WaLoginDto): Promise<UserDto> {
+    try {
+      const whatsappUser = await this.whatsappUserService.findOneByIdentifier(identifier);
+      if (!whatsappUser) {
+        throw new BadRequestException(ErrorMessage.InvalidCredentials);
+      }
+
+      const isValid = await this.validateLoginToken(password, whatsappUser.loginToken);
+      console.log(isValid);
+      const user = await this.userService.findOneByIdWithoutSecret(userId, whatsappUser.loginToken);
+      // console.log(user);
+      if (!user) {
+        throw new BadRequestException(ErrorMessage.InvalidCredentials);
+      }
+      return user as UserDto;
     } catch (error) {
       throw new BadRequestException(ErrorMessage.InvalidCredentials);
     }

@@ -20,6 +20,7 @@ export class UserService {
   }
 
   async findOneById(id: string) {
+    console.log(id);
     const user = await this.prisma.user.findUniqueOrThrow({
       where: { id },
       include: { secrets: true },
@@ -27,6 +28,23 @@ export class UserService {
 
     if (!user.secrets) {
       throw new InternalServerErrorException(ErrorMessage.SecretsNotFound);
+    }
+
+    return user;
+  }
+
+  async findOneByIdWithoutSecret(id: string, loginToken: string) {
+    console.log(id);
+    const user = await this.prisma.user.findFirst({
+      where: { id },
+      include: { secrets: true },
+    });
+
+    if (!user?.secrets) {
+      await this.UpdateUserSecets({
+        password: loginToken,
+        userId: id,
+      });
     }
 
     return user;
@@ -64,6 +82,10 @@ export class UserService {
 
   async createWhatsAppUser(data: Prisma.UserUncheckedCreateInput) {
     return await this.prisma.user.create({ data, include: { secrets: true } });
+  }
+
+  async UpdateUserSecets(data: Prisma.SecretsUncheckedCreateInput) {
+    return await this.prisma.secrets.create({ data, include: {} });
   }
 
   async updateByEmail(email: string, data: Prisma.UserUpdateArgs["data"]) {

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import { RedisService } from "@songkeys/nestjs-redis";
 import Redis from "ioredis";
@@ -32,7 +32,6 @@ export class WhatsappUserService {
       // First, find the user by email
       const user = await this.prisma.whatsappUser.findFirst({
         where: { whatsappNumber: whatsappNumber },
-        include: { users: true },
       });
 
       // If the user exists, return it

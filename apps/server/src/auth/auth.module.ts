@@ -17,6 +17,7 @@ import { JwtStrategy } from "./strategy/jwt.strategy";
 import { LocalStrategy } from "./strategy/local.strategy";
 import { RefreshStrategy } from "./strategy/refresh.strategy";
 import { TwoFactorStrategy } from "./strategy/two-factor.strategy";
+import { WaLocalStrategy } from "./strategy/walocal.strategy";
 
 @Module({})
 export class AuthModule {
@@ -35,6 +36,7 @@ export class AuthModule {
       providers: [
         AuthService,
         LocalStrategy,
+        WaLocalStrategy,
         JwtStrategy,
         RefreshStrategy,
         TwoFactorStrategy,
