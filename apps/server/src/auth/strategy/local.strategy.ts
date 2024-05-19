@@ -18,12 +18,4 @@ export class LocalStrategy extends PassportStrategy(Strategy, "local") {
       throw new BadRequestException(ErrorMessage.InvalidCredentials);
     }
   }
-
-  async validateWa(identifier: string, password: string, userId: string) {
-    try {
-      return await this.authService.authenticateWhatsappUser({ identifier, password, userId });
-    } catch (error) {
-      throw new BadRequestException(ErrorMessage.InvalidCredentials);
-    }
-  }
 }

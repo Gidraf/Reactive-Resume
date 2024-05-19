@@ -7,7 +7,6 @@ import { Config } from "../config/schema";
 import { MailModule } from "../mail/mail.module";
 import { UserModule } from "../user/user.module";
 import { UserService } from "../user/user.service";
-import { WhatsAppUserModule } from "../whatsppUser/whatsapp.user.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { DummyStrategy } from "./strategy/dummy.strategy";
@@ -17,26 +16,18 @@ import { JwtStrategy } from "./strategy/jwt.strategy";
 import { LocalStrategy } from "./strategy/local.strategy";
 import { RefreshStrategy } from "./strategy/refresh.strategy";
 import { TwoFactorStrategy } from "./strategy/two-factor.strategy";
-import { WaLocalStrategy } from "./strategy/walocal.strategy";
+import { WhatsAppUserModule } from "../whatsppUser/whatsapp.user.module";
 
 @Module({})
 export class AuthModule {
   static register(): DynamicModule {
     return {
       module: AuthModule,
-      imports: [
-        PassportModule,
-        JwtModule,
-        UserModule,
-        MailModule,
-        WhatsAppUserModule,
-        WhatsAppUserModule,
-      ],
+      imports: [PassportModule, JwtModule, UserModule, MailModule, WhatsAppUserModule,],
       controllers: [AuthController],
       providers: [
         AuthService,
         LocalStrategy,
-        WaLocalStrategy,
         JwtStrategy,
         RefreshStrategy,
         TwoFactorStrategy,

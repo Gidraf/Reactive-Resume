@@ -65,36 +65,6 @@ export class AuthController {
     }
   }
 
-  private async handleAuthenticationResponse(
-    user: UserWithSecrets,
-    response: Response,
-    isTwoFactorAuth = false,
-    redirect = false,
-  ) {
-    let status = "authenticated";
-
-    const baseUrl = this.configService.get("PUBLIC_URL");
-    const redirectUrl = new URL(`${baseUrl}/auth/callback`);
-
-    const { accessToken, refreshToken } = await this.exchangeToken(
-      user.id,
-      user.email,
-      isTwoFactorAuth,
-    );
-
-    response.cookie("Authentication", accessToken, getCookieOptions("access"));
-    response.cookie("Refresh", refreshToken, getCookieOptions("refresh"));
-
-    if (user.twoFactorEnabled && !isTwoFactorAuth) status = "2fa_required";
-
-    const responseData = authResponseSchema.parse({ status, user });
-
-    redirectUrl.searchParams.set("status", status);
-
-    if (redirect) response.redirect(redirectUrl.toString());
-    else response.status(200).send(responseData);
-  }
-
   private async waHandleAuthenticationResponse(
     user: UserDto,
     response: Response,
@@ -126,6 +96,36 @@ export class AuthController {
     else response.status(200).send(responseData);
   }
 
+  private async handleAuthenticationResponse(
+    user: UserWithSecrets,
+    response: Response,
+    isTwoFactorAuth = false,
+    redirect = false,
+  ) {
+    let status = "authenticated";
+
+    const baseUrl = this.configService.get("PUBLIC_URL");
+    const redirectUrl = new URL(`${baseUrl}/auth/callback`);
+
+    const { accessToken, refreshToken } = await this.exchangeToken(
+      user.id,
+      user.email,
+      isTwoFactorAuth,
+    );
+
+    response.cookie("Authentication", accessToken, getCookieOptions("access"));
+    response.cookie("Refresh", refreshToken, getCookieOptions("refresh"));
+
+    if (user.twoFactorEnabled && !isTwoFactorAuth) status = "2fa_required";
+
+    const responseData = authResponseSchema.parse({ status, user });
+
+    redirectUrl.searchParams.set("status", status);
+
+    if (redirect) response.redirect(redirectUrl.toString());
+    else response.status(200).send(responseData);
+  }
+
   @Post("register")
   async register(@Body() registerDto: RegisterDto, @Res({ passthrough: true }) response: Response) {
     const user = await this.authService.register(registerDto);
@@ -139,6 +139,7 @@ export class AuthController {
     return this.handleAuthenticationResponse(user, response);
   }
 
+  
   @Post("loginwa")
   async loginWa(
     @Body() waUser: { userId: string; password: string; identifier: string },

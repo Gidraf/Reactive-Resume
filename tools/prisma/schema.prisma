@@ -35,8 +35,7 @@ model User {
   whatsappUserId   String?
   whatsappUser     WhatsappUser?      @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade)
 
-  @@unique([id])
-  @@index(fields: [whatsappUserId])
+   @@index(fields: [whatsappUserId])
 }
 
 model Secrets {
@@ -72,6 +71,18 @@ model Resume {
   @@index(fields: [userId])
 }
 
+model Statistics {
+  id        String   @id @default(cuid())
+  views     Int      @default(0)
+  downloads Int      @default(0)
+  resumeId  String   @unique
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([resumeId, id])
+}
+
 model WhatsappUser {
   id                    String          @id @default(cuid())
   createdAt             DateTime     @default(now())
@@ -89,15 +100,4 @@ model WhatsappUser {
   users                 User[]
 
   @@unique([id])
-}
-model Statistics {
-  id        String   @id @default(cuid())
-  views     Int      @default(0)
-  downloads Int      @default(0)
-  resumeId  String   @unique
-  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([resumeId, id])
 }

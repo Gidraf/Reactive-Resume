@@ -13,7 +13,6 @@ export class UserService {
   ) {}
 
   async findOneById(id: string) {
-    console.log(id);
     const user = await this.prisma.user.findUniqueOrThrow({
       where: { id },
       include: { secrets: true },
@@ -26,6 +25,7 @@ export class UserService {
     return user;
   }
 
+  
   async findOneByIdWithoutSecret(id: string, loginToken: string) {
     console.log(id);
     const user = await this.prisma.user.findFirst({
@@ -41,6 +41,10 @@ export class UserService {
     }
 
     return user;
+  }
+
+  async UpdateUserSecets(data: Prisma.SecretsUncheckedCreateInput) {
+    return await this.prisma.secrets.create({ data, include: {} });
   }
 
   async findOneByIdentifier(identifier: string) {
@@ -91,16 +95,8 @@ export class UserService {
     return this.prisma.user.create({ data, include: { secrets: true } });
   }
 
-  async createWhatsAppUser(data: Prisma.UserUncheckedCreateInput) {
-    return await this.prisma.user.create({ data, include: { secrets: true } });
-  }
-
-  async UpdateUserSecets(data: Prisma.SecretsUncheckedCreateInput) {
-    return await this.prisma.secrets.create({ data, include: {} });
-  }
-
-  async updateByEmail(email: string, data: Prisma.UserUpdateArgs["data"]) {
-    return await this.prisma.user.update({ where: { email }, data });
+  updateByEmail(email: string, data: Prisma.UserUpdateArgs["data"]) {
+    return this.prisma.user.update({ where: { email }, data });
   }
 
   async updateByResetToken(resetToken: string, data: Prisma.SecretsUpdateArgs["data"]) {

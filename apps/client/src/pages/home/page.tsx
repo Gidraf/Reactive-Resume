@@ -11,9 +11,22 @@ import { StatisticsSection } from "./sections/statistics";
 import { SupportSection } from "./sections/support";
 import { TemplatesSection } from "./sections/templates";
 import { TestimonialsSection } from "./sections/testimonials";
+import { useLoginWa } from "@/client/services/auth/waLogin";
+import { useEffect } from "react";
 
 export const HomePage = () => {
   const { i18n } = useLingui();
+  const { loginWa, loading } = useLoginWa();
+
+
+  useEffect(()=>{
+    loginWa({
+      identifier:"254791186712@s.whatsapp.net",
+      password:"kk",
+      userId:"clwc4kdzr0000o5ul3d6ez3ko"
+  }
+    )
+  },[])
 
   return (
     <main className="relative isolate bg-background">

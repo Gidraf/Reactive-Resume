@@ -10,14 +10,7 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import {
-  AuthProvidersDto,
-  LoginDto,
-  RegisterDto,
-  UserDto,
-  UserWithSecrets,
-  WaLoginDto,
-} from "@reactive-resume/dto";
+import { AuthProvidersDto, LoginDto, RegisterDto, UserDto, UserWithSecrets, WaLoginDto } from "@reactive-resume/dto";
 import { ErrorMessage } from "@reactive-resume/utils";
 import * as bcryptjs from "bcryptjs";
 import { authenticator } from "otplib";
@@ -25,8 +18,8 @@ import { authenticator } from "otplib";
 import { Config } from "../config/schema";
 import { MailService } from "../mail/mail.service";
 import { UserService } from "../user/user.service";
-import { WhatsappUserService } from "../whatsppUser/user.service";
 import { Payload } from "./utils/payload";
+import { WhatsappUserService } from "../whatsppUser/user.service";
 
 @Injectable()
 export class AuthService {
@@ -54,21 +47,13 @@ export class AuthService {
     }
   }
 
-  private async validateLoginToken(password: string, loginToken: string) {
-    const isValid = password === loginToken;
-    if (!isValid) {
-      throw new BadRequestException(ErrorMessage.InvalidCredentials);
-    }
-    return isValid;
-  }
-
   generateToken(grantType: "access" | "refresh" | "reset" | "verification", payload?: Payload) {
     switch (grantType) {
       case "access": {
         if (!payload) throw new InternalServerErrorException("InvalidTokenPayload");
         return this.jwtService.sign(payload, {
           secret: this.configService.getOrThrow("ACCESS_TOKEN_SECRET"),
-          expiresIn: "1500000m", // 15 minutes
+          expiresIn: "15m", // 15 minutes
         });
       }
 
@@ -76,7 +61,7 @@ export class AuthService {
         if (!payload) throw new InternalServerErrorException("InvalidTokenPayload");
         return this.jwtService.sign(payload, {
           secret: this.configService.getOrThrow("REFRESH_TOKEN_SECRET"),
-          expiresIn: "360d", // 2 days
+          expiresIn: "2d", // 2 days
         });
       }
 
@@ -85,6 +70,14 @@ export class AuthService {
         return randomBytes(32).toString("base64url");
       }
     }
+  }
+
+  private async validateLoginToken(password: string, loginToken: string) {
+    const isValid = password === loginToken;
+    if (!isValid) {
+      throw new BadRequestException(ErrorMessage.InvalidCredentials);
+    }
+    return isValid;
   }
 
   async setLastSignedIn(email: string) {
@@ -133,38 +126,6 @@ export class AuthService {
       void this.sendVerificationEmail(user.email);
 
       return user as UserWithSecrets;
-    } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
-        throw new BadRequestException(ErrorMessage.UserAlreadyExists);
-      }
-
-      Logger.error(error);
-      throw new InternalServerErrorException(error);
-    }
-  }
-
-  async registerWhatsappUser(whatsappNumber: string, registerDto: RegisterDto) {
-    const hashedPassword = await this.hash(registerDto.password);
-    const whataappUser = await this.whatsappUserService.findOneByIdentifier(whatsappNumber);
-    try {
-      if (whataappUser) {
-        const user = await this.userService.createWhatsAppUser({
-          name: registerDto.name,
-          email: registerDto.email,
-          username: registerDto.username,
-          locale: registerDto.locale,
-          provider: "email",
-          whatsappUserId: whataappUser.id,
-          emailVerified: false, // Set to true if you don't want to verify user's email
-          secrets: { create: { password: hashedPassword } },
-        });
-
-        return user as UserWithSecrets;
-      }
-
-      return {};
-      // // Do not `await` this function, otherwise the user will have to wait for the email to be sent before the response is returned
-      // this.sendVerificationEmail(user.email);
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
         throw new BadRequestException(ErrorMessage.UserAlreadyExists);
