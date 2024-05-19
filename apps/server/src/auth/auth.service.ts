@@ -207,7 +207,7 @@ export class AuthService {
         throw new BadRequestException(ErrorMessage.InvalidCredentials);
       }
       return user as UserDto;
-    } catch (error) {
+    } catch {
       throw new BadRequestException(ErrorMessage.InvalidCredentials);
     }
   }

@@ -102,8 +102,8 @@ export class AuthController {
     redirect = false,
   ) {
     let status = "authenticated";
-
-    const redirectUrl = new URL(`${""}/auth/callback`);
+    const baseUrl = this.configService.get("PUBLIC_URL");
+    const redirectUrl = new URL(`${baseUrl}/auth/callback`);
 
     const { accessToken, refreshToken } = await this.exchangeToken(
       user.id,
