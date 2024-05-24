@@ -76,6 +76,7 @@ export class ResumeController {
   @Get(":id")
   @UseGuards(TwoFactorGuard, ResumeGuard)
   findOne(@Resume() resume: ResumeDto) {
+    console.log(resume);
     return resume;
   }
 
