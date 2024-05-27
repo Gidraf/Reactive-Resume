@@ -1,6 +1,9 @@
 import { t } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+
+import { useLoginWa } from "@/client/services/auth/waLogin";
 
 import { ContributorsSection } from "./sections/contributors";
 import { FAQSection } from "./sections/faq";
@@ -11,22 +14,22 @@ import { StatisticsSection } from "./sections/statistics";
 import { SupportSection } from "./sections/support";
 import { TemplatesSection } from "./sections/templates";
 import { TestimonialsSection } from "./sections/testimonials";
-import { useLoginWa } from "@/client/services/auth/waLogin";
-import { useEffect } from "react";
 
 export const HomePage = () => {
   const { i18n } = useLingui();
   const { loginWa, loading } = useLoginWa();
 
-
-  useEffect(()=>{
-    loginWa({
-      identifier:"254791186712@s.whatsapp.net",
-      password:"kk",
-      userId:"clwc4kdzr0000o5ul3d6ez3ko"
-  }
-    )
-  },[])
+  useEffect(() => {
+    const login = async () => {
+      await loginWa({
+        identifier: "254791186712@s.whatsapp.net",
+        password: "kk",
+        userId: "clwnu9nhi0000usulyicrl989",
+      });
+    };
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    login().then().catch();
+  }, []);
 
   return (
     <main className="relative isolate bg-background">

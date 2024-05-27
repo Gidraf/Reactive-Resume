@@ -83,6 +83,19 @@ export class ResumeService {
     };
   }
 
+  async findOneBySlug(slug: string, userId?: string) {
+    const resume = await this.prisma.resume.findFirstOrThrow({
+      where: { slug },
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!resume) {
+      return null;
+    }
+
+    return resume;
+  }
+
   async findOneByUsernameSlug(username: string, slug: string, userId?: string) {
     const resume = await this.prisma.resume.findFirstOrThrow({
       where: { user: { username }, slug, visibility: "public" },
@@ -143,8 +156,8 @@ export class ResumeService {
     return this.prisma.resume.delete({ where: { userId_id: { userId, id } } });
   }
 
-  async printResume(resume: ResumeDto, userId?: string) {
-    const url = await this.printerService.printResume(resume);
+  async printResume(resume: ResumeDto, userId?: string, preview?: boolean) {
+    const url = await this.printerService.printResume(resume, preview);
 
     // Update statistics: increment the number of downloads by 1
     if (!userId) {

@@ -159,9 +159,9 @@ export const SectionDialog = <T extends SectionItem>({
                 </div>
               </DialogTitle>
             </DialogHeader>
-
+            <div className="!h-[40vh] overflow-y-scroll">
             {children}
-
+            </div>
             <DialogFooter>
               <Button type="submit">
                 {isCreate && t`Create`}

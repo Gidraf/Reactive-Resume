@@ -15,6 +15,15 @@ export const BuilderHeader = () => {
   const isDragging = useBuilderStore(
     (state) => state.panel.left.handle.isDragging || state.panel.right.handle.isDragging,
   );
+
+  const isLeftOpen = useBuilderStore(
+    (state) => state.sheet.left.open
+  );
+
+  const isRightOpen = useBuilderStore(
+    (state) => state.sheet.right.open
+  );
+
   const leftPanelSize = useBuilderStore((state) => state.panel.left.size);
   const rightPanelSize = useBuilderStore((state) => state.panel.right.size);
 
@@ -34,16 +43,17 @@ export const BuilderHeader = () => {
         <Button
           size="icon"
           variant="ghost"
-          className="flex lg:hidden"
+          className="flex lg:hidden shadow-sm"
           onClick={() => {
             onToggle("left");
           }}
         >
-          <SidebarSimple />
+          {!isLeftOpen ? "Edit" : "Close"}
+          {/* <SidebarSimple /> */}
         </Button>
 
         <div className="flex items-center justify-center gap-x-1 lg:mx-auto">
-          <Button asChild size="icon" variant="ghost">
+          <Button asChild size="icon" variant="ghost" className="">
             <Link to="/dashboard/resumes">
               <HouseSimple />
             </Link>
@@ -63,12 +73,12 @@ export const BuilderHeader = () => {
         <Button
           size="icon"
           variant="ghost"
-          className="flex lg:hidden"
+          className="flex lg:hidden shadow-sm"
           onClick={() => {
             onToggle("right");
           }}
         >
-          <SidebarSimple className="-scale-x-100" />
+          {!isRightOpen ? "Settings" : "Close"}
         </Button>
       </div>
     </div>

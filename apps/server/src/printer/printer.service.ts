@@ -9,6 +9,7 @@ import { PDFDocument } from "pdf-lib";
 import { connect } from "puppeteer";
 
 import { Config } from "../config/schema";
+import { OrderService } from "../order/order.service";
 import { StorageService } from "../storage/storage.service";
 
 @Injectable()
@@ -19,13 +20,19 @@ export class PrinterService {
 
   private readonly ignoreHTTPSErrors: boolean;
 
+  private readonly webUrl: string;
+
   constructor(
     private readonly configService: ConfigService<Config>,
     private readonly storageService: StorageService,
     private readonly httpService: HttpService,
+    private readonly orderService: OrderService,
   ) {
     const chromeUrl = this.configService.getOrThrow<string>("CHROME_URL");
+    const _webUrl = process.env.WEB_URL ?? "";
     const chromeToken = this.configService.getOrThrow<string>("CHROME_TOKEN");
+
+    this.webUrl = _webUrl;
 
     this.browserURL = `${chromeUrl}?token=${chromeToken}`;
     this.ignoreHTTPSErrors = this.configService.getOrThrow<boolean>("CHROME_IGNORE_HTTPS_ERRORS");
@@ -52,10 +59,19 @@ export class PrinterService {
     return version;
   }
 
-  async printResume(resume: ResumeDto) {
+  async printResume(resume: ResumeDto, preview?: boolean) {
     const start = performance.now();
-
-    const url = await retry<string | undefined>(() => this.generateResume(resume), {
+    const order = await this.orderService.findOne(resume.id);
+    console.log(preview);
+    if (!order && !preview) {
+      const publicUrl = JSON.stringify({
+        message: "No payment found for this resume,kindly pay KSh 50 in order to buy your resume.",
+        status: "412",
+        url: null,
+      });
+      return publicUrl;
+    }
+    const url = await retry<string | undefined>(() => this.generateResume(resume, order === null), {
       retries: 3,
       randomize: true,
       onRetry: (_, attempt) => {
@@ -68,7 +84,12 @@ export class PrinterService {
 
     this.logger.debug(`Chrome took ${duration}ms to print ${numberPages} page(s)`);
 
-    return url;
+    const publicUrl = JSON.stringify({
+      message: "Your Request is Successfully",
+      status: "200",
+      url: url,
+    });
+    return publicUrl;
   }
 
   async printPreview(resume: ResumeDto) {
@@ -91,7 +112,7 @@ export class PrinterService {
     return url;
   }
 
-  async generateResume(resume: ResumeDto) {
+  async generateResume(resume: ResumeDto, preview: unknown) {
     try {
       const browser = await this.getBrowser();
       const page = await browser.newPage();
@@ -120,6 +141,10 @@ export class PrinterService {
         });
       }
 
+      console.log(preview);
+
+      const checkoutUrl = `${this.webUrl}/checkout?userId=${resume.userId}&resumeId=${resume.id}&phone=`;
+      const amount = "50";
       // Set the data of the resume to be printed in the browser's session storage
       const numberPages = resume.data.metadata.layout.length;
 
@@ -147,9 +172,62 @@ export class PrinterService {
 
         pagesBuffer.push(await page.pdf({ width, height, printBackground: true }));
 
-        await page.evaluate((temporaryHtml_: string) => {
-          document.body.innerHTML = temporaryHtml_;
-        }, temporaryHtml);
+        await page.evaluate(
+          (temporaryHtml_: string, preview: boolean, checkoutUrl: string, amount: string) => {
+            document.body.innerHTML = temporaryHtml_;
+            if (preview) {
+              const use = "username";
+              // Logger.log(use);
+              const selector = "body";
+              const newDiv = document.createElement("div");
+              // const newStart = document.createElement('div');
+              // const newEnd = document.createElement('div');
+              newDiv.innerHTML = `<div style='
+                  background: #fffffff3;
+                  color: #064c04cf;
+                  border-radius: 5px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-direction: column;
+                  text-align: center;
+                  font-size: 50px;
+                  z-index: 99999999;
+                  pointer-events: all;
+                  position: fixed;
+                  width: 800px;
+                  height: 60vh;
+                  left: 50%;  /* Horizontally center the div */
+                  top: 50%;   /* Vertically center the div */
+                  transform: translate(-50%, -50%); /* Move the div back by half its width and height */
+              '>
+               <h3>CVPAP Free Sample</h3><hr/>
+               <br/>
+               <br/>
+               <a href="${checkoutUrl}"><h5 style="text-decoration: underline;">Click Here To Purchase</h5></a>
+               <br/><br/>
+               <a href="${checkoutUrl}"><h5>Remove This Watermark</h5></a>
+               <br/>
+               <a href="${checkoutUrl}"><h5>@ Kes ${amount}/=</h5></a>
+                 <small style="font-size: 10px;">
+                     Glab Tech Services
+                 </small>
+               </div>
+               `;
+
+              const currentDiv = document.querySelector(selector);
+              if (currentDiv) {
+                currentDiv.prepend(newDiv);
+              }
+              // currentDiv.prepend(newStart);
+              // currentDiv.prepend(newEnd);
+            }
+          },
+          temporaryHtml,
+          preview,
+          checkoutUrl,
+          amount,
+        );
       };
 
       // Loop through all the pages and print them, by first displaying them, printing the PDF and then hiding them back

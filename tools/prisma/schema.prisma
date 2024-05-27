@@ -7,35 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Provider {
-  email
-  github
-  google
-}
-
-enum Visibility {
-  public
-  private
-}
-
 model User {
-  id               String   @id @default(cuid())
-  name             String
-  picture          String?
-  username         String   @unique
-  email            String   @unique
-  locale           String   @default("en-US")
-  emailVerified    Boolean  @default(false)
-  twoFactorEnabled Boolean  @default(false)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  provider         Provider
-  secrets          Secrets?
-  resumes          Resume[]
-  whatsappUserId   String?
-  whatsappUser     WhatsappUser?      @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade)
+  id                  String        @id @unique @default(cuid())
+  name                String
+  picture             String?
+  username            String        @unique
+  email               String        @unique
+  locale              String        @default("en-US")
+  emailVerified       Boolean       @default(false)
+  twoFactorEnabled    Boolean       @default(false)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  provider            Provider
+  whatsappUserId      String?
+  orders              Order[]
+  resumes             Resume[]
+  whatsappUser        WhatsappUser?  @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade)
+  secrets             Secrets?
 
-   @@index(fields: [whatsappUserId])
+  @@index([whatsappUserId])
 }
 
 model Secrets {
@@ -60,15 +50,16 @@ model Resume {
   data       Json        @default("{}")
   visibility Visibility  @default(private)
   locked     Boolean     @default(false)
-  statistics Statistics?
   userId     String
-  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
+  orders     Order[]
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  statistics Statistics?
 
   @@unique([userId, id])
   @@unique([userId, slug])
-  @@index(fields: [userId])
+  @@index([userId])
 }
 
 model Statistics {
@@ -76,28 +67,68 @@ model Statistics {
   views     Int      @default(0)
   downloads Int      @default(0)
   resumeId  String   @unique
-  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   @@unique([resumeId, id])
 }
 
 model WhatsappUser {
-  id                    String          @id @default(cuid())
-  createdAt             DateTime     @default(now())
-  updatedAt             DateTime     @updatedAt
-  whatsappProfilePicture String?     
-  whatsappName          String
-  whatsappNumber        String     @unique
-  lastSessionSelection  Json       @default("{}")
-  currentSession        Json       @default("{}")
-  previewUrl            String
-  status                Json       @default("{}")
-  lastCvDetails         Json       @default("{}")
-  lastjobDescription    Json       @default("{}")
-  loginToken            String
-  users                 User[]
+  id                     String   @id @unique @default(cuid())
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  whatsappProfilePicture String?
+  whatsappName           String
+  whatsappNumber         String   @unique
+  lastSessionSelection   Json     @default("{}")
+  currentSession         Json     @default("{}")
+  previewUrl             String
+  status                 Json     @default("{}")
+  lastCvDetails          Json     @default("{}")
+  lastjobDescription     Json     @default("{}")
+  loginToken             String
+  orders                 Order[]
+  users                  User[]
+}
 
-  @@unique([id])
+model Order {
+  id                  String       @id @default(cuid())
+  amount              String
+  whatsappOrderId     String
+  transactionId       String
+  item                Json         @default("{}")
+  transactionResponse Json         @default("{}")
+  expiredDate         DateTime     @default(now())
+  status              String       @default("unpaid")
+  userId              String
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  resumeId            String
+  whatsappUserId      String
+  resume              Resume       @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  user                User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  whatsappUser        WhatsappUser @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade)
+
+  @@index([userId, resumeId, whatsappOrderId])
+}
+
+model chat_history {
+  id         Int      @id @default(autoincrement())
+  session_id String   @db.Uuid
+  message    Json
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([session_id], map: "idx_chat_history_session_id")
+}
+
+enum Provider {
+  email
+  github
+  google
+}
+
+enum Visibility {
+  public
+  private
 }

@@ -40,8 +40,9 @@ export const BuilderToolbar = () => {
 
   const onPrint = async () => {
     const { url } = await printResume({ id });
-
-    openInNewTab(url);
+    const result = JSON.parse(url);
+    console.log(result);
+    // openInNewTab(url);
   };
 
   const onCopy = async () => {

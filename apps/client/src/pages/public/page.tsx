@@ -62,18 +62,18 @@ export const PublicResumePage = () => {
 
   const onDownloadPdf = async () => {
     const { url } = await printResume({ id });
+    const result = JSON.parse(url);
+    console.log(result);
 
-    openInNewTab(url);
   };
 
   return (
     <div>
       <Helmet>
         <title>
-          {title} - {t`Reactive Resume`}
+          {title} - {t`CVpap`}
         </title>
       </Helmet>
-
       <div
         style={{ width: `${pageSizeMap[format].width}mm` }}
         className="mx-auto mb-6 mt-16 overflow-hidden rounded shadow-xl print:m-0 print:shadow-none"
@@ -84,6 +84,7 @@ export const PublicResumePage = () => {
           src="/artboard/preview"
           style={{ width: `${pageSizeMap[format].width}mm`, overflow: "hidden" }}
         />
+        
       </div>
 
       <div className="flex justify-center py-10 opacity-50 print:hidden">
@@ -91,7 +92,7 @@ export const PublicResumePage = () => {
           <Button size="sm" variant="ghost" className="space-x-1.5 text-xs font-normal">
             <span>{t`Built with`}</span>
             <Icon size={12} />
-            <span>{t`Reactive Resume`}</span>
+            <span>{t`CVpap`}</span>
           </Button>
         </Link>
       </div>

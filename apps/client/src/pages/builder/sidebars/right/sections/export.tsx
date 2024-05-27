@@ -28,8 +28,12 @@ export const ExportSection = () => {
   const onPdfExport = async () => {
     const { resume } = useResumeStore.getState();
     const { url } = await printResume({ id: resume.id });
+    
+    const result = JSON.parse(url);
+    console.log(result);
+    // openInNewTab(url);
 
-    openInNewTab(url);
+    // openInNewTab(url);
   };
 
   return (

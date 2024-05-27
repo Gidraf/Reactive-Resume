@@ -13,6 +13,7 @@ import { SkillsDialog } from "../pages/builder/sidebars/left/dialogs/skills";
 import { VolunteerDialog } from "../pages/builder/sidebars/left/dialogs/volunteer";
 import { ImportDialog } from "../pages/dashboard/resumes/_dialogs/import";
 import { LockDialog } from "../pages/dashboard/resumes/_dialogs/lock";
+import { PaymentDialog } from "../pages/dashboard/resumes/_dialogs/payments/payment";
 import { ResumeDialog } from "../pages/dashboard/resumes/_dialogs/resume";
 import { TwoFactorDialog } from "../pages/dashboard/settings/_dialogs/two-factor";
 import { useResumeStore } from "../stores/resume";
@@ -36,6 +37,7 @@ export const DialogProvider = ({ children }: Props) => {
 
         {isResumeLoaded && (
           <>
+            <PaymentDialog />
             <ProfilesDialog />
             <ExperienceDialog />
             <EducationDialog />

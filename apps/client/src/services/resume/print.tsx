@@ -11,6 +11,12 @@ export const printResume = async (data: { id: string }) => {
   return response.data;
 };
 
+export const printResumePreview = async (data: { id: string }) => {
+  const response = await axios.get<UrlDto>(`/resume/print/${data.id}?preview=true`);
+
+  return response.data;
+};
+
 export const usePrintResume = () => {
   const {
     error,
@@ -30,4 +36,25 @@ export const usePrintResume = () => {
   });
 
   return { printResume: printResumeFn, loading, error };
+};
+
+export const usePrintResumePreview = () => {
+  const {
+    error,
+    isPending: loading,
+    mutateAsync: printResumePreviewFn,
+  } = useMutation({
+    mutationFn: printResumePreview,
+    onError: (error) => {
+      const message = error.message;
+
+      toast({
+        variant: "error",
+        title: t`Oops, the server returned an error.`,
+        description: message,
+      });
+    },
+  });
+
+  return { printResumePreview, printResumePreviewFn, loading, error };
 };

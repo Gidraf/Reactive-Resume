@@ -12,6 +12,7 @@ import { ContributorsModule } from "./contributors/contributors.module";
 import { DatabaseModule } from "./database/database.module";
 import { HealthModule } from "./health/health.module";
 import { MailModule } from "./mail/mail.module";
+import { OrderModule } from "./order/order.module";
 import { PrinterModule } from "./printer/printer.module";
 import { ResumeModule } from "./resume/resume.module";
 import { StorageModule } from "./storage/storage.module";
@@ -37,6 +38,7 @@ import { WhatsAppUserModule } from "./whatsppUser/whatsapp.user.module";
     TranslationModule,
     ContributorsModule,
     WhatsAppUserModule,
+    OrderModule,
 
     // Static Assets
     ServeStaticModule.forRoot({

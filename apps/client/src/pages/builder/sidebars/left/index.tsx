@@ -1,3 +1,6 @@
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import { t } from "@lingui/macro";
 import { Plus, PlusCircle } from "@phosphor-icons/react";
 import {
@@ -38,6 +41,17 @@ export const LeftSidebar = () => {
   const scrollIntoView = (selector: string) => {
     const section = containterRef.current?.querySelector(selector);
     section?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 0,
+    slidesToScroll: 1,
+    draggable: true,
+    // nextArrow: true,
+    // prevArrow: <Button size="icon" variant="ghost" className="size-8 rounded-full" ><ArrowLeftIcon/></Button>
   };
 
   return (
@@ -162,6 +176,7 @@ export const LeftSidebar = () => {
 
       <ScrollArea orientation="vertical" className="h-screen flex-1 pb-16 lg:pb-0">
         <div ref={containterRef} className="grid gap-y-6 p-6 @container/left">
+          {/* <Slider {...settings}> */}
           <BasicsSection />
           <Separator />
           <SummarySection />
@@ -262,6 +277,7 @@ export const LeftSidebar = () => {
             <PlusCircle />
             <span className="ml-2">{t`Add a new section`}</span>
           </Button>
+          {/* </Slider> */}
         </div>
       </ScrollArea>
     </div>

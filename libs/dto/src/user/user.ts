@@ -3,6 +3,7 @@ import { createZodDto } from "nestjs-zod/dto";
 import { z } from "nestjs-zod/z";
 
 import { secretsSchema } from "../secrets";
+// import { whatsappUserSchema } from "../whatsappUser";
 
 export const usernameSchema = z
   .string()
@@ -24,6 +25,8 @@ export const userSchema = z.object({
   twoFactorEnabled: z.boolean().default(false),
   provider: z.enum(["email", "github", "google"]).default("email"),
   createdAt: z.date().or(z.dateString()),
+  // whatsappUserId: idSchema.optional(),
+  // whatsappUser: whatsappUserSchema.optional(),
   updatedAt: z.date().or(z.dateString()),
 });
 
