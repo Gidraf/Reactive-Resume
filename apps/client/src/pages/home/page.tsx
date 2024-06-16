@@ -20,15 +20,7 @@ export const HomePage = () => {
   const { loginWa, loading } = useLoginWa();
 
   useEffect(() => {
-    const login = async () => {
-      await loginWa({
-        identifier: "254791186712@s.whatsapp.net",
-        password: "kk",
-        userId: "clwnu9nhi0000usulyicrl989",
-      });
-    };
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    login().then().catch();
+    
   }, []);
 
   return (
@@ -37,24 +29,17 @@ export const HomePage = () => {
         <html lang={i18n.locale} />
 
         <title>
-          {t`Reactive Resume`} - {t`A free and open-source resume builder`}
+          {t`CVpap`} - {t`Transform Your CV instantly`}
         </title>
 
-        <meta
-          name="description"
-          content="A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume."
-        />
+        <meta name={t`description`} content={t`Transform Your CV/Resume Instantly`} />
       </Helmet>
 
       <HeroSection />
-      <LogoCloudSection />
-      <StatisticsSection />
-      <FeaturesSection />
+    
       <TemplatesSection />
-      <TestimonialsSection />
-      <SupportSection />
-      <FAQSection />
-      <ContributorsSection />
+   
+    
     </main>
   );
 };
