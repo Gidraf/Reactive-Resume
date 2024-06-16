@@ -8,7 +8,7 @@ msgstr ""
 "Language: hi\n"
 "Project-Id-Version: reactive-resume\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-20 14:58\n"
+"PO-Revision-Date: 2024-06-10 05:50\n"
 "Last-Translator: \n"
 "Language-Team: Hindi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -26,7 +26,7 @@ msgstr "आपने दो-कारक प्रमाणीकरण सफ�
 msgid "{templatesCount} resume templates to choose from"
 msgstr "चुनने के लिए {templatesCount} बायोडाटा टेम्प्लेट"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:126
+#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:141
 msgid "{value, plural, one {Column} other {Columns}}"
 msgstr "{value, plural, one {स्तंभ} other {स्तम्भ}}"
 
@@ -108,7 +108,7 @@ msgctxt "For example, add a new work experience, or add a new profile."
 msgid "Add a new item"
 msgstr "एक नया आइटम जोड़ें"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:80
+#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:90
 msgid "Add a new item"
 msgstr "एक नया आइटम जोड़ें"
 
@@ -125,7 +125,7 @@ msgstr "नया पेज जोड़ें"
 msgid "AI"
 msgstr "AI"
 
-#: apps/client/src/pages/auth/register/page.tsx:74
+#: apps/client/src/pages/auth/register/page.tsx:71
 msgid "Already have an account?"
 msgstr "क्या आपके पास पहले से एक खाता मौजूद है?"
 
@@ -154,7 +154,7 @@ msgstr "API कुंजी"
 msgid "Are you sure you want to delete this item?"
 msgstr "क्या आप बाकई यह आइटम डिलीट करना चाहते हैं?"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:148
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:147
 msgid "Are you sure you want to delete your resume?"
 msgstr "क्या आप पक्का अपनी समीक्षा हटाना चाहते हैं?"
 
@@ -179,7 +179,7 @@ msgstr "क्या आपको यकीन है?"
 msgid "Area of Study"
 msgstr "अध्ययन का क्षेत्र"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:84
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:85
 msgid "Aspect Ratio"
 msgstr "आकार अनुपात"
 
@@ -218,11 +218,11 @@ msgstr "बुनियादी"
 msgid "Basics"
 msgstr "बुनियादी"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:194
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:197
 msgid "Border"
 msgstr "सीमा"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:127
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:130
 msgid "Border Radius"
 msgstr "सीमा त्रिज्या"
 
@@ -237,7 +237,7 @@ msgstr "समुदाय द्वारा, समुदाय के लि�
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:131
 #: apps/client/src/pages/dashboard/resumes/_dialogs/lock.tsx:49
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:155
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:154
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:137
 msgid "Cancel"
 msgstr "रद्द करें"
@@ -260,7 +260,7 @@ msgstr "पासवर्ड बदलिए"
 msgid "Change Tone"
 msgstr "तान बदलें"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:185
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:184
 msgid "Changed your mind about the name? Give it a new one."
 msgstr "नाम के बारे में आपका मन बदल गया? इसे नया दे दो."
 
@@ -268,7 +268,7 @@ msgstr "नाम के बारे में आपका मन बदल �
 msgid "Check your email for the confirmation link to update your email address."
 msgstr "अपना ईमेल पता अपडेट करने के लिए पुष्टिकरण लिंक के लिए अपना ईमेल जांचें।"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:147
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:150
 msgid "Circle"
 msgstr "गोला"
 
@@ -284,7 +284,7 @@ msgstr "कोड"
 msgid "Code must be exactly 6 digits long."
 msgstr "कोड बिल्कुल 6 अंक लंबा होना चाहिए."
 
-#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:120
+#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:135
 msgid "Columns"
 msgstr "कॉलम"
 
@@ -319,12 +319,12 @@ msgid "Copy to Clipboard"
 msgstr "क्लिपबोर्ड पर कॉपी करें"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:167
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:243
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:242
 msgid "Create"
 msgstr "बनाएँ"
 
-#: apps/client/src/pages/auth/register/page.tsx:67
-#: apps/client/src/pages/auth/register/page.tsx:72
+#: apps/client/src/pages/auth/register/page.tsx:64
+#: apps/client/src/pages/auth/register/page.tsx:69
 msgid "Create a new account"
 msgstr "एक नया खाता बनाएँ"
 
@@ -332,7 +332,7 @@ msgstr "एक नया खाता बनाएँ"
 msgid "Create a new item"
 msgstr "एक नया आइटम बनाएं"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:177
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:176
 #: apps/client/src/pages/dashboard/resumes/_layouts/grid/_components/create-card.tsx:28
 #: apps/client/src/pages/dashboard/resumes/_layouts/list/_components/create-item.tsx:18
 msgid "Create a new resume"
@@ -343,7 +343,7 @@ msgctxt "This is a link to create a new account"
 msgid "Create one now"
 msgstr "अभी एक बनाएं"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:258
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:257
 msgid "Create Sample Resume"
 msgstr "नमूना बायोडाटा बनाएं"
 
@@ -386,7 +386,7 @@ msgid "Date or Date Range"
 msgstr "तारीख या तारीख सीमा"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:133
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:157
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:156
 #: apps/client/src/pages/dashboard/resumes/_layouts/grid/_components/resume-card.tsx:148
 #: apps/client/src/pages/dashboard/resumes/_layouts/list/_components/resume-item.tsx:134
 #: apps/client/src/pages/dashboard/resumes/_layouts/list/_components/resume-item.tsx:198
@@ -463,7 +463,7 @@ msgid "Downloads"
 msgstr "डाउनलोड"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:169
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:245
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:244
 #: apps/client/src/pages/dashboard/resumes/_layouts/grid/_components/resume-card.tsx:132
 #: apps/client/src/pages/dashboard/resumes/_layouts/list/_components/resume-item.tsx:102
 #: apps/client/src/pages/dashboard/resumes/_layouts/list/_components/resume-item.tsx:182
@@ -474,7 +474,7 @@ msgstr "प्रतिरूप"
 msgid "Duplicate an existing item"
 msgstr "किसी मौजूदा आइटम का नक़ल बनाएं"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:179
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:178
 msgid "Duplicate an existing resume"
 msgstr "किसी मौजूदा आइटम का नक़ल बनाएं"
 
@@ -482,13 +482,13 @@ msgstr "किसी मौजूदा आइटम का नक़ल बन�
 msgid "Edit"
 msgstr "एडिट करें"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:172
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:175
 msgid "Effects"
 msgstr "प्रभाव"
 
 #: apps/client/src/pages/auth/forgot-password/page.tsx:82
-#: apps/client/src/pages/auth/login/page.tsx:84
-#: apps/client/src/pages/auth/register/page.tsx:148
+#: apps/client/src/pages/auth/login/page.tsx:90
+#: apps/client/src/pages/auth/register/page.tsx:140
 #: apps/client/src/pages/builder/sidebars/left/sections/basics.tsx:54
 #: apps/client/src/pages/dashboard/settings/_sections/account.tsx:180
 msgid "Email"
@@ -579,7 +579,7 @@ msgstr "उदाहरण के लिए, आपने किन कंपन
 msgid "Forget"
 msgstr "हटाएं"
 
-#: apps/client/src/pages/auth/login/page.tsx:120
+#: apps/client/src/pages/auth/login/page.tsx:126
 msgid "Forgot Password?"
 msgstr "पासवर्ड भूल गए?"
 
@@ -609,7 +609,7 @@ msgstr "मित्रतापूर्ण"
 msgid "Full Name"
 msgstr "पूरा नाम"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:201
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:200
 msgid "Generate a random title for your resume"
 msgstr "अपने बायोडाटा के लिए एक यादृच्छिक शीर्षक बनाएं"
 
@@ -625,7 +625,7 @@ msgstr "गिटहब"
 msgid "GitHub Stars"
 msgstr "गिटहब सितारे"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:186
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:185
 msgid "Give your old resume a new name."
 msgstr "अपने पुराने बायोडाटा को नया नाम दें।"
 
@@ -638,7 +638,7 @@ msgstr "डैशबोर्ड पर जाएँ"
 msgid "Google"
 msgstr "गूगल"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:205
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:208
 msgid "Grayscale"
 msgstr "ग्रेस्केल"
 
@@ -660,11 +660,11 @@ msgstr "यहां, आप अपने अनुभव को अनुकू
 
 #: apps/client/src/pages/builder/sidebars/left/dialogs/languages.tsx:78
 #: apps/client/src/pages/builder/sidebars/left/dialogs/skills.tsx:92
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:183
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:186
 msgid "Hidden"
 msgstr "छुपा हुआ"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:90
+#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:105
 msgid "Hide"
 msgstr "छुपायें"
 
@@ -672,13 +672,13 @@ msgstr "छुपायें"
 msgid "Hide Icons"
 msgstr "ऑइकन छुपायें"
 
-#: apps/client/src/pages/auth/login/page.tsx:104
-#: apps/client/src/pages/auth/register/page.tsx:174
+#: apps/client/src/pages/auth/login/page.tsx:110
+#: apps/client/src/pages/auth/register/page.tsx:166
 #: apps/client/src/pages/auth/reset-password/page.tsx:88
 msgid "Hold <0>Ctrl</0> to display your password temporarily."
 msgstr "<0>Ctrl दबाए रखें</0> अपना पासवर्ड अस्थायी रूप से प्रदर्शित करने के लिए।"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:98
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:99
 msgid "Horizontal"
 msgstr "क्षैतिज"
 
@@ -774,17 +774,17 @@ msgstr "ऐसा लगता है कि आपके द्वारा प
 msgid "It looks like your email address has already been verified."
 msgstr "ऐसा लगता है कि आपका ईमेल पता पहले ही सत्यापित हो चुका है।"
 
-#: apps/client/src/pages/auth/register/page.tsx:109
+#: apps/client/src/pages/auth/register/page.tsx:101
 msgctxt "Localized version of a placeholder name. For example, Max Mustermann in German or Jan Kowalski in Polish."
 msgid "John Doe"
 msgstr "जॉन डो"
 
-#: apps/client/src/pages/auth/register/page.tsx:130
+#: apps/client/src/pages/auth/register/page.tsx:122
 msgctxt "Localized version of a placeholder username. For example, max.mustermann in German or jan.kowalski in Polish."
 msgid "john.doe"
 msgstr "जॉन डो"
 
-#: apps/client/src/pages/auth/register/page.tsx:151
+#: apps/client/src/pages/auth/register/page.tsx:143
 msgctxt "Localized version of a placeholder email. For example, max.mustermann@example.de in German or jan.kowalski@example.pl in Polish."
 msgid "john.doe@example.com"
 msgstr "john.doe@example.com"
@@ -918,7 +918,7 @@ msgstr "अंतर"
 msgid "MIT License"
 msgstr "मआईटी लाईसन्स"
 
-#: apps/client/src/pages/auth/register/page.tsx:106
+#: apps/client/src/pages/auth/register/page.tsx:98
 #: apps/client/src/pages/builder/sidebars/left/dialogs/custom-section.tsx:58
 #: apps/client/src/pages/builder/sidebars/left/dialogs/interests.tsx:48
 #: apps/client/src/pages/builder/sidebars/left/dialogs/languages.tsx:36
@@ -1016,8 +1016,8 @@ msgstr "पृष्ठ"
 msgid "Page {0}"
 msgstr "पृष्ठ {0}"
 
-#: apps/client/src/pages/auth/login/page.tsx:99
-#: apps/client/src/pages/auth/register/page.tsx:169
+#: apps/client/src/pages/auth/login/page.tsx:105
+#: apps/client/src/pages/auth/register/page.tsx:161
 #: apps/client/src/pages/auth/reset-password/page.tsx:83
 #: apps/client/src/pages/dashboard/settings/_sections/security.tsx:76
 msgid "Password"
@@ -1060,7 +1060,7 @@ msgstr "कृपया एक फाइल चुनें"
 msgid "Please store your backup codes in a secure location. You can use one of these one-time use codes to login in case you lose access to your authenticator app."
 msgstr "कृपया अपने बैकअप कोड को सुरक्षित स्थान पर संग्रहीत करें। यदि आप अपने प्रमाणक ऐप तक पहुंच खो देते हैं तो आप लॉगिन करने के लिए इन एक बार उपयोग कोड में से किसी एक का उपयोग कर सकते हैं।"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:104
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:105
 msgid "Portrait"
 msgstr "व्यक्तिचित्र"
 
@@ -1116,7 +1116,7 @@ msgstr "एक मुद्दा उठाओ"
 #: apps/client/src/pages/auth/backup-otp/page.tsx:52
 #: apps/client/src/pages/auth/forgot-password/page.tsx:49
 #: apps/client/src/pages/auth/login/page.tsx:55
-#: apps/client/src/pages/auth/register/page.tsx:67
+#: apps/client/src/pages/auth/register/page.tsx:64
 #: apps/client/src/pages/auth/reset-password/page.tsx:60
 #: apps/client/src/pages/auth/verify-email/page.tsx:43
 #: apps/client/src/pages/auth/verify-otp/page.tsx:52
@@ -1152,7 +1152,7 @@ msgid "Redo"
 msgstr "पुनः करें"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-list-item.tsx:98
-#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:141
+#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:156
 msgid "Remove"
 msgstr "हटाएं"
 
@@ -1160,7 +1160,7 @@ msgstr "हटाएं"
 msgid "Remove Page"
 msgstr "हटाएँ पेज"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:95
+#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:110
 #: apps/client/src/pages/dashboard/resumes/_layouts/grid/_components/resume-card.tsx:128
 #: apps/client/src/pages/dashboard/resumes/_layouts/list/_components/resume-item.tsx:93
 #: apps/client/src/pages/dashboard/resumes/_layouts/list/_components/resume-item.tsx:178
@@ -1171,7 +1171,7 @@ msgstr "नाम बदलें"
 msgid "Resend email confirmation link"
 msgstr "ईमेल पुष्टिकरण लिंक पुनः भेजें"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:136
+#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:151
 msgid "Reset"
 msgstr "रीसेट"
 
@@ -1202,12 +1202,12 @@ msgstr "बायोडाटा तैयार किया गया"
 msgid "Rich in features, not in pricing."
 msgstr "सुविधाओं से भरपूर, कीमत से नहीं।"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:141
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:144
 msgid "Rounded"
 msgstr "गोल"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:168
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:244
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:243
 #: apps/client/src/pages/dashboard/settings/_sections/account.tsx:216
 #: apps/client/src/pages/dashboard/settings/_sections/profile.tsx:131
 msgid "Save Changes"
@@ -1258,6 +1258,10 @@ msgstr "ईमेल भेजें"
 msgid "Send me a message"
 msgstr "संदेश भेजें"
 
+#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:96
+msgid "Separate Links"
+msgstr ""
+
 #: apps/client/src/components/user-options.tsx:32
 #: apps/client/src/pages/dashboard/_components/sidebar.tsx:92
 #: apps/client/src/pages/dashboard/settings/page.tsx:16
@@ -1274,7 +1278,7 @@ msgstr "अपने खाते पर दो-कारक प्रमाण�
 msgid "Sharing"
 msgstr "साझा करना"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:90
+#: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:105
 msgid "Show"
 msgstr "दिखाएँ"
 
@@ -1291,12 +1295,12 @@ msgid "Sidebar"
 msgstr "साइडबार"
 
 #: apps/client/src/pages/auth/backup-otp/page.tsx:102
-#: apps/client/src/pages/auth/login/page.tsx:116
+#: apps/client/src/pages/auth/login/page.tsx:122
 #: apps/client/src/pages/auth/verify-otp/page.tsx:92
 msgid "Sign in"
 msgstr "साइन इन"
 
-#: apps/client/src/pages/auth/register/page.tsx:77
+#: apps/client/src/pages/auth/register/page.tsx:74
 msgid "Sign in now"
 msgstr "साइन इन करें"
 
@@ -1317,19 +1321,23 @@ msgstr "GitHub के साथ साइन इन करें!"
 msgid "Sign in with Google"
 msgstr "गूगल से साइन इन करें"
 
-#: apps/client/src/pages/auth/register/page.tsx:185
+#: apps/client/src/pages/auth/register/page.tsx:177
 msgid "Sign up"
 msgstr "रजिस्ट्रेशन"
 
-#: apps/client/src/pages/auth/register/page.tsx:85
+#: apps/client/src/pages/auth/login/page.tsx:74
+msgid "Signing in via email is currently disabled by the administrator."
+msgstr ""
+
+#: apps/client/src/pages/auth/register/page.tsx:82
 msgid "Signups are currently disabled by the administrator."
 msgstr "पंजीकरण वर्तमान में प्रशासक द्वारा अक्षम किया गया है।"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:70
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:71
 msgid "Size (in px)"
 msgstr "आकार (पीएक्स में)"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:227
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:226
 msgid "Slug"
 msgstr "काउंटर"
 
@@ -1345,8 +1353,8 @@ msgstr "आपके बायोडाटा का पूर्वावलो
 msgid "Something went wrong while processing your request. Please try again later or raise an issue on GitHub."
 msgstr "आपके बायोडाटा का पूर्वावलोकन लेते समय कुछ गलत हो गया। कृपया बाद में पुनः प्रयास करें या GitHub पर कोई समस्या उठाएँ।"
 
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:92
-#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:135
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:93
+#: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:138
 msgid "Square"
 msgstr "वर्ग"
 
@@ -1355,7 +1363,7 @@ msgstr "वर्ग"
 msgid "Start building from scratch"
 msgstr "शून्य से निर्माण शुरू करें"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:184
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:183
 msgid "Start building your resume by giving it a name."
 msgstr "अपना बायोडाटा एक नाम देकर बनाना शुरू करें।"
 
@@ -1451,7 +1459,7 @@ msgstr "ब्राउज़र से कनेक्ट करने मे�
 msgid "This action can be reverted by clicking on the undo button in the floating toolbar."
 msgstr "फ़्लोटिंग टूलबार में पूर्ववत करें बटन पर क्लिक करके इस क्रिया को पूर्ववत किया जा सकता है।"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:150
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:149
 msgid "This action cannot be undone. This will permanently delete your resume and cannot be recovered."
 msgstr "इस एक्शन को वापस नहीं किया जा सकता। इससे आपका बायोडाटा स्थायी रूप से हट जाएगा और उसे पुनर्प्राप्त नहीं किया जा सकेगा।"
 
@@ -1467,7 +1475,7 @@ msgstr "यह बायोडाटा लॉक है, कृपया आग
 msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
 msgstr "यह अनुभाग इस बायोडाटा से संबंधित आपके व्यक्तिगत नोट्स के लिए आरक्षित है। यहां की सामग्री निजी रहती है और किसी अन्य के साथ साझा नहीं की जाती है।"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:215
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:214
 msgid "Tip: You can name the resume referring to the position you are applying for."
 msgstr "युक्ति: आप जिस पद के लिए आवेदन कर रहे हैं, उसका संदर्भ देते हुए आप बायोडाटा को नाम दे सकते हैं।"
 
@@ -1476,7 +1484,7 @@ msgctxt "Name of the Award"
 msgid "Title"
 msgstr "शीर्षक"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:195
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:194
 msgid "Title"
 msgstr "शीर्षक"
 
@@ -1547,7 +1555,7 @@ msgstr "असत्यापित"
 msgid "Update an existing item"
 msgstr "किसी मौजूदा आइटम का नक़ल बनाएं"
 
-#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:178
+#: apps/client/src/pages/dashboard/resumes/_dialogs/resume.tsx:177
 msgid "Update an existing resume"
 msgstr "किसी मौजूदा आइटम का नक़ल बनाएं"
 
@@ -1572,7 +1580,7 @@ msgstr "एक बैकअप कोड उपयोग करें"
 msgid "User does not have an associated 'secrets' record. Please report this issue on GitHub."
 msgstr "उपयोगकर्ता के पास कोई संबद्ध 'रहस्य' रिकॉर्ड नहीं है. कृपया इस समस्या की रिपोर्ट GitHub पर करें।"
 
-#: apps/client/src/pages/auth/register/page.tsx:127
+#: apps/client/src/pages/auth/register/page.tsx:119
 #: apps/client/src/pages/builder/sidebars/left/dialogs/profiles.tsx:66
 #: apps/client/src/pages/dashboard/settings/_sections/account.tsx:166
 msgid "Username"
@@ -1648,7 +1656,7 @@ msgstr "नवीनतम संस्करण में नया क्य�
 msgid "You can add multiple keywords by separating them with a comma or pressing enter."
 msgstr "आप एकाधिक कीवर्ड को अल्पविराम से अलग करके या एंटर दबाकर जोड़ सकते हैं।"
 
-#: apps/client/src/pages/auth/login/page.tsx:88
+#: apps/client/src/pages/auth/login/page.tsx:94
 msgid "You can also enter your username."
 msgstr "आप अपना उपयोगकर्ता नाम भी दर्ज कर सकते हैं."
 
