@@ -1,13 +1,13 @@
 import { ExecutionContext } from "@nestjs/common";
 import { createParamDecorator } from "@nestjs/common";
-import { WhatsappUserDto } from "@reactive-resume/dto";
+import { UserWithAccounts } from "@reactive-resume/dto";
+import { Request } from "express";
 
 export const WhatsappUser = createParamDecorator(
-  (data: keyof WhatsappUserDto, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest();
-    const whatsappUser = request.user as WhatsappUserDto;
+  (data: keyof UserWithAccounts, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest() as Request;
+    const whatsappUser = request.user as UserWithAccounts;
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    return data ? whatsappUser[data] : whatsappUser;
+    return data ? whatsappUser?.[data] : whatsappUser;
   },
 );

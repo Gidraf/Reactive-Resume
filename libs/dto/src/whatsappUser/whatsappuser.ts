@@ -2,6 +2,8 @@ import { idSchema } from "@reactive-resume/schema";
 import { createZodDto } from "nestjs-zod/dto";
 import { z } from "nestjs-zod/z";
 
+import { userSchema } from "../user/user";
+
 export const whatsappUserSchema = z.object({
   id: idSchema,
   createdAt: z.date().or(z.dateString()).optional(),
@@ -20,8 +22,8 @@ export const whatsappUserSchema = z.object({
 
 export class WhatsappUserDto extends createZodDto(whatsappUserSchema) {}
 
-// export const whatsappUsersWithAccountsSchema = whatsappUserSchema.merge(
-//   z.object({ }),
-// );
+export const whatsappUsersWithAccountsSchema = whatsappUserSchema.merge(
+  z.object({ users: userSchema }),
+);
 
-// export class UserWithAccounts extends createZodDto(whatsappUsersWithAccountsSchema) {}
+export class UserWithAccounts extends createZodDto(whatsappUsersWithAccountsSchema) {}
