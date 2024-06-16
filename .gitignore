@@ -3,6 +3,10 @@ dist
 tmp
 /out-tsc
 
+*vev*
+vev
+/vev
+./vev
 # Project Dependencies
 node_modules
 
