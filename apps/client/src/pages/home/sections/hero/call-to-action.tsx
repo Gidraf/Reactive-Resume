@@ -29,13 +29,13 @@ export const HeroCTA = () => {
   return (
     <>
       <Button asChild size="lg">
-        <Link to="/auth/login">{t`Get Started`}</Link>
+        <Link to="/auth/login">{t`Sign In`}</Link>
       </Button>
 
       <Button asChild size="lg" variant="link">
-        <a href="https://docs.rxresu.me" target="_blank" rel="noopener noreferrer nofollow">
+        <a href="https://api.whatsapp.com/send?phone=254735143282&text=CVRevamping" target="_blank" rel="noopener noreferrer nofollow">
           <Book className="mr-3" />
-          {t`Learn more`}
+          {t`Chat With Us`}
         </a>
       </Button>
     </>
