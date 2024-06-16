@@ -31,7 +31,7 @@ export class WhatsappUserService {
       if (user) {
         return user;
       }
-      return;
+      return null;
     })(whatsappNumber);
 
     return user;

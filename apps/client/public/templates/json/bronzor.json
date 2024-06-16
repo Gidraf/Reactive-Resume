@@ -297,8 +297,8 @@
     "custom": {}
   },
   "metadata": {
-    "template": "bronzor",
-    "layout": [
+    "template": "classic",
+    "layout": 
       [
         ["profiles", "summary", "experience", "education", "projects"],
         [
@@ -312,7 +312,7 @@
           "publications"
         ]
       ]
-    ],
+    ,
     "css": {
       "value": ".section {\n\toutline: 1px solid #000;\n\toutline-offset: 4px;\n}",
       "visible": false

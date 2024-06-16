@@ -72,7 +72,7 @@ export class AuthService {
     }
   }
 
-  private async validateLoginToken(password: string, loginToken: string) {
+  validateLoginToken(password: string, loginToken: string) {
     const isValid = password === loginToken;
     if (!isValid) {
       throw new BadRequestException(ErrorMessage.InvalidCredentials);
@@ -160,7 +160,7 @@ export class AuthService {
         throw new BadRequestException(ErrorMessage.InvalidCredentials);
       }
 
-      const isValid = await this.validateLoginToken(password, whatsappUser.loginToken);
+      const isValid = this.validateLoginToken(password, whatsappUser.loginToken);
       console.log(isValid);
       const user = await this.userService.findOneByIdWithoutSecret(userId, whatsappUser.loginToken);
       // console.log(user);

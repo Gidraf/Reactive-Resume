@@ -71,6 +71,10 @@ export class ResumeService {
     return this.prisma.resume.findUniqueOrThrow({ where: { id } });
   }
 
+  async findOneTemp(id: string) {
+    return await this.prisma.resume.findFirstOrThrow({ where: { id } });
+  }
+
   async findOneStatistics(id: string) {
     const result = await this.prisma.statistics.findFirst({
       select: { views: true, downloads: true },
@@ -170,6 +174,16 @@ export class ResumeService {
 
     return url;
   }
+
+  async checkout(resume: ResumeDto, phonenumber: string) {
+    const data = await this.printerService.checkout(resume, phonenumber);
+    return data;
+  }
+
+  // async printResumeTemp(resume: string, preview?: boolean) {
+  //   const url = await this.printerService.printResumeTemp(resume, preview);
+  //   return url;
+  // }
 
   printPreview(resume: ResumeDto) {
     return this.printerService.printPreview(resume);

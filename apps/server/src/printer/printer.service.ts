@@ -11,6 +11,27 @@ import { connect } from "puppeteer";
 import { Config } from "../config/schema";
 import { OrderService } from "../order/order.service";
 import { StorageService } from "../storage/storage.service";
+import { WhatsappUserService } from "../whatsppUser/user.service";
+
+export const getAmount = (template: string): string => {
+  const templates = [
+    { name: "azurill", price: "240" },
+    { name: "bronzor", price: "210" },
+    { name: "chikorita", price: "290" },
+    { name: "ditto", price: "270" },
+    { name: "gengar", price: "230" },
+    { name: "glalie", price: "200" },
+    { name: "kakuna", price: "200" },
+    { name: "leafish", price: "260" },
+    { name: "nosepass", price: "300" },
+    { name: "onyx", price: "195" },
+    { name: "pikachu", price: "205" },
+    { name: "rhyhorn", price: "200" },
+  ];
+
+  const amount = templates.find((item) => item.name === template);
+  return amount?.price ?? "200";
+};
 
 @Injectable()
 export class PrinterService {
@@ -21,17 +42,21 @@ export class PrinterService {
   private readonly ignoreHTTPSErrors: boolean;
 
   private readonly webUrl: string;
+  private workerUrl: string;
 
   constructor(
     private readonly configService: ConfigService<Config>,
     private readonly storageService: StorageService,
     private readonly httpService: HttpService,
     private readonly orderService: OrderService,
+    private readonly whatsappService: WhatsappUserService,
   ) {
     const chromeUrl = this.configService.getOrThrow<string>("CHROME_URL");
     const _webUrl = process.env.WEB_URL ?? "";
     const chromeToken = this.configService.getOrThrow<string>("CHROME_TOKEN");
+    const _workerUrl = this.configService.getOrThrow<string>("WORKER_URL");
 
+    this.workerUrl = _workerUrl;
     this.webUrl = _webUrl;
 
     this.browserURL = `${chromeUrl}?token=${chromeToken}`;
@@ -59,13 +84,33 @@ export class PrinterService {
     return version;
   }
 
+  async checkout(resume: ResumeDto, phoneNumber: string) {
+    const resp = await fetch(`${this.workerUrl}/api/v1/checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        resumeId: resume.id,
+        phonenumber: phoneNumber,
+      }),
+    });
+    console.log(resp);
+    if (resp.status === 200) {
+      const data = await resp.json();
+      return data;
+    } else {
+      return null;
+    }
+  }
+
   async printResume(resume: ResumeDto, preview?: boolean) {
     const start = performance.now();
     const order = await this.orderService.findOne(resume.id);
     console.log(preview);
     if (!order && !preview) {
       const publicUrl = JSON.stringify({
-        message: "No payment found for this resume,kindly pay KSh 50 in order to buy your resume.",
+        message: "No payment found for this resume, Kindly pay KSh 50 in order to buy your resume.",
         status: "412",
         url: null,
       });
@@ -108,7 +153,6 @@ export class PrinterService {
     const duration = Number(performance.now() - start).toFixed(0);
 
     this.logger.debug(`Chrome took ${duration}ms to generate preview`);
-
     return url;
   }
 
@@ -144,10 +188,11 @@ export class PrinterService {
       console.log(preview);
 
       const checkoutUrl = `${this.webUrl}/checkout?userId=${resume.userId}&resumeId=${resume.id}&phone=`;
-      const amount = "50";
+      const amount = getAmount(resume.data.metadata.template);
       // Set the data of the resume to be printed in the browser's session storage
       const numberPages = resume.data.metadata.layout.length;
-
+      console.log("**************", resume.data);
+      console.log("**************");
       await page.evaluateOnNewDocument((data) => {
         window.localStorage.setItem("resume", JSON.stringify(data));
       }, resume.data);
@@ -163,18 +208,17 @@ export class PrinterService {
         // eslint-disable-next-line unicorn/no-await-expression-member
         const height = (await (await pageElement?.getProperty("scrollHeight"))?.jsonValue()) ?? 0;
 
-        const temporaryHtml = await page.evaluate((element: HTMLDivElement) => {
-          const clonedElement = element.cloneNode(true) as HTMLDivElement;
-          const temporaryHtml_ = document.body.innerHTML;
-          document.body.innerHTML = clonedElement.outerHTML;
-          return temporaryHtml_;
-        }, pageElement);
-
-        pagesBuffer.push(await page.pdf({ width, height, printBackground: true }));
-
-        await page.evaluate(
-          (temporaryHtml_: string, preview: boolean, checkoutUrl: string, amount: string) => {
-            document.body.innerHTML = temporaryHtml_;
+        const temporaryHtml = await page.evaluate(
+          (
+            element: HTMLDivElement,
+            preview: boolean,
+            checkoutUrl: string,
+            amount: string | undefined,
+          ) => {
+            const clonedElement = element.cloneNode(true) as HTMLDivElement;
+            const temporaryHtml_ = document.body.innerHTML;
+            document.body.innerHTML = clonedElement.outerHTML;
+            console.log("********", preview);
             if (preview) {
               const use = "username";
               // Logger.log(use);
@@ -183,37 +227,37 @@ export class PrinterService {
               // const newStart = document.createElement('div');
               // const newEnd = document.createElement('div');
               newDiv.innerHTML = `<div style='
-                  background: #fffffff3;
-                  color: #064c04cf;
-                  border-radius: 5px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  flex-direction: column;
-                  text-align: center;
-                  font-size: 50px;
-                  z-index: 99999999;
-                  pointer-events: all;
-                  position: fixed;
-                  width: 800px;
-                  height: 60vh;
-                  left: 50%;  /* Horizontally center the div */
-                  top: 50%;   /* Vertically center the div */
-                  transform: translate(-50%, -50%); /* Move the div back by half its width and height */
-              '>
-               <h3>CVPAP Free Sample</h3><hr/>
-               <br/>
-               <br/>
-               <a href="${checkoutUrl}"><h5 style="text-decoration: underline;">Click Here To Purchase</h5></a>
-               <br/><br/>
-               <a href="${checkoutUrl}"><h5>Remove This Watermark</h5></a>
-               <br/>
-               <a href="${checkoutUrl}"><h5>@ Kes ${amount}/=</h5></a>
-                 <small style="font-size: 10px;">
-                     Glab Tech Services
-                 </small>
-               </div>
-               `;
+                background: #ffffffc5;
+                color: #064c04cf;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                text-align: center;
+                font-size: 50px;
+                z-index: 99999999;
+                pointer-events: all;
+                position: fixed;
+                width: 800px;
+                height: 60vh;
+                left: 50%;  /* Horizontally center the div */
+                top: 50%;   /* Vertically center the div */
+                transform: translate(-50%, -50%); /* Move the div back by half its width and height */
+            '>
+             <h3>CVPAP Free Sample</h3><hr/>
+             <br/>
+             <br/>
+             <a href="${checkoutUrl}"><h5 style="text-decoration: underline;">Click Here To Purchase</h5></a>
+             <br/><br/>
+             <a href="${checkoutUrl}"><h5>Remove This Watermark</h5></a>
+             <br/>
+             <a href="${checkoutUrl}"><h5>@ Kes ${amount}/=</h5></a>
+               <small style="font-size: 10px;">
+                   Glab Tech Services
+               </small>
+             </div>
+             `;
 
               const currentDiv = document.querySelector(selector);
               if (currentDiv) {
@@ -222,12 +266,19 @@ export class PrinterService {
               // currentDiv.prepend(newStart);
               // currentDiv.prepend(newEnd);
             }
+            return temporaryHtml_;
           },
-          temporaryHtml,
+          pageElement,
           preview,
           checkoutUrl,
           amount,
         );
+
+        pagesBuffer.push(await page.pdf({ width, height, printBackground: true }));
+
+        await page.evaluate((temporaryHtml_: string) => {
+          document.body.innerHTML = temporaryHtml_;
+        }, temporaryHtml);
       };
 
       // Loop through all the pages and print them, by first displaying them, printing the PDF and then hiding them back

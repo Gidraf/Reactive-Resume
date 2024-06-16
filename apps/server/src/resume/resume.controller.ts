@@ -147,6 +147,19 @@ export class ResumeController {
     }
   }
 
+  @Post("/print/checkout/:id")
+  @UseGuards(OptionalGuard, ResumeGuard)
+  async checkout(@Resume() resume: ResumeDto, @Body("phonenumber") phonenumber: string) {
+    try {
+      const data = await this.resumeService.checkout(resume, phonenumber);
+
+      return { data };
+    } catch (error) {
+      Logger.error(error);
+      throw new InternalServerErrorException(error);
+    }
+  }
+
   @Get("/print/:id/preview")
   @UseGuards(TwoFactorGuard, ResumeGuard)
   async printPreview(@Resume() resume: ResumeDto) {

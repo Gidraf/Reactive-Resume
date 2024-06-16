@@ -271,7 +271,7 @@
     "custom": {}
   },
   "metadata": {
-    "template": "azurill",
+    "template": "central",
     "layout": [
       [
         ["summary", "experience", "education", "references"],

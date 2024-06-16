@@ -17,6 +17,16 @@ export const printResumePreview = async (data: { id: string }) => {
   return response.data;
 };
 
+export const printResumePaid = async (data: { id: string; phonenumber: string }) => {
+  const response = await axios.post<{ data: { message: string } }>(
+    `/resume/print/checkout/${data.id}`,
+    {
+      phonenumber: data.phonenumber,
+    },
+  );
+  return response.data;
+};
+
 export const usePrintResume = () => {
   const {
     error,
@@ -57,4 +67,25 @@ export const usePrintResumePreview = () => {
   });
 
   return { printResumePreview, printResumePreviewFn, loading, error };
+};
+
+export const usePrintResumePaid = () => {
+  const {
+    error,
+    isPending: loading,
+    mutateAsync: printResumePaidFn,
+  } = useMutation({
+    mutationFn: printResumePaid,
+    onError: (error) => {
+      const message = error.message;
+
+      toast({
+        variant: "error",
+        title: t`Oops, the server returned an error.`,
+        description: message,
+      });
+    },
+  });
+
+  return { printResumePaid, printResumePaidFn, loading, error };
 };

@@ -1,7 +1,6 @@
-import { AuthResponseDto, LoginDto, WaLoginDto } from "@reactive-resume/dto";
+import { AuthResponseDto, WaLoginDto } from "@reactive-resume/dto";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
-import { useNavigate } from "react-router-dom";
 
 import { axios } from "@/client/libs/axios";
 import { queryClient } from "@/client/libs/query-client";
@@ -26,7 +25,6 @@ export const useLoginWa = () => {
   } = useMutation({
     mutationFn: loginWa,
     onSuccess: (data) => {
-
       setUser(data.user);
       queryClient.setQueryData(["user"], data.user);
     },
