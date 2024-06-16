@@ -187,7 +187,7 @@ export class PrinterService {
 
       console.log(preview);
 
-      const checkoutUrl = `${this.webUrl}/auth/login??redirect=/builder/${resume.id}`;
+      const checkoutUrl = `${this.webUrl}/auth/login?redirect=/builder/${resume.id}`;
       const amount = getAmount(resume.data.metadata.template);
       // Set the data of the resume to be printed in the browser's session storage
       const numberPages = resume.data.metadata.layout.length;
