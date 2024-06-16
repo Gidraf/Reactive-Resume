@@ -25,10 +25,7 @@ export const HeroSection = () => (
         <div className="hidden items-center gap-x-4 sm:flex">
           <Badge>{t`Version 4`}</Badge>
 
-          <a
-            
-            className={cn(buttonVariants({ variant: "link" }), "space-x-2 text-left")}
-          >
+          <a className={cn(buttonVariants({ variant: "link" }), "space-x-2 text-left")}>
             <p>{t`What's new in the latest version`}</p>
             <ArrowRight />
           </a>
