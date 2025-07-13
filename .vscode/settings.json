@@ -5,5 +5,8 @@
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
-  "i18n-ally.localesPaths": ["apps/client/src/locales"]
+  "i18n-ally.localesPaths": [
+    "apps/client/src/locales"
+  ],
+  "nxConsole.generateAiAgentRules": true
 }

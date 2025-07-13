@@ -66,23 +66,12 @@ export class ResumeService {
 
   findOne(id: string, userId?: string) {
     if (userId) {
-      return this.prisma.resume.findUniqueOrThrow({ where: { userId_id: { userId, id } } });
+      return this.prisma.resume.findUniqueOrThrow({ where: { userId, id } });
     }
 
     return this.prisma.resume.findUniqueOrThrow({ where: { id } });
   }
 
-  async findOneStatistics(id: string) {
-    const result = await this.prisma.statistics.findFirst({
-      select: { views: true, downloads: true },
-      where: { resumeId: id },
-    });
-
-    return {
-      views: result?.views ?? 0,
-      downloads: result?.downloads ?? 0,
-    };
-  }
 
   async findOneByUsernameSlug(username: string, slug: string, userId?: string) {
     const resume = await this.prisma.resume.findFirstOrThrow({
@@ -90,13 +79,6 @@ export class ResumeService {
     });
 
     // Update statistics: increment the number of views by 1
-    if (!userId) {
-      await this.prisma.statistics.upsert({
-        where: { resumeId: resume.id },
-        create: { views: 1, downloads: 0, resumeId: resume.id },
-        update: { views: { increment: 1 } },
-      });
-    }
 
     return resume;
   }
@@ -117,7 +99,7 @@ export class ResumeService {
           visibility: updateResumeDto.visibility,
           data: updateResumeDto.data as Prisma.JsonObject,
         },
-        where: { userId_id: { userId, id } },
+        where: { userId, id },
       });
     } catch (error) {
       if (error.code === "P2025") {
@@ -130,7 +112,7 @@ export class ResumeService {
   lock(userId: string, id: string, set: boolean) {
     return this.prisma.resume.update({
       data: { locked: set },
-      where: { userId_id: { userId, id } },
+      where: { userId, id },
     });
   }
 
@@ -141,20 +123,13 @@ export class ResumeService {
       this.storageService.deleteObject(userId, "previews", id),
     ]);
 
-    return this.prisma.resume.delete({ where: { userId_id: { userId, id } } });
+    return this.prisma.resume.delete({ where: { userId, id } });
   }
 
   async printResume(resume: ResumeDto, userId?: string) {
     const url = await this.printerService.printResume(resume);
 
     // Update statistics: increment the number of downloads by 1
-    if (!userId) {
-      await this.prisma.statistics.upsert({
-        where: { resumeId: resume.id },
-        create: { views: 0, downloads: 1, resumeId: resume.id },
-        update: { downloads: { increment: 1 } },
-      });
-    }
 
     return url;
   }

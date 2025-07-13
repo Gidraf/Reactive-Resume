@@ -12,7 +12,6 @@ import { LayoutSection } from "./sections/layout";
 import { NotesSection } from "./sections/notes";
 import { PageSection } from "./sections/page";
 import { SharingSection } from "./sections/sharing";
-import { StatisticsSection } from "./sections/statistics";
 import { TemplateSection } from "./sections/template";
 import { ThemeSection } from "./sections/theme";
 import { TypographySection } from "./sections/typography";
@@ -44,7 +43,6 @@ export const RightSidebar = () => {
           <Separator />
           <SharingSection />
           <Separator />
-          <StatisticsSection />
           <Separator />
           <ExportSection />
           <Separator />

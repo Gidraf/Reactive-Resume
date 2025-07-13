@@ -13,6 +13,7 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { AuthProvidersDto, LoginDto, RegisterDto, UserWithSecrets } from "@reactive-resume/dto";
 import { ErrorMessage } from "@reactive-resume/utils";
 import * as bcryptjs from "bcryptjs";
+import { PrismaService } from "nestjs-prisma";
 import { authenticator } from "otplib";
 
 import { Config } from "../config/schema";
@@ -27,6 +28,7 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly mailService: MailService,
     private readonly jwtService: JwtService,
+    private readonly prismaService: PrismaService,
   ) {}
 
   private hash(password: string): Promise<string> {
@@ -71,20 +73,38 @@ export class AuthService {
   }
 
   async setLastSignedIn(email: string) {
-    await this.userService.updateByEmail(email, {
-      secrets: { update: { lastSignedIn: new Date() } },
+    const user = await this.prismaService.user.findFirst({
+      where: { email: email },
     });
+
+    if (user) {
+      await this.prismaService.secrets.updateMany({
+        where: {
+          userId: user.id,
+        },
+        data: {
+          lastSignedIn: new Date(),
+        },
+      });
+    }
   }
 
   async setRefreshToken(email: string, token: string | null) {
-    await this.userService.updateByEmail(email, {
-      secrets: {
-        update: {
+    const user = await this.prismaService.user.findFirst({
+      where: { email: email },
+    });
+
+    if (user) {
+      await this.prismaService.secrets.updateMany({
+        where: {
+          userId: user.id,
+        },
+        data: {
           refreshToken: token,
           lastSignedIn: token ? new Date() : undefined,
         },
-      },
-    });
+      });
+    }
   }
 
   async validateRefreshToken(payload: Payload, token: string) {
@@ -147,9 +167,20 @@ export class AuthService {
   async forgotPassword(email: string) {
     const token = this.generateToken("reset");
 
-    await this.userService.updateByEmail(email, {
-      secrets: { update: { resetToken: token } },
+    const user = await this.prismaService.user.findFirst({
+      where: { email: email },
     });
+
+    if (user) {
+      await this.prismaService.secrets.updateMany({
+        where: {
+          userId: user.id,
+        },
+        data: {
+          refreshToken: token,
+        },
+      });
+    }
 
     const baseUrl = this.configService.get("PUBLIC_URL");
     const url = `${baseUrl}/auth/reset-password?token=${token}`;
@@ -170,18 +201,32 @@ export class AuthService {
 
     const newHashedPassword = await this.hash(newPassword);
 
-    await this.userService.updateByEmail(email, {
-      secrets: { update: { password: newHashedPassword } },
-    });
+     await this.prismaService.secrets.updateMany({
+        where: {
+          userId: user.id,
+        },
+        data: {
+          password: newHashedPassword,
+        },
+      });
+    
   }
 
   async resetPassword(token: string, password: string) {
     const hashedPassword = await this.hash(password);
 
-    await this.userService.updateByResetToken(token, {
-      resetToken: null,
-      password: hashedPassword,
-    });
+  
+
+
+      await this.prismaService.secrets.updateMany({
+        where: {
+          refreshToken: token
+        },
+        data: {
+          refreshToken: null,
+          password: hashedPassword,
+        },
+      });
   }
 
   getAuthProviders() {
@@ -223,15 +268,26 @@ export class AuthService {
     return providers;
   }
 
-  // Email Verification Flows
+  // // Email Verification Flows
   async sendVerificationEmail(email: string) {
     try {
       const token = this.generateToken("verification");
 
       // Set the verification token in the database
-      await this.userService.updateByEmail(email, {
-        secrets: { update: { verificationToken: token } },
+      const user = await this.prismaService.user.findFirst({
+        where: { email: email },
       });
+
+      if (user) {
+        await this.prismaService.secrets.updateMany({
+          where: {
+            userId: user.id,
+          },
+          data: {
+            refreshToken: token,
+          },
+        });
+      }
 
       const baseUrl = this.configService.get("PUBLIC_URL");
       const url = `${baseUrl}/auth/verify-email?token=${token}`;
@@ -248,16 +304,20 @@ export class AuthService {
   async verifyEmail(id: string, token: string) {
     const user = await this.userService.findOneById(id);
 
+    await this.prismaService.secrets.updateMany({
+      where: {
+        userId: user.id,
+      },
+      data: {
+        refreshToken: token,
+      },
+    });
+
     const storedToken = user.secrets?.verificationToken;
 
     if (!storedToken || storedToken !== token) {
       throw new BadRequestException(ErrorMessage.InvalidVerificationToken);
     }
-
-    await this.userService.updateByEmail(user.email, {
-      emailVerified: true,
-      secrets: { update: { verificationToken: null } },
-    });
   }
 
   // Two-Factor Authentication Flows
@@ -272,8 +332,13 @@ export class AuthService {
     const secret = authenticator.generateSecret();
     const uri = authenticator.keyuri(email, "Reactive Resume", secret);
 
-    await this.userService.updateByEmail(email, {
-      secrets: { update: { twoFactorSecret: secret } },
+    await this.prismaService.secrets.updateMany({
+      where: {
+        userId: user.id,
+      },
+      data: {
+        twoFactorSecret: secret,
+      },
     });
 
     return { message: uri };
@@ -304,9 +369,13 @@ export class AuthService {
     // Create backup codes and store them in the database
     const backupCodes = Array.from({ length: 8 }, () => randomBytes(5).toString("hex"));
 
-    await this.userService.updateByEmail(email, {
-      twoFactorEnabled: true,
-      secrets: { update: { twoFactorBackupCodes: backupCodes } },
+    await this.prismaService.secrets.updateMany({
+      where: {
+        userId: user.id,
+      },
+      data: {
+        twoFactorBackupCodes: backupCodes,
+      },
     });
 
     return { backupCodes };
@@ -320,9 +389,14 @@ export class AuthService {
       throw new BadRequestException(ErrorMessage.TwoFactorNotEnabled);
     }
 
-    await this.userService.updateByEmail(email, {
-      twoFactorEnabled: false,
-      secrets: { update: { twoFactorSecret: null, twoFactorBackupCodes: [] } },
+    await this.prismaService.secrets.updateMany({
+      where: {
+        userId: user.id,
+      },
+      data: {
+        twoFactorSecret: null,
+        twoFactorBackupCodes: [],
+      },
     });
   }
 
@@ -362,8 +436,13 @@ export class AuthService {
 
     // Remove the used backup code from the database
     const backupCodes = user.secrets.twoFactorBackupCodes.filter((c) => c !== code);
-    await this.userService.updateByEmail(email, {
-      secrets: { update: { twoFactorBackupCodes: backupCodes } },
+     await this.prismaService.secrets.updateMany({
+      where: {
+        userId: user.id,
+      },
+      data: {
+        twoFactorBackupCodes: backupCodes,
+      },
     });
 
     return user;

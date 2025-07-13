@@ -54,7 +54,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
           secrets: { create: {} },
         });
 
-        done(null, user);
+        done(null, user as User);
       } catch (error) {
         Logger.error(error);
 

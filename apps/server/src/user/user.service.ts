@@ -23,7 +23,7 @@ export class UserService {
       throw new InternalServerErrorException(ErrorMessage.SecretsNotFound);
     }
 
-    return user;
+    return user as unknown as Promise<UserWithSecrets>;
   }
 
   async findOneByIdentifier(identifier: string): Promise<UserWithSecrets | null> {
@@ -45,7 +45,7 @@ export class UserService {
       });
     })(identifier);
 
-    return user;
+    return user as unknown as Promise<UserWithSecrets | null>;
   }
 
   async findOneByIdentifierOrThrow(identifier: string): Promise<UserWithSecrets> {
@@ -67,23 +67,26 @@ export class UserService {
       });
     })(identifier);
 
-    return user;
+    return user as unknown as Promise<UserWithSecrets>;
   }
 
   create(data: Prisma.UserCreateInput): Promise<UserWithSecrets> {
-    return this.prisma.user.create({ data, include: { secrets: true } });
+    return this.prisma.user.create({
+      data,
+      include: { secrets: true },
+    }) as unknown as Promise<UserWithSecrets>;
   }
 
   updateByEmail(email: string, data: Prisma.UserUpdateArgs["data"]): Promise<User> {
     return this.prisma.user.update({ where: { email }, data });
   }
 
-  async updateByResetToken(
-    resetToken: string,
-    data: Prisma.SecretsUpdateArgs["data"],
-  ): Promise<void> {
-    await this.prisma.secrets.update({ where: { resetToken }, data });
-  }
+  // async updateByResetToken(
+  //   resetToken: string,
+  //   data: Prisma.SecretsUpdateArgs["data"],
+  // ): Promise<void> {
+  //   await this.prisma.secrets.update({ where: { resetToken }, data });
+  // }
 
   async deleteOneById(id: string): Promise<void> {
     await Promise.all([

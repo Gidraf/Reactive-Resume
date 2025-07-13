@@ -85,12 +85,6 @@ export class ResumeController {
     return resume;
   }
 
-  @Get(":id/statistics")
-  @UseGuards(TwoFactorGuard)
-  findOneStatistics(@Param("id") id: string) {
-    return this.resumeService.findOneStatistics(id);
-  }
-
   @Get("/public/:username/:slug")
   @UseGuards(OptionalGuard)
   findOneByUsernameSlug(

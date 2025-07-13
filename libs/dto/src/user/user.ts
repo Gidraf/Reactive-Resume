@@ -26,9 +26,10 @@ export const userSchema = z.object({
   locale: z.string().default("en-US"),
   emailVerified: z.boolean().default(false),
   twoFactorEnabled: z.boolean().default(false),
-  provider: z.enum(["email", "github", "google", "openid"]).default("email"),
+  provider: z.string().default("email"),
   createdAt: dateSchema,
   updatedAt: dateSchema,
+  whatsappUserId: idSchema,
 });
 
 export class UserDto extends createZodDto(userSchema) {}
