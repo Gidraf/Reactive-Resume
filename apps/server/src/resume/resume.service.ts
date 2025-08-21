@@ -72,7 +72,6 @@ export class ResumeService {
     return this.prisma.resume.findUniqueOrThrow({ where: { id } });
   }
 
-
   async findOneByUsernameSlug(username: string, slug: string, userId?: string) {
     const resume = await this.prisma.resume.findFirstOrThrow({
       where: { user: { username }, slug, visibility: "public" },
@@ -126,8 +125,8 @@ export class ResumeService {
     return this.prisma.resume.delete({ where: { userId, id } });
   }
 
-  async printResume(resume: ResumeDto, userId?: string) {
-    const url = await this.printerService.printResume(resume);
+  async printResume(resume: ResumeDto, isDraft: boolean) {
+    const url = await this.printerService.printResume(resume, isDraft);
 
     // Update statistics: increment the number of downloads by 1
 

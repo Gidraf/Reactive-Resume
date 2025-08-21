@@ -67,7 +67,7 @@ export class OpenIDStrategy extends PassportStrategy(Strategy, "openid") {
           secrets: { create: {} },
         });
 
-        done(null, user as User);
+        done(null, user!);
       } catch (error) {
         Logger.error(error);
 

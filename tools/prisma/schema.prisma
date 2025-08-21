@@ -119,6 +119,7 @@ model WhatsappUser {
   lastjobDescription   Json?
   adminId              String?        @db.VarChar
   partner_id           String?        @db.VarChar
+  CVJDTextData         CVJDTextData[]
   Order                Order[]
   User                 User[]
   AdminUser            AdminUser?     @relation(fields: [adminId], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -271,6 +272,7 @@ model partner {
   invoices         invoices[]
   product_services product_services[]
   role             role[]
+  settings         settings[]
   usage_records    usage_records[]
 }
 
@@ -381,6 +383,32 @@ model usage_records {
   timestamp        DateTime?         @db.Timestamp(6)
   partner          partner?          @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   product_services product_services? @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model CVJDTextData {
+  id             String        @id @db.VarChar
+  createdAt      DateTime?     @db.Timestamp(6)
+  updatedAt      DateTime?     @db.Timestamp(6)
+  whatsappUserId String?       @db.VarChar
+  position       String?       @db.VarChar
+  cv_text        String?       @db.VarChar
+  jd_text        String?       @db.VarChar
+  cv_file_url    String?       @db.VarChar
+  jd_file_url    String?       @db.VarChar
+  WhatsappUser   WhatsappUser? @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model settings {
+  id                   String   @id @db.VarChar
+  business_name        String?  @db.VarChar
+  description          String?
+  faqs_file_url        String?  @db.VarChar
+  object_name          String?  @db.VarChar
+  embedding_path       String?  @db.VarChar
+  whatsapp_channel_url String?  @db.VarChar
+  partner_id           String?  @db.VarChar
+  collection_name      String?  @db.VarChar
+  partner              partner? @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum Visibility {

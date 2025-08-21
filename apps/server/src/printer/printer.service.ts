@@ -9,6 +9,8 @@ import { connect } from "puppeteer";
 
 import { Config } from "../config/schema";
 import { StorageService } from "../storage/storage.service";
+import {browser} from "apps/server/src/main"
+import { PrismaService } from "nestjs-prisma";
 
 @Injectable()
 export class PrinterService {
@@ -21,6 +23,7 @@ export class PrinterService {
   constructor(
     private readonly configService: ConfigService<Config>,
     private readonly storageService: StorageService,
+    private readonly prismaService: PrismaService,
     private readonly httpService: HttpService,
   ) {
     const chromeUrl = this.configService.getOrThrow<string>("CHROME_URL");
@@ -45,16 +48,16 @@ export class PrinterService {
   }
 
   async getVersion() {
-    const browser = await this.getBrowser();
+    // const browser = await this.getBrowser();
     const version = await browser.version();
     await browser.disconnect();
     return version;
   }
 
-  async printResume(resume: ResumeDto) {
+  async printResume(resume: ResumeDto, isDraft: boolean) {
     const start = performance.now();
 
-    const url = await retry<string | undefined>(() => this.generateResume(resume), {
+    const url = await retry<string | undefined>(() => this.generateResume(resume, isDraft), {
       retries: 3,
       randomize: true,
       onRetry: (_, attempt) => {
@@ -90,133 +93,154 @@ export class PrinterService {
     return url;
   }
 
-  async generateResume(resume: ResumeDto) {
-    try {
-      const browser = await this.getBrowser();
-      const page = await browser.newPage();
+async generateResume(resume: ResumeDto, isDraft: boolean) {
+  try {
+    const page = await browser.newPage();
+    const whatsappUser = await this.prismaService.whatsappUser.findFirst({
+      where: { id: resume.user?.whatsappUserId },
+    });
 
-      const publicUrl = this.configService.getOrThrow<string>("PUBLIC_URL");
-      const storageUrl = this.configService.getOrThrow<string>("STORAGE_URL");
+    const partner = whatsappUser
+      ? await this.prismaService.partner.findFirst({
+          where: { partner_id: whatsappUser.partner_id! },
+        })
+      : null;
 
-      let url = publicUrl;
+      const settings = whatsappUser
+      ? await this.prismaService.settings.findFirst({
+          where: { partner_id: whatsappUser.partner_id! },
+        })
+      : null;
 
-      if ([publicUrl, storageUrl].some((url) => /https?:\/\/localhost(:\d+)?/.test(url))) {
-        // Switch client URL from `http[s]://localhost[:port]` to `http[s]://host.docker.internal[:port]` in development
-        // This is required because the browser is running in a container and the client is running on the host machine.
-        url = url.replace(
-          /localhost(:\d+)?/,
-          (_match, port) => `host.docker.internal${port ?? ""}`,
-        );
+    const business_name = settings?.business_name ?? "Ajiriwa";
+    const business_phone = partner?.phone ?? "+254735143282";
+    const business_email = partner?.email ?? "user@ajiriwa.com";
 
-        await page.setRequestInterception(true);
+    const publicUrl = this.configService.getOrThrow<string>("PUBLIC_URL");
+    const url = publicUrl;
 
-        // Intercept requests of `localhost` to `host.docker.internal` in development
-        page.on("request", (request) => {
-          if (request.url().startsWith(storageUrl)) {
-            const modifiedUrl = request
-              .url()
-              .replace(/localhost(:\d+)?/, (_match, port) => `host.docker.internal${port ?? ""}`);
+    const numberPages = resume.data.metadata.layout.length;
 
-            void request.continue({ url: modifiedUrl });
-          } else {
-            void request.continue();
-          }
-        });
+    await page.evaluateOnNewDocument((data) => {
+      window.localStorage.setItem("resume", JSON.stringify(data));
+    }, resume.data);
+
+    await page.goto(`${url}/artboard/preview`, { waitUntil: "networkidle0" });
+
+    const pagesBuffer: Buffer[] = [];
+
+    const processPage = async (index: number) => {
+      const pageElement = await page.$(`[data-page="${index}"]`);
+      if (!pageElement) {
+        throw new Error(`Page element with data-page="${index}" not found`);
       }
 
-      // Set the data of the resume to be printed in the browser's session storage
-      const numberPages = resume.data.metadata.layout.length;
+      const width = await page.evaluate((el) => el.scrollWidth, pageElement);
+      const height = await page.evaluate((el) => el.scrollHeight, pageElement);
 
-      await page.evaluateOnNewDocument((data) => {
-        window.localStorage.setItem("resume", JSON.stringify(data));
-      }, resume.data);
-
-      await page.goto(`${url}/artboard/preview`, { waitUntil: "networkidle0" });
-
-      const pagesBuffer: Buffer[] = [];
-
-      const processPage = async (index: number) => {
-        const pageElement = await page.$(`[data-page="${index}"]`);
-        // eslint-disable-next-line unicorn/no-await-expression-member
-        const width = (await (await pageElement?.getProperty("scrollWidth"))?.jsonValue()) ?? 0;
-        // eslint-disable-next-line unicorn/no-await-expression-member
-        const height = (await (await pageElement?.getProperty("scrollHeight"))?.jsonValue()) ?? 0;
-
-        const temporaryHtml = await page.evaluate((element: HTMLDivElement) => {
+      // ✅ One evaluate handles everything
+      const temporaryHtml = await page.evaluate(
+        (element: HTMLDivElement, css: { visible: boolean; value: string }, draft: boolean, info: { business_name: string; business_phone: string; business_email: string }) => {
           const clonedElement = element.cloneNode(true) as HTMLDivElement;
-          const temporaryHtml_ = document.body.innerHTML;
+          const previousHtml = document.body;
           document.body.innerHTML = clonedElement.outerHTML;
-          return temporaryHtml_;
-        }, pageElement);
 
-        // Apply custom CSS, if enabled
-        const css = resume.data.metadata.css;
-
-        if (css.visible) {
-          await page.evaluate((cssValue: string) => {
+          // apply CSS if visible
+          if (css.visible) {
             const styleTag = document.createElement("style");
-            styleTag.textContent = cssValue;
+            styleTag.textContent = css.value;
             document.head.append(styleTag);
-          }, css.value);
-        }
+          }
 
-        const uint8array = await page.pdf({ width, height, printBackground: true });
-        const buffer = Buffer.from(uint8array);
-        pagesBuffer.push(buffer);
+          // add watermark if draft
+          if (draft) {
+            const watermark = document.createElement("div");
+            watermark.innerHTML = `
+              <div style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-25deg);
+                font-size: 6rem;
+                font-weight: 700;
+                opacity: 0.3; /* 30% visibility */
+                color: #444;
+                white-space: pre-line;
+                text-align: center;
+                border-radius: 1rem;
+                padding: 2rem 4rem;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                pointer-events: none; 
+              ">
+                📇 ${info.business_name}\n
+                📱 ${info.business_phone}\n
+                📧 ${info.business_email}
+              </div>
+            `;
+            previousHtml.appendChild(watermark);
+          }
 
-        await page.evaluate((temporaryHtml_: string) => {
-          document.body.innerHTML = temporaryHtml_;
-        }, temporaryHtml);
-      };
-
-      // Loop through all the pages and print them, by first displaying them, printing the PDF and then hiding them back
-      for (let index = 1; index <= numberPages; index++) {
-        await processPage(index);
-      }
-
-      // Using 'pdf-lib', merge all the pages from their buffers into a single PDF
-      const pdf = await PDFDocument.create();
-
-      for (const element of pagesBuffer) {
-        const page = await PDFDocument.load(element);
-        const [copiedPage] = await pdf.copyPages(page, [0]);
-        pdf.addPage(copiedPage);
-      }
-
-      // Save the PDF to storage and return the URL to download the resume
-      // Store the URL in cache for future requests, under the previously generated hash digest
-      const buffer = Buffer.from(await pdf.save());
-
-      // This step will also save the resume URL in cache
-      const resumeUrl = await this.storageService.uploadObject(
-        resume.userId,
-        "resumes",
-        buffer,
-        resume.title,
+          return previousHtml.innerHTML;
+        },
+        pageElement,
+        resume.data.metadata.css,
+        isDraft,
+        { business_name, business_phone, business_email },
       );
 
-      // Close all the pages and disconnect from the browser
-      await page.close();
-      await browser.disconnect();
+      const pdfBuffer = await page.pdf({
+        width,
+        height,
+        printBackground: true,
+      });
 
-      return resumeUrl;
-    } catch (error) {
-      this.logger.error(error);
+      pagesBuffer.push(pdfBuffer as Buffer);
 
-      throw new InternalServerErrorException(
-        ErrorMessage.ResumePrinterError,
-        (error as Error).message,
-      );
+      // ✅ Restore original HTML in one call
+      await page.evaluate((previousHtml: string) => {
+        document.body.innerHTML = previousHtml;
+      }, temporaryHtml);
+    };
+
+    for (let index = 1; index <= numberPages; index++) {
+      await processPage(index);
     }
+
+    // ✅ Merge into final PDF
+    const pdf = await PDFDocument.create();
+    for (const pageBuffer of pagesBuffer) {
+      const loadedPdf = await PDFDocument.load(pageBuffer);
+      const [copiedPage] = await pdf.copyPages(loadedPdf, [0]);
+      pdf.addPage(copiedPage);
+    }
+
+    const finalPdfBuffer = Buffer.from(await pdf.save());
+
+    // ✅ Upload
+    const resumeUrl = await this.storageService.uploadObject(
+      resume.userId,
+      "resumes",
+      finalPdfBuffer,
+      resume.title,
+    );
+
+    await page.close();
+    return resumeUrl;
+  } catch (error) {
+    this.logger.error(error);
+    throw new InternalServerErrorException(
+      ErrorMessage.ResumePrinterError,
+      (error as Error).message,
+    );
   }
+}
 
   async generatePreview(resume: ResumeDto) {
-    const browser = await this.getBrowser();
+    // const browser = await this.getBrowser();
     const page = await browser.newPage();
 
     const publicUrl = this.configService.getOrThrow<string>("PUBLIC_URL");
     const storageUrl = this.configService.getOrThrow<string>("STORAGE_URL");
-
     let url = publicUrl;
 
     if ([publicUrl, storageUrl].some((url) => /https?:\/\/localhost(:\d+)?/.test(url))) {
@@ -227,17 +251,17 @@ export class PrinterService {
       await page.setRequestInterception(true);
 
       // Intercept requests of `localhost` to `host.docker.internal` in development
-      page.on("request", (request) => {
-        if (request.url().startsWith(storageUrl)) {
-          const modifiedUrl = request
-            .url()
-            .replace(/localhost(:\d+)?/, (_match, port) => `host.docker.internal${port ?? ""}`);
+      // page.on("request", (request) => {
+      //   if (request.url().startsWith(storageUrl)) {
+      //     const modifiedUrl = request
+      //       .url()
+      //       .replace(/localhost(:\d+)?/, (_match, port) => `host.docker.internal${port ?? ""}`);
 
-          void request.continue({ url: modifiedUrl });
-        } else {
-          void request.continue();
-        }
-      });
+      //     void request.continue({ url: modifiedUrl });
+      //   } else {
+      //     void request.continue();
+      //   }
+      // });
     }
 
     // Set the data of the resume to be printed in the browser's session storage

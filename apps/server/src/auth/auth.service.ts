@@ -150,15 +150,24 @@ export class AuthService {
     try {
       const user = await this.userService.findOneByIdentifierOrThrow(identifier);
 
-      if (!user.secrets?.password) {
-        throw new BadRequestException(ErrorMessage.OAuthUser);
+      console.log(password);
+      const secret = await this.prismaService.secrets.findFirst({
+        where: {
+          userId: user.id,
+        },
+      });
+      if (secret) {
+        console.log(secret);
+        const hashedPassword: string = secret.password!;
+        console.log(hashedPassword);
+        await this.validatePassword(password, hashedPassword);
       }
-
-      await this.validatePassword(password, user.secrets.password);
-      await this.setLastSignedIn(user.email);
-
+      if (!user.locale) {
+        user.locale = "en-US";
+      }
       return user;
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new BadRequestException(ErrorMessage.InvalidCredentials);
     }
   }
@@ -201,32 +210,28 @@ export class AuthService {
 
     const newHashedPassword = await this.hash(newPassword);
 
-     await this.prismaService.secrets.updateMany({
-        where: {
-          userId: user.id,
-        },
-        data: {
-          password: newHashedPassword,
-        },
-      });
-    
+    await this.prismaService.secrets.updateMany({
+      where: {
+        userId: user.id,
+      },
+      data: {
+        password: newHashedPassword,
+      },
+    });
   }
 
   async resetPassword(token: string, password: string) {
     const hashedPassword = await this.hash(password);
 
-  
-
-
-      await this.prismaService.secrets.updateMany({
-        where: {
-          refreshToken: token
-        },
-        data: {
-          refreshToken: null,
-          password: hashedPassword,
-        },
-      });
+    await this.prismaService.secrets.updateMany({
+      where: {
+        refreshToken: token,
+      },
+      data: {
+        refreshToken: null,
+        password: hashedPassword,
+      },
+    });
   }
 
   getAuthProviders() {
@@ -436,7 +441,7 @@ export class AuthService {
 
     // Remove the used backup code from the database
     const backupCodes = user.secrets.twoFactorBackupCodes.filter((c) => c !== code);
-     await this.prismaService.secrets.updateMany({
+    await this.prismaService.secrets.updateMany({
       where: {
         userId: user.id,
       },

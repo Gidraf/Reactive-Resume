@@ -7,9 +7,12 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import helmet from "helmet";
 import { patchNestJsSwagger } from "nestjs-zod";
+import puppeteer, { type Browser } from "puppeteer"; // 👈 Puppeteer import
 
 import { AppModule } from "./app.module";
 import type { Config } from "./config/schema";
+// 👇 Export global browser instance
+export let browser: Browser;
 
 patchNestJsSwagger();
 
@@ -51,7 +54,6 @@ async function bootstrap() {
   app.enableShutdownHooks();
 
   // Swagger (OpenAPI Docs)
-  // This can be accessed by visiting {SERVER_URL}/api/docs
   const config = new DocumentBuilder()
     .setTitle("Reactive Resume")
     .setDescription(
@@ -65,6 +67,21 @@ async function bootstrap() {
 
   // Port
   const port = configService.get<number>("PORT") ?? 3000;
+
+  // 👇 Start Puppeteer browser
+  Logger.log("🚀 Launching Puppeteer browser instance...", "Bootstrap");
+  browser = await puppeteer.launch({
+    headless: true, // Use headless "new" mode for Puppeteer >=19
+    args: ["--no-sandbox", "--disable-setuid-sandbox"], // Required for Docker/root
+  });
+  Logger.log("🎭 Puppeteer browser launched successfully", "Bootstrap");
+
+  // Close browser gracefully on shutdown
+  app.getHttpAdapter().getInstance().on("close", async () => {
+    Logger.log("🛑 Closing Puppeteer browser...", "Bootstrap");
+    await browser.close();
+    Logger.log("✅ Puppeteer browser closed", "Bootstrap");
+  });
 
   await app.listen(port);
 
