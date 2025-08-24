@@ -29,7 +29,7 @@ export const userSchema = z.object({
   provider: z.string().default("email"),
   createdAt: dateSchema,
   updatedAt: dateSchema,
-  whatsappUserId: idSchema,
+  whatsappUserId: z.string(),
 });
 
 export class UserDto extends createZodDto(userSchema) {}
