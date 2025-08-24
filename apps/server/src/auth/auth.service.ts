@@ -149,22 +149,19 @@ export class AuthService {
   async authenticate({ identifier, password }: LoginDto) {
     try {
       const user = await this.userService.findOneByIdentifierOrThrow(identifier);
-
-      console.log(password);
       const secret = await this.prismaService.secrets.findFirst({
         where: {
           userId: user.id,
         },
       });
       if (secret) {
-        console.log(secret);
         const hashedPassword: string = secret.password!;
-        console.log(hashedPassword);
         await this.validatePassword(password, hashedPassword);
       }
       if (!user.locale) {
         user.locale = "en-US";
       }
+      console.log(user);
       return user;
     } catch (error) {
       console.log(error);
