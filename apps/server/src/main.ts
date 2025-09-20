@@ -77,11 +77,14 @@ async function bootstrap() {
   Logger.log("🎭 Puppeteer browser launched successfully", "Bootstrap");
 
   // Close browser gracefully on shutdown
-  app.getHttpAdapter().getInstance().on("close", async () => {
-    Logger.log("🛑 Closing Puppeteer browser...", "Bootstrap");
-    await browser.close();
-    Logger.log("✅ Puppeteer browser closed", "Bootstrap");
-  });
+  app
+    .getHttpAdapter()
+    .getInstance()
+    .on("close", async () => {
+      Logger.log("🛑 Closing Puppeteer browser...", "Bootstrap");
+      await browser.close();
+      Logger.log("✅ Puppeteer browser closed", "Bootstrap");
+    });
 
   await app.listen(port);
 

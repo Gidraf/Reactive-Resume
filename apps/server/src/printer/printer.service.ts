@@ -93,6 +93,41 @@ export class PrinterService {
     return url;
   }
 
+  async generatePdfFromHtml(html: string): Promise<string> {
+  let page;
+  try {
+    page = await browser.newPage();
+    console.log(html)
+    await page.setContent(html, {
+      waitUntil: ["domcontentloaded", "networkidle0"],
+    });
+
+    const pdfResult = await page.pdf({
+      format: "A4",
+      printBackground: true,
+    });
+
+    const buffer = Buffer.isBuffer(pdfResult) ? pdfResult : Buffer.from(pdfResult);
+    return buffer.toString("base64");
+  } catch (error) {
+    this.logger.error("Error generating PDF:", error);
+    throw new InternalServerErrorException(
+      ErrorMessage.ResumePrinterError,
+      (error as Error).message,
+    );
+  } finally {
+    if (page) {
+      try {
+        await page.close();
+      } catch (closeErr) {
+        this.logger.warn("Failed to close page after PDF generation:", closeErr);
+      }
+    }
+  }
+}
+
+
+
 async generateResume(resume: ResumeDto, isDraft: boolean) {
   try {
     const page = await browser.newPage();
@@ -170,7 +205,7 @@ async generateResume(resume: ResumeDto, isDraft: boolean) {
                 border-radius: 1rem;
                 padding: 2rem 4rem;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-                pointer-events: none; 
+                pointer-events: none;
               ">
                 📇 ${info.business_name}\n
                 📱 ${info.business_phone}\n

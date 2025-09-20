@@ -136,6 +136,24 @@ export class ResumeController {
     }
   }
 
+  @Post("/generatePdf")
+  async generatePDFResume(
+    @Body("html") html: string,
+  ): Promise<string> {
+    try {
+      // service now returns base64 string
+      const base64 = await this.resumeService.generatePdfFromHtml(html);
+
+      // If you want to return a data URI instead of raw base64 uncomment next line:
+      // return `data:application/pdf;base64,${base64}`;
+
+      return base64;
+    } catch (error) {
+      Logger.error(error);
+      throw new InternalServerErrorException(error);
+    }
+  }
+
   @Get("/print/:id/preview")
   @UseGuards(TwoFactorGuard, ResumeGuard)
   async printPreview(@Resume() resume: ResumeDto) {

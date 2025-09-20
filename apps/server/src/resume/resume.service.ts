@@ -124,6 +124,9 @@ export class ResumeService {
 
     return this.prisma.resume.delete({ where: { userId, id } });
   }
+  async generatePdfFromHtml(html: string) {
+    return await this.printerService.generatePdfFromHtml(html);
+  }
 
   async printResume(resume: ResumeDto, isDraft: boolean) {
     const url = await this.printerService.printResume(resume, isDraft);
