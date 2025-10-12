@@ -1,31 +1,30 @@
 import { t } from "@lingui/macro";
 import {
-  CaretDown,
-  ChatTeardropText,
+  // CaretDown,
+  // ChatTeardropText,
   CircleNotch,
   Exam,
   MagicWand,
   PenNib,
+  Question,
 } from "@phosphor-icons/react";
 import {
   Badge,
   Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+  // DropdownMenu,
+  // DropdownMenuContent,
+  // DropdownMenuItem,
+  // DropdownMenuTrigger,
 } from "@reactive-resume/ui";
 import { cn } from "@reactive-resume/utils";
 import { useState } from "react";
 
 import { toast } from "../hooks/use-toast";
-import { changeTone } from "../services/openai/change-tone";
-import { fixGrammar } from "../services/openai/fix-grammar";
-import { improveWriting } from "../services/openai/improve-writing";
-import { useOpenAiStore } from "../stores/openai";
+import { useImproveWriting, useMatchJobDescription } from "../services/openai/improve-writing";
+import { useResumeStore } from "../stores/resume";
 
-type Action = "improve" | "fix" | "tone";
-type Mood = "casual" | "professional" | "confident" | "friendly";
+type Action = "improve/fix" | "visualize" | "matchjd";
+export type Mood = "bargraph" | "progressbar" | "piechart" | "image";
 
 type Props = {
   value: string;
@@ -35,9 +34,12 @@ type Props = {
 
 export const AiActions = ({ value, onChange, className }: Props) => {
   const [loading, setLoading] = useState<Action | false>(false);
-  const aiEnabled = useOpenAiStore((state) => !!state.apiKey);
+  const { improveWriting, loading: improveLoading } = useImproveWriting();
+  const { matchJobDescription, loading: matchJobLoading } = useMatchJobDescription();
+  const resume = useResumeStore((state) => state.resume);
+  // const aiEnabled =  true //useOpenAiStore((state) => !!state.apiKey);
 
-  if (!aiEnabled) return null;
+  // if (!aiEnabled) return null;
 
   const onClick = async (action: Action, mood?: Mood) => {
     try {
@@ -45,11 +47,20 @@ export const AiActions = ({ value, onChange, className }: Props) => {
 
       let result = value;
 
-      if (action === "improve") result = await improveWriting(value);
-      if (action === "fix") result = await fixGrammar(value);
-      if (action === "tone" && mood) result = await changeTone(value, mood);
-
-      onChange(result);
+      if (action === "improve/fix")
+        result = await improveWriting({ text: value, item_id: "improve/fix", item_type: "ats" });
+      // if (action === "visualize") result = await fixGrammar(value);
+      if (action === "matchjd")
+        result = await matchJobDescription({
+          text: value,
+          resumeId: resume.id,
+          item_id: "matchjd",
+          item_type: "ats",
+        });
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (result !== undefined && result !== "") {
+        onChange(result);
+      }
     } catch (error) {
       toast({
         variant: "error",
@@ -80,51 +91,72 @@ export const AiActions = ({ value, onChange, className }: Props) => {
         </Badge>
       </div>
 
-      <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick("improve")}>
-        {loading === "improve" ? <CircleNotch className="animate-spin" /> : <PenNib />}
-        <span className="ml-2 text-xs">{t`Improve Writing`}</span>
+      <Button
+        size="sm"
+        variant="outline"
+        disabled={!!loading}
+        onClick={() => onClick("improve/fix")}
+      >
+        {loading === "improve/fix" ? <CircleNotch className="animate-spin" /> : <PenNib />}
+        <span className="ml-2 text-xs">{t`Improve & Fix Writing`}</span>
+        <small className="ml-2">{t`5 tokens`}</small>
       </Button>
 
-      <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick("fix")}>
-        {loading === "fix" ? <CircleNotch className="animate-spin" /> : <Exam />}
-        <span className="ml-2 text-xs">{t`Fix Spelling & Grammar`}</span>
+      <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick("matchjd")}>
+        {loading === "matchjd" ? <CircleNotch className="animate-spin" /> : <Exam />}
+        <span className="ml-2 text-xs">{t`Match Job Description`}</span>{" "}
+        <small className="ml-2">{t`15 tokens`}</small>
       </Button>
-
-      <DropdownMenu>
+      {/* TODO  Add visualization in future*/}
+      {/* <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size="sm" variant="outline" disabled={!!loading}>
-            {loading === "tone" ? <CircleNotch className="animate-spin" /> : <ChatTeardropText />}
-            <span className="mx-2 text-xs">{t`Change Tone`}</span>
+            {loading === "visualize" ? (
+              <CircleNotch className="animate-spin" />
+            ) : (
+              <ChatTeardropText />
+            )}
+            <span className="mx-2 text-xs">{t`Visualize`}</span>
             <CaretDown />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => onClick("tone", "casual")}>
-            <span role="img" aria-label={t`Casual`}>
-              🙂
+          <DropdownMenuItem onClick={() => onClick("visualize", "bargraph")}>
+            <span role="img" aria-label={t`Add Bar Graph`}>
+              📊
             </span>
-            <span className="ml-2">{t`Casual`}</span>
+            <span className="ml-2">{t`Bar Graph`}</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onClick("tone", "professional")}>
-            <span role="img" aria-label={t`Professional`}>
-              💼
+          <DropdownMenuItem onClick={() => onClick("visualize", "progressbar")}>
+            <span role="img" aria-label={t`Progress Bar`}>
+              ⭕
             </span>
-            <span className="ml-2">{t`Professional`}</span>
+            <span className="ml-2">{t`Progress Bar`}</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onClick("tone", "confident")}>
-            <span role="img" aria-label={t`Confident`}>
-              😎
+          <DropdownMenuItem onClick={() => onClick("visualize", "piechart")}>
+            <span role="img" aria-label={t`Pie Chart`}>
+              ◔
             </span>
-            <span className="ml-2">{t`Confident`}</span>
+            <span className="ml-2">{t`Pie Chart`}</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onClick("tone", "friendly")}>
-            <span role="img" aria-label={t`Friendly`}>
-              😊
+          <DropdownMenuItem onClick={() => onClick("visualize", "image")}>
+            <span role="img" aria-label={t`Add Image`}>
+              🖼️
             </span>
-            <span className="ml-2">{t`Friendly`}</span>
+            <span className="ml-2">{t`Add Image`}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
+      <div className="absolute -right-5 z-10">
+        <Badge
+          outline
+          variant="primary"
+          className="-rotate-90 bg-background px-2 text-[10px] leading-[10px]"
+        >
+          <Question size={10} className="mr-1" />
+          {t`tokens`}
+        </Badge>
+      </div>
     </div>
   );
 };

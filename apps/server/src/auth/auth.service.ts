@@ -53,7 +53,7 @@ export class AuthService {
         if (!payload) throw new InternalServerErrorException("InvalidTokenPayload");
         return this.jwtService.sign(payload, {
           secret: this.configService.getOrThrow("ACCESS_TOKEN_SECRET"),
-          expiresIn: "15m", // 15 minutes
+          expiresIn: "30d", // 15 minutes
         });
       }
 

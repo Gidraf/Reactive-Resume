@@ -25,7 +25,7 @@ export const AuthRefreshProvider = ({ children }: Props) => {
     }
 
     const _refreshToken = () => refreshToken(axios);
-    intervalId.current = setInterval(_refreshToken, 5 * 60 * 1000);
+    intervalId.current = setInterval(_refreshToken, 5 * 3600 * 1000);
 
     return () => {
       clearInterval(intervalId.current);

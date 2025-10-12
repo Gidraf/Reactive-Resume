@@ -168,7 +168,7 @@ export class AuthController {
   @Post("refresh")
   @UseGuards(RefreshGuard)
   async refresh(@User() user: UserWithSecrets, @Res({ passthrough: true }) response: Response) {
-    return this.handleAuthenticationResponse(user, response, true);
+    return this.handleAuthenticationResponse(user, response);
   }
 
   @Patch("password")

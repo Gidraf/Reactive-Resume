@@ -8,29 +8,31 @@ datasource db {
 }
 
 model User {
-  id               String        @id @default(cuid()) @db.VarChar
-  name             String        @db.VarChar
-  username         String        @unique @db.VarChar
-  email            String        @unique @db.VarChar
-  provider         String        @db.VarChar
-  createdAt        DateTime?     @db.Timestamp(6)
-  updatedAt        DateTime?     @updatedAt @db.Timestamp(6)
-  whatsappUserId   String?       @db.VarChar
-  picture          String?       @db.VarChar
-  locale           String?       @db.VarChar
+  id               String             @id @default(cuid()) @db.VarChar
+  name             String             @db.VarChar
+  username         String             @unique @db.VarChar
+  email            String             @unique @db.VarChar
+  createdAt        DateTime?          @default(now())
+  updatedAt        DateTime?          @updatedAt
+  provider         String             @db.VarChar
+  whatsappUserId   String?            @db.VarChar
+  picture          String?            @db.VarChar
+  locale           String?            @db.VarChar
   emailVerified    Boolean?
   twoFactorEnabled Boolean?
   resumes          Resume[]
   secrets          Secrets[]
-  WhatsappUser     WhatsappUser? @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  WhatsappUser     WhatsappUser?      @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  account_balances account_balances[]
+  token_top_ups    token_top_ups[]
 }
 
 model Secrets {
   id                   String    @id @default(cuid()) @db.VarChar
   password             String?   @db.VarChar
-  lastSignedIn         DateTime? @db.Timestamp(6)
+  lastSignedIn         DateTime? @default(now())
   twoFactorSecret      String?   @db.VarChar
-  twoFactorBackupCodes String[]  @db.VarChar
+  twoFactorBackupCodes String[]  @default([]) @db.VarChar
   refreshToken         String?   @db.VarChar
   resetToken           String?   @db.VarChar
   userId               String    @db.VarChar
@@ -41,15 +43,16 @@ model Resume {
   id              String           @id @default(cuid()) @db.VarChar
   title           String           @db.VarChar
   slug            String           @db.VarChar
+  data            Json?            @default("{}")
+  visibility      Visibility?      @default(private)
+  locked          Boolean?         @default(false)
   userId          String           @db.VarChar
-  visibility      Visibility?
-  createdAt       DateTime?        @db.Timestamp(6)
-  updatedAt       DateTime?        @updatedAt @db.Timestamp(6)
-  data            Json?
-  locked          Boolean?
+  createdAt       DateTime?        @default(now())
+  updatedAt       DateTime?        @updatedAt
   adminId         String?          @db.VarChar
   processing_type String?          @db.VarChar
   status          String?          @db.VarChar
+  CVJDTextData    CVJDTextData[]
   Order           Order[]
   AdminUser       AdminUser?       @relation(fields: [adminId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user            User             @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -62,12 +65,12 @@ model AdminSecrets {
   id                   String    @id @db.VarChar
   password             String?   @db.VarChar
   lastSignedIn         DateTime? @db.Timestamp(6)
-  verificationToken    String?   @db.VarChar
   twoFactorSecret      String?   @db.VarChar
   twoFactorBackupCodes String[]  @db.VarChar
   refreshToken         String?   @db.VarChar
   resetToken           String?   @db.VarChar
   adminId              String    @db.VarChar
+  verificationToken    String?   @db.VarChar
   AdminUser            AdminUser @relation(fields: [adminId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
@@ -90,33 +93,33 @@ model AdminUser {
 model Order {
   id                  String        @id @db.VarChar
   amount              String        @db.VarChar
-  item                Json?
-  transactionId       String?       @db.VarChar
-  resumeId            String        @db.VarChar
-  status              String?       @db.VarChar
-  transactionResponse Json?
   whatsappOrderId     String?       @db.VarChar
+  transactionId       String?       @db.VarChar
+  item                Json?         @default("{}")
+  transactionResponse Json?         @default("{}")
+  expiredDate         DateTime?     @default(now())
+  status              String?       @default("unpaid") @db.VarChar
+  createdAt           DateTime?     @default(now())
+  updatedAt           DateTime?
+  resumeId            String        @db.VarChar
   whatsappUserId      String?       @db.VarChar
-  createdAt           DateTime?     @db.Timestamp(6)
-  updatedAt           DateTime?     @db.Timestamp(6)
-  expiredDate         DateTime?     @db.Timestamp(6)
   Resume              Resume        @relation(fields: [resumeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   WhatsappUser        WhatsappUser? @relation(fields: [whatsappUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model WhatsappUser {
   id                   String         @id @db.VarChar
-  createdAt            DateTime?      @db.Timestamp(6)
-  updatedAt            DateTime?      @db.Timestamp(6)
+  createdAt            DateTime?      @default(now())
+  updatedAt            DateTime?
   whatsappName         String?        @db.VarChar
-  lastSessionSelection Json?
-  currentSession       Json?
   whatsappNumber       String?        @db.VarChar
+  lastSessionSelection Json?          @default("{}")
+  currentSession       Json?          @default("{}")
   previewUrl           String?        @db.VarChar
-  status               Json?
-  lastCvDetails        Json?
+  status               Json?          @default("{}")
+  lastCvDetails        Json?          @default("{}")
+  lastjobDescription   Json?          @default("{}")
   loginToken           String?        @db.VarChar
-  lastjobDescription   Json?
   adminId              String?        @db.VarChar
   partner_id           String?        @db.VarChar
   CVJDTextData         CVJDTextData[]
@@ -129,7 +132,7 @@ model WhatsappUser {
 }
 
 model admin_role {
-  id         String     @id @db.VarChar
+  id         String     @id @default(dbgenerated("nextval('admin_role_id_seq'::regclass)")) @db.VarChar
   created_at DateTime?  @db.Timestamp(6)
   updated_at DateTime?  @db.Timestamp(6)
   role_id    String?    @db.VarChar
@@ -173,8 +176,8 @@ model career_profile {
 model chat_history {
   id           String       @id @db.VarChar
   session_id   String       @db.VarChar
-  created_at   DateTime?    @db.Timestamp(6)
   message      Json?
+  created_at   DateTime?    @default(now()) @db.Timestamp(6)
   WhatsappUser WhatsappUser @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
@@ -202,6 +205,7 @@ model integrations {
   refresh_token     String?   @db.VarChar
   expiry_date       DateTime? @db.Timestamp(6)
   waNumber          String?   @db.VarChar
+  status            String?   @db.VarChar
   credentials       String?   @db.VarChar
   gmail             String?   @db.VarChar
   partner           partner?  @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -273,7 +277,6 @@ model partner {
   product_services product_services[]
   role             role[]
   settings         settings[]
-  usage_records    usage_records[]
 }
 
 model permission {
@@ -286,18 +289,17 @@ model permission {
 }
 
 model product_services {
-  id            String          @id @db.VarChar
-  name          String?         @db.VarChar
-  description   String?         @db.VarChar
-  price         String?         @db.VarChar
-  image_url     String?         @db.VarChar
-  updatedAt     DateTime?       @db.Timestamp(6)
-  end_date      DateTime?       @db.Timestamp(6)
-  image_string  String?         @db.VarChar
-  partner_id    String?         @db.VarChar
-  offer         offer[]
-  partner       partner?        @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  usage_records usage_records[]
+  id           String    @id @db.VarChar
+  name         String?   @db.VarChar
+  description  String?   @db.VarChar
+  price        String?   @db.VarChar
+  image_url    String?   @db.VarChar
+  updatedAt    DateTime? @db.Timestamp(6)
+  end_date     DateTime? @db.Timestamp(6)
+  image_string String?   @db.VarChar
+  partner_id   String?   @db.VarChar
+  offer        offer[]
+  partner      partner?  @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model profile_summary_template {
@@ -376,13 +378,15 @@ model role_permissions {
 }
 
 model usage_records {
-  id               String            @id @db.VarChar
-  partner_id       String?           @db.VarChar
-  product_id       String?           @db.VarChar
-  quantity         Int?
-  timestamp        DateTime?         @db.Timestamp(6)
-  partner          partner?          @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  product_services product_services? @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id               String         @id @db.VarChar
+  timestamp        DateTime?      @db.Timestamp(6)
+  top_up_id        String?        @db.VarChar
+  token_quantity   Int?
+  usage_type       String?        @db.VarChar
+  item_name        String?        @db.VarChar
+  previous_balance Int?
+  new_balance      Int?
+  token_top_ups    token_top_ups? @relation(fields: [top_up_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model CVJDTextData {
@@ -395,23 +399,57 @@ model CVJDTextData {
   jd_text        String?       @db.VarChar
   cv_file_url    String?       @db.VarChar
   jd_file_url    String?       @db.VarChar
+  resumeId       String?       @db.VarChar
+  Resume         Resume?       @relation(fields: [resumeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   WhatsappUser   WhatsappUser? @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model settings {
-  id                   String   @id @db.VarChar
-  business_name        String?  @db.VarChar
-  description          String?
-  faqs_file_url        String?  @db.VarChar
-  object_name          String?  @db.VarChar
-  embedding_path       String?  @db.VarChar
-  whatsapp_channel_url String?  @db.VarChar
-  partner_id           String?  @db.VarChar
-  collection_name      String?  @db.VarChar
-  partner              partner? @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                                String   @id @db.VarChar
+  business_name                     String?  @db.VarChar
+  description                       String?
+  faqs_file_url                     String?  @db.VarChar
+  object_name                       String?  @db.VarChar
+  embedding_path                    String?  @db.VarChar
+  whatsapp_channel_url              String?  @db.VarChar
+  partner_id                        String?  @db.VarChar
+  collection_name                   String?  @db.VarChar
+  should_review_reply_automatically Boolean?
+  partner                           partner? @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model account_balances {
+  id         String    @id @db.VarChar
+  user_id    String?   @db.VarChar
+  balance    Decimal?  @db.Decimal(12, 2)
+  updated_at DateTime? @db.Timestamp(6)
+  User       User?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model token_top_ups {
+  id                    String          @id @db.VarChar
+  user_id               String?         @db.VarChar
+  amount                Decimal?        @db.Decimal(12, 2)
+  currency              String?         @db.VarChar
+  token_value           String?         @db.VarChar
+  description           String?         @db.VarChar
+  timestamp             DateTime?       @db.Timestamp(6)
+  previous_balance      Int?
+  new_balance           Int?
+  top_up_type           String?         @db.VarChar
+  top_up_status         String?         @db.VarChar
+  transaction_reference String?         @db.VarChar
+  User                  User?           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usage_records         usage_records[]
 }
 
 enum Visibility {
   public
   private
+}
+
+enum Provider {
+  email
+  github
+  google
 }

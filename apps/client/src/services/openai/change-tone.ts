@@ -2,6 +2,7 @@
 
 import { t } from "@lingui/macro";
 
+import type { Mood } from "@/client/components/ai-actions";
 import { DEFAULT_MAX_TOKENS, DEFAULT_MODEL } from "@/client/constants/llm";
 import { useOpenAiStore } from "@/client/stores/openai";
 
@@ -14,8 +15,6 @@ Change the tone of the following paragraph to be {mood} and returns in the langu
 Text: """{input}"""
 
 Revised Text: """`;
-
-type Mood = "casual" | "professional" | "confident" | "friendly";
 
 export const changeTone = async (text: string, mood: Mood) => {
   const prompt = PROMPT.replace("{mood}", mood).replace("{input}", text);

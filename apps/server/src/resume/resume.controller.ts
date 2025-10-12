@@ -137,9 +137,7 @@ export class ResumeController {
   }
 
   @Post("/generatePdf")
-  async generatePDFResume(
-    @Body("html") html: string,
-  ): Promise<string> {
+  async generatePDFResume(@Body("html") html: string): Promise<string> {
     try {
       // service now returns base64 string
       const base64 = await this.resumeService.generatePdfFromHtml(html);

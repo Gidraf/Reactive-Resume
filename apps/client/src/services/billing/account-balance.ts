@@ -37,37 +37,27 @@ export const useImproveWriting = () => {
   return { improveWriting: improveWritingFn, loading, error };
 };
 
-export const matchJobDescription = async ({
-  text,
-  resumeId,
-  item_id,
-  item_type,
-}: {
-  text: string;
-  resumeId: string;
-  item_id: string;
-  item_type: string;
-}) => {
-  const response = await axios.post<
+export const getAccountBalance = async () => {
+  const response = await axios.get<
     { text: string; resumeId: string },
     AxiosResponse<string>,
     unknown
-  >(`/agent/match-jd?resumeId=${resumeId}`, { text, item_id, item_type });
+  >(`/billing/account-balance`);
 
   return response.data;
 };
 
-export const useMatchJobDescription = () => {
+export const useGetAccountBalance = () => {
   const {
     error,
     isPending: loading,
-    mutateAsync: matchJobDescriptionFn,
+    mutateAsync: getAccountBalanceFn,
   } = useMutation({
-    mutationFn: matchJobDescription,
+    mutationFn: getAccountBalance,
     onSuccess: (data) => {
       return data;
     },
   });
 
-  return { matchJobDescription: matchJobDescriptionFn, loading, error };
+  return { getAccountBalance: getAccountBalanceFn, loading, error };
 };

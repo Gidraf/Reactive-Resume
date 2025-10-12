@@ -15,6 +15,7 @@ export enum ErrorMessage {
   ResumeNotFound = "ResumeNotFound",
   ResumeLocked = "ResumeLocked",
   ResumePrinterError = "ResumePrinterError",
+  AgentPrinterError = "AgentPrinterError",
   ResumePreviewError = "ResumePreviewError",
   SomethingWentWrong = "SomethingWentWrong",
 }
