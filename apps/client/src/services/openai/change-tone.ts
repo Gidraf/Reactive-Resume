@@ -2,7 +2,7 @@
 
 import { t } from "@lingui/macro";
 
-import type { Mood } from "@/client/components/ai-actions";
+import type { RevampType } from "@/client/components/ai-actions";
 import { DEFAULT_MAX_TOKENS, DEFAULT_MODEL } from "@/client/constants/llm";
 import { useOpenAiStore } from "@/client/stores/openai";
 
@@ -16,8 +16,8 @@ Text: """{input}"""
 
 Revised Text: """`;
 
-export const changeTone = async (text: string, mood: Mood) => {
-  const prompt = PROMPT.replace("{mood}", mood).replace("{input}", text);
+export const changeTone = async (text: string, revampType: RevampType) => {
+  const prompt = PROMPT.replace("{mood}", revampType).replace("{input}", text);
 
   const { model, maxTokens } = useOpenAiStore.getState();
 

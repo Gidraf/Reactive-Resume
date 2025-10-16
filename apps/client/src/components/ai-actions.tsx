@@ -1,32 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { t } from "@lingui/macro";
 import {
+  CaretDown,
   CashRegister,
-  // CaretDown,
-  // ChatTeardropText,
+  ChartBar,
+  ChartPieSlice,
   CircleNotch,
-  Exam,
+  Hurricane,
   MagicWand,
-  PenNib,
+  PresentationChart,
+  SpinnerBall,
 } from "@phosphor-icons/react";
 import {
   Badge,
   Button,
-  // DropdownMenu,
-  // DropdownMenuContent,
-  // DropdownMenuItem,
-  // DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@reactive-resume/ui";
-import { cn } from "@reactive-resume/utils";
+import { AIServices, cn } from "@reactive-resume/utils";
 import { useCallback, useEffect, useState } from "react";
 
 import { toast } from "../hooks/use-toast";
 import { useGetAccountBalance } from "../services/billing/account-balance";
+import { useRevampToInfographic } from "../services/openai/fix-grammar";
 import { useImproveWriting, useMatchJobDescription } from "../services/openai/improve-writing";
 import { useResumeStore } from "../stores/resume";
 
-type Action = "improve/fix" | "visualize" | "matchjd";
-export type Mood = "bargraph" | "progressbar" | "piechart" | "image";
+export type RevampType = "visualize" | "ats";
 
 type Props = {
   value: string;
@@ -35,9 +37,10 @@ type Props = {
 };
 
 export const AiActions = ({ value, onChange, className }: Props) => {
-  const [loading, setLoading] = useState<Action | false>(false);
+  const [loading, setLoading] = useState<string | false>(false);
   const { improveWriting, loading: improveLoading } = useImproveWriting();
   const { matchJobDescription, loading: matchJobLoading } = useMatchJobDescription();
+  const { revampToInfographic, loading: infographicLoading } = useRevampToInfographic();
   const resume = useResumeStore((state) => state.resume);
   const [balance, setBalance] = useState<any>({ balance: 0 });
   const { getAccountBalance } = useGetAccountBalance();
@@ -53,26 +56,44 @@ export const AiActions = ({ value, onChange, className }: Props) => {
     void fetchBalance();
   }, [fetchBalance]);
 
-  const onClick = async (action: Action) => {
+  const onClick = async (
+    action: string,
+    revampType: RevampType,
+    item: {
+      name: string;
+      id: string;
+      description: string;
+      token_price: number;
+      prompt_name: string;
+    },
+  ) => {
     try {
       setLoading(action);
 
       let result = value;
-
-      if (action === "improve/fix")
-        result = await improveWriting({ text: value, item_id: "improve/fix", item_type: "ats" });
-      // if (action === "visualize") result = await fixGrammar(value);
-      if (action === "matchjd")
-        result = await matchJobDescription({
+      if (revampType === "ats") {
+        if (action === "improve/fix")
+          result = await improveWriting({ text: value, item_id: item.id, item_type: "ats" });
+        // if (action === "visualize") result = await fixGrammar(value);
+        if (action === "matchjd")
+          result = await matchJobDescription({
+            text: value,
+            resumeId: resume.id,
+            item_id: "matchjd",
+            item_type: "ats",
+          });
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (result !== undefined && result !== "") {
+          onChange(result);
+          await fetchBalance();
+        }
+      }
+      if (revampType === "visualize") {
+        result = await revampToInfographic({
           text: value,
-          resumeId: resume.id,
-          item_id: "matchjd",
-          item_type: "ats",
+          item_id: item.id,
+          item_type: "visualize",
         });
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (result !== undefined && result !== "") {
-        onChange(result);
-        await fetchBalance();
       }
     } catch (error) {
       toast({
@@ -104,62 +125,62 @@ export const AiActions = ({ value, onChange, className }: Props) => {
         </Badge>
       </div>
 
-      <Button
-        size="sm"
-        variant="outline"
-        disabled={!!loading}
-        onClick={() => onClick("improve/fix")}
-      >
-        {loading === "improve/fix" ? <CircleNotch className="animate-spin" /> : <PenNib />}
-        <span className="ml-2 text-xs">{t`Improve & Fix Writing`}</span>
-        <small className="ml-2">{t`5 tokens`}</small>
-      </Button>
-
-      <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick("matchjd")}>
-        {loading === "matchjd" ? <CircleNotch className="animate-spin" /> : <Exam />}
-        <span className="ml-2 text-xs">{t`Match Job Description`}</span>{" "}
-        <small className="ml-2">{t`15 tokens`}</small>
-      </Button>
-      {/* TODO  Add visualization in future*/}
-      {/* <DropdownMenu>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size="sm" variant="outline" disabled={!!loading}>
-            {loading === "visualize" ? (
+            {loading === "improve/fix" || loading === "matchjd" ? (
               <CircleNotch className="animate-spin" />
             ) : (
-              <ChatTeardropText />
+              <MagicWand color="green" />
             )}
-            <span className="mx-2 text-xs">{t`Visualize`}</span>
+            <span className="mx-2 text-xs">{t`ATS Compliant Options`}</span>
             <CaretDown />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => onClick("visualize", "bargraph")}>
-            <span role="img" aria-label={t`Add Bar Graph`}>
-              📊
-            </span>
-            <span className="ml-2">{t`Bar Graph`}</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onClick("visualize", "progressbar")}>
-            <span role="img" aria-label={t`Progress Bar`}>
-              ⭕
-            </span>
-            <span className="ml-2">{t`Progress Bar`}</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onClick("visualize", "piechart")}>
-            <span role="img" aria-label={t`Pie Chart`}>
-              ◔
-            </span>
-            <span className="ml-2">{t`Pie Chart`}</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onClick("visualize", "image")}>
-            <span role="img" aria-label={t`Add Image`}>
-              🖼️
-            </span>
-            <span className="ml-2">{t`Add Image`}</span>
-          </DropdownMenuItem>
+          {AIServices.ats.map((ats) => (
+            <DropdownMenuItem key={ats.id} onClick={() => onClick(ats.id, "ats", ats)}>
+              <Hurricane size={12} />
+              <span className="ml-2">
+                {ats.name}
+                <small>
+                  ({ats.token_price}
+                  {t`Tokens`})
+                </small>
+              </span>
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuContent>
-      </DropdownMenu> */}
+      </DropdownMenu>
+
+      {/* TODO  Add visualization in future*/}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button size="sm" variant="outline" disabled={!!loading}>
+            {loading === "bargraph" || loading === "progressbar" || loading === "piechart" ? (
+              <CircleNotch className="animate-spin" />
+            ) : (
+              <PresentationChart size={12} />
+            )}
+            <span className="mx-2 text-xs">{t`Add Infographics`}</span>
+            <CaretDown />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          {AIServices.visualize.map((vis) => (
+            <DropdownMenuItem key={vis.id} onClick={() => onClick("bargraph", "visualize", vis)}>
+              {vis.id === "bargraph" ? <ChartBar size={12} /> : null}
+              {vis.id === "progressbar" ? <SpinnerBall size={12} /> : null}
+              {vis.id === "piechart" ? <ChartPieSlice size={12} /> : null}
+              <span className="ml-2">{t`Bar Graph `}</span>{" "}
+              <small>
+                {vis.token_price}
+                {t` token`}
+              </small>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
       <div className="absolute -right-5 z-10">
         <Badge
           outline

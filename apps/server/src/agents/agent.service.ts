@@ -210,4 +210,86 @@ export class AgentService {
     const outLen = output.length;
     return Math.min(1, outLen / inLen); // simple ratio example
   }
+
+  async revampToInfographic(
+    text: string,
+    user: User,
+    resumeId: string,
+    item_type: string,
+    item_id: string,
+  ): Promise<string | undefined> {
+    try {
+      const balance = await this.billingService.getAccountBalance(user.id);
+      let aiItem = null;
+      if (item_type === "visualize") {
+        aiItem = AIServices.ats.find((item) => item.id === item_id);
+      }
+      if (
+        balance &&
+        typeof balance.balance?.toNumber === "function" &&
+        typeof aiItem?.token_price === "number" &&
+        balance.balance.toNumber() >= aiItem.token_price
+      ) {
+        const whatsappUser = await this.prisma.whatsappUser.findFirst({
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          where: { id: user.whatsappUserId! },
+        });
+        // 🔹 Fetch prompt from Langfuse
+        const trace = this.langfuse.trace({
+          name: aiItem.name,
+          input: this.extractText(text),
+          sessionId: user.id,
+          userId: whatsappUser?.partner_id,
+          metadata: { inputLength: text.length },
+        });
+        const promptSpan = trace.span({ name: "fetchPrompt" });
+        const promptTemplate = await this.langfuse.getPrompt(aiItem.prompt_name, undefined, {
+          label: "latest",
+        });
+        const jd = await this.prisma.cVJDTextData.findFirst({ where: { resumeId: resumeId } });
+        const prompt = promptTemplate.compile({
+          input: this.extractText(text),
+          jd: jd?.jd_text ?? "",
+        });
+        promptSpan.end();
+
+        // 🔹 Generate using OpenAI
+        const result = await this.openai.chat.completions.create({
+          model: "gpt-4o-mini", // or "gpt-4-turbo" / "gpt-3.5-turbo" if needed
+          messages: [
+            { role: "system", content: prompt },
+            { role: "user", content: this.extractText(text) },
+          ],
+          temperature: 0,
+          max_tokens: 1024,
+          stop: ['"""'],
+        });
+
+        const output = result.choices[0]?.message?.content ?? text;
+        trace.update({ input: prompt, output });
+        // await generationSpan.end();
+
+        // 🔹 Compute score (your metric logic)
+        const score = this.computeScore(text, output);
+        trace.score({ name: aiItem.name, value: score });
+
+        // 🔹 Record generation details
+        trace.update({
+          name: `${aiItem.name}Output`,
+          input: prompt,
+          output,
+          sessionId: user.id,
+          userId: whatsappUser?.partner_id,
+          metadata: { inputLength: text.length, outputLength: output.length, score },
+        });
+        await this.billingService.createUsageRecord({ user_id: user.id, item_id, item_type });
+        // await trace.end();
+        return output;
+      }
+    } catch (error) {
+      // await trace.end({ error });
+      this.logger.error("matchJobDescription failed", error);
+      throw new InternalServerErrorException(error.message);
+    }
+  }
 }

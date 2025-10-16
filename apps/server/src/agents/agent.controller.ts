@@ -59,6 +59,25 @@ export class AgentController {
     }
   }
 
+  @Post("/infographics")
+  @UseGuards(TwoFactorGuard)
+  async revampVisualize(
+    @User() user: UserEntity,
+    @Param("resumeId") resumeId: string,
+    @Body() { text, item_id, item_type }: { text: string; item_id: string; item_type: string },
+  ) {
+    try {
+      return await this.agentService.revampToInfographic(text, user, resumeId, item_type, item_id);
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
+        throw new BadRequestException(ErrorMessage.ResumeSlugAlreadyExists);
+      }
+
+      Logger.error(error);
+      throw new InternalServerErrorException(error);
+    }
+  }
+
   // @Post("/ats-compliant")
   // @UseGuards(TwoFactorGuard)
   // async makeAtsCompliant(@User() user: UserEntity, @Body() text: string) {
