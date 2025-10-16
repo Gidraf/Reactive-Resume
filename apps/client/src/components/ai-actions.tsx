@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { t } from "@lingui/macro";
 import {
+  CashRegister,
   // CaretDown,
   // ChatTeardropText,
   CircleNotch,
   Exam,
   MagicWand,
   PenNib,
-  Question,
 } from "@phosphor-icons/react";
 import {
   Badge,
@@ -17,9 +18,10 @@ import {
   // DropdownMenuTrigger,
 } from "@reactive-resume/ui";
 import { cn } from "@reactive-resume/utils";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { toast } from "../hooks/use-toast";
+import { useGetAccountBalance } from "../services/billing/account-balance";
 import { useImproveWriting, useMatchJobDescription } from "../services/openai/improve-writing";
 import { useResumeStore } from "../stores/resume";
 
@@ -37,11 +39,21 @@ export const AiActions = ({ value, onChange, className }: Props) => {
   const { improveWriting, loading: improveLoading } = useImproveWriting();
   const { matchJobDescription, loading: matchJobLoading } = useMatchJobDescription();
   const resume = useResumeStore((state) => state.resume);
+  const [balance, setBalance] = useState<any>({ balance: 0 });
+  const { getAccountBalance } = useGetAccountBalance();
   // const aiEnabled =  true //useOpenAiStore((state) => !!state.apiKey);
 
   // if (!aiEnabled) return null;
+  const fetchBalance = useCallback(async () => {
+    const data = await getAccountBalance();
+    setBalance((data as any).balance ?? 0);
+  }, [getAccountBalance]);
 
-  const onClick = async (action: Action, mood?: Mood) => {
+  useEffect(() => {
+    void fetchBalance();
+  }, [fetchBalance]);
+
+  const onClick = async (action: Action) => {
     try {
       setLoading(action);
 
@@ -60,6 +72,7 @@ export const AiActions = ({ value, onChange, className }: Props) => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (result !== undefined && result !== "") {
         onChange(result);
+        await fetchBalance();
       }
     } catch (error) {
       toast({
@@ -153,8 +166,8 @@ export const AiActions = ({ value, onChange, className }: Props) => {
           variant="primary"
           className="-rotate-90 bg-background px-2 text-[10px] leading-[10px]"
         >
-          <Question size={10} className="mr-1" />
-          {t`tokens`}
+          <CashRegister size={10} className="mr-1" />
+          {t`Balance ${balance}`}
         </Badge>
       </div>
     </div>
