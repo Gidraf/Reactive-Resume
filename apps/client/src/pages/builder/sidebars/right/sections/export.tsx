@@ -17,9 +17,13 @@ const onJsonExport = () => {
   saveAs(new Blob([resumeJSON], { type: "application/json" }), filename);
 };
 
-const openInNewTab = (url: string) => {
-  const win = window.open(url, "_blank");
-  if (win) win.focus();
+const downloadInSameTab = (url: string, filename?: string) => {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename ?? ""; // optional: specify a filename
+  document.body.append(link);
+  link.click();
+  link.remove();
 };
 
 export const ExportSection = () => {
@@ -29,7 +33,7 @@ export const ExportSection = () => {
     const { resume } = useResumeStore.getState();
     const { url } = await printResume({ id: resume.id });
 
-    openInNewTab(url);
+    downloadInSameTab(url, resume.data.basics.headline);
   };
 
   return (

@@ -48,9 +48,9 @@ export const LoginPage = () => {
         <h6>
           <span className="opacity-75">{t`You have been logout?`}</span>
           <Button asChild variant="link" className="px-1.5">
-            <Link to="/auth/register">
+            <Link to="">
               {t({
-                message: "Use The link we sent to you on your Whatsapp or Email to Login Again",
+                message: "Use The link we sent to you on your Whatsapp or Email to Login",
               })}{" "}
               <ArrowRight className="ml-1" />
             </Link>

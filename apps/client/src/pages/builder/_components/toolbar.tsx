@@ -23,9 +23,13 @@ import { usePrintResume } from "@/client/services/resume";
 import { useBuilderStore } from "@/client/stores/builder";
 import { useResumeStore, useTemporalResumeStore } from "@/client/stores/resume";
 
-const openInNewTab = (url: string) => {
-  const win = window.open(url, "_blank");
-  if (win) win.focus();
+const downloadInSameTab = (url: string, filename?: string) => {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename ?? ""; // optional: specify a filename
+  document.body.append(link);
+  link.click();
+  link.remove();
 };
 
 export const BuilderToolbar = () => {
@@ -38,7 +42,8 @@ export const BuilderToolbar = () => {
   const redo = useTemporalResumeStore((state) => state.redo);
   const frameRef = useBuilderStore((state) => state.frame.ref);
 
-  const id = useResumeStore((state) => state.resume.id);
+  const resume = useResumeStore((state) => state.resume);
+  const id = resume.id;
   const isPublic = useResumeStore((state) => state.resume.visibility === "public");
   const pageOptions = useResumeStore((state) => state.resume.data.metadata.page.options);
 
@@ -47,7 +52,7 @@ export const BuilderToolbar = () => {
   const onPrint = async () => {
     const { url } = await printResume({ id });
 
-    openInNewTab(url);
+    downloadInSameTab(url, resume.data.basics.headline);
   };
 
   const onCopy = async () => {

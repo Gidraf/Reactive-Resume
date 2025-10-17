@@ -64,10 +64,11 @@ export const AiActions = ({ value, onChange, className }: Props) => {
       setLoading(action);
 
       let result = value;
-      if (revampType === "ats") {
-        if (action === "improve/fix")
-          result = await improveWriting({ text: value, item_id: item.id, item_type: "ats" });
-        if (balance >= item.token_price) {
+      if (balance >= item.token_price) {
+        if (revampType === "ats") {
+          if (action === "improve/fix")
+            result = await improveWriting({ text: value, item_id: item.id, item_type: "ats" });
+
           if (action === "matchjd")
             result = await matchJobDescription({
               text: value,
@@ -81,13 +82,13 @@ export const AiActions = ({ value, onChange, className }: Props) => {
             await fetchBalance();
           }
         }
-      }
-      if (revampType === "visualize") {
-        result = await revampToInfographic({
-          text: value,
-          item_id: item.id,
-          item_type: "visualize",
-        });
+        if (revampType === "visualize") {
+          result = await revampToInfographic({
+            text: value,
+            item_id: item.id,
+            item_type: "visualize",
+          });
+        }
       } else {
         setBalanceError(true);
         toast({

@@ -13,9 +13,13 @@ import { ThemeSwitch } from "@/client/components/theme-switch";
 import { queryClient } from "@/client/libs/query-client";
 import { findResumeByUsernameSlug, usePrintResume } from "@/client/services/resume";
 
-const openInNewTab = (url: string) => {
-  const win = window.open(url, "_blank");
-  if (win) win.focus();
+const downloadInSameTab = (url: string, filename?: string) => {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename ?? ""; // optional: specify a filename
+  window.document.body.append(link);
+  link.click();
+  link.remove();
 };
 
 export const PublicResumePage = () => {
@@ -64,7 +68,7 @@ export const PublicResumePage = () => {
   const onDownloadPdf = async () => {
     const { url } = await printResume({ id });
 
-    openInNewTab(url);
+    downloadInSameTab(url, resume.data.basics.headline);
   };
 
   return (
