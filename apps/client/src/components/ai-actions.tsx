@@ -186,7 +186,7 @@ export const AiActions = ({ value, onChange, className }: Props) => {
         <Badge
           outline
           variant={balanceError ? "warning" : "primary"}
-          className="-rotate-90 bg-background px-2 text-[10px] leading-[10px]"
+          className="-rotate-90 cursor-pointer bg-background px-2 text-[10px] leading-[10px]"
           onClick={() => {
             void navigate("/dashboard/billing");
           }}
