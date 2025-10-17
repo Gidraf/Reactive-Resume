@@ -222,7 +222,7 @@ export class AgentService {
       const balance = await this.billingService.getAccountBalance(user.id);
       let aiItem = null;
       if (item_type === "visualize") {
-        aiItem = AIServices.ats.find((item) => item.id === item_id);
+        aiItem = AIServices.visualize.find((item) => item.id === item_id);
       }
       if (
         balance &&
@@ -234,6 +234,7 @@ export class AgentService {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           where: { id: user.whatsappUserId! },
         });
+        console.log(whatsappUser);
         // 🔹 Fetch prompt from Langfuse
         const trace = this.langfuse.trace({
           name: aiItem.name,

@@ -1,4 +1,4 @@
-# Contributing to Reactive Resume
+# Contributing to CVpap
 
 ## Getting the project set up locally
 

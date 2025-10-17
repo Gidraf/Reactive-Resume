@@ -171,8 +171,8 @@ export const AccountSettings = (): React.JSX.Element => {
   const conversionText = useMemo(() => {
     const amountVal = Number(watchedAmount) || 0;
     const kesValue = amountVal * KES_PER_TOKEN;
-    const _formatKES = formatKES(kesValue);
-    return t`${amountVal} = ${_formatKES} (1 Kes = ${KES_PER_TOKEN} token)`;
+    const _formatKES = formatKES(amountVal);
+    return t`${_formatKES} = ${kesValue} (1 Kes = ${KES_PER_TOKEN} token)`;
   }, [watchedAmount]);
 
   const handleTopUpSubmit = async (values: { amount: number; phonenumber: string }) => {

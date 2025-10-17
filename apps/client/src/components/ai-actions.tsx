@@ -1,16 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { t } from "@lingui/macro";
-import {
-  CaretDown,
-  CashRegister,
-  ChartBar,
-  ChartPieSlice,
-  CircleNotch,
-  Hurricane,
-  MagicWand,
-  PresentationChart,
-  SpinnerBall,
-} from "@phosphor-icons/react";
+import { CaretDown, CashRegister, CircleNotch, Hurricane, MagicWand } from "@phosphor-icons/react";
 import {
   Badge,
   Button,
@@ -21,6 +11,7 @@ import {
 } from "@reactive-resume/ui";
 import { AIServices, cn } from "@reactive-resume/utils";
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 import { toast } from "../hooks/use-toast";
 import { useGetAccountBalance } from "../services/billing/account-balance";
@@ -42,8 +33,10 @@ export const AiActions = ({ value, onChange, className }: Props) => {
   const { matchJobDescription, loading: matchJobLoading } = useMatchJobDescription();
   const { revampToInfographic, loading: infographicLoading } = useRevampToInfographic();
   const resume = useResumeStore((state) => state.resume);
-  const [balance, setBalance] = useState<any>({ balance: 0 });
+  const [balanceError, setBalanceError] = useState(false);
+  const [balance, setBalance] = useState<any>(0);
   const { getAccountBalance } = useGetAccountBalance();
+  const navigate = useNavigate();
   // const aiEnabled =  true //useOpenAiStore((state) => !!state.apiKey);
 
   // if (!aiEnabled) return null;
@@ -74,18 +67,19 @@ export const AiActions = ({ value, onChange, className }: Props) => {
       if (revampType === "ats") {
         if (action === "improve/fix")
           result = await improveWriting({ text: value, item_id: item.id, item_type: "ats" });
-        // if (action === "visualize") result = await fixGrammar(value);
-        if (action === "matchjd")
-          result = await matchJobDescription({
-            text: value,
-            resumeId: resume.id,
-            item_id: "matchjd",
-            item_type: "ats",
-          });
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (result !== undefined && result !== "") {
-          onChange(result);
-          await fetchBalance();
+        if (balance >= item.token_price) {
+          if (action === "matchjd")
+            result = await matchJobDescription({
+              text: value,
+              resumeId: resume.id,
+              item_id: "matchjd",
+              item_type: "ats",
+            });
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (result !== undefined && result !== "") {
+            onChange(result);
+            await fetchBalance();
+          }
         }
       }
       if (revampType === "visualize") {
@@ -93,6 +87,13 @@ export const AiActions = ({ value, onChange, className }: Props) => {
           text: value,
           item_id: item.id,
           item_type: "visualize",
+        });
+      } else {
+        setBalanceError(true);
+        toast({
+          variant: "error",
+          title: t`Insufficient Balance`,
+          description: t`You don't have enough tokens to use this feature. Click the Top Up button to recharge your account.`,
         });
       }
     } catch (error) {
@@ -154,7 +155,7 @@ export const AiActions = ({ value, onChange, className }: Props) => {
       </DropdownMenu>
 
       {/* TODO  Add visualization in future*/}
-      <DropdownMenu>
+      {/* <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size="sm" variant="outline" disabled={!!loading}>
             {loading === "bargraph" || loading === "progressbar" || loading === "piechart" ? (
@@ -180,15 +181,18 @@ export const AiActions = ({ value, onChange, className }: Props) => {
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
       <div className="absolute -right-5 z-10">
         <Badge
           outline
-          variant="primary"
+          variant={balanceError ? "warning" : "primary"}
           className="-rotate-90 bg-background px-2 text-[10px] leading-[10px]"
+          onClick={() => {
+            void navigate("/dashboard/billing");
+          }}
         >
           <CashRegister size={10} className="mr-1" />
-          {t`Balance ${balance}`}
+          {balanceError ? t`Top Up` : t`Balance ${balance}`}
         </Badge>
       </div>
     </div>

@@ -55,9 +55,9 @@ async function bootstrap() {
 
   // Swagger (OpenAPI Docs)
   const config = new DocumentBuilder()
-    .setTitle("Reactive Resume")
+    .setTitle("CVpap")
     .setDescription(
-      "Reactive Resume is a free and open source resume builder that's built to make the mundane tasks of creating, updating and sharing your resume as easy as 1, 2, 3.",
+      "CVpap is a free and open source resume builder that's built to make the mundane tasks of creating, updating and sharing your resume as easy as 1, 2, 3.",
     )
     .addCookieAuth("Authentication", { type: "http", in: "cookie", scheme: "Bearer" })
     .setVersion("4.0.0")

@@ -13,7 +13,7 @@ export const AIServices = {
       id: "matchjd",
       description:
         "Match your resume to a specific job description, highlighting relevant skills and experiences. Optimize your resume for ATS and increase your chances of getting noticed.",
-      token_price: 15, // 3 tokens per request,
+      token_price: 20, // 3 tokens per request,
       prompt_name: "MatchJDPrompt",
     },
   ],
@@ -32,7 +32,7 @@ export const AIServices = {
       id: "progressbar",
       description:
         "Add progress bar visualizations to your resume to showcase your skills with clarity and style. Transform your traditional ATS resume into an engaging infographic that highlights your strengths and expertise levels at a glance — ideal when sharing your resume directly with a recruiter or during in-person presentations.",
-      token_price: 25, // 3 tokens per request,
+      token_price: 30, // 3 tokens per request,
       prompt_name: "InfographicPieChartPrompt",
     },
     {
@@ -40,8 +40,8 @@ export const AIServices = {
       id: "piechart",
       description:
         "Add progress bar visualizations to your resume to showcase your skills with clarity and style. Transform your traditional ATS resume into an engaging infographic that highlights your strengths and expertise levels at a glance — ideal when sharing your resume directly with a recruiter or during in-person presentations.",
-      token_price: 25, // 3 tokens per request,
+      token_price: 30, // 3 tokens per request,
       prompt_name: "InfographicPieChartPrompt",
-    }
+    },
   ],
 };
