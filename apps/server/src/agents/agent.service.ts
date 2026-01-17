@@ -234,7 +234,6 @@ export class AgentService {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           where: { id: user.whatsappUserId! },
         });
-        console.log(whatsappUser);
         // 🔹 Fetch prompt from Langfuse
         const trace = this.langfuse.trace({
           name: aiItem.name,
