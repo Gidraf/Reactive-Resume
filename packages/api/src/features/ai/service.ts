@@ -12,13 +12,14 @@ import { createOllama } from "ollama-ai-provider-v2";
 import { match } from "ts-pattern";
 import { z } from "zod";
 import {
-	analyzeResumeSystemPrompt as analyzeResumeSystemPromptTemplate,
-	chatSystemPromptTemplate,
-	docxParserSystemPrompt,
-	docxParserUserPrompt,
-	pdfParserSystemPrompt,
-	pdfParserUserPrompt,
-} from "@reactive-resume/ai/prompts";
+	getAnalyzeResumeSystemPrompt,
+	getChatSystemPrompt,
+	getDocxParserSystemPrompt,
+	getDocxParserUserPrompt,
+	getPdfParserSystemPrompt,
+	getPdfParserUserPrompt,
+	trackGeneration,
+} from "@reactive-resume/ai/langfuse-prompts";
 import { buildAiExtractionTemplate } from "@reactive-resume/ai/resume/extraction-template";
 import { sanitizeAndParseResumeJson } from "@reactive-resume/ai/resume/sanitize";
 import {
@@ -164,16 +165,26 @@ function buildResumeParsingMessages({
 
 async function parsePdf(input: ParsePdfInput): Promise<ResumeData> {
 	const model = getModel(input);
+	const [sysPrompt, userPrompt] = await Promise.all([getPdfParserSystemPrompt(), getPdfParserUserPrompt()]);
 
 	const result = await generateText({
 		model,
 		messages: buildResumeParsingMessages({
-			systemPrompt: pdfParserSystemPrompt,
-			userPrompt: pdfParserUserPrompt,
+			systemPrompt: sysPrompt,
+			userPrompt,
 			file: input.file,
 			mediaType: "application/pdf",
 		}),
 	}).catch((error: unknown) => logAndRethrow("Failed to generate the text with the model", error));
+
+	trackGeneration({
+		traceName: "parse-pdf",
+		promptName: "rr_pdf_parser_system",
+		model: `${input.provider}/${input.model}`,
+		input: `[PDF file: ${input.file.name}]`,
+		output: result.text.slice(0, 500),
+		usage: result.usage,
+	});
 
 	return parseAndValidateResumeJson(result.text);
 }
@@ -185,22 +196,33 @@ type ParseDocxInput = z.infer<typeof aiCredentialsSchema> & {
 
 async function parseDocx(input: ParseDocxInput): Promise<ResumeData> {
 	const model = getModel(input);
+	const [sysPrompt, userPrompt] = await Promise.all([getDocxParserSystemPrompt(), getDocxParserUserPrompt()]);
 
 	const result = await generateText({
 		model,
 		messages: buildResumeParsingMessages({
-			systemPrompt: docxParserSystemPrompt,
-			userPrompt: docxParserUserPrompt,
+			systemPrompt: sysPrompt,
+			userPrompt,
 			file: input.file,
 			mediaType: input.mediaType,
 		}),
 	}).catch((error: unknown) => logAndRethrow("Failed to generate the text with the model", error));
 
+	trackGeneration({
+		traceName: "parse-docx",
+		promptName: "rr_docx_parser_system",
+		model: `${input.provider}/${input.model}`,
+		input: `[DOCX file: ${input.file.name}]`,
+		output: result.text.slice(0, 500),
+		usage: result.usage,
+	});
+
 	return parseAndValidateResumeJson(result.text);
 }
 
-function buildChatSystemPrompt(resumeData: ResumeData): string {
-	return chatSystemPromptTemplate.replace("{{RESUME_DATA}}", JSON.stringify(resumeData, null, 2));
+async function buildChatSystemPrompt(resumeData: ResumeData): Promise<string> {
+	const template = await getChatSystemPrompt();
+	return template.replace("{{RESUME_DATA}}", JSON.stringify(resumeData, null, 2));
 }
 
 type ChatInput = z.infer<typeof aiCredentialsSchema> & {
@@ -211,7 +233,15 @@ type ChatInput = z.infer<typeof aiCredentialsSchema> & {
 
 async function chat(input: ChatInput) {
 	const model = getModel(input);
-	const systemPrompt = buildChatSystemPrompt(input.resumeData);
+	const systemPrompt = await buildChatSystemPrompt(input.resumeData);
+
+	// Track the chat request (streaming — we record input only; output not available until stream ends)
+	trackGeneration({
+		traceName: "chat",
+		promptName: "rr_chat_system",
+		model: `${input.provider}/${input.model}`,
+		input: input.messages.at(-1)?.content ?? "(no message)",
+	});
 
 	const result = streamText({
 		model,
@@ -244,25 +274,34 @@ type AnalyzeResumeInput = z.infer<typeof aiCredentialsSchema> & {
 	resumeData: ResumeData;
 };
 
-function buildAnalyzeResumeSystemPrompt(resumeData: ResumeData): string {
-	return `${analyzeResumeSystemPromptTemplate}\n\n## Resume Data\n\n${JSON.stringify(resumeData, null, 2)}`;
+async function buildAnalyzeResumeSystemPrompt(resumeData: ResumeData): Promise<string> {
+	const template = await getAnalyzeResumeSystemPrompt();
+	return `${template}\n\n## Resume Data\n\n${JSON.stringify(resumeData, null, 2)}`;
 }
 
 /** Sends resume data to the AI provider and returns a structured analysis, parsing raw JSON from the response text. */
 async function analyzeResume(input: AnalyzeResumeInput): Promise<ResumeAnalysis> {
 	const model = getModel(input);
-	const systemPrompt = buildAnalyzeResumeSystemPrompt(input.resumeData);
+	const systemPrompt = await buildAnalyzeResumeSystemPrompt(input.resumeData);
+
+	const userMessage =
+		"Analyze this resume and return a structured report with scorecard, overall score, strengths, and actionable suggestions. Return ONLY raw JSON, no markdown fences or explanations.";
 
 	const result = await generateText({
 		model,
 		messages: [
 			{ role: "system", content: systemPrompt },
-			{
-				role: "user",
-				content:
-					"Analyze this resume and return a structured report with scorecard, overall score, strengths, and actionable suggestions. Return ONLY raw JSON, no markdown fences or explanations.",
-			},
+			{ role: "user", content: userMessage },
 		],
+	});
+
+	trackGeneration({
+		traceName: "analyze-resume",
+		promptName: "rr_analyze_resume",
+		model: `${input.provider}/${input.model}`,
+		input: userMessage,
+		output: result.text.slice(0, 500),
+		usage: result.usage,
 	});
 
 	const text = result.text;

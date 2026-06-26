@@ -14,6 +14,9 @@ import { handleLlms, handleRobots, handleSitemap } from "../static/seo";
 import { handleUpload } from "../static/uploads";
 import { handleWebApp, handleWebAppHead, serveWebDistStatic } from "../static/web";
 import { handleAuth, handleOAuth } from "./auth";
+import { handleBillingRoutes } from "./billing";
+import { handleBotLinkRoutes } from "./bot-link";
+import { handleCvOrderRoutes } from "./cv-orders";
 import { handleHealth } from "./health";
 import { handleResumePdfDownload } from "./resume-pdf";
 
@@ -27,6 +30,11 @@ export function createApp() {
 	app.get("/api/auth/oauth", (c) => handleOAuth(c.req.raw));
 	app.all("/api/auth/*", (c) => handleAuth(c.req.raw));
 	app.get("/api/health", () => handleHealth());
+	app.all("/api/billing/*", (c) => handleBillingRoutes(c.req.raw));
+	app.all("/api/cv-orders", (c) => handleCvOrderRoutes(c.req.raw));
+	app.all("/api/cv-orders/*", (c) => handleCvOrderRoutes(c.req.raw));
+	app.post("/api/bot/generate-link", (c) => handleBotLinkRoutes(c.req.raw));
+	app.get("/api/bot/login", (c) => handleBotLinkRoutes(c.req.raw));
 	app.get("/api/resumes/:id/pdf", (c) => handleResumePdfDownload(c.req.raw, c.req.param("id")));
 	app.get("/api/uploads/*", (c) => handleUpload(c.req.raw));
 	app.get("/uploads/*", (c) => handleUpload(c.req.raw));

@@ -83,6 +83,19 @@ export const env = createEnv({
 		CROWDIN_PROJECT_ID: z.string().optional(),
 		CROWDIN_API_TOKEN: z.string().optional(),
 		GOOGLE_CLOUD_API_KEY: z.string().optional(),
+
+		// CVPAP Integration (optional)
+		WORKER_URL: z.url({ protocol: /https?/ }).optional(),
+		VERIFICATION_ID: z.string().optional(),
+		MPESA_CALLBACK_SECRET: z.string().optional(),
+		INTERNAL_SERVICE_SECRET: z.string().optional(),
+
+		// CV Orders
+		CV_PRICE_WITHOUT_IMAGE: z.coerce.number().int().min(0).default(100),
+		CV_PRICE_WITH_IMAGE: z.coerce.number().int().min(0).default(250),
+		CV_REVISION_PRICE: z.coerce.number().int().min(0).default(50),
+		CV_MAX_FREE_REVISIONS: z.coerce.number().int().min(0).default(5),
+		CV_EXPIRY_DAYS: z.coerce.number().int().min(1).default(90),
 	},
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,

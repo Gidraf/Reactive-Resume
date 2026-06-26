@@ -6,6 +6,7 @@
 	"exports": {
 		"./types": "./src/types.ts",
 		"./prompts": "./src/prompts.ts",
+		"./langfuse-prompts": "./src/langfuse-prompts.ts",
 		"./tools/resume-tool-contracts": "./src/tools/resume-tool-contracts.ts",
 		"./tools/patch-resume": "./src/tools/patch-resume.ts",
 		"./tools/patch-proposal": "./src/tools/patch-proposal.ts",
