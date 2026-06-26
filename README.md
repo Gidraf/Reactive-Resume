@@ -1,116 +1,265 @@
-<div align="center" markdown="1">
-  <a href="https://go.warp.dev/Reactive-Resume">
-    <img alt="Warp Sponsorship" width="400" src="https://github.com/warpdotdev/brand-assets/blob/main/Github/Sponsor/Warp-Github-LG-03.png?raw=true" />
+<div align="center">
+  <a href="https://rxresu.me">
+    <img src="apps/web/public/opengraph/banner.jpg" alt="Reactive Resume" />
   </a>
 
-### [Warp, built for coding with multiple AI agents.](https://go.warp.dev/Reactive-Resume)
+  <h1>Reactive Resume</h1>
 
-[Available for MacOS, Linux, & Windows](https://go.warp.dev/Reactive-Resume)<br>
+  <p>Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.</p>
+
+  <p>
+    <a href="https://rxresu.me"><strong>Get Started</strong></a>
+    ·
+    <a href="https://docs.rxresu.me"><strong>Learn More</strong></a>
+  </p>
+
+  <p>
+    <img src="https://img.shields.io/github/package-json/v/amruthpillai/reactive-resume?style=flat-square" alt="Reactive Resume Version">
+    <img src="https://img.shields.io/github/stars/amruthpillai/Reactive-Resume?style=flat-square" alt="GitHub Stars">
+    <img src="https://img.shields.io/github/license/amruthpillai/Reactive-Resume?style=flat-square" alt="License" />
+    <img src="https://img.shields.io/docker/pulls/amruthpillai/reactive-resume?style=flat-square" alt="Docker Pulls" />
+    <a href="https://discord.gg/aSyA5ZSxpb"><img src="https://img.shields.io/discord/1173518977851473940?style=flat-square&label=discord" alt="Discord" /></a>
+    <a href="https://crowdin.com/project/reactive-resume"><img src="https://badges.crowdin.net/reactive-resume/localized.svg?style=flat-square" alt="Crowdin" /></a>
+    <a href="https://github.com/sponsors/AmruthPillai"><img src="https://img.shields.io/github/sponsors/AmruthPillai?style=flat-square&label=sponsors" alt="Sponsors" /></a>
+    <a href="https://opencollective.com/reactive-resume/donate"><img src="https://img.shields.io/opencollective/backers/reactive-resume?style=flat-square&label=donations" alt="Donations" /></a>
+  </p>
+</div>
 
 ---
 
-<img alt="Reactive Resume" width="800" src="https://i.imgur.com/FFc4nyZ.jpg" />
+Reactive Resume makes building resumes straightforward. Pick a template, fill in your details, and export to PDF—no account required for basic use. For those who want more control, the entire application can be self-hosted on your own infrastructure.
 
-![App Version](https://img.shields.io/github/package-json/version/AmruthPillai/Reactive-Resume?label=version)
-[![Docker Pulls](https://img.shields.io/docker/pulls/amruthpillai/reactive-resume)](https://hub.docker.com/repository/docker/amruthpillai/reactive-resume)
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/AmruthPillai)](https://github.com/sponsors/AmruthPillai)
-[![Crowdin](https://badges.crowdin.net/reactive-resume/localized.svg)](https://crowdin.com/project/reactive-resume)
-[![Discord](https://img.shields.io/discord/1173518977851473940?label=discord&link=https%3A%2F%2Fdiscord.gg%2FhzwkZbyvUW)](https://discord.gg/hzwkZbyvUW)
+Built with privacy as a core principle, Reactive Resume gives you complete ownership of your data. The codebase is fully open-source under the MIT license, with no tracking, no ads, and no hidden costs.
 
-# Reactive Resume
+## Sponsors
 
-A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.
+Reactive Resume stays free, open-source, and independent because companies choose to support the work behind it. Thank you to every sponsor who helps fund hosting, maintenance, and continued development for the community.
 
-### [Go to App](https://rxresu.me/) | [Docs](https://docs.rxresu.me/)
+<p>
+  <a href="https://www.atlascloud.ai/?utm_source=github&utm_medium=link&utm_campaign=reactive-resume">
+    <img src="apps/web/public/sponsors/atlas-cloud-logo-white.svg" alt="Atlas Cloud" width="320" />
+  </a>
+</p>
 
-</div>
+[Atlas Cloud](https://www.atlascloud.ai/?utm_source=github&utm_medium=link&utm_campaign=reactive-resume) supports Reactive Resume as a project sponsor. Atlas Cloud provides a unified AI platform for developers, with access to hundreds of models for chat, image generation, video generation, media processing, and GPU cloud workloads through one API key, one endpoint, and one billing account.
 
-## Description
-
-Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume. With zero user tracking or advertising, your privacy is a top priority. The platform is extremely user-friendly and can be self-hosted in less than 30 seconds if you wish to own your data completely.
-
-It's available in multiple languages and comes packed with features such as real-time editing, dozens of templates, drag-and-drop customisation, and integration with OpenAI for enhancing your writing.
-
-You can share a personalised link of your resume to potential employers, track its views or downloads, and customise your page layout by dragging-and-dropping sections. The platform also supports various font options and provides dozens of templates to choose from. And yes, there's even a dark mode for a more comfortable viewing experience.
-
-Start creating your standout resume with Reactive Resume today!
-
-## Templates
-
-| Azurill                                                                 | Bronzor                                                                 | Chikorita                                                                 |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| <img src="./apps/client/public/templates/jpg/azurill.jpg" width="200px" /> | <img src="./apps/client/public/templates/jpg/bronzor.jpg" width="200px" /> | <img src="./apps/client/public/templates/jpg/chikorita.jpg" width="200px" /> |
-
-| Ditto                                                                | Gengar                                                                 | Glalie                                                                 |
-| -------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| <img src="./apps/client/public/templates/jpg/ditto.jpg" width="200px" /> | <img src="./apps/client/public/templates/jpg/gengar.jpg" width="200px" /> | <img src="./apps/client/public/templates/jpg/glalie.jpg" width="200px" /> |
-
-| Kakuna                                                                 | Leafish                                                                 | Nosepass                                                                 |
-| ---------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| <img src="./apps/client/public/templates/jpg/kakuna.jpg" width="200px" /> | <img src="./apps/client/public/templates/jpg/leafish.jpg" width="200px" /> | <img src="./apps/client/public/templates/jpg/nosepass.jpg" width="200px" /> |
-
-| Onyx                                                                | Pikachu                                                                 | Rhyhorn                                                                 |
-| ------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| <img src="./apps/client/public/templates/jpg/onyx.jpg" width="200px" /> | <img src="./apps/client/public/templates/jpg/pikachu.jpg" width="200px" /> | <img src="./apps/client/public/templates/jpg/rhyhorn.jpg" width="200px" /> |
+If your company would like to sponsor Reactive Resume, email [hello@amruthpillai.com](mailto:hello@amruthpillai.com).
 
 ## Features
 
-- **Free, forever** and open-source
-- No telemetry, user tracking or advertising
-- You can self-host the application in less than 30 seconds
-- **Available in multiple languages** ([help add/improve your language here](https://translate.rxresu.me/))
-- Use your email address (or a throw-away address, no problem) to create an account
-- You can also sign in with your GitHub or Google account, and even set up two-factor authentication for extra security
-- Create as many resumes as you like under a single account, optimising each resume for every job application based on its description for a higher ATS score
-- **Bring your own OpenAI API key** and unlock features such as improving your writing, fixing spelling and grammar or changing the tone of your text in one-click
-- Translate your resume into any language using ChatGPT and import it back for easier editing
-- Create single page resumes or a resume that spans multiple pages easily
-- Customize the colours and layouts to add a personal touch to your resume
-- Customise your page layout as you like just by dragging-and-dropping sections
-- Create custom sections that are specific to your industry if the existing ones don't fit
-- Jot down personal notes specific to your resume that's only visible to you
-- Lock a resume to prevent making any further edits (useful for master templates)
-- **Dozens of templates** to choose from, ranging from professional to modern
-- Design your resume using the standardised EuroPass design template
-- Supports printing resumes in A4 or Letter page formats
-- Design your resume with any font that's available on [Google Fonts](https://fonts.google.com/)
-- **Share a personalised link of your resume** to companies or recruiters for them to get the latest updates
-- You can track the number of views or downloads your public resume has received
-- Built with state-of-the-art (at the moment) and dependable technologies that's battle tested and peer reviewed by the open-source community on GitHub
-- **MIT License**, so do what you like with the code as long as you credit the original author
-- And yes, there’s a dark mode too 🌓
+**Resume Building**
 
-## Built With
+- Real-time preview as you type
+- Multiple export formats (PDF, JSON, DOCX)
+- Drag-and-drop section ordering
+- Custom sections for any content type
+- Rich text editor with formatting support
 
-- React (Vite), for the frontend
-- NestJS, for the backend
-- Postgres (primary database)
-- Prisma ORM, which frees you to switch to any other relational database with a few minor changes in the code
-- Minio (for object storage: to store avatars, resume PDFs and previews)
-- Browserless (for headless chrome, to print PDFs and generate previews)
-- SMTP Server (to send password recovery emails)
-- GitHub/Google OAuth (for quickly authenticating users)
-- LinguiJS and Crowdin (for translation management and localization)
+**Templates**
+
+- Professionally designed templates
+- A4 and Letter size support
+- Customizable colors, fonts, and spacing
+- Custom CSS for advanced styling
+
+**Privacy & Control**
+
+- Self-host on your own infrastructure
+- No tracking or analytics by default
+- Full data export at any time
+- Delete your data permanently with one click
+
+**Extras**
+
+- AI integration (OpenAI, Google Gemini, Anthropic Claude)
+- Multi-language support
+- Share resumes via unique links
+- Import from JSON Resume format
+- Dark mode support
+- Passkey and two-factor authentication
+
+## Templates
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/azurill.jpg" alt="Azurill" width="150" />
+      <br /><sub><b>Azurill</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/bronzor.jpg" alt="Bronzor" width="150" />
+      <br /><sub><b>Bronzor</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/chikorita.jpg" alt="Chikorita" width="150" />
+      <br /><sub><b>Chikorita</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/ditto.jpg" alt="Ditto" width="150" />
+      <br /><sub><b>Ditto</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/gengar.jpg" alt="Gengar" width="150" />
+      <br /><sub><b>Gengar</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/glalie.jpg" alt="Glalie" width="150" />
+      <br /><sub><b>Glalie</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/kakuna.jpg" alt="Kakuna" width="150" />
+      <br /><sub><b>Kakuna</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/lapras.jpg" alt="Lapras" width="150" />
+      <br /><sub><b>Lapras</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/leafish.jpg" alt="Leafish" width="150" />
+      <br /><sub><b>Leafish</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/onyx.jpg" alt="Onyx" width="150" />
+      <br /><sub><b>Onyx</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/pikachu.jpg" alt="Pikachu" width="150" />
+      <br /><sub><b>Pikachu</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/rhyhorn.jpg" alt="Rhyhorn" width="150" />
+      <br /><sub><b>Rhyhorn</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/ditgar.jpg" alt="Ditgar" width="150" />
+      <br /><sub><b>Ditgar</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/meowth.jpg" alt="Meowth" width="150" />
+      <br /><sub><b>Meowth</b></sub>
+    </td>
+    <td align="center">
+      <img src="apps/web/public/templates/jpg/scizor.jpg" alt="Scizor" width="150" />
+      <br /><sub><b>Scizor</b></sub>
+    </td>
+  </tr>
+</table>
+
+## Quick Start
+
+The quickest way to run Reactive Resume locally:
+
+```bash
+# Clone the repository
+git clone --depth=1  https://github.com/amruthpillai/reactive-resume.git
+cd reactive-resume
+
+# Start all services
+docker compose up -d
+
+# Access the app
+open http://localhost:3000
+```
+
+[![Build with Ona](https://ona.com/build-with-ona.svg)](https://app.ona.com/#https://github.com/amruthpillai/reactive-resume)
+
+For detailed setup instructions, environment configuration, and self-hosting guides, see the [documentation](https://docs.rxresu.me).
+
+## Tech Stack
+
+| Category         | Technology                      |
+| ---------------- | ------------------------------- |
+| Framework        | TanStack Start (React 19, Vite) |
+| Runtime          | Node.js                         |
+| Language         | TypeScript                      |
+| Database         | PostgreSQL with Drizzle ORM     |
+| API              | ORPC (Type-safe RPC)            |
+| Auth             | Better Auth                     |
+| Styling          | Tailwind CSS                    |
+| UI Components    | Base UI + shadcn-style package  |
+| State Management | Zustand + TanStack Query        |
+
+## Documentation
+
+Comprehensive guides are available at [docs.rxresu.me](https://docs.rxresu.me):
+
+| Guide                                                                        | Description                      |
+| ---------------------------------------------------------------------------- | -------------------------------- |
+| [Getting Started](https://docs.rxresu.me/getting-started)                    | First-time setup and basic usage |
+| [Self-Hosting](https://docs.rxresu.me/self-hosting/docker)                   | Deploy on your own server        |
+| [Development Setup](https://docs.rxresu.me/contributing/development)         | Local development environment    |
+| [Project Architecture](https://docs.rxresu.me/contributing/architecture)     | Codebase structure and patterns  |
+| [Exporting Your Resume](https://docs.rxresu.me/guides/exporting-your-resume) | PDF and JSON export options      |
+
+## Self-Hosting
+
+Reactive Resume can be self-hosted using Docker. The stack includes:
+
+- **PostgreSQL** — Database for storing user data and resumes
+- **SeaweedFS** (optional) — S3-compatible storage for file uploads
+
+> **From v5.1.0 onwards** — PDF generation now runs entirely client-side via `@react-pdf/renderer`. New deployments no longer require Browserless, Chromium, or any external print service as a dependency. The `PRINTER_*` and `BROWSERLESS_*` environment variables are no longer read and can be removed from your `.env`.
+
+Pull the latest image from Docker Hub or GitHub Container Registry:
+
+```bash
+# Docker Hub
+docker pull amruthpillai/reactive-resume:latest
+
+# GitHub Container Registry
+docker pull ghcr.io/amruthpillai/reactive-resume:latest
+```
+
+See the [self-hosting guide](https://docs.rxresu.me/self-hosting/docker) for complete instructions.
+
+## Support
+
+Reactive Resume is and always will be free and open-source. If it has helped you land a job or saved you time, please consider supporting continued development:
+
+<p>
+  <a href="https://github.com/sponsors/AmruthPillai">
+    <img src="https://img.shields.io/badge/GitHub%20Sponsors-Support-ea4aaa?style=flat-square&logo=github-sponsors" alt="GitHub Sponsors" />
+  </a>
+  <a href="https://opencollective.com/reactive-resume/donate">
+    <img src="https://img.shields.io/badge/Open%20Collective-Contribute-7FADF2?style=flat-square&logo=open-collective" alt="Open Collective" />
+  </a>
+</p>
+
+Other ways to support:
+
+- Star this repository
+- Report bugs and suggest features
+- Improve documentation
+- Help with translations
 
 ## Star History
 
-<a href="https://star-history.com/#AmruthPillai/Reactive-Resume&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=AmruthPillai/Reactive-Resume&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=AmruthPillai/Reactive-Resume&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=AmruthPillai/Reactive-Resume&type=Date" />
-  </picture>
+<a href="https://www.star-history.com/#amruthpillai/reactive-resume&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=amruthpillai/reactive-resume&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=amruthpillai/reactive-resume&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=amruthpillai/reactive-resume&type=date&legend=top-left" />
+ </picture>
 </a>
+
+## Contributing
+
+Contributions make open-source thrive. Whether fixing a typo or adding a feature, all contributions are welcome.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+See the [development setup guide](https://docs.rxresu.me/contributing/development) for detailed instructions on how to set up the project locally.
 
 ## License
 
-Reactive Resume is packaged and distributed using the [MIT License](/LICENSE.md) which allows for commercial use, distribution, modification and private use provided that all copies of the software contain the same license and copyright.
-
-_By the community, for the community._  
-A passion project by [Amruth Pillai](https://www.amruthpillai.com/)
-
-<p>
-  <a href="https://m.do.co/c/ceae1fff245e">
-    <img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/PoweredByDO/DO_Powered_by_Badge_blue.svg" width="200px">
-  </a>
-</p>
+[MIT](./LICENSE) — do whatever you want with it.

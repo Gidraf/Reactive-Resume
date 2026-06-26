@@ -1,62 +1,32 @@
-# Compiled Output
-dist
-tmp
-/out-tsc
-
-# Project Dependencies
+# VCS and editor state
 .git
 .gitignore
-node_modules
-
-# Docker
-compose*.yml
-Dockerfile
-
-# IDEs and Editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vs/*
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# Miscellaneous
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
-
-# System Files
+.cursor
 .DS_Store
-Thumbs.db
-.editorconfig
-.eslint*
+.vite-hooks
 
-# Generated Files
-.nx
-.swc
-fly.toml
-stats.html
-tools/compose/*
-tools/scripts/*
+# Local configuration and runtime state
+.env*
+/data
 
-# Environment Variables
-*.env*
-!.env.example
+# Dependency and package-manager caches
+node_modules
+**/node_modules
+.pnpm-store
 
-# Lingui Compiled Messages
-apps/client/src/locales/_build/
-apps/client/src/locales/*/messages.mjs
+# Build, test, and framework output
+dist
+**/dist
+.nitro
+.output
+.vercel
+.netlify
+.tanstack
+.turbo
+**/.turbo
+coverage
+reports
+
+# Generated service-worker assets are rebuilt during the web build.
+public/sw.js
+public/workbox-*.js
