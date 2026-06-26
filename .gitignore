@@ -1,55 +1,114 @@
-# Compiled Output
-dist
-tmp
-/out-tsc
-
-# Project Dependencies
+# Dependencies
 node_modules
+.pnpm-store
+
+# Build Outputs
+dist
+.vercel
+.wrangler
+
+# Environment Variables
+.env*
+!.env.example
 
 # IDEs and Editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vs/*
+*~
+*.swp
+*.swo
+.DS_Store
+.idea
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# Miscellaneous
+# Log Files
+logs
+*.log*
+
+# Turborepo
+.turbo
+
+# TanStack Start
+.tanstack
+
+# Testing
+coverage
+reports
+playwright-report
+test-results
+
+# Cache
+tmp
+temp
+.cache
+
+# AI
+.codex
+.agents
+.claude
+.cursor
+.codegraph
+.superpowers
+
+# Local Storage Data
+/data
+/apps/web/data
+
+# Git Hooks
+.vite-hooks/
+# from develop
+/out-tsc
+# from develop
+/.idea
+# from develop
+.project
+# from develop
+.classpath
+# from develop
+.c9/
+# from develop
+*.launch
+# from develop
+.settings/
+# from develop
+*.sublime-workspace
+# from develop
+.vs/*
+# from develop
 /.sass-cache
+# from develop
 /connect.lock
+# from develop
 /coverage
+# from develop
 /libpeerconnection.log
+# from develop
 npm-debug.log
+# from develop
 yarn-error.log
+# from develop
 testem.log
+# from develop
 /typings
-
-# System Files
-.DS_Store
+# from develop
 Thumbs.db
-
-# Generated Files
+# from develop
 .nx
+# from develop
 .swc
+# from develop
 fly.toml
+# from develop
 stats.html
-
-# Environment Variables
+# from develop
 *.env*
-!.env.example
-
-# Lingui Compiled Messages
+# from develop
 apps/client/src/locales/_build/
+# from develop
 apps/client/src/locales/*/messages.*js
-
+# from develop
 .cursor/rules/nx-rules.mdc
+# from develop
 .github/instructions/nx.instructions.md
