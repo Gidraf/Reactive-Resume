@@ -1,5 +1,5 @@
 import { ChatCircleTextIcon, CircleNotchIcon, WarningCircleIcon } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@reactive-resume/ui/components/button";
 import { ScrollArea } from "@reactive-resume/ui/components/scroll-area";
 import { Route } from "../../../../route";
@@ -34,7 +34,7 @@ export function InterviewSectionBuilder() {
 	const [error, setError] = useState<string | null>(null);
 	const [fetched, setFetched] = useState(false);
 
-	const fetchQuestions = async () => {
+	const fetchQuestions = useCallback(async () => {
 		setLoading(true);
 		setError(null);
 		try {
@@ -48,12 +48,10 @@ export function InterviewSectionBuilder() {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [resumeId]);
 
-	// Auto-fetch on mount — dep on resumeId only; fetchQuestions recreates each render
 	useEffect(() => {
 		void fetchQuestions();
-		// biome-ignore lint/correctness/useExhaustiveDependencies: intentionally dep on resumeId
 	}, [fetchQuestions]);
 
 	const grouped = groupByCategory(questions);
