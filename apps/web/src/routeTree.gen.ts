@@ -29,6 +29,7 @@ import { Route as AgentNewRouteImport } from "./routes/agent/new";
 import { Route as AgentThreadIdRouteImport } from "./routes/agent/$threadId";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
+import { Route as RevampTokenIndexRouteImport } from "./routes/revamp/$token/index";
 import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/resumes/index";
 import { Route as BuilderResumeIdIndexRouteImport } from "./routes/builder/$resumeId/index";
 import { Route as DashboardSettingsProfileRouteImport } from "./routes/dashboard/settings/profile";
@@ -38,7 +39,6 @@ import { Route as DashboardSettingsDangerZoneRouteImport } from "./routes/dashbo
 import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard/settings/api-keys";
 import { Route as DashboardSettingsIntegrationsRouteRouteImport } from "./routes/dashboard/settings/integrations/route";
 import { Route as DashboardSettingsAuthenticationIndexRouteImport } from "./routes/dashboard/settings/authentication/index";
-import { Route as RevampTokenIndexRouteImport } from "./routes/revamp/$token/index";
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: "/dashboard",
@@ -139,6 +139,11 @@ const BuilderResumeIdRouteRoute = BuilderResumeIdRouteRouteImport.update({
   path: "/builder/$resumeId",
   getParentRoute: () => rootRouteImport,
 } as any);
+const RevampTokenIndexRoute = RevampTokenIndexRouteImport.update({
+  id: "/revamp/$token/",
+  path: "/revamp/$token/",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardResumesIndexRoute = DashboardResumesIndexRouteImport.update({
   id: "/resumes/",
   path: "/resumes/",
@@ -192,12 +197,6 @@ const DashboardSettingsAuthenticationIndexRoute =
     getParentRoute: () => DashboardRouteRoute,
   } as any);
 
-const RevampTokenIndexRoute = RevampTokenIndexRouteImport.update({
-  id: "/revamp/$token/",
-  path: "/revamp/$token/",
-  getParentRoute: () => rootRouteImport,
-} as any);
-
 export interface FileRoutesByFullPath {
   "/": typeof HomeIndexRoute;
   "/agent": typeof AgentRouteRouteWithChildren;
@@ -226,8 +225,8 @@ export interface FileRoutesByFullPath {
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
-  "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
   "/revamp/$token/": typeof RevampTokenIndexRoute;
+  "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRoutesByTo {
   "/$username/$slug": typeof UsernameSlugRoute;
@@ -253,8 +252,8 @@ export interface FileRoutesByTo {
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/builder/$resumeId": typeof BuilderResumeIdIndexRoute;
   "/dashboard/resumes": typeof DashboardResumesIndexRoute;
-  "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
   "/revamp/$token": typeof RevampTokenIndexRoute;
+  "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
@@ -286,8 +285,8 @@ export interface FileRoutesById {
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
-  "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
   "/revamp/$token/": typeof RevampTokenIndexRoute;
+  "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
@@ -319,8 +318,8 @@ export interface FileRouteTypes {
     | "/dashboard/settings/profile"
     | "/builder/$resumeId/"
     | "/dashboard/resumes/"
-    | "/dashboard/settings/authentication/"
-    | "/revamp/$token/";
+    | "/revamp/$token/"
+    | "/dashboard/settings/authentication/";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/$username/$slug"
@@ -346,8 +345,8 @@ export interface FileRouteTypes {
     | "/dashboard/settings/profile"
     | "/builder/$resumeId"
     | "/dashboard/resumes"
-    | "/dashboard/settings/authentication"
-    | "/revamp/$token";
+    | "/revamp/$token"
+    | "/dashboard/settings/authentication";
   id:
     | "__root__"
     | "/_home"
@@ -378,8 +377,8 @@ export interface FileRouteTypes {
     | "/dashboard/settings/profile"
     | "/builder/$resumeId/"
     | "/dashboard/resumes/"
-    | "/dashboard/settings/authentication/"
-    | "/revamp/$token/";
+    | "/revamp/$token/"
+    | "/dashboard/settings/authentication/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -535,6 +534,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof BuilderResumeIdRouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/revamp/$token/": {
+      id: "/revamp/$token/";
+      path: "/revamp/$token";
+      fullPath: "/revamp/$token/";
+      preLoaderRoute: typeof RevampTokenIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/dashboard/resumes/": {
       id: "/dashboard/resumes/";
       path: "/resumes";
@@ -597,13 +603,6 @@ declare module "@tanstack/react-router" {
       fullPath: "/dashboard/settings/authentication/";
       preLoaderRoute: typeof DashboardSettingsAuthenticationIndexRouteImport;
       parentRoute: typeof DashboardRouteRoute;
-    };
-    "/revamp/$token/": {
-      id: "/revamp/$token/";
-      path: "/revamp/$token";
-      fullPath: "/revamp/$token/";
-      preLoaderRoute: typeof RevampTokenIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
     };
   }
 }
