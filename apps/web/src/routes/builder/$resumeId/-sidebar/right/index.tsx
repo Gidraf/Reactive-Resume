@@ -12,10 +12,12 @@ import { CustomStylesSectionBuilder } from "./sections/custom-styles";
 import { DesignSectionBuilder } from "./sections/design";
 import { ExportSectionBuilder } from "./sections/export";
 import { InformationSectionBuilder } from "./sections/information";
+import { InterviewSectionBuilder } from "./sections/interview";
 import { LayoutSectionBuilder } from "./sections/layout";
 import { NotesSectionBuilder } from "./sections/notes";
 import { PageSectionBuilder } from "./sections/page";
 import { ResumeAnalysisSectionBuilder } from "./sections/resume-analysis";
+import { RevampSectionBuilder } from "./sections/revamp";
 import { SharingSectionBuilder } from "./sections/sharing";
 import { StatisticsSectionBuilder } from "./sections/statistics";
 import { TemplateSectionBuilder } from "./sections/template";
@@ -23,6 +25,8 @@ import { TypographySectionBuilder } from "./sections/typography";
 
 function getSectionComponent(type: RightSidebarSection) {
 	return match(type)
+		.with("revamp", () => <RevampSectionBuilder />)
+		.with("interview", () => <InterviewSectionBuilder />)
 		.with("template", () => <TemplateSectionBuilder />)
 		.with("layout", () => <LayoutSectionBuilder />)
 		.with("typography", () => <TypographySectionBuilder />)

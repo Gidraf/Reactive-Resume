@@ -18,6 +18,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { orpc } from "@/libs/orpc/client";
 import { createNoindexFollowMeta } from "@/libs/seo";
 import { BuilderHeader } from "./-components/header";
+import { useRevampStream } from "./-hooks/use-revamp-stream";
 import { BuilderSidebarLeft } from "./-sidebar/left";
 import { BuilderSidebarRight } from "./-sidebar/right";
 import {
@@ -31,6 +32,9 @@ import {
 
 export const Route = createFileRoute("/builder/$resumeId")({
 	component: RouteComponent,
+	validateSearch: (search: Record<string, unknown>) => ({
+		revamp: typeof search.revamp === "string" ? search.revamp : undefined,
+	}),
 	beforeLoad: async ({ context }) => {
 		if (!context.session) throw redirect({ to: "/auth/login", replace: true });
 		return { session: context.session };
@@ -52,8 +56,12 @@ export const Route = createFileRoute("/builder/$resumeId")({
 
 function RouteComponent() {
 	const { layout: initialLayout } = Route.useLoaderData();
+	const { revamp: revampToken } = Route.useSearch();
 
 	const { resumeId } = Route.useParams();
+
+	// Mount the revamp SSE stream — no-op when revampToken is undefined
+	useRevampStream(revampToken ?? null);
 	const { data: resume } = useSuspenseQuery(orpc.resume.getById.queryOptions({ input: { id: resumeId } }));
 	const initializeResumeStore = useInitializeResumeStore();
 	const mergeResumeMetadata = useMergeResumeMetadata();

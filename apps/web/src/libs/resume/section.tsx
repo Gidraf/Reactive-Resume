@@ -8,6 +8,7 @@ import {
 	BriefcaseIcon,
 	CertificateIcon,
 	ChartLineIcon,
+	ChatCircleTextIcon,
 	CodeSimpleIcon,
 	CompassToolIcon,
 	DiamondsFourIcon,
@@ -26,6 +27,7 @@ import {
 	PhoneIcon,
 	ReadCvLogoIcon,
 	ShareFatIcon,
+	SparkleIcon,
 	StarIcon,
 	TextTIcon,
 	TranslateIcon,
@@ -54,7 +56,9 @@ export type RightSidebarSection =
 	| "statistics"
 	| "analysis"
 	| "export"
-	| "information";
+	| "information"
+	| "revamp"
+	| "interview";
 
 export type SidebarSection = LeftSidebarSection | RightSidebarSection;
 
@@ -78,6 +82,8 @@ export const leftSidebarSections: LeftSidebarSection[] = [
 ] as const;
 
 export const rightSidebarSections: RightSidebarSection[] = [
+	"revamp",
+	"interview",
 	"template",
 	"layout",
 	"typography",
@@ -129,6 +135,8 @@ export const getSectionTitle = (type: SidebarSection | CustomOnlyType): string =
 			.with("analysis", () => t`Resume Analysis`)
 			.with("export", () => t`Export`)
 			.with("information", () => t`Information`)
+			.with("revamp", () => t`AI Revamp`)
+			.with("interview", () => t`Interview Questions`)
 
 			.exhaustive()
 	);
@@ -173,6 +181,8 @@ export const getSectionIcon = (type: SidebarSection | CustomOnlyType, props?: Ic
 			.with("analysis", () => <BrainIcon {...iconProps} />)
 			.with("export", () => <DownloadIcon {...iconProps} />)
 			.with("information", () => <InfoIcon {...iconProps} />)
+			.with("revamp", () => <SparkleIcon {...iconProps} />)
+			.with("interview", () => <ChatCircleTextIcon {...iconProps} />)
 
 			.exhaustive()
 	);

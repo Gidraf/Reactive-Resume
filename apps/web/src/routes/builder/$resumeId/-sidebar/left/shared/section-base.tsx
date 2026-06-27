@@ -1,6 +1,6 @@
 import type { SectionType } from "@reactive-resume/schema/resume/data";
 import type { LeftSidebarSection } from "@/libs/resume/section";
-import { CaretDownIcon } from "@phosphor-icons/react";
+import { CaretDownIcon, CircleNotchIcon } from "@phosphor-icons/react";
 import { getDefaultSectionIconName } from "@reactive-resume/schema/resume/section-icons";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@reactive-resume/ui/components/accordion";
 import { Button } from "@reactive-resume/ui/components/button";
@@ -8,8 +8,26 @@ import { cn } from "@reactive-resume/utils/style";
 import { IconPicker } from "@/components/input/icon-picker";
 import { useCurrentResume, useUpdateResumeData } from "@/features/resume/builder/draft";
 import { getSectionIcon, getSectionTitle } from "@/libs/resume/section";
+import { isProcessing, useRevampStore } from "../../../-store/revamp";
 import { useSectionStore } from "../../../-store/section";
 import { SectionDropdownMenu } from "./section-menu";
+
+// Maps left sidebar section keys to CVPAP revamp section keys
+const REVAMP_KEY: Partial<Record<LeftSidebarSection, string>> = {
+	basics: "basics",
+	summary: "basics",
+	experience: "work_experience",
+	education: "education",
+	projects: "projects",
+	skills: "skills",
+	languages: "languages",
+	certifications: "certifications",
+	awards: "awards",
+	interests: "interests",
+	publications: "publications",
+	volunteer: "volunteer",
+	references: "references",
+};
 
 type Props = React.ComponentProps<typeof AccordionContent> & {
 	type: LeftSidebarSection;
@@ -19,6 +37,10 @@ export function SectionBase({ type, className, ...props }: Props) {
 	const resume = useCurrentResume();
 	const updateResumeData = useUpdateResumeData();
 	const data = resume.data;
+
+	// Lock UI while this section is being revamped
+	const revampKey = REVAMP_KEY[type];
+	const processing = useRevampStore((state) => (revampKey ? isProcessing(state, revampKey) : false));
 	const section =
 		type === "basics"
 			? data.basics
@@ -57,8 +79,17 @@ export function SectionBase({ type, className, ...props }: Props) {
 			id={`sidebar-${type}`}
 			value={collapsed ? [] : [type]}
 			onValueChange={() => toggleCollapsed(type)}
-			className={cn("space-y-4", isHidden && "opacity-50")}
+			className={cn("relative space-y-4", isHidden && "opacity-50")}
 		>
+			{/* Processing overlay — blocks edits while AI is writing this section */}
+			{processing && (
+				<div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-background/70 backdrop-blur-[1px]">
+					<div className="flex items-center gap-2 rounded-full border bg-card px-3 py-1.5 text-muted-foreground text-sm shadow-sm">
+						<CircleNotchIcon className="size-3.5 animate-spin text-primary" />
+						AI is writing this section…
+					</div>
+				</div>
+			)}
 			<AccordionItem value={type} className="group/accordion-item space-y-4">
 				<div className="flex items-center">
 					<AccordionTrigger
