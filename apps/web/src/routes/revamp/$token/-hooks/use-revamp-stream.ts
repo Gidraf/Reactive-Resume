@@ -108,5 +108,5 @@ export function useRevampStream(token: string) {
 		};
 	}, [token]); // token is stable — no reconnect loop
 
-	return { sections, overallStatus, paymentStatus };
+	return { sections, overallStatus, paymentStatus, setPaymentStatus };
 }

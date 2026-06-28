@@ -1,4 +1,3 @@
-import type React from "react";
 import type { Layout } from "react-resizable-panels";
 import type { BuilderLayout } from "./-store/sidebar";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -30,12 +29,28 @@ import {
 	useBuilderSidebarStore,
 } from "./-store/sidebar";
 
+const CVPAP_API = (import.meta.env.VITE_CVPAP_API_URL as string | undefined) ?? "";
+
 export const Route = createFileRoute("/builder/$resumeId")({
 	component: RouteComponent,
 	validateSearch: (search: Record<string, unknown>) => ({
 		revamp: typeof search.revamp === "string" ? search.revamp : undefined,
 	}),
-	beforeLoad: async ({ context }) => {
+	beforeLoad: async ({ context, search }) => {
+		// WhatsApp users land here via the builder URL but have no RR session.
+		// If the revamp token is valid, redirect them to the dedicated revamp page
+		// so they see live progress without needing an account.
+		if (search.revamp && !context.session) {
+			try {
+				const res = await fetch(`${CVPAP_API}/api/v1/revamp/verify/${search.revamp}`);
+				if (res.ok) {
+					throw redirect({ to: "/revamp/$token/", params: { token: search.revamp }, replace: true });
+				}
+			} catch (e) {
+				// Re-throw TanStack redirect errors; absorb network errors.
+				if (e && typeof e === "object" && "to" in e) throw e;
+			}
+		}
 		if (!context.session) throw redirect({ to: "/auth/login", replace: true });
 		return { session: context.session };
 	},

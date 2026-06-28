@@ -30,6 +30,7 @@ import { Route as AgentThreadIdRouteImport } from "./routes/agent/$threadId";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
 import { Route as RevampTokenIndexRouteImport } from "./routes/revamp/$token/index";
+import { Route as RevampLoginTokenIndexRouteImport } from "./routes/revamp/login/$token/index";
 import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/resumes/index";
 import { Route as BuilderResumeIdIndexRouteImport } from "./routes/builder/$resumeId/index";
 import { Route as DashboardSettingsProfileRouteImport } from "./routes/dashboard/settings/profile";
@@ -144,6 +145,11 @@ const RevampTokenIndexRoute = RevampTokenIndexRouteImport.update({
   path: "/revamp/$token/",
   getParentRoute: () => rootRouteImport,
 } as any);
+const RevampLoginTokenIndexRoute = RevampLoginTokenIndexRouteImport.update({
+  id: "/revamp/login/$token/",
+  path: "/revamp/login/$token/",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardResumesIndexRoute = DashboardResumesIndexRouteImport.update({
   id: "/resumes/",
   path: "/resumes/",
@@ -226,6 +232,7 @@ export interface FileRoutesByFullPath {
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/revamp/$token/": typeof RevampTokenIndexRoute;
+  "/revamp/login/$token/": typeof RevampLoginTokenIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRoutesByTo {
@@ -253,6 +260,7 @@ export interface FileRoutesByTo {
   "/builder/$resumeId": typeof BuilderResumeIdIndexRoute;
   "/dashboard/resumes": typeof DashboardResumesIndexRoute;
   "/revamp/$token": typeof RevampTokenIndexRoute;
+  "/revamp/login/$token": typeof RevampLoginTokenIndexRoute;
   "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRoutesById {
@@ -286,6 +294,7 @@ export interface FileRoutesById {
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/revamp/$token/": typeof RevampTokenIndexRoute;
+  "/revamp/login/$token/": typeof RevampLoginTokenIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRouteTypes {
@@ -319,6 +328,7 @@ export interface FileRouteTypes {
     | "/builder/$resumeId/"
     | "/dashboard/resumes/"
     | "/revamp/$token/"
+    | "/revamp/login/$token/"
     | "/dashboard/settings/authentication/";
   fileRoutesByTo: FileRoutesByTo;
   to:
@@ -346,6 +356,7 @@ export interface FileRouteTypes {
     | "/builder/$resumeId"
     | "/dashboard/resumes"
     | "/revamp/$token"
+    | "/revamp/login/$token"
     | "/dashboard/settings/authentication";
   id:
     | "__root__"
@@ -378,6 +389,7 @@ export interface FileRouteTypes {
     | "/builder/$resumeId/"
     | "/dashboard/resumes/"
     | "/revamp/$token/"
+    | "/revamp/login/$token/"
     | "/dashboard/settings/authentication/";
   fileRoutesById: FileRoutesById;
 }
@@ -390,6 +402,7 @@ export interface RootRouteChildren {
   UsernameSlugRoute: typeof UsernameSlugRoute;
   TemplatesSplatRoute: typeof TemplatesSplatRoute;
   RevampTokenIndexRoute: typeof RevampTokenIndexRoute;
+  RevampLoginTokenIndexRoute: typeof RevampLoginTokenIndexRoute;
 }
 
 declare module "@tanstack/react-router" {
@@ -539,6 +552,13 @@ declare module "@tanstack/react-router" {
       path: "/revamp/$token";
       fullPath: "/revamp/$token/";
       preLoaderRoute: typeof RevampTokenIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/revamp/login/$token/": {
+      id: "/revamp/login/$token/";
+      path: "/revamp/login/$token";
+      fullPath: "/revamp/login/$token/";
+      preLoaderRoute: typeof RevampLoginTokenIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/dashboard/resumes/": {
@@ -711,6 +731,7 @@ const rootRouteChildren: RootRouteChildren = {
   UsernameSlugRoute: UsernameSlugRoute,
   TemplatesSplatRoute: TemplatesSplatRoute,
   RevampTokenIndexRoute: RevampTokenIndexRoute,
+  RevampLoginTokenIndexRoute: RevampLoginTokenIndexRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
