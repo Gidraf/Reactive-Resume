@@ -2,7 +2,7 @@ import { ChatCircleTextIcon, CircleNotchIcon, WarningCircleIcon } from "@phospho
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@reactive-resume/ui/components/button";
 import { ScrollArea } from "@reactive-resume/ui/components/scroll-area";
-import { Route } from "../../../../route";
+import { Route } from "../../../route";
 import { SectionBase as RightSectionBase } from "../shared/section-base";
 
 const CVPAP_API = (import.meta.env.VITE_CVPAP_API_URL as string | undefined) ?? "";
