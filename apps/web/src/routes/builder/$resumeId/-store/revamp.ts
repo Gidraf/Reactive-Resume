@@ -1,7 +1,7 @@
 import { immer } from "zustand/middleware/immer";
 import { create } from "zustand/react";
 
-export type RevampSectionStatus = "idle" | "working" | "thinking" | "done" | "error";
+export type RevampSectionStatus = "idle" | "working" | "thinking" | "pending" | "done" | "rejected" | "error";
 
 export type RevampSectionState = {
 	status: RevampSectionStatus;
@@ -15,6 +15,9 @@ type RevampStoreState = {
 	overallStatus: "idle" | "connecting" | "running" | "complete" | "error";
 	paymentStatus: "unpaid" | "paid";
 	sections: Record<string, RevampSectionState>;
+	streamKey: number;
+	autoApply: boolean;
+	pendingChanges: Record<string, unknown>;
 };
 
 type RevampStoreActions = {
@@ -24,6 +27,10 @@ type RevampStoreActions = {
 	setSectionStatus: (section: string, state: Partial<RevampSectionState>) => void;
 	appendThinking: (section: string, text: string) => void;
 	reset: () => void;
+	reconnect: () => void;
+	toggleAutoApply: () => void;
+	setPending: (section: string, result: unknown) => void;
+	clearPending: (section: string, accepted: boolean) => void;
 };
 
 export type RevampStore = RevampStoreState & RevampStoreActions;
@@ -33,6 +40,9 @@ const initialState: RevampStoreState = {
 	overallStatus: "idle",
 	paymentStatus: "unpaid",
 	sections: {},
+	streamKey: 0,
+	autoApply: true,
+	pendingChanges: {},
 };
 
 export const useRevampStore = create<RevampStore>()(
@@ -86,8 +96,46 @@ export const useRevampStore = create<RevampStore>()(
 			});
 		},
 
+		toggleAutoApply: () => {
+			set((state) => {
+				state.autoApply = !state.autoApply;
+			});
+		},
+
+		setPending: (section, result) => {
+			set((state) => {
+				state.pendingChanges[section] = result;
+				const current = state.sections[section] ?? { status: "idle", thinkingText: "", result: null, error: null };
+				state.sections[section] = { ...current, status: "pending" };
+			});
+		},
+
+		clearPending: (section, accepted) => {
+			set((state) => {
+				const result = state.pendingChanges[section];
+				delete state.pendingChanges[section];
+				const current = state.sections[section];
+				if (current) {
+					state.sections[section] = {
+						...current,
+						status: accepted ? "done" : "rejected",
+						result: accepted ? (result ?? null) : null,
+					};
+				}
+			});
+		},
+
 		reset: () => {
 			set(() => ({ ...initialState }));
+		},
+
+		reconnect: () => {
+			set((state) => {
+				state.sections = {};
+				state.pendingChanges = {};
+				state.overallStatus = "connecting";
+				state.streamKey += 1;
+			});
 		},
 	})),
 );

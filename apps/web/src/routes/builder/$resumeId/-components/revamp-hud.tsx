@@ -126,9 +126,11 @@ export function RevampHUD() {
 								"rounded-full px-1.5 py-0.5 font-medium text-[9px]",
 								state?.status === "done"
 									? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
-									: state?.status === "working" || state?.status === "thinking"
-										? "bg-primary/10 text-primary"
-										: "bg-muted text-muted-foreground",
+									: state?.status === "pending"
+										? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+										: state?.status === "working" || state?.status === "thinking"
+											? "bg-primary/10 text-primary"
+											: "bg-muted text-muted-foreground",
 							)}
 						>
 							{label}
