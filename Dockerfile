@@ -25,6 +25,11 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store,sharing=locked \
     pnpm install --frozen-lockfile
 
 COPY --from=pruner /app/out/full/ ./
+
+# Vite bakes VITE_* vars at build time; pass via --build-arg VITE_CVPAP_API_URL=https://api.ajiriwa.gidraf.dev
+ARG VITE_CVPAP_API_URL=""
+ENV VITE_CVPAP_API_URL=$VITE_CVPAP_API_URL
+
 RUN rm -rf apps/web/dist apps/server/dist && pnpm turbo run build --filter=web --filter=server --force
 
 FROM base AS runtime-pruner
