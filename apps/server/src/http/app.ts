@@ -29,6 +29,24 @@ export function createApp() {
 	app.all("/api/openapi", (c) => handleOpenApi(c.req.raw));
 	app.all("/api/openapi/*", (c) => handleOpenApi(c.req.raw));
 	app.get("/api/auth/oauth", (c) => handleOAuth(c.req.raw));
+	// Inject username (required by username plugin) if the client didn't send one
+	app.post("/api/auth/sign-up/email", async (c) => {
+		let body: Record<string, unknown> = {};
+		try {
+			body = (await c.req.json()) as Record<string, unknown>;
+		} catch {
+			// malformed body — let Better-Auth handle the error
+		}
+		if (!body.username && typeof body.email === "string") {
+			body.username = body.email.split("@")[0];
+		}
+		const modifiedReq = new Request(c.req.raw.url, {
+			method: "POST",
+			headers: c.req.raw.headers,
+			body: JSON.stringify(body),
+		});
+		return handleAuth(modifiedReq);
+	});
 	app.all("/api/auth/*", (c) => handleAuth(c.req.raw));
 	app.get("/api/health", () => handleHealth());
 	app.all("/api/v1/*", (c) => handleCvpapProxy(c.req.raw));
