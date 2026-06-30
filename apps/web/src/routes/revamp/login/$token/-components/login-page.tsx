@@ -12,6 +12,7 @@ type RRCreds = {
 	password: string;
 	reactive_resume_id: string;
 	revamp_token: string;
+	payment_status?: string;
 };
 
 export function RevampLoginPage() {
@@ -68,11 +69,14 @@ export function RevampLoginPage() {
 					if (retry.error) throw new Error(retry.error.message ?? "Sign-in failed after registration");
 				}
 
-				// 3. Redirect to the builder
+				// 3. Redirect: unpaid CVs go to the revamp page (has watermark + payment UI).
+				//    Paid CVs with a builder ID go directly to the builder.
 				setStage("redirecting");
-				const destination = creds.reactive_resume_id
-					? `/builder/${creds.reactive_resume_id}?revamp=${creds.revamp_token}`
-					: `/revamp/${creds.revamp_token}/`;
+				const isPaid = creds.payment_status === "paid";
+				const destination =
+					isPaid && creds.reactive_resume_id
+						? `/builder/${creds.reactive_resume_id}?revamp=${creds.revamp_token}`
+						: `/revamp/${creds.revamp_token}/`;
 
 				// Small delay so the browser can complete the cookie write
 				await new Promise((r) => setTimeout(r, 300));

@@ -1,6 +1,6 @@
 import type { LeftSidebarSection } from "@/libs/resume/section";
 import { t } from "@lingui/core/macro";
-import { FloppyDiskIcon, PencilSimpleIcon } from "@phosphor-icons/react";
+import { FloppyDiskIcon, LockSimpleIcon, PencilSimpleIcon } from "@phosphor-icons/react";
 import { useHotkey } from "@tanstack/react-hotkeys";
 import { Suspense, useCallback, useRef, useState } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
@@ -106,6 +106,22 @@ export function PreviewPage() {
 							backgroundSize: "260px 260px",
 						}}
 					/>
+				)}
+
+				{/* Payment banner — sits above watermark, lets user pay without leaving the builder */}
+				{showWatermark && revampToken && (
+					<div className="pointer-events-auto absolute inset-x-0 top-0 z-30 flex items-center justify-between border-yellow-400/50 border-b bg-yellow-50/95 px-4 py-2 backdrop-blur-sm dark:border-yellow-800 dark:bg-yellow-900/30">
+						<div className="flex items-center gap-2 text-sm text-yellow-800 dark:text-yellow-200">
+							<LockSimpleIcon size={14} weight="bold" />
+							<span>Draft preview — watermark removed after payment</span>
+						</div>
+						<a
+							href={`/revamp/${revampToken}/`}
+							className="ml-4 shrink-0 rounded-md bg-yellow-500 px-3 py-1.5 font-medium text-sm text-white shadow-sm transition-colors hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-700"
+						>
+							Pay to Unlock →
+						</a>
+					</div>
 				)}
 
 				{/* Floating "Edit CV" shortcut — always visible, stays outside the pan/zoom layer */}
