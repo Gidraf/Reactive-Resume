@@ -22,6 +22,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        VITE_CVPAP_API_URL: https://api.ajiriwa.gidraf.dev
     restart: unless-stopped
     networks:
       - internal
