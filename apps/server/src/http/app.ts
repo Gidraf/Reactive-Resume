@@ -17,6 +17,7 @@ import { handleAuth, handleOAuth } from "./auth";
 import { handleBillingRoutes } from "./billing";
 import { handleBotLinkRoutes } from "./bot-link";
 import { handleCvOrderRoutes } from "./cv-orders";
+import { handleCvpapProxy } from "./cvpap-proxy";
 import { handleHealth } from "./health";
 import { handleResumePdfDownload } from "./resume-pdf";
 
@@ -30,6 +31,7 @@ export function createApp() {
 	app.get("/api/auth/oauth", (c) => handleOAuth(c.req.raw));
 	app.all("/api/auth/*", (c) => handleAuth(c.req.raw));
 	app.get("/api/health", () => handleHealth());
+	app.all("/api/v1/*", (c) => handleCvpapProxy(c.req.raw));
 	app.all("/api/billing/*", (c) => handleBillingRoutes(c.req.raw));
 	app.all("/api/cv-orders", (c) => handleCvOrderRoutes(c.req.raw));
 	app.all("/api/cv-orders/*", (c) => handleCvOrderRoutes(c.req.raw));
