@@ -30,7 +30,6 @@ import { Route as AgentThreadIdRouteImport } from "./routes/agent/$threadId";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
 import { Route as RevampTokenIndexRouteImport } from "./routes/revamp/$token/index";
-import { Route as RevampLoginTokenIndexRouteImport } from "./routes/revamp/login/$token/index";
 import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/resumes/index";
 import { Route as BuilderResumeIdIndexRouteImport } from "./routes/builder/$resumeId/index";
 import { Route as DashboardSettingsProfileRouteImport } from "./routes/dashboard/settings/profile";
@@ -39,6 +38,7 @@ import { Route as DashboardSettingsJobSearchRouteImport } from "./routes/dashboa
 import { Route as DashboardSettingsDangerZoneRouteImport } from "./routes/dashboard/settings/danger-zone";
 import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard/settings/api-keys";
 import { Route as DashboardSettingsIntegrationsRouteRouteImport } from "./routes/dashboard/settings/integrations/route";
+import { Route as RevampLoginTokenIndexRouteImport } from "./routes/revamp/login/$token/index";
 import { Route as DashboardSettingsAuthenticationIndexRouteImport } from "./routes/dashboard/settings/authentication/index";
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -145,11 +145,6 @@ const RevampTokenIndexRoute = RevampTokenIndexRouteImport.update({
   path: "/revamp/$token/",
   getParentRoute: () => rootRouteImport,
 } as any);
-const RevampLoginTokenIndexRoute = RevampLoginTokenIndexRouteImport.update({
-  id: "/revamp/login/$token/",
-  path: "/revamp/login/$token/",
-  getParentRoute: () => rootRouteImport,
-} as any);
 const DashboardResumesIndexRoute = DashboardResumesIndexRouteImport.update({
   id: "/resumes/",
   path: "/resumes/",
@@ -196,6 +191,11 @@ const DashboardSettingsIntegrationsRouteRoute =
     path: "/settings/integrations",
     getParentRoute: () => DashboardRouteRoute,
   } as any);
+const RevampLoginTokenIndexRoute = RevampLoginTokenIndexRouteImport.update({
+  id: "/revamp/login/$token/",
+  path: "/revamp/login/$token/",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardSettingsAuthenticationIndexRoute =
   DashboardSettingsAuthenticationIndexRouteImport.update({
     id: "/settings/authentication/",
@@ -232,8 +232,8 @@ export interface FileRoutesByFullPath {
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/revamp/$token/": typeof RevampTokenIndexRoute;
-  "/revamp/login/$token/": typeof RevampLoginTokenIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/revamp/login/$token/": typeof RevampLoginTokenIndexRoute;
 }
 export interface FileRoutesByTo {
   "/$username/$slug": typeof UsernameSlugRoute;
@@ -260,8 +260,8 @@ export interface FileRoutesByTo {
   "/builder/$resumeId": typeof BuilderResumeIdIndexRoute;
   "/dashboard/resumes": typeof DashboardResumesIndexRoute;
   "/revamp/$token": typeof RevampTokenIndexRoute;
-  "/revamp/login/$token": typeof RevampLoginTokenIndexRoute;
   "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/revamp/login/$token": typeof RevampLoginTokenIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
@@ -294,8 +294,8 @@ export interface FileRoutesById {
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/revamp/$token/": typeof RevampTokenIndexRoute;
-  "/revamp/login/$token/": typeof RevampLoginTokenIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/revamp/login/$token/": typeof RevampLoginTokenIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
@@ -328,8 +328,8 @@ export interface FileRouteTypes {
     | "/builder/$resumeId/"
     | "/dashboard/resumes/"
     | "/revamp/$token/"
-    | "/revamp/login/$token/"
-    | "/dashboard/settings/authentication/";
+    | "/dashboard/settings/authentication/"
+    | "/revamp/login/$token/";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/$username/$slug"
@@ -356,8 +356,8 @@ export interface FileRouteTypes {
     | "/builder/$resumeId"
     | "/dashboard/resumes"
     | "/revamp/$token"
-    | "/revamp/login/$token"
-    | "/dashboard/settings/authentication";
+    | "/dashboard/settings/authentication"
+    | "/revamp/login/$token";
   id:
     | "__root__"
     | "/_home"
@@ -389,8 +389,8 @@ export interface FileRouteTypes {
     | "/builder/$resumeId/"
     | "/dashboard/resumes/"
     | "/revamp/$token/"
-    | "/revamp/login/$token/"
-    | "/dashboard/settings/authentication/";
+    | "/dashboard/settings/authentication/"
+    | "/revamp/login/$token/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -554,13 +554,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof RevampTokenIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/revamp/login/$token/": {
-      id: "/revamp/login/$token/";
-      path: "/revamp/login/$token";
-      fullPath: "/revamp/login/$token/";
-      preLoaderRoute: typeof RevampLoginTokenIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
     "/dashboard/resumes/": {
       id: "/dashboard/resumes/";
       path: "/resumes";
@@ -616,6 +609,13 @@ declare module "@tanstack/react-router" {
       fullPath: "/dashboard/settings/integrations";
       preLoaderRoute: typeof DashboardSettingsIntegrationsRouteRouteImport;
       parentRoute: typeof DashboardRouteRoute;
+    };
+    "/revamp/login/$token/": {
+      id: "/revamp/login/$token/";
+      path: "/revamp/login/$token";
+      fullPath: "/revamp/login/$token/";
+      preLoaderRoute: typeof RevampLoginTokenIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
     };
     "/dashboard/settings/authentication/": {
       id: "/dashboard/settings/authentication/";
