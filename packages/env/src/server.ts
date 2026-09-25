@@ -1,23 +1,34 @@
 import { isAbsolute, join } from "node:path";
 import { createEnv } from "@t3-oss/env-core";
-import { config } from "dotenv";
 import { z } from "zod";
 import { findWorkspaceRoot } from "@reactive-resume/utils/monorepo.node";
 
 const workspaceRoot = findWorkspaceRoot();
 
 if (workspaceRoot) {
-	config({ path: join(workspaceRoot, ".env"), quiet: true });
+	try {
+		// Native stand-in for dotenv: existing process.env still wins over file values.
+		process.loadEnvFile(join(workspaceRoot, ".env"));
+	} catch (error) {
+		// A missing .env is expected (e.g. production with injected env); anything else is a real problem.
+		if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) throw error;
+	}
 }
 
 export const env = createEnv({
 	server: {
 		// Application
 		APP_URL: z.url({ protocol: /https?/ }),
+		ROOT_RESUME_ID: z
+			.string()
+			.trim()
+			.transform((value) => value || undefined)
+			.optional(),
 		SERVER_PORT: z.coerce.number().int().min(1).max(65535).default(3001),
 
 		// Database
 		DATABASE_URL: z.url({ protocol: /postgres(ql)?/ }),
+		STRICT_SCHEMA_CHECK: z.stringbool().default(false),
 
 		// Authentication
 		AUTH_SECRET: z.string().min(1),
@@ -75,7 +86,6 @@ export const env = createEnv({
 		FLAG_DISABLE_EMAIL_AUTH: z.stringbool().default(false),
 		FLAG_DISABLE_IMAGE_PROCESSING: z.stringbool().default(false),
 		FLAG_DISABLE_API_RATE_LIMIT: z.stringbool().default(false),
-		FLAG_SHOW_SPONSORS: z.stringbool().default(false),
 		FLAG_ALLOW_UNSAFE_AI_BASE_URL: z.stringbool().default(false),
 		FLAG_ALLOW_UNSAFE_OAUTH_REDIRECT_URI: z.stringbool().default(false),
 

@@ -1,24 +1,22 @@
 import type z from "zod";
 import type { DialogProps } from "@/dialogs/store";
+import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { PencilSimpleLineIcon, PlusIcon } from "@phosphor-icons/react";
 import { useStore } from "@tanstack/react-form";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { coverLetterItemSchema } from "@reactive-resume/schema/resume/data";
-import { Button } from "@reactive-resume/ui/components/button";
-import {
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
 import { FormControl, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
 import { RichInput } from "@/components/input/rich-input";
+import { Combobox } from "@/components/ui/combobox";
 import { useDialogStore } from "@/dialogs/store";
 import { useUpdateResumeData } from "@/features/resume/builder/draft";
 import { useFormBlocker } from "@/hooks/use-form-blocker";
+import { orpc } from "@/libs/orpc/client";
 import { makeSectionItem } from "@/libs/resume/make-section-item";
 import { useAppForm, withForm } from "@/libs/tanstack-form";
+import { SectionItemDialog } from "./section-item-dialog";
 
 const formSchema = coverLetterItemSchema;
 
@@ -38,7 +36,7 @@ export function CreateCoverLetterDialog({ data }: DialogProps<"resume.sections.c
 	const form = useAppForm({
 		defaultValues: makeSectionItem(defaultValues, data?.item),
 		validators: { onSubmit: formSchema },
-		onSubmit: async ({ value }) => {
+		onSubmit: ({ value }) => {
 			updateResumeData((draft) => {
 				if (data?.customSectionId) {
 					const section = draft.customSections.find((s) => s.id === data.customSectionId);
@@ -53,36 +51,57 @@ export function CreateCoverLetterDialog({ data }: DialogProps<"resume.sections.c
 	const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
 
 	return (
-		<DialogContent>
-			<DialogHeader>
-				<DialogTitle className="flex items-center gap-x-2">
-					<PlusIcon />
-					<Trans>Create a new cover letter</Trans>
-				</DialogTitle>
-				<DialogDescription />
-			</DialogHeader>
-
-			<form
-				className="grid gap-4"
-				onSubmit={(event) => {
-					event.preventDefault();
-					event.stopPropagation();
-					void form.handleSubmit();
+		<SectionItemDialog
+			title={<Trans>Create a new cover letter</Trans>}
+			icon={<PlusIcon />}
+			onSubmit={() => void form.handleSubmit()}
+			onCancel={requestClose}
+			isSubmitting={isSubmitting}
+			submitLabel={<Trans>Create</Trans>}
+			singleColumn
+		>
+			<ImportFromLibrary
+				onImport={(letter) => {
+					form.setFieldValue("recipient", letter.recipient);
+					form.setFieldValue("content", letter.content);
 				}}
-			>
-				<CoverLetterForm form={form} />
+			/>
+			<CoverLetterForm form={form} />
+		</SectionItemDialog>
+	);
+}
 
-				<DialogFooter>
-					<Button variant="ghost" onClick={requestClose}>
-						<Trans>Cancel</Trans>
-					</Button>
+type ImportFromLibraryProps = {
+	onImport: (letter: { recipient: string; content: string }) => void;
+};
 
-					<Button type="submit" disabled={isSubmitting}>
-						<Trans>Create</Trans>
-					</Button>
-				</DialogFooter>
-			</form>
-		</DialogContent>
+function ImportFromLibrary({ onImport }: ImportFromLibraryProps) {
+	const [selectedId, setSelectedId] = useState<string | null>(null);
+	const letters = useQuery(orpc.coverLetters.list.queryOptions({ input: { limit: 100 } }));
+
+	if (!letters.data?.items.length) return null;
+
+	return (
+		<FormItem>
+			<FormLabel>
+				<Trans>Import from library</Trans>
+			</FormLabel>
+			<FormControl
+				render={
+					<Combobox
+						className="w-full"
+						value={selectedId}
+						placeholder={t`Choose a saved cover letter`}
+						options={letters.data.items.map((letter) => ({ value: letter.id, label: letter.name }))}
+						onValueChange={(id) => {
+							setSelectedId(id);
+							const letter = letters.data.items.find((item) => item.id === id);
+							if (letter) onImport(letter);
+						}}
+					/>
+				}
+			/>
+		</FormItem>
 	);
 }
 
@@ -93,7 +112,7 @@ export function UpdateCoverLetterDialog({ data }: DialogProps<"resume.sections.c
 	const form = useAppForm({
 		defaultValues: data.item,
 		validators: { onSubmit: formSchema },
-		onSubmit: async ({ value }) => {
+		onSubmit: ({ value }) => {
 			updateResumeData((draft) => {
 				if (data?.customSectionId) {
 					const section = draft.customSections.find((s) => s.id === data.customSectionId);
@@ -110,36 +129,17 @@ export function UpdateCoverLetterDialog({ data }: DialogProps<"resume.sections.c
 	const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
 
 	return (
-		<DialogContent>
-			<DialogHeader>
-				<DialogTitle className="flex items-center gap-x-2">
-					<PencilSimpleLineIcon />
-					<Trans>Update an existing cover letter</Trans>
-				</DialogTitle>
-				<DialogDescription />
-			</DialogHeader>
-
-			<form
-				className="grid gap-4"
-				onSubmit={(event) => {
-					event.preventDefault();
-					event.stopPropagation();
-					void form.handleSubmit();
-				}}
-			>
-				<CoverLetterForm form={form} />
-
-				<DialogFooter>
-					<Button variant="ghost" onClick={requestClose}>
-						<Trans>Cancel</Trans>
-					</Button>
-
-					<Button type="submit" disabled={isSubmitting}>
-						<Trans>Save Changes</Trans>
-					</Button>
-				</DialogFooter>
-			</form>
-		</DialogContent>
+		<SectionItemDialog
+			title={<Trans>Update an existing cover letter</Trans>}
+			icon={<PencilSimpleLineIcon />}
+			onSubmit={() => void form.handleSubmit()}
+			onCancel={requestClose}
+			isSubmitting={isSubmitting}
+			submitLabel={<Trans>Save Changes</Trans>}
+			singleColumn
+		>
+			<CoverLetterForm form={form} />
+		</SectionItemDialog>
 	);
 }
 

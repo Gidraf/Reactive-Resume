@@ -24,7 +24,7 @@ describe("Copyright", () => {
 	it("renders the MIT license link", () => {
 		renderCopyright();
 		const link = screen.getByRole("link", { name: "MIT" });
-		expect(link.getAttribute("href")).toBe("https://github.com/AmruthPillai/Reactive-Resume/blob/main/LICENSE");
+		expect(link.getAttribute("href")).toBe("https://github.com/reactive-resume/reactive-resume/blob/main/LICENSE");
 		expect(link.getAttribute("rel")).toBe("noopener noreferrer");
 	});
 
@@ -36,7 +36,8 @@ describe("Copyright", () => {
 
 	it("includes the app version string", () => {
 		renderCopyright();
-		expect(screen.getByText(/v9\.9\.9/)).toBeInTheDocument();
+		// The version is wrapped in <bdi> for RTL isolation, so it is its own text node.
+		expect(screen.getByText("9.9.9")).toBeInTheDocument();
 	});
 
 	it("merges custom className into the wrapper", () => {

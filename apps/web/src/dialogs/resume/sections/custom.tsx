@@ -39,6 +39,9 @@ const defaultValues: FormValues = {
 	icon: "",
 	columns: 1,
 	hidden: false,
+	showHeading: true,
+	keepTogether: false,
+	startOnNewPage: false,
 	items: [],
 };
 
@@ -73,18 +76,11 @@ export function CreateCustomSectionDialog({ data }: DialogProps<"resume.sections
 	const closeDialog = useDialogStore((state) => state.closeDialog);
 	const updateResumeData = useUpdateResumeData();
 
+	const initialValues: FormValues = { ...defaultValues, ...data, id: generateId() };
 	const form = useAppForm({
-		defaultValues: {
-			id: generateId(),
-			title: data?.title ?? "",
-			type: (data?.type ?? "experience") as CustomSectionType,
-			icon: data?.icon ?? "",
-			columns: data?.columns ?? 1,
-			hidden: data?.hidden ?? false,
-			items: data?.items ?? [],
-		},
+		defaultValues: initialValues,
 		validators: { onSubmit: formSchema },
-		onSubmit: async ({ value }) => {
+		onSubmit: ({ value }) => {
 			updateResumeData((draft) => {
 				draft.customSections.push(value);
 				const lastPageIndex = draft.metadata.layout.pages.length - 1;
@@ -142,7 +138,7 @@ export function UpdateCustomSectionDialog({ data }: DialogProps<"resume.sections
 			icon: data.icon ?? "",
 		},
 		validators: { onSubmit: formSchema },
-		onSubmit: async ({ value }) => {
+		onSubmit: ({ value }) => {
 			updateResumeData((draft) => {
 				const index = draft.customSections.findIndex((item) => item.id === value.id);
 				if (index === -1) return;

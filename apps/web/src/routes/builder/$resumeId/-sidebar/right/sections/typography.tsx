@@ -3,7 +3,7 @@ import type z from "zod";
 import { Trans } from "@lingui/react/macro";
 import { useStore } from "@tanstack/react-form";
 import { typographySchema } from "@reactive-resume/schema/resume/data";
-import { FormControl, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
+import { FormControl, FormDescription, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
 import {
 	InputGroup,
 	InputGroupAddon,
@@ -11,7 +11,9 @@ import {
 	InputGroupText,
 } from "@reactive-resume/ui/components/input-group";
 import { Separator } from "@reactive-resume/ui/components/separator";
-import { FontFamilyCombobox, FontWeightCombobox, getNextWeights } from "@/components/typography/combobox";
+import { Switch } from "@reactive-resume/ui/components/switch";
+import { FontFamilyCombobox, FontWeightCombobox } from "@/components/typography/combobox";
+import { getNextWeights } from "@/components/typography/get-next-weights";
 import { useResume, useUpdateResumeData } from "@/features/resume/builder/draft";
 import { useSyncFormValues } from "@/hooks/use-sync-form-values";
 import { useAppForm } from "@/libs/tanstack-form";
@@ -29,6 +31,21 @@ const formSchema = typographySchema;
 
 type FormValues = z.infer<typeof formSchema>;
 type FontWeight = FormValues["body"]["fontWeights"][number];
+type TypographyPrefix = "body" | "heading";
+
+function useTypographyForm(typography: FormValues | undefined, persist: (data: FormValues) => void) {
+	const form = useAppForm({
+		defaultValues: typography,
+		validators: { onChange: formSchema },
+		onSubmit: ({ value }) => {
+			persist(value);
+		},
+	});
+	useSyncFormValues(form, typography);
+	return form;
+}
+
+type TypographyForm = ReturnType<typeof useTypographyForm>;
 
 function TypographySectionForm() {
 	const resume = useResume();
@@ -39,24 +56,15 @@ function TypographySectionForm() {
 		updateResumeData((draft) => {
 			draft.metadata.typography.body = data.body;
 			draft.metadata.typography.heading = data.heading;
+			if (data.hyphenation !== undefined) draft.metadata.typography.hyphenation = data.hyphenation;
 		});
 	};
 
-	const form = useAppForm({
-		defaultValues: typography,
-		validators: { onChange: formSchema },
-		onSubmit: ({ value }) => {
-			persist(value);
-		},
-	});
-	useSyncFormValues(form, typography);
+	const form = useTypographyForm(typography, persist);
 
 	const handleAutoSave = () => {
 		persist(form.state.values);
 	};
-
-	const bodyFontFamily = useStore(form.store, (s) => s.values.body.fontFamily);
-	const headingFontFamily = useStore(form.store, (s) => s.values.heading.fontFamily);
 
 	return (
 		<form
@@ -68,257 +76,171 @@ function TypographySectionForm() {
 			}}
 		>
 			<TypographyFieldGroup label={<Trans context="Body Text (paragraphs, lists, etc.)">Body</Trans>} />
-
-			<form.Field name="body.fontFamily">
-				{(field) => (
-					<FormItem
-						className="col-span-full"
-						hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}
-					>
-						<FormLabel>
-							<Trans>Font Family</Trans>
-						</FormLabel>
-						<FormControl
-							render={
-								<FontFamilyCombobox
-									value={field.state.value}
-									className="text-base"
-									onValueChange={(value: string | null) => {
-										if (value === null) return;
-										field.handleChange(value);
-										const nextWeights = getNextWeights(value);
-										if (nextWeights) form.setFieldValue("body.fontWeights", nextWeights);
-										handleAutoSave();
-									}}
-								/>
-							}
-						/>
-						<FormMessage errors={field.state.meta.errors} />
-					</FormItem>
-				)}
-			</form.Field>
-
-			<form.Field name="body.fontWeights">
-				{(field) => (
-					<FormItem
-						className="col-span-full"
-						hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}
-					>
-						<FormLabel>
-							<Trans>Font Weights</Trans>
-						</FormLabel>
-						<FormControl
-							render={
-								<FontWeightCombobox
-									value={field.state.value}
-									fontFamily={bodyFontFamily}
-									onValueChange={(value) => {
-										if (value?.length === 0) return;
-										field.handleChange(value as FontWeight[]);
-										handleAutoSave();
-									}}
-								/>
-							}
-						/>
-						<FormMessage errors={field.state.meta.errors} />
-					</FormItem>
-				)}
-			</form.Field>
-
-			<form.Field name="body.fontSize">
-				{(field) => (
-					<FormItem hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}>
-						<FormLabel>
-							<Trans>Font Size</Trans>
-						</FormLabel>
-						<InputGroup>
-							<FormControl
-								render={
-									<InputGroupInput
-										name={field.name}
-										value={field.state.value}
-										min={6}
-										max={24}
-										step={0.1}
-										type="number"
-										onBlur={field.handleBlur}
-										onChange={(e) => {
-											const value = e.target.value;
-											if (value === "") field.handleChange("" as unknown as number);
-											else field.handleChange(Number(value));
-											handleAutoSave();
-										}}
-									/>
-								}
-							/>
-							<InputGroupAddon align="inline-end">
-								<InputGroupText>pt</InputGroupText>
-							</InputGroupAddon>
-						</InputGroup>
-					</FormItem>
-				)}
-			</form.Field>
-
-			<form.Field name="body.lineHeight">
-				{(field) => (
-					<FormItem hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}>
-						<FormLabel>
-							<Trans>Line Height</Trans>
-						</FormLabel>
-						<InputGroup>
-							<FormControl
-								render={
-									<InputGroupInput
-										name={field.name}
-										value={field.state.value}
-										min={0.5}
-										max={4}
-										step={0.05}
-										type="number"
-										onBlur={field.handleBlur}
-										onChange={(e) => {
-											const value = e.target.value;
-											if (value === "") field.handleChange("" as unknown as number);
-											else field.handleChange(Number(value));
-											handleAutoSave();
-										}}
-									/>
-								}
-							/>
-							<InputGroupAddon align="inline-end">
-								<InputGroupText>x</InputGroupText>
-							</InputGroupAddon>
-						</InputGroup>
-					</FormItem>
-				)}
-			</form.Field>
-
+			<TypographyGroupFields form={form} prefix="body" handleAutoSave={handleAutoSave} />
 			<TypographyFieldGroup label={<Trans context="Headings or Titles (H1, H2, H3, H4, H5, H6)">Heading</Trans>} />
-
-			<form.Field name="heading.fontFamily">
+			<TypographyGroupFields form={form} prefix="heading" handleAutoSave={handleAutoSave} />
+			<form.Field name="hyphenation">
 				{(field) => (
-					<FormItem
-						className="col-span-full"
-						hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}
-					>
-						<FormLabel>
-							<Trans>Font Family</Trans>
-						</FormLabel>
-						<FormControl
-							render={
-								<FontFamilyCombobox
-									value={field.state.value}
-									className="text-base"
-									onValueChange={(value: string | null) => {
-										if (value === null) return;
-										field.handleChange(value);
-										const nextWeights = getNextWeights(value);
-										if (nextWeights) form.setFieldValue("heading.fontWeights", nextWeights);
-										handleAutoSave();
-									}}
-								/>
-							}
-						/>
-						<FormMessage errors={field.state.meta.errors} />
-					</FormItem>
-				)}
-			</form.Field>
-
-			<form.Field name="heading.fontWeights">
-				{(field) => (
-					<FormItem
-						className="col-span-full"
-						hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}
-					>
-						<FormLabel>
-							<Trans>Font Weight</Trans>
-						</FormLabel>
-						<FormControl
-							render={
-								<FontWeightCombobox
-									value={field.state.value}
-									fontFamily={headingFontFamily}
-									onValueChange={(value) => {
-										if (value?.length === 0) return;
-										field.handleChange(value as FontWeight[]);
-										handleAutoSave();
-									}}
-								/>
-							}
-						/>
-						<FormMessage errors={field.state.meta.errors} />
-					</FormItem>
-				)}
-			</form.Field>
-
-			<form.Field name="heading.fontSize">
-				{(field) => (
-					<FormItem hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}>
-						<FormLabel>
-							<Trans>Font Size</Trans>
-						</FormLabel>
-						<InputGroup>
+					<FormItem className="col-span-full mt-2">
+						<div className="flex items-center gap-x-3">
 							<FormControl
 								render={
-									<InputGroupInput
-										name={field.name}
-										value={field.state.value}
-										min={6}
-										max={24}
-										step={0.1}
-										type="number"
-										onBlur={field.handleBlur}
-										onChange={(e) => {
-											const value = e.target.value;
-											if (value === "") field.handleChange("" as unknown as number);
-											else field.handleChange(Number(value));
+									<Switch
+										checked={field.state.value === true}
+										onCheckedChange={(checked) => {
+											field.handleChange(checked);
 											handleAutoSave();
 										}}
 									/>
 								}
 							/>
-							<InputGroupAddon align="inline-end">
-								<InputGroupText>pt</InputGroupText>
-							</InputGroupAddon>
-						</InputGroup>
-					</FormItem>
-				)}
-			</form.Field>
-
-			<form.Field name="heading.lineHeight">
-				{(field) => (
-					<FormItem hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}>
-						<FormLabel>
-							<Trans>Line Height</Trans>
-						</FormLabel>
-						<InputGroup>
-							<FormControl
-								render={
-									<InputGroupInput
-										name={field.name}
-										value={field.state.value}
-										min={0.5}
-										max={4}
-										step={0.05}
-										type="number"
-										onBlur={field.handleBlur}
-										onChange={(e) => {
-											const value = e.target.value;
-											if (value === "") field.handleChange("" as unknown as number);
-											else field.handleChange(Number(value));
-											handleAutoSave();
-										}}
-									/>
-								}
-							/>
-							<InputGroupAddon align="inline-end">
-								<InputGroupText>x</InputGroupText>
-							</InputGroupAddon>
-						</InputGroup>
+							<FormLabel>
+								<Trans>Hyphenation</Trans>
+							</FormLabel>
+						</div>
+						<FormDescription>
+							<Trans>Currently available for German resumes. Uses the language set in Page.</Trans>
+						</FormDescription>
 					</FormItem>
 				)}
 			</form.Field>
 		</form>
+	);
+}
+
+type TypographyGroupFieldsProps = {
+	form: TypographyForm;
+	prefix: TypographyPrefix;
+	handleAutoSave: () => void;
+};
+
+function TypographyGroupFields({ form, prefix, handleAutoSave }: TypographyGroupFieldsProps) {
+	const fontFamily = useStore(form.store, (s) => s.values[prefix].fontFamily);
+
+	return (
+		<>
+			<form.Field name={`${prefix}.fontFamily`}>
+				{(field) => (
+					<FormItem
+						className="col-span-full"
+						hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}
+					>
+						<FormLabel>
+							<Trans>Font Family</Trans>
+						</FormLabel>
+						<FormControl
+							render={
+								<FontFamilyCombobox
+									value={field.state.value}
+									className="text-base"
+									onValueChange={(value: string | null) => {
+										if (value === null) return;
+										field.handleChange(value);
+										const nextWeights = getNextWeights(value);
+										if (nextWeights) form.setFieldValue(`${prefix}.fontWeights`, nextWeights);
+										handleAutoSave();
+									}}
+								/>
+							}
+						/>
+						<FormMessage errors={field.state.meta.errors} />
+					</FormItem>
+				)}
+			</form.Field>
+
+			<form.Field name={`${prefix}.fontWeights`}>
+				{(field) => (
+					<FormItem
+						className="col-span-full"
+						hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}
+					>
+						<FormLabel>{prefix === "body" ? <Trans>Font Weights</Trans> : <Trans>Font Weight</Trans>}</FormLabel>
+						<FormControl
+							render={
+								<FontWeightCombobox
+									value={field.state.value}
+									fontFamily={fontFamily}
+									onValueChange={(value) => {
+										if (value?.length === 0) return;
+										field.handleChange(value as FontWeight[]);
+										handleAutoSave();
+									}}
+								/>
+							}
+						/>
+						<FormMessage errors={field.state.meta.errors} />
+					</FormItem>
+				)}
+			</form.Field>
+
+			<form.Field name={`${prefix}.fontSize`}>
+				{(field) => (
+					<FormItem hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}>
+						<FormLabel>
+							<Trans>Font Size</Trans>
+						</FormLabel>
+						<InputGroup>
+							<FormControl
+								render={
+									<InputGroupInput
+										name={field.name}
+										value={field.state.value}
+										min={6}
+										max={24}
+										step={0.1}
+										type="number"
+										onBlur={field.handleBlur}
+										onChange={(e) => {
+											const value = e.target.value;
+											if (value === "") field.handleChange("" as unknown as number);
+											else field.handleChange(Number(value));
+											handleAutoSave();
+										}}
+									/>
+								}
+							/>
+							<InputGroupAddon align="inline-end">
+								<InputGroupText>pt</InputGroupText>
+							</InputGroupAddon>
+						</InputGroup>
+					</FormItem>
+				)}
+			</form.Field>
+
+			<form.Field name={`${prefix}.lineHeight`}>
+				{(field) => (
+					<FormItem hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}>
+						<FormLabel>
+							<Trans>Line Height</Trans>
+						</FormLabel>
+						<InputGroup>
+							<FormControl
+								render={
+									<InputGroupInput
+										name={field.name}
+										value={field.state.value}
+										min={0.5}
+										max={4}
+										step={0.05}
+										type="number"
+										onBlur={field.handleBlur}
+										onChange={(e) => {
+											const value = e.target.value;
+											if (value === "") field.handleChange("" as unknown as number);
+											else field.handleChange(Number(value));
+											handleAutoSave();
+										}}
+									/>
+								}
+							/>
+							<InputGroupAddon align="inline-end">
+								<InputGroupText>x</InputGroupText>
+							</InputGroupAddon>
+						</InputGroup>
+					</FormItem>
+				)}
+			</form.Field>
+		</>
 	);
 }
 

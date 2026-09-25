@@ -13,11 +13,18 @@ env:
 
 jobs:
   autofix:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_X64 || 'ubuntu-latest' }}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
+
+      - name: Check for merge conflict markers
+        run: |
+          if git grep -nEI '<{7} |>{7} |^={7}$' -- ':(exclude)*.md' ':(exclude)*.mdx'; then
+            echo "::error::Merge conflict markers found in tracked files"
+            exit 1
+          fi
 
       - name: Install pnpm
         uses: pnpm/action-setup@v6
@@ -25,7 +32,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: "lts/*"
+          node-version-file: ".nvmrc"
           cache: "pnpm"
 
       - name: Install Dependencies

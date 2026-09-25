@@ -1,6 +1,6 @@
 import type { PDFDocumentLoadingTask, PDFDocumentProxy, RenderTask } from "pdfjs-dist/legacy/build/pdf.mjs";
 import type { ReactNode } from "react";
-import type { PreviewPageSize } from "./preview.shared";
+import type { PreviewPageSize } from "./preview.shared.utils";
 import {
 	AnnotationMode,
 	GlobalWorkerOptions,
@@ -9,7 +9,7 @@ import {
 } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@reactive-resume/utils/style";
-import { DEFAULT_PDF_PAGE_SIZE, getPreviewCanvasScale, getScaledPreviewPageSize } from "./preview.shared";
+import { DEFAULT_PDF_PAGE_SIZE, getPreviewCanvasScale, getScaledPreviewPageSize } from "./preview.shared.utils";
 
 GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/legacy/build/pdf.worker.min.mjs", import.meta.url).toString();
 
@@ -136,6 +136,8 @@ export function PdfCanvasPage({
 				canvas.width = Math.floor(width * renderScale);
 				canvas.height = Math.floor(height * renderScale);
 
+				// PDF.js positions glyphs in physical coordinates, even inside an RTL resume page.
+				canvasContext.direction = "ltr";
 				canvasContext.setTransform(1, 0, 0, 1, 0, 0);
 				canvasContext.clearRect(0, 0, canvas.width, canvas.height);
 

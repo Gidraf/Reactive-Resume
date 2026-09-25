@@ -1,16 +1,17 @@
 import type { LeftSidebarSection } from "@/libs/resume/section";
 import { t } from "@lingui/core/macro";
-import { FloppyDiskIcon, LockSimpleIcon, PencilSimpleIcon } from "@phosphor-icons/react";
+import { LockSimpleIcon, PencilSimpleIcon } from "@phosphor-icons/react";
 import { useHotkey } from "@tanstack/react-hotkeys";
 import { Suspense, useCallback, useRef, useState } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-import { toast } from "sonner";
+import { toast } from "@reactive-resume/ui/components/toast";
 import { LoadingScreen } from "@/components/layout/loading-screen";
 import { ResumePreview } from "@/features/resume/preview/preview";
 import { useRevampStore } from "../-store/revamp";
 import { BuilderDock } from "./dock";
 import { InlineEditor, sectionFromYFraction } from "./inline-editor";
 import { DEFAULT_BUILDER_PREVIEW_PAGE_LAYOUT, getNextBuilderPreviewPageLayout } from "./page-layout";
+import { blurFocusedElementOnPan } from "./pan-focus";
 import { RevampHUD } from "./revamp-hud";
 
 const WATERMARK_SVG = encodeURIComponent(
@@ -30,7 +31,11 @@ export function PreviewPage() {
 	const panMovedRef = useRef(false);
 
 	useHotkey("Mod+S", () => {
-		toast.info(t`Your changes are saved automatically.`, { id: "auto-save", icon: <FloppyDiskIcon /> });
+		toast.add({
+			type: "info",
+			description: t`Your changes are saved automatically.`,
+			id: "auto-save",
+		});
 	});
 
 	const openEditor = useCallback((section: LeftSidebarSection = "basics") => {
@@ -45,7 +50,7 @@ export function PreviewPage() {
 	// Click on the artboard opens the section editor, guessing which section
 	// was clicked using the Y position fraction as a heuristic.
 	const handleArtboardClick = useCallback(
-		(e: React.MouseEvent<HTMLDivElement>) => {
+		(e: React.MouseEvent<HTMLElement>) => {
 			if (panMovedRef.current) return;
 			if (editorOpen) return;
 			const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
@@ -67,13 +72,16 @@ export function PreviewPage() {
 					wheel={{ step: 0.001 }}
 					onPanningStart={() => {
 						panMovedRef.current = false;
+						blurFocusedElementOnPan();
 					}}
 					onPanning={() => {
 						panMovedRef.current = true;
 					}}
 				>
+					{/* Zoom transforms use left-origin coordinates, regardless of the interface language. */}
 					<TransformComponent
 						wrapperClass="h-full! w-full!"
+						wrapperProps={{ dir: "ltr" }}
 						wrapperStyle={{ cursor: editorOpen ? "default" : "pointer" }}
 						contentStyle={{ position: "relative" }}
 					>

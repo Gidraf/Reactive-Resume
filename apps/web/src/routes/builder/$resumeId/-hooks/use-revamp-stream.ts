@@ -17,7 +17,6 @@ type RevampEvent = {
 export function useRevampStream(token: string | null) {
 	const updateResumeData = useUpdateResumeData();
 	const store = useRevampStore();
-	const _streamKey = useRevampStore((s) => s.streamKey);
 	const autoApply = useRevampStore((s) => s.autoApply);
 	const esRef = useRef<EventSource | null>(null);
 

@@ -25,7 +25,10 @@ describe("renderSummary", () => {
 			icon: getDefaultSectionIconName("summary"),
 			content: "<p>Hello</p>",
 			hidden: true,
+			showHeading: true,
 			columns: 1,
+			keepTogether: false,
+			startOnNewPage: false,
 		};
 		expect(renderSummary(summary, HEX)).toEqual([]);
 	});
@@ -36,7 +39,10 @@ describe("renderSummary", () => {
 			icon: getDefaultSectionIconName("summary"),
 			content: "",
 			hidden: false,
+			showHeading: true,
 			columns: 1,
+			keepTogether: false,
+			startOnNewPage: false,
 		};
 		expect(renderSummary(summary, HEX)).toEqual([]);
 	});
@@ -47,11 +53,31 @@ describe("renderSummary", () => {
 			icon: getDefaultSectionIconName("summary"),
 			content: "<p>Hello world</p>",
 			hidden: false,
+			showHeading: true,
 			columns: 1,
+			keepTogether: false,
+			startOnNewPage: false,
 		};
 		const paragraphs = renderSummary(summary, HEX);
 		// One heading + the htmlToParagraphs output for one <p>.
 		expect(paragraphs.length).toBeGreaterThanOrEqual(2);
+	});
+
+	it("omits a disabled heading while retaining summary content", () => {
+		const summary: ResumeData["summary"] = {
+			title: "Summary",
+			icon: getDefaultSectionIconName("summary"),
+			content: "<p>Hello world</p>",
+			hidden: false,
+			showHeading: false,
+			columns: 1,
+			keepTogether: false,
+			startOnNewPage: false,
+		};
+
+		const paragraphs = renderSummary(summary, HEX);
+
+		expect(paragraphs).toHaveLength(1);
 	});
 
 	it("omits the heading when title is empty but still renders content", () => {
@@ -60,7 +86,10 @@ describe("renderSummary", () => {
 			icon: getDefaultSectionIconName("summary"),
 			content: "<p>Hello world</p>",
 			hidden: false,
+			showHeading: true,
 			columns: 1,
+			keepTogether: false,
+			startOnNewPage: false,
 		};
 		const paragraphs = renderSummary(summary, HEX);
 		expect(paragraphs.length).toBeGreaterThanOrEqual(1);
@@ -73,7 +102,11 @@ const emptySection = <T extends SectionType>(type: T): ResumeData["sections"][T]
 		icon: getDefaultSectionIconName(type),
 		columns: 1,
 		hidden: false,
+		showHeading: true,
+		keepTogether: false,
+		startOnNewPage: false,
 		items: [],
+		...(type === "skills" ? { layout: "default" as const, keywordLayout: "inline" as const } : {}),
 	}) as ResumeData["sections"][T];
 
 describe("renderBuiltInSection", () => {
@@ -99,6 +132,9 @@ describe("renderCustomSection", () => {
 		icon: getDefaultSectionIconName("summary"),
 		columns: 1,
 		hidden: false,
+		showHeading: true,
+		keepTogether: false,
+		startOnNewPage: false,
 		items: [],
 	};
 
@@ -134,10 +170,21 @@ describe("renderCustomSection", () => {
 		expect(paragraphs.length).toBeGreaterThanOrEqual(2);
 	});
 
+	it("omits a disabled custom section heading while retaining content", () => {
+		const section: CustomSection = {
+			...baseCustom,
+			showHeading: false,
+			items: [{ id: "x", hidden: false, content: "<p>Hello</p>" } as never],
+		};
+
+		expect(renderCustomSection(section, HEX)).toHaveLength(1);
+	});
+
 	it("renders recipient + content for a cover-letter custom section", () => {
 		const section: CustomSection = {
 			...baseCustom,
 			type: "cover-letter",
+			title: "Cover Letter",
 			items: [
 				{
 					id: "x",
@@ -148,8 +195,7 @@ describe("renderCustomSection", () => {
 			],
 		};
 		const paragraphs = renderCustomSection(section, HEX);
-		// 1 heading + at least two paragraphs (recipient + body)
-		expect(paragraphs.length).toBeGreaterThanOrEqual(3);
+		expect(paragraphs).toHaveLength(2);
 	});
 });
 

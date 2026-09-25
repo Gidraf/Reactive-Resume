@@ -2,7 +2,7 @@ import type { UIMessage } from "ai";
 import z from "zod";
 import { protectedProcedure } from "../../context";
 import { aiRequestRateLimit } from "../../middleware/rate-limit";
-import { isAgentEnvironmentUnavailable, isUiMessage, throwUnavailable } from "./routing";
+import { isUiMessage, mapAgentEnvironmentError } from "./routing";
 import { agentService } from "./service";
 
 export const messagesRouter = {
@@ -22,19 +22,15 @@ export const messagesRouter = {
 			}),
 		)
 		.use(aiRequestRateLimit)
-		.handler(async ({ context, input }) => {
-			try {
-				return await agentService.messages.send({
-					userId: context.user.id,
-					threadId: input.threadId,
-					message: input.message,
-					...(input.attachmentIds ? { attachmentIds: input.attachmentIds } : {}),
-				});
-			} catch (error) {
-				if (isAgentEnvironmentUnavailable(error)) throwUnavailable();
-				throw error;
-			}
-		}),
+		.use(mapAgentEnvironmentError)
+		.handler(({ context, input }) =>
+			agentService.messages.send({
+				userId: context.user.id,
+				threadId: input.threadId,
+				message: input.message,
+				...(input.attachmentIds ? { attachmentIds: input.attachmentIds } : {}),
+			}),
+		),
 
 	stop: protectedProcedure
 		.route({
@@ -47,22 +43,19 @@ export const messagesRouter = {
 		.input(
 			z.object({
 				threadId: z.string(),
+				// Deprecated and ignored: partial content now persists server-side via the run's
+				// abort path. Kept in the schema for one release so mid-deploy clients still parse.
 				partialMessage: z.custom<UIMessage>(isUiMessage, { message: "Invalid UI message." }).optional(),
 			}),
 		)
 		.output(z.void())
-		.handler(async ({ context, input }) => {
-			try {
-				await agentService.messages.stop({
-					userId: context.user.id,
-					threadId: input.threadId,
-					...(input.partialMessage ? { partialMessage: input.partialMessage } : {}),
-				});
-			} catch (error) {
-				if (isAgentEnvironmentUnavailable(error)) throwUnavailable();
-				throw error;
-			}
-		}),
+		.use(mapAgentEnvironmentError)
+		.handler(({ context, input }) =>
+			agentService.messages.stop({
+				userId: context.user.id,
+				threadId: input.threadId,
+			}),
+		),
 
 	resume: protectedProcedure
 		.route({
@@ -73,12 +66,8 @@ export const messagesRouter = {
 			summary: "Resume agent message stream",
 		})
 		.input(z.object({ threadId: z.string() }))
-		.handler(async ({ context, input }) => {
-			try {
-				return await agentService.messages.resume({ userId: context.user.id, threadId: input.threadId });
-			} catch (error) {
-				if (isAgentEnvironmentUnavailable(error)) throwUnavailable();
-				throw error;
-			}
-		}),
+		.use(mapAgentEnvironmentError)
+		.handler(({ context, input }) =>
+			agentService.messages.resume({ userId: context.user.id, threadId: input.threadId }),
+		),
 };

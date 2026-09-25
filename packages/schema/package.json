@@ -4,8 +4,10 @@
 	"type": "module",
 	"private": true,
 	"exports": {
+		"./cover-letter/data": "./src/cover-letter/data.ts",
+		"./applications/*": "./src/applications/*.ts",
 		"./icons": "./src/icons.ts",
-		"./page": "./src/page.ts",
+		"./resume/stylesheet": "./src/resume/stylesheet.ts",
 		"./resume/*": "./src/resume/*.ts",
 		"./schema.json": "./schema.json",
 		"./templates": "./src/templates.ts"
@@ -18,11 +20,11 @@
 		"test:agent": "vitest run --reporter=agent --reporter=json --outputFile.json=reports/vitest-results.json --passWithNoTests"
 	},
 	"dependencies": {
-		"zod": "^4.4.3"
+		"zod": "^4.6.5"
 	},
 	"devDependencies": {
 		"@reactive-resume/config": "workspace:*",
-		"@typescript/native-preview": "7.0.0-dev.20260617.2",
-		"typescript": "^6.0.3"
+		"@typescript/native-preview": "7.0.0-dev.20260707.2",
+		"typescript": "^7.0.2"
 	}
 }

@@ -18,7 +18,8 @@
  */
 
 import {
-	analyzeResumeSystemPrompt as analyzeResumeFallback,
+	// upstream renamed analyzeResumeSystemPrompt -> atsReviewSystemPrompt (v5.3)
+	atsReviewSystemPrompt as analyzeResumeFallback,
 	chatSystemPromptTemplate as chatSystemFallback,
 	docxParserSystemPrompt as docxParserSystemFallback,
 	docxParserUserPrompt as docxParserUserFallback,
@@ -115,8 +116,14 @@ export type TrackGenerationOpts = {
 	input: unknown;
 	/** Model output text */
 	output?: string;
-	/** Token counts from the Vercel AI SDK result.usage object */
-	usage?: { promptTokens?: number; completionTokens?: number; totalTokens?: number };
+	/** Token counts from the Vercel AI SDK result.usage object.
+	 *  Fields are optional AND may be explicitly undefined — the SDK's
+	 *  LanguageModelUsage sets them that way under exactOptionalPropertyTypes. */
+	usage?: {
+		promptTokens?: number | undefined;
+		completionTokens?: number | undefined;
+		totalTokens?: number | undefined;
+	};
 	/** Optional ISO session/user identifier for grouping traces */
 	sessionId?: string;
 };

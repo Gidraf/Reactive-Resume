@@ -1,6 +1,7 @@
 import { getPool } from "@reactive-resume/db/client";
 
 const RESUME_UPDATED_CHANNEL = "resume_updated";
+const resumeMutationNames = new Set(["sync", "create", "update", "patch", "lock", "password", "delete"] as const);
 
 type PgNotification = {
 	channel?: string | undefined;
@@ -30,7 +31,8 @@ function isResumeUpdatedEvent(value: unknown): value is ResumeUpdatedEvent {
 		typeof event.resumeId === "string" &&
 		typeof event.userId === "string" &&
 		typeof event.updatedAt === "string" &&
-		typeof event.mutation === "string"
+		typeof event.mutation === "string" &&
+		resumeMutationNames.has(event.mutation as ResumeUpdatedEvent["mutation"])
 	);
 }
 
@@ -75,28 +77,17 @@ export async function* subscribeResumeUpdated({ resumeId, userId, signal }: Subs
 	try {
 		await client.query(`LISTEN ${RESUME_UPDATED_CHANNEL}`);
 
-		const waitForNextEvent = async (): Promise<ResumeUpdatedEvent | null> => {
-			if (done) return null;
-
+		while (!done) {
 			const event = queue.shift();
-			if (event) return event;
+			if (event) {
+				yield event;
+				continue;
+			}
 
 			await new Promise<void>((resolve) => {
 				wake = resolve;
 			});
-
-			return waitForNextEvent();
-		};
-
-		async function* streamEvents(): AsyncGenerator<ResumeUpdatedEvent> {
-			const event = await waitForNextEvent();
-			if (!event) return;
-
-			yield event;
-			yield* streamEvents();
 		}
-
-		yield* streamEvents();
 	} finally {
 		signal?.removeEventListener("abort", onAbort);
 		client.off("notification", onNotification);

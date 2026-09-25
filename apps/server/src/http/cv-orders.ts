@@ -124,7 +124,9 @@ export async function handleCvOrderRoutes(request: Request): Promise<Response> {
 	// Match /api/cv-orders/:resumeId or /api/cv-orders/:resumeId/revision
 	const cvOrderMatch = pathname.match(/^\/api\/cv-orders\/([^/]+)(\/revision)?$/);
 	if (cvOrderMatch) {
+		// noUncheckedIndexedAccess types capture groups as possibly undefined
 		const resumeId = cvOrderMatch[1];
+		if (!resumeId) return badRequestResponse("resumeId is required");
 		const isRevision = cvOrderMatch[2] === "/revision";
 
 		// GET /api/cv-orders/:resumeId — get order for a specific resume

@@ -1,12 +1,4 @@
-import { mkdtempSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-const envMock = vi.hoisted(() => ({
-	// Filled in by beforeEach so caches do not bleed between tests.
-	LOCAL_STORAGE_PATH: "" as string,
-}));
 
 const dbResult = vi.hoisted(() => ({ count: 0 }));
 const dbMock = vi.hoisted(() => {
@@ -15,7 +7,6 @@ const dbMock = vi.hoisted(() => {
 	return { select };
 });
 
-vi.mock("@reactive-resume/env/server", () => ({ env: envMock }));
 vi.mock("@reactive-resume/db/client", () => ({ db: dbMock }));
 vi.mock("@reactive-resume/db/schema", () => ({ user: { __table: "user" }, resume: { __table: "resume" } }));
 vi.mock("drizzle-orm", () => ({ count: () => "count(*)" }));
@@ -25,21 +16,47 @@ beforeEach(() => {
 	vi.stubGlobal("fetch", fetchMock);
 });
 afterEach(() => {
+	vi.useRealTimers();
 	vi.unstubAllGlobals();
 	fetchMock.mockReset();
-	dbMock.select.mockClear();
+	dbMock.select.mockReset();
+	// ponytail: clear in-memory cache so each test starts with a fresh fetch
+	clearStatisticsCache();
 });
 
-const { statisticsService } = await import("./service");
+const { statisticsService, clearStatisticsCache } = await import("./service");
 
-// Each test gets a unique LOCAL_STORAGE_PATH to avoid cross-test cache hits.
-beforeEach(() => {
-	envMock.LOCAL_STORAGE_PATH = mkdtempSync(join(tmpdir(), "rr-statistics-test-"));
+it("reports the older cache time, retains it on reads, and omits it for fallback totals", async () => {
+	vi.useFakeTimers();
+	const start = Date.UTC(2026, 8, 8);
+	const hour = 60 * 60 * 1000;
+	vi.setSystemTime(start);
+	dbResult.count = 42;
+	dbMock.select.mockReturnValue({ from: () => Promise.resolve([dbResult]) });
+	await statisticsService.user.getCount();
+
+	vi.setSystemTime(start + hour);
+	dbResult.count = 7;
+	await expect(statisticsService.getTotals()).resolves.toEqual({ users: 42, resumes: 7, cachedAt: start });
+	vi.setSystemTime(start + 2 * hour);
+	await expect(statisticsService.getTotals()).resolves.toEqual({ users: 42, resumes: 7, cachedAt: start });
+	expect(dbMock.select).toHaveBeenCalledTimes(2);
+
+	vi.setSystemTime(start + 6 * hour);
+	dbResult.count = 8;
+	await expect(statisticsService.getTotals()).resolves.toEqual({ users: 8, resumes: 7, cachedAt: start + hour });
+
+	vi.setSystemTime(start + 7 * hour);
+	dbMock.select.mockImplementationOnce(() => {
+		throw new Error("db down");
+	});
+	expect(await statisticsService.getTotals()).toMatchObject({ users: 8, cachedAt: null });
 });
 
 describe("statisticsService.user.getCount", () => {
 	it("returns the DB count when the fetcher succeeds", async () => {
 		dbResult.count = 42;
+		dbMock.select.mockReturnValue({ from: () => Promise.resolve([dbResult]) });
 		await expect(statisticsService.user.getCount()).resolves.toBe(42);
 	});
 
@@ -56,6 +73,7 @@ describe("statisticsService.user.getCount", () => {
 describe("statisticsService.resume.getCount", () => {
 	it("returns the DB count for resume", async () => {
 		dbResult.count = 7;
+		dbMock.select.mockReturnValue({ from: () => Promise.resolve([dbResult]) });
 		await expect(statisticsService.resume.getCount()).resolves.toBe(7);
 	});
 });

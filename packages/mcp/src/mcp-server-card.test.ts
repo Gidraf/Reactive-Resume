@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { buildMcpServerCard } from "./mcp-server-card";
 import { MCP_TOOL_NAME } from "./mcp-tool-names";
+import { TOOL_META } from "./tool-meta";
 
 describe("buildMcpServerCard", () => {
 	const card = buildMcpServerCard("1.2.3");
@@ -39,6 +40,35 @@ describe("buildMcpServerCard", () => {
 		expect(tool?.description).toContain("short-lived");
 		expect(tool?.description).toContain("10 minutes");
 		expect(tool?.annotations?.readOnlyHint).toBe(true);
+		const properties = tool?.inputSchema.properties as Record<string, { enum?: string[]; default?: string }>;
+		expect(properties.target).toMatchObject({ enum: ["resume", "cover-letter"], default: "resume" });
+	});
+
+	it("advertises application tracker tools", () => {
+		const names = card.tools.map((tool) => tool.name);
+
+		expect(names).toContain("list_applications");
+		expect(names).toContain("create_application");
+		expect(names).toContain("attach_application_document");
+		expect(names).toContain("tailor_resume_for_application");
+	});
+
+	it("advertises independent cover-letter library tools", () => {
+		const names = card.tools.map((tool) => tool.name);
+		expect(names).toEqual(
+			expect.arrayContaining([
+				"list_cover_letters",
+				"read_cover_letter",
+				"create_cover_letter",
+				"update_cover_letter",
+				"refresh_cover_letter_style",
+				"duplicate_cover_letter",
+				"delete_cover_letter",
+				"copy_embedded_cover_letter",
+				"export_cover_letter",
+				"import_cover_letter",
+			]),
+		);
 	});
 
 	it("declares a JSON Schema input for every tool", () => {
@@ -70,5 +100,55 @@ describe("buildMcpServerCard", () => {
 	it("documents an optional apiKey in the configuration schema", () => {
 		const props = card.configurationSchema.properties as Record<string, unknown>;
 		expect(props.apiKey).toBeDefined();
+	});
+
+	it("matches the create/update application archived contract", () => {
+		const create = TOOL_META[MCP_TOOL_NAME.createApplication].inputSchema;
+		const update = TOOL_META[MCP_TOOL_NAME.updateApplication].inputSchema;
+
+		expect(create.safeParse({ company: "Acme", role: "Engineer", archived: true }).success).toBe(false);
+		expect(update.safeParse({ id: "app-1", archived: true }).success).toBe(true);
+	});
+
+	it.each([{ content: "Updated" }, { recipient: "Dear Hiring Manager" }, { template: "onyx" }])(
+		"accepts a partial cover-letter update without a name: %j",
+		(fields) => {
+			const input = { id: "letter-1", expectedRevision: 1, ...fields };
+			expect(TOOL_META[MCP_TOOL_NAME.updateCoverLetter].inputSchema.parse(input)).toEqual(input);
+		},
+	);
+
+	it("accepts only http/https application source URLs", () => {
+		const create = TOOL_META[MCP_TOOL_NAME.createApplication].inputSchema;
+
+		expect(create.safeParse({ company: "Acme", role: "Engineer", sourceUrl: "https://example.com/job" }).success).toBe(
+			true,
+		);
+		const invalidUrl = create.safeParse({ company: "Acme", role: "Engineer", sourceUrl: "ftp://example.com/job" });
+		expect(invalidUrl.success).toBe(false);
+		if (!invalidUrl.success) expect(invalidUrl.error.issues[0]?.message).toBe("URL must use http or https.");
+	});
+
+	it("requires a pasted job posting to autofill an application", () => {
+		const autofill = TOOL_META[MCP_TOOL_NAME.autofillApplicationFromJob].inputSchema;
+
+		expect(autofill.safeParse({ jobDescription: "Senior Engineer at Acme" }).success).toBe(true);
+		expect(autofill.safeParse({ sourceUrl: "https://example.com/job" }).success).toBe(false);
+		expect(autofill.safeParse({ jobDescription: "   " }).success).toBe(false);
+	});
+
+	it("rejects application document payloads above 10MB decoded", () => {
+		const schema = TOOL_META[MCP_TOOL_NAME.attachApplicationDocument].inputSchema;
+		const tooLargePdf = Buffer.alloc(10 * 1024 * 1024 + 1, 0).toString("base64");
+
+		expect(
+			schema.safeParse({
+				id: "app-1",
+				kind: "resume",
+				fileName: "resume.pdf",
+				contentType: "application/pdf",
+				dataBase64: tooLargePdf,
+			}).success,
+		).toBe(false);
 	});
 });

@@ -1,11 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-	isAllowedExternalUrl,
-	isAllowedOAuthRedirectUri,
-	isPrivateOrLoopbackHost,
-	parseAllowedHostList,
-	parseUrl,
-} from "./url-security.node";
+import { isAllowedOAuthRedirectUri, isPrivateOrLoopbackHost, parseUrl } from "./url-security.node";
 
 describe("isPrivateOrLoopbackHost", () => {
 	it.each([
@@ -248,76 +242,6 @@ describe("parseUrl", () => {
 	});
 });
 
-describe("parseAllowedHostList", () => {
-	it("returns empty Set for undefined", () => {
-		expect(parseAllowedHostList()).toEqual(new Set());
-	});
-
-	it("returns empty Set for empty string", () => {
-		expect(parseAllowedHostList("")).toEqual(new Set());
-	});
-
-	it("parses single host", () => {
-		expect(parseAllowedHostList("example.com")).toEqual(new Set(["example.com"]));
-	});
-
-	it("parses comma-separated list", () => {
-		expect(parseAllowedHostList("example.com,api.example.com")).toEqual(new Set(["example.com", "api.example.com"]));
-	});
-
-	it("trims whitespace around entries", () => {
-		expect(parseAllowedHostList(" a.com ,  b.com  ")).toEqual(new Set(["a.com", "b.com"]));
-	});
-
-	it("lowercases entries", () => {
-		expect(parseAllowedHostList("Example.COM")).toEqual(new Set(["example.com"]));
-	});
-
-	it("filters out empty entries", () => {
-		expect(parseAllowedHostList("a.com,,b.com,")).toEqual(new Set(["a.com", "b.com"]));
-	});
-});
-
-describe("isAllowedExternalUrl", () => {
-	const allowed = new Set(["api.example.com", "https://full.example.com"]);
-
-	it("returns false for malformed URLs", () => {
-		expect(isAllowedExternalUrl("not a url", allowed)).toBe(false);
-	});
-
-	it("returns false for non-https protocols", () => {
-		expect(isAllowedExternalUrl("http://api.example.com", allowed)).toBe(false);
-		expect(isAllowedExternalUrl("ftp://api.example.com", allowed)).toBe(false);
-	});
-
-	it("returns false when URL contains credentials", () => {
-		expect(isAllowedExternalUrl("https://user:pass@api.example.com", allowed)).toBe(false);
-		expect(isAllowedExternalUrl("https://user@api.example.com", allowed)).toBe(false);
-	});
-
-	it("returns false for private/loopback hosts", () => {
-		expect(isAllowedExternalUrl("https://localhost", allowed)).toBe(false);
-		expect(isAllowedExternalUrl("https://127.0.0.1", allowed)).toBe(false);
-		expect(isAllowedExternalUrl("https://192.168.1.1", allowed)).toBe(false);
-	});
-
-	it("matches by hostname", () => {
-		expect(isAllowedExternalUrl("https://api.example.com/path", allowed)).toBe(true);
-	});
-
-	it("matches by full origin", () => {
-		expect(isAllowedExternalUrl("https://full.example.com/x", allowed)).toBe(true);
-	});
-
-	it("rejects non-listed hostnames", () => {
-		expect(isAllowedExternalUrl("https://evil.com", allowed)).toBe(false);
-	});
-
-	it("matches case-insensitively in hostname", () => {
-		expect(isAllowedExternalUrl("https://API.EXAMPLE.COM", allowed)).toBe(true);
-	});
-});
-
 describe("isAllowedOAuthRedirectUri", () => {
 	const trustedOrigins = ["https://app.example.com"];
 
@@ -361,8 +285,18 @@ describe("isAllowedOAuthRedirectUri", () => {
 		expect(isAllowedOAuthRedirectUri("https://app.example.com/cb", trustedOrigins)).toBe(true);
 	});
 
-	it("rejects public https hosts outside trusted origins", () => {
-		expect(isAllowedOAuthRedirectUri("https://api.example.com/cb", trustedOrigins)).toBe(false);
+	it("allows a trusted origin on a private network, for LAN-only self-hosted deployments", () => {
+		expect(isAllowedOAuthRedirectUri("https://192.168.1.5/cb", ["https://192.168.1.5"])).toBe(true);
+	});
+
+	it("allows public https hosts outside trusted origins, so dynamic client registration works", () => {
+		expect(isAllowedOAuthRedirectUri("https://api.example.com/cb", trustedOrigins)).toBe(true);
+		expect(isAllowedOAuthRedirectUri("https://claude.ai/api/mcp/auth_callback", trustedOrigins)).toBe(true);
+	});
+
+	it("still rejects unsafe shapes on public https hosts", () => {
+		expect(isAllowedOAuthRedirectUri("https://u:p@api.example.com/cb", trustedOrigins)).toBe(false);
+		expect(isAllowedOAuthRedirectUri("https://api.example.com/cb#x", trustedOrigins)).toBe(false);
 	});
 
 	it("allows any parseable URI when unsafe mode is enabled", () => {

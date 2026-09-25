@@ -10,7 +10,7 @@
  * Endpoint is protected by INTERNAL_SERVICE_SECRET.
  */
 import { and, eq, gt } from "drizzle-orm";
-import { auth } from "@reactive-resume/auth/config";
+import { auth, takeBotMagicLinkToken } from "@reactive-resume/auth/config";
 import { db } from "@reactive-resume/db/client";
 import { user, verification } from "@reactive-resume/db/schema";
 import { env } from "@reactive-resume/env/server";
@@ -47,7 +47,8 @@ export async function handleBotLinkRoutes(request: Request): Promise<Response> {
 		const [existingUser] = await db.select({ id: user.id }).from(user).where(eq(user.id, userId)).limit(1);
 		if (!existingUser) return new Response("User not found", { status: 404 });
 
-		const token = generateId(48);
+		// generateId() is UUIDv7 in v5 (no length argument)
+		const token = `${generateId()}${generateId()}`.replaceAll("-", "");
 		const expiresAt = new Date(Date.now() + TOKEN_TTL_MS);
 		const redirectTo = resumeId ? `/builder/${resumeId}` : "/dashboard";
 
@@ -104,27 +105,24 @@ export async function handleBotLinkRoutes(request: Request): Promise<Response> {
 		// Single-use — delete immediately
 		await db.delete(verification).where(eq(verification.identifier, `bot-link:${userId}`));
 
-		// Create a session via better-auth admin plugin
-		const sessionResponse = await auth.api.createSession({
-			body: { userId },
-			headers: new Headers({ "x-forwarded-for": "bot-link" }),
+		// Better Auth 1.7 removed the admin createSession endpoint, so the supported way to
+		// start a session for a user server-side is to mint a magic link and redeem it right
+		// away. `sendMagicLink` parks the token for takeBotMagicLinkToken() (see auth config).
+		const [linkUser] = await db.select({ email: user.email }).from(user).where(eq(user.id, userId)).limit(1);
+		if (!linkUser) return new Response("User not found", { status: 404 });
+
+		const callbackURL = `${env.APP_URL}${stored.redirectTo}`;
+		await auth.api.signInMagicLink({ body: { email: linkUser.email, callbackURL }, headers: request.headers });
+
+		const magicToken = takeBotMagicLinkToken(linkUser.email);
+		if (!magicToken) return new Response("Could not create session.", { status: 500 });
+
+		// Returns a redirect carrying the session cookie.
+		return auth.api.magicLinkVerify({
+			query: { token: magicToken, callbackURL },
+			headers: request.headers,
+			asResponse: true,
 		});
-
-		if (!sessionResponse) {
-			return new Response("Could not create session.", { status: 500 });
-		}
-
-		// Forward the Set-Cookie header so the browser is authenticated
-		const redirectUrl = `${env.APP_URL}${stored.redirectTo}`;
-		const responseHeaders = new Headers({ Location: redirectUrl });
-
-		// Copy all Set-Cookie headers from the session response
-		const setCookieHeader = sessionResponse.headers?.get("set-cookie");
-		if (setCookieHeader) {
-			responseHeaders.set("set-cookie", setCookieHeader);
-		}
-
-		return new Response(null, { status: 302, headers: responseHeaders });
 	}
 
 	return new Response("Not found", { status: 404 });

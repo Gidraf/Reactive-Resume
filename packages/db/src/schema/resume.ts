@@ -1,4 +1,3 @@
-import type { StoredResumeAnalysis } from "@reactive-resume/schema/resume/analysis";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import * as pg from "drizzle-orm/pg-core";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
@@ -17,6 +16,7 @@ export const resume = pg.pgTable(
 		slug: pg.text("slug").notNull(),
 		tags: pg.text("tags").array().notNull().default([]),
 		isPublic: pg.boolean("is_public").notNull().default(false),
+		showDownloadButtons: pg.boolean("show_download_buttons").notNull().default(true),
 		isLocked: pg.boolean("is_locked").notNull().default(false),
 		password: pg.text("password"),
 		data: pg
@@ -37,11 +37,34 @@ export const resume = pg.pgTable(
 	},
 	(t) => [
 		pg.unique().on(t.slug, t.userId),
-		pg.index().on(t.userId),
 		pg.index().on(t.createdAt.asc()),
 		pg.index().on(t.userId, t.updatedAt.desc()),
 		pg.index().on(t.isPublic, t.slug, t.userId),
 	],
+);
+
+export const resumeVersion = pg.pgTable(
+	"resume_version",
+	{
+		id: pg
+			.text("id")
+			.notNull()
+			.primaryKey()
+			.$defaultFn(() => generateId()),
+		resumeId: pg
+			.text("resume_id")
+			.notNull()
+			.references(() => resume.id, { onDelete: "cascade" }),
+		userId: pg
+			.text("user_id")
+			.notNull()
+			.references(() => user.id, { onDelete: "cascade" }),
+		// Immutable snapshot of the resume data at a milestone (template change, import, AI edit, manual save).
+		data: pg.jsonb("data").notNull().$type<ResumeData>(),
+		label: pg.text("label").notNull(),
+		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+	},
+	(t) => [pg.index().on(t.resumeId, t.createdAt.desc())],
 );
 
 export const resumeStatistics = pg.pgTable("resume_statistics", {
@@ -67,18 +90,19 @@ export const resumeStatistics = pg.pgTable("resume_statistics", {
 		.$onUpdate(() => /* @__PURE__ */ new Date()),
 });
 
-export const resumeAnalysis = pg.pgTable(
-	"resume_analysis",
+export const resumeStatisticsDaily = pg.pgTable(
+	"resume_statistics_daily",
 	{
 		id: pg
 			.text("id")
 			.notNull()
 			.primaryKey()
 			.$defaultFn(() => generateId()),
-		analysis: pg.jsonb("analysis").notNull().$type<StoredResumeAnalysis>(),
+		date: pg.date("date", { mode: "string" }).notNull(),
+		views: pg.integer("views").notNull().default(0),
+		downloads: pg.integer("downloads").notNull().default(0),
 		resumeId: pg
 			.text("resume_id")
-			.unique()
 			.notNull()
 			.references(() => resume.id, { onDelete: "cascade" }),
 		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
@@ -88,5 +112,5 @@ export const resumeAnalysis = pg.pgTable(
 			.defaultNow()
 			.$onUpdate(() => /* @__PURE__ */ new Date()),
 	},
-	(t) => [pg.index().on(t.resumeId)],
+	(t) => [pg.unique().on(t.resumeId, t.date), pg.index().on(t.resumeId, t.date.desc())],
 );

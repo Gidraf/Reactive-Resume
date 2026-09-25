@@ -39,14 +39,8 @@ import { cn } from "@reactive-resume/utils/style";
 import { useDialogStore } from "@/dialogs/store";
 import { useCurrentResume, useUpdateResumeData } from "@/features/resume/builder/draft";
 import { useConfirm } from "@/hooks/use-confirm";
-import {
-	addItemToSection,
-	createCustomSectionWithItem,
-	createPageWithSection,
-	getCompatibleMoveTargets,
-	getSourceSectionTitle,
-	removeItemFromSource,
-} from "@/libs/resume/move-item";
+import { atsFindingItemElementId } from "@/libs/resume/ats";
+import { getCompatibleMoveTargets, getSourceSectionTitle, moveItem } from "@/libs/resume/move-item";
 
 // ============================================================================
 // MoveItemSubmenu Component
@@ -84,27 +78,36 @@ function MoveItemSubmenu({ type, item, customSectionId }: MoveItemSubmenuProps) 
 	/** Handler: Move item to an existing section */
 	const handleMoveToSection = (targetSectionId: string) => {
 		updateResumeData((draft) => {
-			const removedItem = removeItemFromSource(draft, item.id, type, customSectionId);
-			if (!removedItem) return;
-			addItemToSection(draft, removedItem, targetSectionId, type);
+			moveItem(draft, {
+				itemId: item.id,
+				type,
+				customSectionId,
+				target: { type: "section", sectionId: targetSectionId },
+			});
 		});
 	};
 
 	/** Handler: Create a new custom section on an existing page and move the item there */
 	const handleNewSectionOnPage = (pageIndex: number) => {
 		updateResumeData((draft) => {
-			const removedItem = removeItemFromSource(draft, item.id, type, customSectionId);
-			if (!removedItem) return;
-			createCustomSectionWithItem(draft, removedItem, type, currentSectionTitle, pageIndex);
+			moveItem(draft, {
+				itemId: item.id,
+				type,
+				customSectionId,
+				target: { type: "new-section", title: currentSectionTitle, pageIndex },
+			});
 		});
 	};
 
 	/** Handler: Create a new page with a new custom section and move the item there */
 	const handleNewPage = () => {
 		updateResumeData((draft) => {
-			const removedItem = removeItemFromSource(draft, item.id, type, customSectionId);
-			if (!removedItem) return;
-			createPageWithSection(draft, removedItem, type, currentSectionTitle);
+			moveItem(draft, {
+				itemId: item.id,
+				type,
+				customSectionId,
+				target: { type: "new-page", title: currentSectionTitle },
+			});
 		});
 	};
 
@@ -244,6 +247,7 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
 	return (
 		<Reorder.Item
 			key={item.id}
+			id={atsFindingItemElementId(item.id)}
 			value={item}
 			dragListener={false}
 			dragControls={controls}
@@ -276,7 +280,10 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
 			</button>
 
 			<DropdownMenu>
-				<DropdownMenuTrigger className="flex cursor-context-menu items-center px-1.5 opacity-40 transition-[background-color,opacity] hover:bg-secondary/40 focus:outline-none focus-visible:ring-1 group-hover:opacity-100">
+				<DropdownMenuTrigger
+					aria-label={t`Options for ${title}`}
+					className="flex cursor-context-menu items-center px-1.5 opacity-40 transition-[background-color,opacity] hover:bg-secondary/40 focus:outline-none focus-visible:ring-1 group-hover:opacity-100"
+				>
 					<DotsThreeVerticalIcon />
 				</DropdownMenuTrigger>
 

@@ -51,12 +51,17 @@ temp
 .agents
 .claude
 .cursor
+.opencode
 .codegraph
 .superpowers
+.worktrees
+.migration
+graphify-out
 
 # Local Storage Data
 /data
 /apps/web/data
 
 # Git Hooks
-.vite-hooks/
+.vite-hooks
+

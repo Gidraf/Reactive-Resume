@@ -19,6 +19,7 @@ services:
 
   # ── Reactive Resume app ────────────────────────────────────────────────────
   reactive_resume:
+    # image: ghcr.io/reactive-resume/reactive-resume:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -30,7 +31,10 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - .env
+      - path: .env.example
+        required: false
+      - path: .env
+        required: false
     volumes:
       - app_data:/app/data
     extra_hosts:

@@ -31,27 +31,9 @@ type MoveTargetPage = {
 // Helper Functions
 // ============================================================================
 
-/**
- * Checks if a section ID belongs to a standard section.
- * Standard sections have predefined keys like "experience", "education", etc.
- */
-function isStandardSectionId(sectionId: string): sectionId is SectionType {
-	const standardSections: SectionType[] = [
-		"profiles",
-		"experience",
-		"education",
-		"projects",
-		"skills",
-		"languages",
-		"interests",
-		"awards",
-		"certifications",
-		"publications",
-		"volunteer",
-		"references",
-	];
-
-	return standardSections.includes(sectionId as SectionType);
+// ponytail: derive standard section membership from data instead of a hand-maintained list
+function isStandardSectionId(sectionId: string, sections: Record<string, unknown>): sectionId is SectionType {
+	return sectionId in sections;
 }
 
 // ============================================================================
@@ -111,7 +93,7 @@ export function getCompatibleMoveTargets(
 			}
 
 			// Check if it's a standard section with matching type
-			if (isStandardSectionId(sectionId) && sectionId === sourceType) {
+			if (isStandardSectionId(sectionId, resumeData.sections) && sectionId === sourceType) {
 				compatibleSections.push({
 					sectionId,
 					sectionTitle: getDefaultSectionTitle(sectionId),
@@ -189,7 +171,7 @@ export function addItemToSection(
 	type: CustomSectionType,
 ): void {
 	// Check if target is a standard section
-	if (isStandardSectionId(targetSectionId) && targetSectionId === type) {
+	if (isStandardSectionId(targetSectionId, draft.sections) && targetSectionId === type) {
 		const section = draft.sections[type as SectionType];
 		if ("items" in section) {
 			section.items.push(item as never);
@@ -214,6 +196,21 @@ export function addItemToSection(
  * @param targetPageIndex - The page index to add the section to
  * @returns The ID of the newly created custom section
  */
+function makeCustomSection(id: string, type: CustomSectionType, title: string, item: SectionItem): CustomSection {
+	return {
+		id,
+		type,
+		title,
+		icon: "",
+		columns: 1,
+		hidden: false,
+		showHeading: true,
+		keepTogether: false,
+		startOnNewPage: false,
+		items: [item as never],
+	};
+}
+
 export function createCustomSectionWithItem(
 	draft: WritableDraft<ResumeData>,
 	item: SectionItem,
@@ -222,37 +219,14 @@ export function createCustomSectionWithItem(
 	targetPageIndex: number,
 ): string {
 	const newSectionId = generateId();
+	draft.customSections.push(makeCustomSection(newSectionId, type, sectionTitle, item) as WritableDraft<CustomSection>);
 
-	// Create the new custom section
-	const newSection: CustomSection = {
-		id: newSectionId,
-		type,
-		title: sectionTitle,
-		icon: "",
-		columns: 1,
-		hidden: false,
-		items: [item as never],
-	};
-
-	draft.customSections.push(newSection as WritableDraft<CustomSection>);
-
-	// Add the section to the target page's main column
 	const page = draft.metadata.layout.pages[targetPageIndex];
-	if (page) {
-		page.main.push(newSectionId);
-	}
+	if (page) page.main.push(newSectionId);
 
 	return newSectionId;
 }
 
-/**
- * Creates a new page with a custom section containing the given item.
- *
- * @param draft - The immer draft of resume data
- * @param item - The item to add to the new section
- * @param type - The section type for the new custom section
- * @param sectionTitle - The title for the new custom section
- */
 export function createPageWithSection(
 	draft: WritableDraft<ResumeData>,
 	item: SectionItem,
@@ -260,24 +234,52 @@ export function createPageWithSection(
 	sectionTitle: string,
 ): void {
 	const newSectionId = generateId();
+	draft.customSections.push(makeCustomSection(newSectionId, type, sectionTitle, item) as WritableDraft<CustomSection>);
+	draft.metadata.layout.pages.push({ fullWidth: false, main: [newSectionId], sidebar: [] });
+}
 
-	// Create the new custom section
-	const newSection: CustomSection = {
-		id: newSectionId,
-		type,
-		title: sectionTitle,
-		icon: "",
-		columns: 1,
-		hidden: false,
-		items: [item as never],
-	};
+type MoveItemInput = {
+	itemId: string;
+	type: CustomSectionType;
+	customSectionId?: string | undefined;
+	target:
+		| { type: "section"; sectionId: string }
+		| { type: "new-section"; pageIndex: number; title: string }
+		| { type: "new-page"; title: string };
+};
 
-	draft.customSections.push(newSection as WritableDraft<CustomSection>);
+/** Moves an item atomically, then removes only custom source sections emptied by that move. */
+export function moveItem(draft: WritableDraft<ResumeData>, input: MoveItemInput): void {
+	const { itemId, type, customSectionId, target } = input;
+	const source = customSectionId
+		? draft.customSections.find((section) => section.id === customSectionId && section.type === type)
+		: draft.sections[type as SectionType];
+	if (!source?.items.some((item) => item.id === itemId)) return;
 
-	// Create the new page with the section in the main column
-	draft.metadata.layout.pages.push({
-		fullWidth: false,
-		main: [newSectionId],
-		sidebar: [],
+	if (target.type === "section") {
+		if (target.sectionId === (customSectionId ?? type)) return;
+		const compatible = isStandardSectionId(target.sectionId, draft.sections)
+			? target.sectionId === type
+			: draft.customSections.some((section) => section.id === target.sectionId && section.type === type);
+		if (!compatible) return;
+	} else if (target.type === "new-section" && !draft.metadata.layout.pages[target.pageIndex]) return;
+
+	const item = removeItemFromSource(draft, itemId, type, customSectionId);
+	if (!item) return;
+	if (target.type === "section") addItemToSection(draft, item, target.sectionId, type);
+	else if (target.type === "new-section")
+		createCustomSectionWithItem(draft, item, type, target.title, target.pageIndex);
+	else createPageWithSection(draft, item, type, target.title);
+
+	// Insert first so removing the source page cannot change the chosen destination index.
+	if (!customSectionId || source.items.length > 0) return;
+	draft.customSections = draft.customSections.filter((section) => section.id !== customSectionId);
+	draft.metadata.layout.pages = draft.metadata.layout.pages.filter((page, index) => {
+		const affected = page.main.includes(customSectionId) || page.sidebar.includes(customSectionId);
+		if (!affected) return true;
+		page.main = page.main.filter((sectionId) => sectionId !== customSectionId);
+		page.sidebar = page.sidebar.filter((sectionId) => sectionId !== customSectionId);
+		// Keep the header page and any page with other references, even if those sections are hidden.
+		return index === 0 || page.main.length > 0 || page.sidebar.length > 0;
 	});
 }

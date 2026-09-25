@@ -1,22 +1,43 @@
 // biome-ignore-all lint/style/noNonNullAssertion: These tests assert imported section lengths before inspecting the first item.
 import { describe, expect, it } from "vitest";
-import { JSONResumeImporter } from "./json-resume";
+import { parseJSONResume } from "./json-resume";
 
-const importer = new JSONResumeImporter();
-
-describe("JSONResumeImporter.parse", () => {
+describe("parseJSONResume", () => {
 	it("throws when input is not valid JSON", () => {
-		expect(() => importer.parse("not json")).toThrow();
+		expect(() => parseJSONResume("not json")).toThrow();
 	});
 
 	it("throws a serialized validation error for an obviously invalid shape", () => {
 		// Email field is validated; a non-email string should fail the loose schema.
 		const invalid = JSON.stringify({ basics: { email: "not-an-email" } });
-		expect(() => importer.parse(invalid)).toThrow();
+		expect(() => parseJSONResume(invalid)).toThrow();
 	});
 
+	it.each([
+		"2024-00",
+		"2024-13",
+		"2024-19",
+		"2024-00-01",
+		"2024-13-01",
+		"2024-01-00",
+		"2024-01-32",
+		"2024-1",
+		"2024-1-5",
+	])("rejects the malformed date %s and names the field", (startDate) => {
+		const json = JSON.stringify({ work: [{ name: "Acme", position: "Engineer", startDate }] });
+		expect(() => parseJSONResume(json)).toThrow(/work\.0\.startDate \(Must be a valid ISO 8601 date/);
+	});
+
+	it.each(["2024", "2024-01", "2024-12", "2024-02-29", "1999-12-31"])(
+		"still accepts the valid date %s",
+		(startDate) => {
+			const json = JSON.stringify({ work: [{ name: "Acme", position: "Engineer", startDate }] });
+			expect(() => parseJSONResume(json)).not.toThrow();
+		},
+	);
+
 	it("imports an empty JSON Resume into a baseline ResumeData", () => {
-		const result = importer.parse("{}");
+		const result = parseJSONResume("{}");
 		// Defaults preserve a name field even when unset by input.
 		expect(typeof result.basics.name).toBe("string");
 	});
@@ -34,7 +55,7 @@ describe("JSONResumeImporter.parse", () => {
 			},
 		});
 
-		const result = importer.parse(json);
+		const result = parseJSONResume(json);
 		expect(result.basics.name).toBe("Jane Doe");
 		expect(result.basics.headline).toBe("Engineer");
 		expect(result.basics.email).toBe("jane@example.com");
@@ -62,7 +83,7 @@ describe("JSONResumeImporter.parse", () => {
 			],
 		});
 
-		const result = importer.parse(json);
+		const result = parseJSONResume(json);
 		expect(result.sections.experience.items).toHaveLength(1);
 
 		const item = result.sections.experience.items[0]!;
@@ -89,7 +110,7 @@ describe("JSONResumeImporter.parse", () => {
 			],
 		});
 
-		const result = importer.parse(json);
+		const result = parseJSONResume(json);
 		expect(result.sections.education.items).toHaveLength(1);
 
 		const edu = result.sections.education.items[0]!;
@@ -103,7 +124,7 @@ describe("JSONResumeImporter.parse", () => {
 			skills: [{ name: "TypeScript", level: "Master", keywords: ["node", "react"] }],
 		});
 
-		const result = importer.parse(json);
+		const result = parseJSONResume(json);
 		const skill = result.sections.skills.items[0]!;
 
 		expect(skill.name).toBe("TypeScript");
@@ -121,7 +142,7 @@ describe("JSONResumeImporter.parse", () => {
 			},
 		});
 
-		const result = importer.parse(json);
+		const result = parseJSONResume(json);
 		expect(result.sections.profiles.items).toHaveLength(1);
 
 		const profile = result.sections.profiles.items[0]!;
@@ -134,13 +155,13 @@ describe("JSONResumeImporter.parse", () => {
 			basics: { image: "https://example.com/pic.jpg" },
 		});
 
-		const result = importer.parse(json);
+		const result = parseJSONResume(json);
 		expect(result.picture.url).toBe("https://example.com/pic.jpg");
 		expect(result.picture.hidden).toBe(false);
 	});
 
 	it("leaves the summary content empty when basics.summary is absent", () => {
-		const result = importer.parse(JSON.stringify({ basics: { name: "Jane" } }));
+		const result = parseJSONResume(JSON.stringify({ basics: { name: "Jane" } }));
 		expect(result.summary.content).toBe("");
 	});
 
@@ -159,7 +180,7 @@ describe("JSONResumeImporter.parse", () => {
 			],
 		});
 
-		const result = importer.parse(json);
+		const result = parseJSONResume(json);
 		expect(result.sections.projects.items).toHaveLength(1);
 
 		const project = result.sections.projects.items[0]!;

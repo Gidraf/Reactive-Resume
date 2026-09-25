@@ -4,7 +4,6 @@ import { t } from "@lingui/core/macro";
 import {
 	ArticleIcon,
 	BooksIcon,
-	BrainIcon,
 	BriefcaseIcon,
 	CertificateIcon,
 	ChartLineIcon,
@@ -26,6 +25,7 @@ import {
 	PaletteIcon,
 	PhoneIcon,
 	ReadCvLogoIcon,
+	SealCheckIcon,
 	ShareFatIcon,
 	SparkleIcon,
 	StarIcon,
@@ -54,7 +54,7 @@ export type RightSidebarSection =
 	| "notes"
 	| "sharing"
 	| "statistics"
-	| "analysis"
+	| "ats"
 	| "export"
 	| "information"
 	| "revamp"
@@ -86,14 +86,14 @@ export const rightSidebarSections: RightSidebarSection[] = [
 	"interview",
 	"template",
 	"layout",
+	"sharing",
+	"statistics",
 	"typography",
 	"design",
 	"styles",
 	"page",
 	"notes",
-	"sharing",
-	"statistics",
-	"analysis",
+	"ats",
 	"export",
 	"information",
 ] as const;
@@ -132,7 +132,7 @@ export const getSectionTitle = (type: SidebarSection | CustomOnlyType): string =
 			.with("notes", () => t`Notes`)
 			.with("sharing", () => t`Sharing`)
 			.with("statistics", () => t`Statistics`)
-			.with("analysis", () => t`Resume Analysis`)
+			.with("ats", () => t`ATS Check`)
 			.with("export", () => t`Export`)
 			.with("information", () => t`Information`)
 			.with("revamp", () => t`AI Revamp`)
@@ -178,7 +178,7 @@ export const getSectionIcon = (type: SidebarSection | CustomOnlyType, props?: Ic
 			.with("notes", () => <NotepadIcon {...iconProps} />)
 			.with("sharing", () => <ShareFatIcon {...iconProps} />)
 			.with("statistics", () => <ChartLineIcon {...iconProps} />)
-			.with("analysis", () => <BrainIcon {...iconProps} />)
+			.with("ats", () => <SealCheckIcon {...iconProps} />)
 			.with("export", () => <DownloadIcon {...iconProps} />)
 			.with("information", () => <InfoIcon {...iconProps} />)
 			.with("revamp", () => <SparkleIcon {...iconProps} />)

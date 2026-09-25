@@ -56,7 +56,6 @@ export function RevampLoginPage() {
 						email: creds.email,
 						password: creds.password,
 						name: "CV User",
-						// @ts-expect-error username is required by the Better-Auth username plugin
 						username,
 					});
 

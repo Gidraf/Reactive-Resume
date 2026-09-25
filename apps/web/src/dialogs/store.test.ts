@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { dialogSchemaRegistries, dialogTypeSchema } from "./schemas";
 import { useDialogStore } from "./store";
 
 describe("useDialogStore", () => {
@@ -14,13 +13,6 @@ describe("useDialogStore", () => {
 	});
 
 	describe("openDialog", () => {
-		it("uses schema entries from domain registries", () => {
-			expect(dialogSchemaRegistries.map((registry) => registry.domain)).toEqual(["auth", "api-key", "resume"]);
-			expect(dialogTypeSchema.options).toHaveLength(
-				dialogSchemaRegistries.reduce((total, registry) => total + registry.schemas.length, 0),
-			);
-		});
-
 		it("opens a dialog and sets activeDialog", () => {
 			useDialogStore.getState().openDialog("api-key.create", undefined);
 
@@ -70,6 +62,29 @@ describe("useDialogStore", () => {
 
 			vi.advanceTimersByTime(300);
 			expect(useDialogStore.getState().activeDialog).toBeNull();
+		});
+
+		it.each([false, true])("preserves a replacement dialog and its own closing delay (closing=%s)", (closing) => {
+			useDialogStore.getState().openDialog("api-key.create", undefined);
+			useDialogStore.getState().closeDialog();
+			vi.advanceTimersByTime(100);
+
+			useDialogStore.getState().openDialog("resume.create", undefined);
+			const onBeforeClose = () => false;
+			useDialogStore.getState().setOnBeforeClose(onBeforeClose);
+			if (closing) useDialogStore.getState().closeDialog();
+			vi.advanceTimersByTime(200);
+
+			expect(useDialogStore.getState()).toMatchObject({
+				open: !closing,
+				activeDialog: { type: "resume.create" },
+				onBeforeClose,
+			});
+
+			if (!closing) useDialogStore.getState().closeDialog();
+			vi.advanceTimersByTime(300);
+			expect(useDialogStore.getState().activeDialog).toBeNull();
+			expect(useDialogStore.getState().onBeforeClose).toBeNull();
 		});
 	});
 

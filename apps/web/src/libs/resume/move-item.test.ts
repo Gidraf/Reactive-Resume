@@ -26,6 +26,8 @@ describe("getSourceSectionTitle", () => {
 				icon: "",
 				columns: 1,
 				hidden: false,
+				keepTogether: false,
+				startOnNewPage: false,
 				items: [],
 			});
 		});
@@ -58,6 +60,8 @@ describe("getCompatibleMoveTargets", () => {
 				icon: "",
 				columns: 1,
 				hidden: false,
+				keepTogether: false,
+				startOnNewPage: false,
 				items: [],
 			});
 			draft.metadata.layout.pages[0].main.push("ext-1");
@@ -125,6 +129,8 @@ describe("removeItemFromSource", () => {
 				icon: "",
 				columns: 1,
 				hidden: false,
+				keepTogether: false,
+				startOnNewPage: false,
 				items: [{ id: "i1" } as never],
 			});
 		});
@@ -177,6 +183,8 @@ describe("addItemToSection", () => {
 				icon: "",
 				columns: 1,
 				hidden: false,
+				keepTogether: false,
+				startOnNewPage: false,
 				items: [],
 			});
 		});
@@ -205,6 +213,7 @@ describe("createCustomSectionWithItem", () => {
 
 		expect(result.customSections).toHaveLength(1);
 		expect(result.customSections[0]?.title).toBe("My Section");
+		expect(result.customSections[0]?.showHeading).toBe(true);
 		expect(result.customSections[0]?.items).toHaveLength(1);
 		expect(result.metadata.layout.pages[0]?.main).toContain(newSectionId);
 	});

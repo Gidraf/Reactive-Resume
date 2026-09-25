@@ -47,13 +47,14 @@ describe("Footer", () => {
 	it("renders social media icon links to GitHub, LinkedIn, and X", () => {
 		const { container } = renderFooter();
 		const hrefs = Array.from(container.querySelectorAll<HTMLAnchorElement>("a")).map((a) => a.href);
-		expect(hrefs.some((h) => h.includes("github.com/amruthpillai/reactive-resume"))).toBe(true);
+		expect(hrefs.some((h) => h.includes("github.com/reactive-resume/reactive-resume"))).toBe(true);
 		expect(hrefs.some((h) => h.includes("linkedin.com/in/amruthpillai"))).toBe(true);
 		expect(hrefs.some((h) => h.includes("x.com/KingOKings"))).toBe(true);
 	});
 
 	it("includes Reactive Resume version copy via Copyright", () => {
 		renderFooter();
-		expect(screen.getByText(/v9\.9\.9/)).toBeInTheDocument();
+		// The version is wrapped in <bdi> for RTL isolation, so it is its own text node.
+		expect(screen.getByText("9.9.9")).toBeInTheDocument();
 	});
 });
