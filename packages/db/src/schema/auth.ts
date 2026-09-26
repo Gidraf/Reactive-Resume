@@ -31,6 +31,14 @@ export const user = pg.pgTable(
 			precision: 6,
 			withTimezone: true,
 		}),
+		// ── CVpap fork ──────────────────────────────────────────────────────
+		// The CVPAP partner this account belongs to. This — not the email — is
+		// the tenant key: partner contact emails are not unique per partner and
+		// are not under this app's control, so joining on email lets one partner
+		// adopt another tenant's (or an admin's) existing account. Nullable
+		// because accounts predating SSO, and any local admin, have no partner;
+		// Postgres allows many NULLs under a unique constraint.
+		cvpapPartnerId: pg.text("cvpap_partner_id").unique(),
 		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: pg
 			.timestamp("updated_at", { withTimezone: true })

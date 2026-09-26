@@ -22,6 +22,7 @@ import { handleBillingRoutes } from "./billing";
 import { handleBotLinkRoutes } from "./bot-link";
 import { handleCvOrderRoutes } from "./cv-orders";
 import { handleCvpapProxy } from "./cvpap-proxy";
+import { handleCvpapSso, handleCvpapSsoLogout } from "./cvpap-sso";
 import { handleHealth } from "./health";
 import { handlePublicResumePdf } from "./public-resume-pdf";
 import { handleResumePdfDownload } from "./resume-pdf";
@@ -73,6 +74,9 @@ export function createApp() {
 	});
 	app.all("/api/auth/*", (c) => handleAuth(c.req.raw));
 	app.get("/api/health", () => handleHealth());
+	// CVPAP is the single login channel; these establish/clear the RR session from it.
+	app.get("/api/sso/cvpap", (c) => handleCvpapSso(c.req.raw));
+	app.get("/api/sso/logout", (c) => handleCvpapSsoLogout(c.req.raw));
 	app.all("/api/v1/*", (c) => handleCvpapProxy(c.req.raw));
 	app.all("/api/billing/*", (c) => handleBillingRoutes(c.req.raw));
 	app.all("/api/cv-orders", (c) => handleCvOrderRoutes(c.req.raw));

@@ -96,8 +96,16 @@ Copy `.env.example` to `.env.local`. Three required vars: `APP_URL` (default `ht
 
 - **S3/SeaweedFS optional.** If `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, and `S3_BUCKET` are all set, the app uses S3-compatible storage. `.env.example` ships SeaweedFS defaults, so either start the `seaweedfs` compose service or comment those vars out to use local filesystem storage under `<workspace>/data`. `LOCAL_STORAGE_PATH` must be absolute when set.
 - **`REDIS_URL` and `ENCRYPTION_SECRET`** are optional for core resume flows but both required for saved AI providers and the authenticated `/agent` workspace. Host-run dev uses `REDIS_URL=redis://localhost:6379`; the container-run app uses `redis://redis:6379`.
-- **`drizzle-kit` (used by `pnpm db:migrate`) reads `DATABASE_URL` from `process.env` directly** — it does not auto-load `.env`. Run migration commands through `dotenvx`.
+- **Env files are layered** (Next.js order), loaded by `loadEnvFiles()` in `packages/env/src/load.ts`: `process.env` > `.env.local` > `.env.$NODE_ENV` > `.env`. `packages/env/src/server.ts`, `packages/db/drizzle.config.ts` and `vitest.setup.ts` all call it, so `pnpm db:migrate` and the test suite pick up `.env.local` on their own — keep local/test `DATABASE_URL` there and production's in `.env`, and they can never cross. (`vitest.setup.ts` inlines the loader rather than importing it: `packages/email` does not depend on `@reactive-resume/env`, and Vite resolves the setup file at build time.)
 - The production server auto-runs migrations at startup before serving traffic, so manual `pnpm db:migrate` is mainly for first setup, migration debugging, or applying migrations without starting the app.
+
+## CVPAP single sign-on (fork-specific)
+
+`apps/server/src/http/cvpap-sso.ts` is the only login channel in the CVpap deployment: it reads the shared `cvpap_token` cookie, asks CVPAP `/api/v1/cards/me` who it belongs to, then resolves a Reactive Resume account and starts a session by minting and immediately redeeming a magic link (Better Auth 1.7 has no server-side create-session API — `bot-link.ts` uses the same trick).
+
+- **The tenant key is `user.cvpap_partner_id`, never the email.** A partner's contact email is not unique per partner and is not ours to control. Keying on it let a partner sign in and land in whatever account already held that address — confirmed in testing to hand a partner an existing `role: admin` account. If no row matches the partner id, a new account is created; the partner's own address is used only when no other account holds it, otherwise it falls back to `partner-<id>@cvpap.internal`.
+- **Never auto-adopt a row whose `cvpap_partner_id` is NULL.** Those are direct-signup or admin accounts, not tenants.
+- One account per CVPAP partner, so a partner's staff share one resume library — the same boundary the cards app enforces via `partner_id`.
 
 ## Commands
 
