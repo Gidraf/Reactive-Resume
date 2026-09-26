@@ -53,12 +53,13 @@ describe("getRootStructuredData", () => {
 		expect(schemas).toHaveLength(4);
 		expect(schemas[0]).toMatchObject({
 			"@type": "WebSite",
-			name: "Reactive Resume",
+			// this fork ships as CVpap (see appName in seo.ts)
+			name: "CVpap",
 			url: "https://rxresu.me/",
 		});
 		expect(schemas[1]).toMatchObject({
 			"@type": ["SoftwareApplication", "WebApplication"],
-			name: "Reactive Resume",
+			name: "CVpap",
 			applicationCategory: "BusinessApplication",
 			operatingSystem: "Web",
 			offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
