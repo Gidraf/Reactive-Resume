@@ -20,6 +20,12 @@ services:
       args:
         VITE_CVPAP_API_URL: https://api.ajiriwa.gidraf.dev
     restart: unless-stopped
+    # Unrotated json-file logs are what filled /var/lib/docker to 100%.
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
     # Host networking, because PostgreSQL runs on the VM itself. On a
     # user-defined bridge network the container could not route to
     # host.docker.internal (the docker0 gateway, 172.17.0.1) and every boot
