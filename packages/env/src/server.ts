@@ -1,19 +1,9 @@
-import { isAbsolute, join } from "node:path";
+import { isAbsolute } from "node:path";
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
-import { findWorkspaceRoot } from "@reactive-resume/utils/monorepo.node";
+import { loadEnvFiles } from "./load";
 
-const workspaceRoot = findWorkspaceRoot();
-
-if (workspaceRoot) {
-	try {
-		// Native stand-in for dotenv: existing process.env still wins over file values.
-		process.loadEnvFile(join(workspaceRoot, ".env"));
-	} catch (error) {
-		// A missing .env is expected (e.g. production with injected env); anything else is a real problem.
-		if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) throw error;
-	}
-}
+loadEnvFiles();
 
 export const env = createEnv({
 	server: {
