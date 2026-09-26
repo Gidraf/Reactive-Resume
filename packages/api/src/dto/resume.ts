@@ -49,9 +49,12 @@ export const resumeDto = {
 	},
 
 	create: {
-		input: resumeSchema
-			.pick({ name: true, slug: true, tags: true })
-			.extend({ withSampleData: z.boolean().default(false) }),
+		input: resumeSchema.pick({ name: true, slug: true, tags: true }).extend({
+			withSampleData: z.boolean().default(false),
+			// Sizes the sample to a printed length so a client can see what a
+			// filled-in CV looks like before writing anything.
+			sampleLength: z.enum(["1", "1.5", "2", "2.5", "3"]).optional(),
+		}),
 		output: z.string().describe("The ID of the created resume."),
 	},
 

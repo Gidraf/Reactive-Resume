@@ -1,3 +1,4 @@
+import type { SampleLength } from "@reactive-resume/schema/resume/sample-lengths";
 import type { RouterInput } from "@/libs/orpc/client";
 import type { DialogProps } from "../store";
 import { t } from "@lingui/core/macro";
@@ -8,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import z from "zod";
+import { SAMPLE_LENGTH_LABELS, SAMPLE_LENGTHS } from "@reactive-resume/schema/resume/sample-lengths";
 import { Button } from "@reactive-resume/ui/components/button";
 import { ButtonGroup } from "@reactive-resume/ui/components/button-group";
 import {
@@ -101,7 +103,7 @@ export function CreateResumeDialog(_: DialogProps<"resume.create">) {
 		shouldBlock: () => !didCreateRef.current && form.state.isDirty && !form.state.isSubmitting,
 	});
 
-	const onCreateSampleResume = () => {
+	const onCreateSampleResume = (sampleLength?: SampleLength) => {
 		const values = form.state.values;
 		const randomName = generateRandomName();
 
@@ -110,6 +112,7 @@ export function CreateResumeDialog(_: DialogProps<"resume.create">) {
 			slug: values.slug || slugify(randomName),
 			tags: values.tags,
 			withSampleData: true,
+			...(sampleLength ? { sampleLength } : {}),
 		} satisfies RouterInput["resume"]["create"];
 
 		const toastId = toast.add({ type: "loading", description: t`Creating your resume...` });
@@ -171,10 +174,18 @@ export function CreateResumeDialog(_: DialogProps<"resume.create">) {
 							/>
 
 							<DropdownMenuContent align="end" className="w-fit">
-								<DropdownMenuItem onClick={onCreateSampleResume}>
+								<DropdownMenuItem onClick={() => onCreateSampleResume()}>
 									<TestTubeIcon />
 									<Trans>Create a Sample Resume</Trans>
 								</DropdownMenuItem>
+								{/* Sized samples: show a client what a filled-in CV looks like at
+								    each printed length before they write anything. */}
+								{SAMPLE_LENGTHS.map((length) => (
+									<DropdownMenuItem key={length} onClick={() => onCreateSampleResume(length)}>
+										<TestTubeIcon />
+										<Trans>Sample — {SAMPLE_LENGTH_LABELS[length]}</Trans>
+									</DropdownMenuItem>
+								))}
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</ButtonGroup>
