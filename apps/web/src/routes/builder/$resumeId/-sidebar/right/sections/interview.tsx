@@ -5,7 +5,16 @@ import { ScrollArea } from "@reactive-resume/ui/components/scroll-area";
 import { Route } from "../../../route";
 import { SectionBase as RightSectionBase } from "../shared/section-base";
 
-const CVPAP_API = (import.meta.env.VITE_CVPAP_API_URL as string | undefined) ?? "";
+/**
+ * The CVPAP session token, set as a readable cookie by the cards app on this
+ * same domain. Not httpOnly by design — the CVPAP dashboard takes the same
+ * approach — so the browser can present it as a bearer token.
+ */
+function readCvpapToken(): string | null {
+	if (typeof document === "undefined") return null;
+	const match = document.cookie.match(/(?:^|; )cvpap_token=([^;]*)/);
+	return match ? decodeURIComponent(match[1]) : null;
+}
 
 type InterviewQuestion = {
 	question: string;
@@ -34,21 +43,36 @@ export function InterviewSectionBuilder() {
 	const [error, setError] = useState<string | null>(null);
 	const [fetched, setFetched] = useState(false);
 
-	const fetchQuestions = useCallback(async () => {
-		setLoading(true);
-		setError(null);
-		try {
-			const res = await fetch(`${CVPAP_API}/api/v1/resumes/${resumeId}/interview-questions`);
-			if (!res.ok) throw new Error(`Server ${res.status}`);
-			const data = (await res.json()) as InterviewQuestionsResponse;
-			setQuestions(data.questions ?? []);
-			setFetched(true);
-		} catch (e) {
-			setError(e instanceof Error ? e.message : "Failed to load questions");
-		} finally {
-			setLoading(false);
-		}
-	}, [resumeId]);
+	const fetchQuestions = useCallback(
+		async (refresh = false) => {
+			setLoading(true);
+			setError(null);
+			try {
+				// Same-origin, so this goes through the server's CVPAP proxy rather
+				// than cross-origin to the API host. The CVPAP token is a readable
+				// cookie (set by the cards app on this domain) and CVPAP reads JWTs
+				// from the Authorization header only, so pass it explicitly.
+				const token = readCvpapToken();
+				const res = await fetch(`/api/v1/resumes/${resumeId}/interview-questions${refresh ? "?refresh=1" : ""}`, {
+					credentials: "include",
+					headers: token ? { Authorization: `Bearer ${token}` } : {},
+				});
+				if (res.status === 401) throw new Error("Please sign in again");
+				if (!res.ok) {
+					const detail = (await res.json().catch(() => null)) as { error?: string } | null;
+					throw new Error(detail?.error ?? `Server ${res.status}`);
+				}
+				const data = (await res.json()) as InterviewQuestionsResponse;
+				setQuestions(data.questions ?? []);
+				setFetched(true);
+			} catch (e) {
+				setError(e instanceof Error ? e.message : "Failed to load questions");
+			} finally {
+				setLoading(false);
+			}
+		},
+		[resumeId],
+	);
 
 	useEffect(() => {
 		void fetchQuestions();
@@ -72,7 +96,7 @@ export function InterviewSectionBuilder() {
 						variant="outline"
 						className="h-6 gap-1 px-2 text-xs"
 						disabled={loading}
-						onClick={fetchQuestions}
+						onClick={() => void fetchQuestions(true)}
 					>
 						{loading ? <CircleNotchIcon className="size-3 animate-spin" /> : <ChatCircleTextIcon className="size-3" />}
 						{loading ? "Loading…" : "Refresh"}
