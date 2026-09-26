@@ -6,6 +6,10 @@ services:
     image: redis:alpine
     restart: unless-stopped
     command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    # Published on loopback only: the app runs with host networking (see below),
+    # so it reaches Redis at 127.0.0.1 rather than by service name.
+    ports:
+      - "127.0.0.1:6379:6379"
     networks:
       - internal
     volumes:
@@ -26,10 +30,13 @@ services:
       args:
         VITE_CVPAP_API_URL: https://api.ajiriwa.gidraf.dev
     restart: unless-stopped
-    networks:
-      - internal
-    ports:
-      - "3000:3000"
+    # Host networking, because PostgreSQL runs on the VM itself. On a
+    # user-defined bridge network the container could not route to
+    # host.docker.internal (the docker0 gateway, 172.17.0.1) and every boot
+    # migration failed with ENETUNREACH. On the host network the database is
+    # simply 127.0.0.1:5432 — the same address pg_dump uses — and the app still
+    # listens on :3000 for nginx to proxy.
+    network_mode: host
     env_file:
       - path: .env.example
         required: false
@@ -37,9 +44,6 @@ services:
         required: false
     volumes:
       - app_data:/app/data
-    extra_hosts:
-      # Allows the container to reach the VM's PostgreSQL on localhost
-      - "host.docker.internal:host-gateway"
     depends_on:
       redis:
         condition: service_healthy
