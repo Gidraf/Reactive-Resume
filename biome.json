@@ -17,7 +17,10 @@
 			"!**/coverage",
 			"!**/reports",
 			"!**/routeTree.gen.ts",
-			"!**/.nx"
+			"!**/.nx",
+			"!apps/client",
+			"!libs/dto",
+			"!libs/utils"
 		]
 	},
 	"plugins": ["./tooling/grit/workspace-boundaries.grit"],

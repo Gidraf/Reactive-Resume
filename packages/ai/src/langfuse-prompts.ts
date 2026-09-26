@@ -169,26 +169,26 @@ export function trackGeneration(opts: TrackGenerationOpts): void {
 
 // ── Exported prompt getters ───────────────────────────────────────────────────
 
-export async function getChatSystemPrompt(): Promise<string> {
+export function getChatSystemPrompt(): Promise<string> {
 	return fetchPrompt("rr_chat_system", chatSystemFallback);
 }
 
-export async function getAnalyzeResumeSystemPrompt(): Promise<string> {
+export function getAnalyzeResumeSystemPrompt(): Promise<string> {
 	return fetchPrompt("rr_analyze_resume", analyzeResumeFallback);
 }
 
-export async function getPdfParserSystemPrompt(): Promise<string> {
+export function getPdfParserSystemPrompt(): Promise<string> {
 	return fetchPrompt("rr_pdf_parser_system", pdfParserSystemFallback);
 }
 
-export async function getPdfParserUserPrompt(): Promise<string> {
+export function getPdfParserUserPrompt(): Promise<string> {
 	return fetchPrompt("rr_pdf_parser_user", pdfParserUserFallback);
 }
 
-export async function getDocxParserSystemPrompt(): Promise<string> {
+export function getDocxParserSystemPrompt(): Promise<string> {
 	return fetchPrompt("rr_docx_parser_system", docxParserSystemFallback);
 }
 
-export async function getDocxParserUserPrompt(): Promise<string> {
+export function getDocxParserUserPrompt(): Promise<string> {
 	return fetchPrompt("rr_docx_parser_user", docxParserUserFallback);
 }

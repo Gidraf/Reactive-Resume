@@ -51,7 +51,7 @@ export function RevampLoginPage() {
 				if (error) {
 					// Try sign-up first (account might not exist yet), then retry sign-in
 					// username is required by the username plugin — derive from email local part
-					const username = creds.email.split("@")[0]!;
+					const username = creds.email.split("@")[0] ?? creds.email;
 					const { error: signUpError } = await authClient.signUp.email({
 						email: creds.email,
 						password: creds.password,
