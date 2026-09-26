@@ -1,27 +1,16 @@
 name: reactive_resume
 
-services:
-  # ── Redis (own container — no shared VM instance needed) ──────────────────
-  redis:
-    image: redis:alpine
-    restart: unless-stopped
-    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
-    # Published on loopback only: the app runs with host networking (see below),
-    # so it reaches Redis at 127.0.0.1 rather than by service name. Port 6380,
-    # not 6379 — this VM already runs something on the default Redis port.
-    ports:
-      - "127.0.0.1:6380:6379"
-    networks:
-      - internal
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      start_period: 5s
-      interval: 30s
-      timeout: 10s
-      retries: 3
+# Shared infrastructure, not per-app copies: PostgreSQL and MinIO run on the VM,
+# and Redis is the single `redis6381` container from the CVPAP stack, published
+# on 127.0.0.1:6381. CVPAP uses database 0; this app uses database 1, so the two
+# share one Redis without sharing keys. Running a second Redis here only
+# duplicated memory and kept colliding on ports.
+#
+# REDIS_URL must therefore be:
+#   redis://:%40Winners1127@127.0.0.1:6381/1
+# (the password contains '@', which has to be percent-encoded as %40 in a URL)
 
+services:
   # ── Reactive Resume app ────────────────────────────────────────────────────
   reactive_resume:
     # image: ghcr.io/reactive-resume/reactive-resume:latest
@@ -45,9 +34,6 @@ services:
         required: false
     volumes:
       - app_data:/app/data
-    depends_on:
-      redis:
-        condition: service_healthy
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then((r) => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1));"]
       start_period: 20s
@@ -56,8 +42,4 @@ services:
       retries: 3
 
 volumes:
-  redis_data:
   app_data:
-
-networks:
-  internal:
