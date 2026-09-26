@@ -7,9 +7,10 @@ services:
     restart: unless-stopped
     command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
     # Published on loopback only: the app runs with host networking (see below),
-    # so it reaches Redis at 127.0.0.1 rather than by service name.
+    # so it reaches Redis at 127.0.0.1 rather than by service name. Port 6380,
+    # not 6379 — this VM already runs something on the default Redis port.
     ports:
-      - "127.0.0.1:6379:6379"
+      - "127.0.0.1:6380:6379"
     networks:
       - internal
     volumes:
