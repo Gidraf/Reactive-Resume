@@ -13,6 +13,25 @@
 import type { ResumeData } from "./data";
 import { sampleResumeData } from "./sample";
 
+/**
+ * The template that costs least to print. Of the fifteen, bronzor is the only
+ * one that paints no large area in the primary or text colour — the others range
+ * from one filled block to four, and azurill (the stock sample's) floods a
+ * full-height sidebar.
+ */
+export const PRINT_FRIENDLY_TEMPLATE = "bronzor" as const;
+
+/**
+ * Ink-light by default: white paper, near-black text, and a restrained slate
+ * blue used for headings and rules rather than fills. Strong saturated colour is
+ * fine on screen and expensive on an inkjet.
+ */
+export const PRINT_FRIENDLY_COLORS = {
+	primary: "rgba(31, 58, 95, 1)",
+	text: "rgba(26, 26, 26, 1)",
+	background: "rgba(255, 255, 255, 1)",
+} as const;
+
 export const SAMPLE_LENGTHS = ["1", "1.5", "2", "2.5", "3"] as const;
 export type SampleLength = (typeof SAMPLE_LENGTHS)[number];
 
@@ -311,6 +330,17 @@ export function createSampleResumeOfLength(length: SampleLength, name?: string):
 		sections,
 		metadata: {
 			...base.metadata,
+			// These samples exist to be printed, so they default to the cheapest
+			// template to print. The stock sample uses azurill, whose coloured
+			// sidebar is a full-height solid block — roughly a third of every page
+			// laid down as ink. bronzor is the only template of the fifteen that
+			// paints no large area in the primary or text colour, so a page of it
+			// is text on paper.
+			template: PRINT_FRIENDLY_TEMPLATE,
+			design: {
+				...base.metadata.design,
+				colors: PRINT_FRIENDLY_COLORS,
+			},
 			layout: {
 				...base.metadata.layout,
 				// Replaces the stock four-page layout, which would otherwise force

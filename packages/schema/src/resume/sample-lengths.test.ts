@@ -140,4 +140,30 @@ describe("sample resumes by length", () => {
 		const three = createSampleResumeOfLength("3");
 		expect(one.summary.content.length).toBeLessThan(three.summary.content.length);
 	});
+
+	it("defaults to the cheapest template to print", () => {
+		// The stock sample uses azurill, whose coloured sidebar is a full-height
+		// solid block; bronzor paints no large area at all.
+		expect(sampleResumeData.metadata.template).toBe("azurill");
+		for (const length of SAMPLE_LENGTHS) {
+			expect(createSampleResumeOfLength(length).metadata.template).toBe("bronzor");
+		}
+	});
+
+	it("uses ink-light colours on white paper", () => {
+		for (const length of SAMPLE_LENGTHS) {
+			const { colors } = createSampleResumeOfLength(length).metadata.design;
+			expect(colors.background).toBe("rgba(255, 255, 255, 1)");
+			expect(colors.text).toBe("rgba(26, 26, 26, 1)");
+			// a restrained slate rather than the stock saturated blue
+			expect(colors.primary).not.toBe(sampleResumeData.metadata.design.colors.primary);
+		}
+	});
+
+	it("leaves the rest of the design metadata alone", () => {
+		const sized = createSampleResumeOfLength("2");
+		expect(sized.metadata.design.level).toEqual(sampleResumeData.metadata.design.level);
+		expect(sized.metadata.typography).toEqual(sampleResumeData.metadata.typography);
+		expect(sized.metadata.page.format).toBe(sampleResumeData.metadata.page.format);
+	});
 });
