@@ -63,7 +63,7 @@
 		"@reactive-resume/config": "workspace:*",
 		"@reactive-resume/mcp": "workspace:*",
 		"@typescript/native-preview": "catalog:",
-		"tsdown": "^0.23.0",
+		"tsdown": "^0.23.1",
 		"typescript": "catalog:",
 		"vitest": "catalog:"
 	},
