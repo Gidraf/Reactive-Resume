@@ -1829,7 +1829,7 @@ msgstr "Применено. Напоминание связаться назна
 msgid "Applied. The application is updated."
 msgstr "Применено. Заявка обновлена."
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Apply"
 msgstr "Отклик"
@@ -3677,8 +3677,8 @@ msgstr "Уважаемая команда Fieldnote,"
 msgid "Dear hiring team,"
 msgstr "Уважаемая команда по подбору персонала,"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Debrief"
 msgstr "Разбор"
@@ -4840,8 +4840,8 @@ msgstr "Первый запуск"
 msgid "Fit"
 msgstr "Вписать"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: how well a job fits your experience"
 msgid "Fit"
@@ -6675,7 +6675,7 @@ msgstr "Напишите помощнику"
 msgid "Message the coach"
 msgstr "Написать коучу"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Messages"
 msgstr "Сообщения"
@@ -8227,8 +8227,8 @@ msgid "Practice questions are simulated, not from Fieldnote."
 msgstr "Тренировочные вопросы смоделированы, это не вопросы от Fieldnote."
 
 #: src/features/career/knowledge/stories.tsx
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/prepare.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Practise"
 msgstr "Тренировка"
@@ -8271,7 +8271,7 @@ msgid "Preferences"
 msgstr "Предпочтения"
 
 #: src/features/career/schedule-sheet.tsx
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Prepare"
@@ -9530,7 +9530,7 @@ msgstr "сохранено"
 msgid "Saved"
 msgstr "Сохранено"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: earlier results kept for this job"
 msgid "Saved"
@@ -10341,6 +10341,7 @@ msgid "Some text is rotated."
 msgstr "Часть текста повёрнута."
 
 #: src/components/layout/error-screen.tsx
+#: src/features/resume/preview/preview.browser.tsx
 msgid "Something went wrong"
 msgstr "Что-то пошло не так."
 
@@ -11727,6 +11728,7 @@ msgstr "Попробуйте образец"
 #: src/features/career/workspace/shell.tsx
 #: src/features/documents/library-error.tsx
 #: src/features/resume/editor/write/improve.tsx
+#: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx

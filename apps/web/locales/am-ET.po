@@ -1829,7 +1829,7 @@ msgstr "ተተግብሯል። ክትትል ለ{0} ተቀጥሯል።"
 msgid "Applied. The application is updated."
 msgstr "ተተግብሯል። ማመልከቻው ተዘምኗል።"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Apply"
 msgstr "ማመልከት"
@@ -3677,8 +3677,8 @@ msgstr "ውድ የFieldnote ቡድን፣"
 msgid "Dear hiring team,"
 msgstr "ውድ የቅጥር ቡድን፣"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Debrief"
 msgstr "ድኅረ ግምገማ"
@@ -4840,8 +4840,8 @@ msgstr "የመጀመሪያ ሩጫ"
 msgid "Fit"
 msgstr "ተስማሚ"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: how well a job fits your experience"
 msgid "Fit"
@@ -6675,7 +6675,7 @@ msgstr "ለረዳቱ መልእክት ይላኩ።"
 msgid "Message the coach"
 msgstr "ለአሰልጣኙ መልዕክት ይላኩ"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Messages"
 msgstr "መልዕክቶች"
@@ -8227,8 +8227,8 @@ msgid "Practice questions are simulated, not from Fieldnote."
 msgstr "የልምምድ ጥያቄዎች የተመሰሉ ናቸው እንጂ ከFieldnote የመጡ አይደሉም።"
 
 #: src/features/career/knowledge/stories.tsx
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/prepare.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Practise"
 msgstr "ተለማመድ"
@@ -8271,7 +8271,7 @@ msgid "Preferences"
 msgstr "ምርጫዎች"
 
 #: src/features/career/schedule-sheet.tsx
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Prepare"
@@ -9530,7 +9530,7 @@ msgstr "ተቀምጧል"
 msgid "Saved"
 msgstr "ተቀምጧል"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: earlier results kept for this job"
 msgid "Saved"
@@ -10341,6 +10341,7 @@ msgid "Some text is rotated."
 msgstr "አንዳንድ ጽሁፍ ተሽከርክሯል።"
 
 #: src/components/layout/error-screen.tsx
+#: src/features/resume/preview/preview.browser.tsx
 msgid "Something went wrong"
 msgstr "የሆነ ችግር ተፈጥሯል"
 
@@ -11727,6 +11728,7 @@ msgstr "ናሙና ይሞክሩ"
 #: src/features/career/workspace/shell.tsx
 #: src/features/documents/library-error.tsx
 #: src/features/resume/editor/write/improve.tsx
+#: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx

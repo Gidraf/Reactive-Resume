@@ -1829,7 +1829,7 @@ msgstr "ಅನ್ವಯಿಸಲಾಗಿದೆ. {0} ಕ್ಕೆ ಫಾಲೋ-�
 msgid "Applied. The application is updated."
 msgstr "ಅನ್ವಯಿಸಲಾಗಿದೆ. ಅರ್ಜಿಯನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ."
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Apply"
 msgstr "ಅರ್ಜಿ ಸಲ್ಲಿಸಿ"
@@ -3677,8 +3677,8 @@ msgstr "ಆತ್ಮೀಯ Fieldnote ತಂಡ,"
 msgid "Dear hiring team,"
 msgstr "ಆತ್ಮೀಯ ನೇಮಕಾತಿ ತಂಡ,"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Debrief"
 msgstr "ಪರಾಮರ್ಶೆ"
@@ -4840,8 +4840,8 @@ msgstr "ಮೊದಲ ರನ್"
 msgid "Fit"
 msgstr "ಫಿಟ್"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: how well a job fits your experience"
 msgid "Fit"
@@ -6675,7 +6675,7 @@ msgstr "ಸಹಾಯಕರಿಗೆ ಸಂದೇಶ ಕಳುಹಿಸಿ"
 msgid "Message the coach"
 msgstr "ಕೋಚ್‌ಗೆ ಸಂದೇಶ ಕಳುಹಿಸಿ"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Messages"
 msgstr "ಸಂದೇಶಗಳು"
@@ -8227,8 +8227,8 @@ msgid "Practice questions are simulated, not from Fieldnote."
 msgstr "ಅಭ್ಯಾಸದ ಪ್ರಶ್ನೆಗಳು ಕಲ್ಪಿತವಾದವು, Fieldnote ನಿಂದ ಬಂದವಲ್ಲ."
 
 #: src/features/career/knowledge/stories.tsx
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/prepare.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Practise"
 msgstr "ಅಭ್ಯಾಸ"
@@ -8271,7 +8271,7 @@ msgid "Preferences"
 msgstr "ಆದ್ಯತೆಗಳು"
 
 #: src/features/career/schedule-sheet.tsx
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Prepare"
@@ -9530,7 +9530,7 @@ msgstr "ಉಳಿಸಲಾಗಿದೆ"
 msgid "Saved"
 msgstr "ಉಳಿಸಲಾಗಿದೆ"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: earlier results kept for this job"
 msgid "Saved"
@@ -10341,6 +10341,7 @@ msgid "Some text is rotated."
 msgstr "ಕೆಲವು ಪಠ್ಯ ತಿರುಗಿಸಲ್ಪಟ್ಟಿದೆ."
 
 #: src/components/layout/error-screen.tsx
+#: src/features/resume/preview/preview.browser.tsx
 msgid "Something went wrong"
 msgstr "ಏನೋ ತಪ್ಪಾಗಿದೆ."
 
@@ -11727,6 +11728,7 @@ msgstr "ಮಾದರಿಯನ್ನು ಪ್ರಯತ್ನಿಸಿ"
 #: src/features/career/workspace/shell.tsx
 #: src/features/documents/library-error.tsx
 #: src/features/resume/editor/write/improve.tsx
+#: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx

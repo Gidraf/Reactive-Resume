@@ -1,4 +1,4 @@
-import type { GenerateTask } from "@reactive-resume/schema/career";
+import type { GenerateTask, WorkspaceTab } from "@reactive-resume/schema/career";
 import type { IconName } from "@reactive-resume/ui/components/icon";
 import type { ComponentProps, ReactNode } from "react";
 import { t } from "@lingui/core/macro";
@@ -164,6 +164,19 @@ export function Swap({ id, children, className }: { id: string; children: ReactN
 		</AnimatePresence>
 	);
 }
+
+// ---- Workspace tabs ----
+
+export const tabLabel = (tab: WorkspaceTab) =>
+	({
+		fit: t({ message: "Fit", context: "Application workspace tab: how well a job fits your experience" }),
+		apply: t`Apply`,
+		prepare: t`Prepare`,
+		practise: t`Practise`,
+		debrief: t`Debrief`,
+		messages: t`Messages`,
+		saved: t({ message: "Saved", context: "Application workspace tab: earlier results kept for this job" }),
+	})[tab];
 
 // ---- Long AI work: what the coach is doing, one phrase at a time ----
 

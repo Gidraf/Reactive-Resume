@@ -16,8 +16,7 @@ import { Skeleton } from "@reactive-resume/ui/components/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@reactive-resume/ui/components/tooltip";
 import { useSavedItems } from "../hooks";
 import { formatMoney } from "../offer-compare";
-import { CollapseRow, FilterChip, useCareerTime, withUndo } from "../shared";
-import { tabLabel } from "./shell";
+import { CollapseRow, FilterChip, tabLabel, useCareerTime, withUndo } from "../shared";
 import { orpc } from "@/libs/orpc/client";
 
 const KINDS: { kind: SavedItemKind; icon: IconName; tab: WorkspaceTab | null }[] = [

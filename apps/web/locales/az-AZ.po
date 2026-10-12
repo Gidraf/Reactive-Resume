@@ -1829,7 +1829,7 @@ msgstr "Tətbiq edildi. İzləmə {0} üçün təyin edildi."
 msgid "Applied. The application is updated."
 msgstr "Tətbiq edildi. Müraciət yeniləndi."
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Apply"
 msgstr "Müraciət"
@@ -3677,8 +3677,8 @@ msgstr "Hörmətli Fieldnote komandası,"
 msgid "Dear hiring team,"
 msgstr "Hörmətli işə qəbul komandası,"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Debrief"
 msgstr "Təhlil"
@@ -4840,8 +4840,8 @@ msgstr "İlk icra"
 msgid "Fit"
 msgstr "Uyğunlaşdırma"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: how well a job fits your experience"
 msgid "Fit"
@@ -6675,7 +6675,7 @@ msgstr "Köməkçiyə mesaj göndərin"
 msgid "Message the coach"
 msgstr "Kouça yaz"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Messages"
 msgstr "Mesajlar"
@@ -8227,8 +8227,8 @@ msgid "Practice questions are simulated, not from Fieldnote."
 msgstr "Məşq sualları simulyasiyadır, Fieldnote-dan deyil."
 
 #: src/features/career/knowledge/stories.tsx
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/prepare.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Practise"
 msgstr "Məşq et"
@@ -8271,7 +8271,7 @@ msgid "Preferences"
 msgstr "Tərcihlər"
 
 #: src/features/career/schedule-sheet.tsx
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Prepare"
@@ -9530,7 +9530,7 @@ msgstr "xilas oldu"
 msgid "Saved"
 msgstr "Yadda saxlanıldı"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: earlier results kept for this job"
 msgid "Saved"
@@ -10341,6 +10341,7 @@ msgid "Some text is rotated."
 msgstr "Bəzi mətn döndərilib."
 
 #: src/components/layout/error-screen.tsx
+#: src/features/resume/preview/preview.browser.tsx
 msgid "Something went wrong"
 msgstr "Nəsə səhv getdi"
 
@@ -11727,6 +11728,7 @@ msgstr "Nümunəni sınayın"
 #: src/features/career/workspace/shell.tsx
 #: src/features/documents/library-error.tsx
 #: src/features/resume/editor/write/improve.tsx
+#: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx

@@ -21,7 +21,7 @@ import { downloadWithAnchor } from "@reactive-resume/utils/file";
 import { getInitials } from "@reactive-resume/utils/string";
 import { cn } from "@reactive-resume/utils/style";
 import { useOverlayHistory, useSavedItems } from "../hooks";
-import { CountdownChip, Eyebrow, minutesUntil, useCareerTime, useNow } from "../shared";
+import { CountdownChip, Eyebrow, minutesUntil, tabLabel, useCareerTime, useNow } from "../shared";
 import { ApplyTab } from "./apply";
 import { CoachSheet } from "./coach-sheet";
 import { DebriefTab } from "./debrief";
@@ -359,17 +359,6 @@ function TabBody({ tab, ...props }: WorkspaceTabProps & { tab: WorkspaceTab }) {
 			return <SavedTab {...props} />;
 	}
 }
-
-export const tabLabel = (tab: WorkspaceTab) =>
-	({
-		fit: t({ message: "Fit", context: "Application workspace tab: how well a job fits your experience" }),
-		apply: t`Apply`,
-		prepare: t`Prepare`,
-		practise: t`Practise`,
-		debrief: t`Debrief`,
-		messages: t`Messages`,
-		saved: t({ message: "Saved", context: "Application workspace tab: earlier results kept for this job" }),
-	})[tab];
 
 function TabBadge({ tone, children }: { tone: "accent" | "warn" | "info" | "plain"; children: ReactNode }) {
 	return (

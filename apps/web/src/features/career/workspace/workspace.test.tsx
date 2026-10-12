@@ -73,7 +73,6 @@ vi.mock("../coach-thread", () => ({
 		retry: api.retryKnowledge,
 	}),
 }));
-vi.mock("./shell", () => ({ tabLabel: (tab: string) => tab }));
 vi.mock("../shared", async (importOriginal) => ({
 	...(await importOriginal<typeof import("../shared")>()),
 	CollapseRow: ({ children }: { children: ReactNode }) => <div>{children}</div>,

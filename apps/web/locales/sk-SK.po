@@ -1829,7 +1829,7 @@ msgstr "Použité. Pripomienka ozvať sa je nastavená na {0}."
 msgid "Applied. The application is updated."
 msgstr "Použité. Žiadosť je aktualizovaná."
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Apply"
 msgstr "Prihláška"
@@ -3677,8 +3677,8 @@ msgstr "Vážený tím Fieldnote,"
 msgid "Dear hiring team,"
 msgstr "Vážený náborový tím,"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Debrief"
 msgstr "Rozbor"
@@ -4840,8 +4840,8 @@ msgstr "Prvé spustenie"
 msgid "Fit"
 msgstr "Prispôsobiť"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: how well a job fits your experience"
 msgid "Fit"
@@ -6675,7 +6675,7 @@ msgstr "Pošlite správu asistentovi"
 msgid "Message the coach"
 msgstr "Napíšte koučovi"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Messages"
 msgstr "Správy"
@@ -8227,8 +8227,8 @@ msgid "Practice questions are simulated, not from Fieldnote."
 msgstr "Cvičné otázky sú simulované, nepochádzajú od Fieldnote."
 
 #: src/features/career/knowledge/stories.tsx
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/prepare.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Practise"
 msgstr "Nácvik"
@@ -8271,7 +8271,7 @@ msgid "Preferences"
 msgstr "Predvoľby"
 
 #: src/features/career/schedule-sheet.tsx
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Prepare"
@@ -9530,7 +9530,7 @@ msgstr "uložené"
 msgid "Saved"
 msgstr "Uložené"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: earlier results kept for this job"
 msgid "Saved"
@@ -10341,6 +10341,7 @@ msgid "Some text is rotated."
 msgstr "Časť textu je otočená."
 
 #: src/components/layout/error-screen.tsx
+#: src/features/resume/preview/preview.browser.tsx
 msgid "Something went wrong"
 msgstr "Niečo sa pokazilo"
 
@@ -11727,6 +11728,7 @@ msgstr "Vyskúšajte vzorku"
 #: src/features/career/workspace/shell.tsx
 #: src/features/documents/library-error.tsx
 #: src/features/resume/editor/write/improve.tsx
+#: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx
