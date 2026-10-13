@@ -217,7 +217,7 @@ docker compose up -d --build
 # Open http://localhost:3000 in your browser
 ```
 
-This builds the checked-out source. For a deployment using published images, follow the [Docker guide](docs/self-hosting/docker.mdx). For source development, see the [development setup guide](docs/contributing/development.mdx).
+This builds the checked-out source. For a deployment using published images, follow the [Docker guide](https://docs.rxresu.me/self-hosting/docker). For source development, see the [development setup guide](https://docs.rxresu.me/contributing/development).
 
 ## Tech Stack
 
@@ -241,31 +241,31 @@ This builds the checked-out source. For a deployment using published images, fol
 
 The full documentation lives at [docs.rxresu.me](https://docs.rxresu.me):
 
-| Guide                                                                                | Description                                  |
-| ------------------------------------------------------------------------------------ | -------------------------------------------- |
-| [Getting started](https://docs.rxresu.me/getting-started)                            | First-time setup and basic usage             |
-| [What's new in v6](docs/guides/whats-new-in-v6.mdx)                                  | Changes and where familiar features moved    |
-| [Checking your resume](docs/guides/checking-your-resume.mdx)                         | Readability, job match, and writing reviews  |
-| [Using the assistant](docs/guides/using-the-assistant.mdx)                           | Ask for changes and review proposed edits    |
-| [Writing a cover letter](docs/guides/writing-a-cover-letter.mdx)                     | Create a letter and link it to a resume      |
-| [Tracking job applications](docs/guides/tracking-job-applications.mdx)               | Saved jobs, stages, interviews, and insights |
-| [Exporting your resume](docs/guides/exporting-your-resume.mdx)                       | PDF, Word, Markdown, and JSON downloads      |
-| [API](docs/guides/using-the-api.mdx) and [MCP](docs/guides/using-the-mcp-server.mdx) | Connect scripts and external assistants      |
-| [Self-hosting](docs/self-hosting/docker.mdx)                                         | Deploy on your own infrastructure            |
-| [Migrating from v5](docs/self-hosting/upgrading-to-v6.mdx)                           | Migrations and integration changes           |
-| [Development setup](docs/contributing/development.mdx)                               | Local development environment                |
-| [Project architecture](docs/contributing/architecture.mdx)                           | Codebase structure and package boundaries    |
+| Guide                                                                                                            | Description                                  |
+| ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| [Getting started](https://docs.rxresu.me/getting-started)                                                        | First-time setup and basic usage             |
+| [What's new in v6](https://docs.rxresu.me/guides/whats-new-in-v6)                                                | Changes and where familiar features moved    |
+| [Checking your resume](https://docs.rxresu.me/guides/checking-your-resume)                                       | Readability, job match, and writing reviews  |
+| [Using the assistant](https://docs.rxresu.me/guides/using-the-assistant)                                         | Ask for changes and review proposed edits    |
+| [Writing a cover letter](https://docs.rxresu.me/guides/writing-a-cover-letter)                                   | Create a letter and link it to a resume      |
+| [Tracking job applications](https://docs.rxresu.me/guides/tracking-job-applications)                             | Saved jobs, stages, interviews, and insights |
+| [Exporting your resume](https://docs.rxresu.me/guides/exporting-your-resume)                                     | PDF, Word, Markdown, and JSON downloads      |
+| [API](https://docs.rxresu.me/guides/using-the-api) and [MCP](https://docs.rxresu.me/guides/using-the-mcp-server) | Connect scripts and external assistants      |
+| [Self-hosting](https://docs.rxresu.me/self-hosting/docker)                                                       | Deploy on your own infrastructure            |
+| [Migrating from v5](https://docs.rxresu.me/self-hosting/upgrading-to-v6)                                         | Migrations and integration changes           |
+| [Development setup](https://docs.rxresu.me/contributing/development)                                             | Local development environment                |
+| [Project architecture](https://docs.rxresu.me/contributing/architecture)                                         | Codebase structure and package boundaries    |
 
 ## Self-Hosting
 
 Reactive Resume runs the same application everywhere: PostgreSQL for data, plus storage for uploads. Pick the option that fits how much you want to manage.
 
-| Option                                          | Best for                                      | Guide                                                                                   |
-| ----------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |
-| [Hostinger](#hostinger)                         | A ready-made VPS with no setup                | [Hostinger guide](docs/self-hosting/hostinger.mdx)                                      |
-| [Vercel](#vercel)                               | Serverless, with managed database and storage | [Vercel guide](docs/self-hosting/vercel.mdx)                                            |
-| [Cloudflare Workers](#cloudflare-workers)       | Workers, R2 and your own PostgreSQL           | [Cloudflare guide](docs/self-hosting/cloudflare.mdx)                                    |
-| [Docker and Kubernetes](#docker-and-kubernetes) | Your own server, homelab or cluster           | [Docker](docs/self-hosting/docker.mdx) · [Kubernetes](docs/self-hosting/kubernetes.mdx) |
+| Option                                          | Best for                                      | Guide                                                                                                               |
+| ----------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| [Hostinger](#hostinger)                         | A ready-made VPS with no setup                | [Hostinger guide](https://docs.rxresu.me/self-hosting/hostinger)                                                    |
+| [Vercel](#vercel)                               | Serverless, with managed database and storage | [Vercel guide](https://docs.rxresu.me/self-hosting/vercel)                                                          |
+| [Cloudflare Workers](#cloudflare-workers)       | Workers, R2 and your own PostgreSQL           | [Cloudflare guide](https://docs.rxresu.me/self-hosting/cloudflare)                                                  |
+| [Docker and Kubernetes](#docker-and-kubernetes) | Your own server, homelab or cluster           | [Docker](https://docs.rxresu.me/self-hosting/docker) · [Kubernetes](https://docs.rxresu.me/self-hosting/kubernetes) |
 
 > **PDF generation in v6** uses Forme in the browser and on the server. No Browserless, Chromium, or external print service is needed. Legacy `PRINTER_*` and `BROWSERLESS_*` environment variables can be removed.
 
@@ -277,17 +277,17 @@ The quickest way to get going is a 1-click deploy on Hostinger, starting at $6.4
   <img src="https://assets.hostinger.com/vps/deploy.svg" alt="Deploy on Hostinger" width="148" height="32" />
 </a>
 
-See the [Hostinger guide](docs/self-hosting/hostinger.mdx) for what the template sets up and what to configure afterwards, such as email, your own domain, and turning off sign-ups.
+See the [Hostinger guide](https://docs.rxresu.me/self-hosting/hostinger) for what the template sets up and what to configure afterwards, such as email, your own domain, and turning off sign-ups.
 
 ### Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Freactive-resume%2Freactive-resume&project-name=reactive-resume&repository-name=reactive-resume&env=AUTH_SECRET%2CENCRYPTION_SECRET&envDescription=Generate+two+independent+secrets+with+openssl+rand+-hex+32.+Keep+these+values+across+deployments.&envLink=https%3A%2F%2Fdocs.rxresu.me%2Fself-hosting%2Fvercel&stores=%5B%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22integrationSlug%22%3A%22neon%22%2C%22productSlug%22%3A%22neon%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22integrationSlug%22%3A%22upstash%22%2C%22productSlug%22%3A%22upstash-kv%22%7D%2C%7B%22type%22%3A%22blob%22%2C%22access%22%3A%22private%22%7D%5D)
 
-Vercel provisions Neon PostgreSQL, private Blob storage, and Upstash Redis through its deployment wizard. Supply two persistent secrets and use the **Services** framework preset. Static assets run in the frontend service, and Hono serves the application routes and APIs from the backend service. See the [Vercel guide](docs/self-hosting/vercel.mdx) for setup, limits, and optional SMTP/OAuth configuration.
+Vercel provisions Neon PostgreSQL, private Blob storage, and Upstash Redis through its deployment wizard. Supply two persistent secrets and use the **Services** framework preset. Static assets run in the frontend service, and Hono serves the application routes and APIs from the backend service. See the [Vercel guide](https://docs.rxresu.me/self-hosting/vercel) for setup, limits, and optional SMTP/OAuth configuration.
 
 ### Cloudflare Workers
 
-Cloudflare deployment requires **Workers Paid** and uses Static Assets, private R2 storage, SQLite Durable Objects, and PostgreSQL through Hyperdrive. Supply an existing PostgreSQL database and apply migrations before deployment. See the [Cloudflare guide](docs/self-hosting/cloudflare.mdx) for setup and runtime limits.
+Cloudflare deployment requires **Workers Paid** and uses Static Assets, private R2 storage, SQLite Durable Objects, and PostgreSQL through Hyperdrive. Supply an existing PostgreSQL database and apply migrations before deployment. See the [Cloudflare guide](https://docs.rxresu.me/self-hosting/cloudflare) for setup and runtime limits.
 
 ### Docker and Kubernetes
 
@@ -308,15 +308,15 @@ docker pull amruthpillai/reactive-resume:latest
 docker pull ghcr.io/reactive-resume/reactive-resume:latest
 ```
 
-See the [Docker guide](docs/self-hosting/docker.mdx) or [Kubernetes guide](docs/self-hosting/kubernetes.mdx) for complete instructions. Running on a NAS? See the [Synology and UGREEN guides](docs/self-hosting/nas.mdx).
+See the [Docker guide](https://docs.rxresu.me/self-hosting/docker) or [Kubernetes guide](https://docs.rxresu.me/self-hosting/kubernetes) for complete instructions. Running on a NAS? See the [Synology and UGREEN guides](https://docs.rxresu.me/self-hosting/nas).
 
 ### Configuration
 
-Every setting is listed in the [environment variables reference](docs/self-hosting/environment-variables.mdx). Self-hosters can also configure [shared AI and job-search services](docs/self-hosting/job-search-and-ai.mdx) and [single sign-on](docs/self-hosting/sso.mdx).
+Every setting is listed in the [environment variables reference](https://docs.rxresu.me/self-hosting/environment-variables). Self-hosters can also configure [shared AI and job-search services](https://docs.rxresu.me/self-hosting/job-search-and-ai) and [single sign-on](https://docs.rxresu.me/self-hosting/sso).
 
 ### Upgrading from v5
 
-Back up your database and uploads and stop all v5 instances before applying v6 migrations. Old visual style rules require a manual conversion; API and MCP integrations also have changes. Follow [Migrating from v5](docs/self-hosting/upgrading-to-v6.mdx).
+Back up your database and uploads and stop all v5 instances before applying v6 migrations. Old visual style rules require a manual conversion; API and MCP integrations also have changes. Follow [Migrating from v5](https://docs.rxresu.me/self-hosting/upgrading-to-v6).
 
 ## Support
 
