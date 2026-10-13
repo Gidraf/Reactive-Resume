@@ -224,9 +224,9 @@
 						"group": "Self-Hosting",
 						"pages": [
 							"self-hosting/docker",
-							"self-hosting/hostinger",
 							"self-hosting/kubernetes",
 							"self-hosting/vercel",
+							"self-hosting/hostinger",
 							"self-hosting/cloudflare",
 							"self-hosting/nas"
 						]
