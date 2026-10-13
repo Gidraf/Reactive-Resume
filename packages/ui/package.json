@@ -39,7 +39,7 @@
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
 		"@typescript/native-preview": "catalog:",
-		"postcss": "^8.5.29",
+		"postcss": "^8.5.30",
 		"tailwindcss": "^4.3.3",
 		"typescript": "catalog:"
 	}
