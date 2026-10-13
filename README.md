@@ -33,7 +33,7 @@
   <a href="https://www.hostg.xyz/aff_c?offer_id=48&amp;aff_id=232413&amp;url_id=6857">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="docs/images/sponsors/hostinger-dark.svg" />
-      <img src="docs/images/sponsors/hostinger-light.svg" alt="Hostinger" width="196" />
+      <img src="docs/images/sponsors/hostinger-light.svg" alt="Hostinger" width="118" height="24" />
     </picture>
   </a>
 
@@ -258,26 +258,43 @@ The full documentation lives at [docs.rxresu.me](https://docs.rxresu.me):
 
 ## Self-Hosting
 
-Reactive Resume supports Docker, Kubernetes, Vercel, Cloudflare Workers, and a 1-click deploy on Hostinger. Each deployment runs the same application with PostgreSQL and upload storage.
+Reactive Resume runs the same application everywhere: PostgreSQL for data, plus storage for uploads. Pick the option that fits how much you want to manage.
 
-The quickest way to get going is a 1-click deploy on Hostinger, starting at $6.49/month. Their VPS plans include a ready-made Reactive Resume template that provisions the Docker environment and brings the app up for you, with weekly backups and a Docker manager UI included — so you can skip the setup entirely. See the [Hostinger guide](docs/self-hosting/hostinger.mdx) for what the template sets up and what to configure afterwards.
+| Option                                          | Best for                                      | Guide                                                                                   |
+| ----------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [Hostinger](#hostinger)                         | A ready-made VPS with no setup                | [Hostinger guide](docs/self-hosting/hostinger.mdx)                                      |
+| [Vercel](#vercel)                               | Serverless, with managed database and storage | [Vercel guide](docs/self-hosting/vercel.mdx)                                            |
+| [Cloudflare Workers](#cloudflare-workers)       | Workers, R2 and your own PostgreSQL           | [Cloudflare guide](docs/self-hosting/cloudflare.mdx)                                    |
+| [Docker and Kubernetes](#docker-and-kubernetes) | Your own server, homelab or cluster           | [Docker](docs/self-hosting/docker.mdx) · [Kubernetes](docs/self-hosting/kubernetes.mdx) |
+
+> **PDF generation in v6** uses Forme in the browser and on the server. No Browserless, Chromium, or external print service is needed. Legacy `PRINTER_*` and `BROWSERLESS_*` environment variables can be removed.
+
+### Hostinger
+
+The quickest way to get going is a 1-click deploy on Hostinger, starting at $6.49/month. Their VPS plans include a ready-made Reactive Resume template that provisions the Docker environment and brings the app up for you, with weekly backups and a Docker manager UI included — so you can skip the setup entirely.
 
 [![Deploy on Hostinger](https://assets.hostinger.com/vps/deploy.svg)](https://www.hostg.xyz/aff_c?offer_id=48&aff_id=232413&url_id=6857)
+
+See the [Hostinger guide](docs/self-hosting/hostinger.mdx) for what the template sets up and what to configure afterwards, such as email, your own domain, and turning off sign-ups.
+
+### Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Freactive-resume%2Freactive-resume&project-name=reactive-resume&repository-name=reactive-resume&env=AUTH_SECRET%2CENCRYPTION_SECRET&envDescription=Generate+two+independent+secrets+with+openssl+rand+-hex+32.+Keep+these+values+across+deployments.&envLink=https%3A%2F%2Fdocs.rxresu.me%2Fself-hosting%2Fvercel&stores=%5B%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22integrationSlug%22%3A%22neon%22%2C%22productSlug%22%3A%22neon%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22integrationSlug%22%3A%22upstash%22%2C%22productSlug%22%3A%22upstash-kv%22%7D%2C%7B%22type%22%3A%22blob%22%2C%22access%22%3A%22private%22%7D%5D)
 
 Vercel provisions Neon PostgreSQL, private Blob storage, and Upstash Redis through its deployment wizard. Supply two persistent secrets and use the **Services** framework preset. Static assets run in the frontend service, and Hono serves the application routes and APIs from the backend service. See the [Vercel guide](docs/self-hosting/vercel.mdx) for setup, limits, and optional SMTP/OAuth configuration.
 
+### Cloudflare Workers
+
 Cloudflare deployment requires **Workers Paid** and uses Static Assets, private R2 storage, SQLite Durable Objects, and PostgreSQL through Hyperdrive. Supply an existing PostgreSQL database and apply migrations before deployment. See the [Cloudflare guide](docs/self-hosting/cloudflare.mdx) for setup and runtime limits.
 
-For Docker and Kubernetes, the application needs:
+### Docker and Kubernetes
+
+The application needs:
 
 - **PostgreSQL** — Accounts, documents, applications, and assistant conversations
 - **Upload storage** — A persistent local directory or an S3-compatible bucket, such as SeaweedFS
 - **Redis** (optional) — Shared coordination across instances and resumable assistant replies
 - **SMTP** (optional) — Verification and password-reset emails
-
-> **PDF generation in v6** uses Forme in the browser and on the server. No Browserless, Chromium, or external print service is needed. Legacy `PRINTER_*` and `BROWSERLESS_*` environment variables can be removed.
 
 Published releases are available from Docker Hub and GitHub Container Registry (`latest` tracks the latest stable release):
 
@@ -289,9 +306,15 @@ docker pull amruthpillai/reactive-resume:latest
 docker pull ghcr.io/reactive-resume/reactive-resume:latest
 ```
 
-See the [Docker guide](docs/self-hosting/docker.mdx) or [Kubernetes guide](docs/self-hosting/kubernetes.mdx) for complete instructions. Self-hosters can also configure [shared AI and job-search services](docs/self-hosting/job-search-and-ai.mdx).
+See the [Docker guide](docs/self-hosting/docker.mdx) or [Kubernetes guide](docs/self-hosting/kubernetes.mdx) for complete instructions. Running on a NAS? See the [Synology and UGREEN guides](docs/self-hosting/nas.mdx).
 
-For a v5 upgrade, back up your database and uploads and stop all v5 instances before applying v6 migrations. Old visual style rules require a manual conversion; API and MCP integrations also have changes. Follow [Migrating from v5](docs/self-hosting/upgrading-to-v6.mdx).
+### Configuration
+
+Every setting is listed in the [environment variables reference](docs/self-hosting/environment-variables.mdx). Self-hosters can also configure [shared AI and job-search services](docs/self-hosting/job-search-and-ai.mdx) and [single sign-on](docs/self-hosting/sso.mdx).
+
+### Upgrading from v5
+
+Back up your database and uploads and stop all v5 instances before applying v6 migrations. Old visual style rules require a manual conversion; API and MCP integrations also have changes. Follow [Migrating from v5](docs/self-hosting/upgrading-to-v6.mdx).
 
 ## Support
 
