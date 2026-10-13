@@ -273,7 +273,9 @@ Reactive Resume runs the same application everywhere: PostgreSQL for data, plus 
 
 The quickest way to get going is a 1-click deploy on Hostinger, starting at $6.49/month. Their VPS plans include a ready-made Reactive Resume template that provisions the Docker environment and brings the app up for you, with weekly backups and a Docker manager UI included — so you can skip the setup entirely.
 
-[![Deploy on Hostinger](https://assets.hostinger.com/vps/deploy.svg)](https://www.hostg.xyz/aff_c?offer_id=48&aff_id=232413&url_id=6857)
+<a href="https://www.hostg.xyz/aff_c?offer_id=48&amp;aff_id=232413&amp;url_id=6857">
+  <img src="https://assets.hostinger.com/vps/deploy.svg" alt="Deploy on Hostinger" width="148" height="32" />
+</a>
 
 See the [Hostinger guide](docs/self-hosting/hostinger.mdx) for what the template sets up and what to configure afterwards, such as email, your own domain, and turning off sign-ups.
 
