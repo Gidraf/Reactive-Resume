@@ -5294,7 +5294,7 @@ msgstr "Disembunyikan dari Posisi baru"
 
 #: src/features/resume/editor/write/outline.tsx
 msgid "Hidden sections"
-msgstr ""
+msgstr "Bagian tersembunyi"
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Hidden sections keep their content but aren't printed or shared. Fields save as you type."

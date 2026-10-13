@@ -5294,7 +5294,7 @@ msgstr "“ಹೊಸ ಹುದ್ದೆಗಳು” ಇಂದ ಮರೆಮಾಡ
 
 #: src/features/resume/editor/write/outline.tsx
 msgid "Hidden sections"
-msgstr ""
+msgstr "ಮರೆಮಾಡಿದ ವಿಭಾಗಗಳು"
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Hidden sections keep their content but aren't printed or shared. Fields save as you type."

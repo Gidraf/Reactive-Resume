@@ -5294,7 +5294,7 @@ msgstr "புதிய பதவிகளிலிருந்து மறை�
 
 #: src/features/resume/editor/write/outline.tsx
 msgid "Hidden sections"
-msgstr ""
+msgstr "மறைக்கப்பட்ட பிரிவுகள்"
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Hidden sections keep their content but aren't printed or shared. Fields save as you type."

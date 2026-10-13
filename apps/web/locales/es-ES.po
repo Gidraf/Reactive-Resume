@@ -5294,7 +5294,7 @@ msgstr "Oculto en Puestos nuevos"
 
 #: src/features/resume/editor/write/outline.tsx
 msgid "Hidden sections"
-msgstr ""
+msgstr "Secciones ocultas"
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Hidden sections keep their content but aren't printed or shared. Fields save as you type."

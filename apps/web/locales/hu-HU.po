@@ -5294,7 +5294,7 @@ msgstr "Elrejtve az Új pozíciók közül"
 
 #: src/features/resume/editor/write/outline.tsx
 msgid "Hidden sections"
-msgstr ""
+msgstr "Rejtett szakaszok"
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Hidden sections keep their content but aren't printed or shared. Fields save as you type."
