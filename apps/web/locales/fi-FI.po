@@ -2890,6 +2890,10 @@ msgstr "Sisältö on aseteltu ruudukkoon."
 msgid "Continue"
 msgstr "Jatka"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Jatka vieraana"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Osallistu koodilla"
@@ -3113,6 +3117,10 @@ msgstr "Tätä ajastusta ei voitu muuttaa."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Yhteyttä ei voitu muodostaa. Tarkista avain ja yritä uudelleen."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Vieraana jatkaminen ei onnistunut. Yritä uudelleen."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Luo uusi ansioluettelo"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Luo ensin ansioluettelo ja kysy sitten."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Luo tili"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Sivupalkit luetaan usein viimeisenä tai sekoitetaan pääsarakkeeseen."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
@@ -12894,6 +12907,10 @@ msgstr "Olet offline-tilassa. Muodosta yhteys uudelleen tallentaaksesi muutokset
 msgid "You're up to date"
 msgstr "Olet ajan tasalla"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Käytät vierastiliä"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Sinun vuorosi"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Kahden minuutin esittelysi"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Työsi katoaa, kun kirjaudut ulos tai istunto päättyy. Luo tili tai kirjaudu sisään säilyttääksesi ansioluettelosi, saatekirjeesi ja hakemuksesi."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

@@ -26,6 +26,7 @@ vi.mock("@tanstack/react-query", () => ({
 		data: { google: "Google", github: "GitHub", linkedin: "LinkedIn", custom: "SSO", passkey: true },
 	}),
 	useQueryClient: () => mocks.queryClient,
+	useMutation: () => ({ mutate: vi.fn(), isPending: false }),
 }));
 vi.mock("@tanstack/react-router", () => ({
 	useSearch: () => ({ callbackURL: mocks.callbackURL }),
@@ -73,7 +74,7 @@ afterEach(cleanup);
 function renderLogin() {
 	return render(
 		<I18nProvider i18n={i18n}>
-			<LoginPage disableEmailAuth={false} disableSignups={false} />
+			<LoginPage disableEmailAuth={false} disableSignups={false} allowGuestLogin={false} />
 		</I18nProvider>,
 	);
 }

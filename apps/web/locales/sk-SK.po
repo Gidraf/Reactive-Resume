@@ -2890,6 +2890,10 @@ msgstr "Obsah je usporiadaný v mriežke."
 msgid "Continue"
 msgstr "Pokračovať"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Pokračovať ako hosť"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Prispej kódom"
@@ -3113,6 +3117,10 @@ msgstr "Túto naplánovanú úlohu sa nepodarilo zmeniť."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Nepodarilo sa pripojiť. Skontrolujte kľúč a skúste to znova."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Nepodarilo sa pokračovať ako hosť. Skúste to znova."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Vytvoriť nový životopis"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Najprv vytvorte životopis a potom sa naň pýtajte."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Vytvoriť účet"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Bočné panely sa často čítajú ako posledné alebo sa primiešavajú do hlavného stĺpca."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Prihlásiť sa"
@@ -12894,6 +12907,10 @@ msgstr "Ste offline. Pred odchodom sa znova pripojte, aby ste uložili zmeny."
 msgid "You're up to date"
 msgstr "Ste v obraze"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Používate účet hosťa"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Si na rade"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Vaše dvojminútové predstavenie"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Po odhlásení alebo skončení relácie o svoju prácu prídete. Vytvorte si účet alebo sa prihláste, aby ste si životopisy, sprievodné listy a žiadosti ponechali."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

@@ -8,11 +8,11 @@ import { passkey } from "@better-auth/passkey";
 import { compare, hash } from "bcryptjs";
 import { APIError, betterAuth } from "better-auth";
 import { createAuthMiddleware } from "better-auth/api";
-import { admin, jwt, openAPI } from "better-auth/plugins";
+import { admin, anonymous, jwt, openAPI } from "better-auth/plugins";
 import { genericOAuth } from "better-auth/plugins/generic-oauth";
 import { twoFactor } from "better-auth/plugins/two-factor";
 import { username } from "better-auth/plugins/username";
-import { and, eq, gt } from "drizzle-orm";
+import { and, eq, gt, sql } from "drizzle-orm";
 import { createLocalJWKSet, jwtVerify } from "jose";
 import { createElement } from "react";
 import { db } from "@reactive-resume/db/client";
@@ -184,8 +184,24 @@ const getAuthConfig = () => {
 			enabled: isRateLimitEnabled,
 		},
 
+		databaseHooks: {
+			user: {
+				create: {
+					// Guests sign in without a username. The tail of a UUIDv7 is random; its head is a timestamp.
+					before: (user) => {
+						if (!user.isAnonymous) return Promise.resolve(undefined);
+						const username = `guest-${generateId().slice(-12)}`;
+						return Promise.resolve({ data: { ...user, username, displayUsername: username } });
+					},
+				},
+			},
+		},
+
 		hooks: {
 			before: createAuthMiddleware(async (ctx) => {
+				if (ctx.path === "/sign-in/anonymous" && (!env.FLAG_ENABLE_GUEST_LOGIN || env.FLAG_DISABLE_SIGNUPS)) {
+					throw new APIError("FORBIDDEN", { message: "Guest login is disabled." });
+				}
 				if (ctx.path === "/oauth2/delete-consent") {
 					const origin = ctx.headers?.get("origin");
 					if ((origin && !TRUSTED_ORIGINS.includes(origin)) || ctx.headers?.get("sec-fetch-site") === "cross-site") {
@@ -414,6 +430,34 @@ const getAuthConfig = () => {
 				displayUsernameNormalization: (value) => toUsername(value),
 				usernameValidator: (username) => /^[a-z0-9._-]+$/.test(username),
 				validationOrder: { username: "post-normalization", displayUsername: "post-normalization" },
+			}),
+			anonymous({
+				emailDomainName: "reactive-resume.local",
+				generateName: () => "Guest",
+				// Signing up or in from a guest session moves the guest's documents to that account; the plugin then
+				// deletes the guest account, along with anything not moved here (assistant threads, career data).
+				onLinkAccount: async ({ anonymousUser, newUser }) => {
+					const from = anonymousUser.user.id;
+					const to = newUser.user.id;
+					await db.transaction(async (tx) => {
+						// An existing account may already use a slug; suffix the guest's copy to keep (user, slug) unique.
+						await tx
+							.update(schema.resume)
+							.set({
+								userId: to,
+								slug: sql`case when exists (select 1 from resume r where r.user_id = ${to} and r.slug = resume.slug) then resume.slug || '-' || right(resume.id, 6) else resume.slug end`,
+							})
+							.where(eq(schema.resume.userId, from));
+						for (const table of [
+							schema.resumeVersion,
+							schema.coverLetter,
+							schema.coverLetterVersion,
+							schema.application,
+						]) {
+							await tx.update(table).set({ userId: to }).where(eq(table.userId, from));
+						}
+					});
+				},
 			}),
 			...(env.BETTER_AUTH_API_KEY
 				? [dash({ apiKey: env.BETTER_AUTH_API_KEY, activityTracking: { enabled: true } })]

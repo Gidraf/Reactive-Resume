@@ -6,6 +6,7 @@ import { isCareerSchedulingEnabled } from "../career/runner";
 export type FeatureFlags = {
 	disableSignups: boolean;
 	disableEmailAuth: boolean;
+	allowGuestLogin: boolean;
 	smtpEnabled: boolean;
 	careerSchedulingEnabled?: boolean;
 };
@@ -30,6 +31,7 @@ export const flagsRouter = {
 			z.object({
 				disableSignups: z.boolean().describe("Whether new user signups are disabled on this instance."),
 				disableEmailAuth: z.boolean().describe("Whether email-based authentication is disabled on this instance."),
+				allowGuestLogin: z.boolean().describe("Whether visitors can continue as a guest on this instance."),
 				smtpEnabled: z.boolean().describe("Whether outbound email (SMTP) is configured on this instance."),
 				careerSchedulingEnabled: z
 					.boolean()
@@ -39,6 +41,7 @@ export const flagsRouter = {
 		.handler(() => ({
 			disableSignups: env.FLAG_DISABLE_SIGNUPS,
 			disableEmailAuth: env.FLAG_DISABLE_EMAIL_AUTH,
+			allowGuestLogin: env.FLAG_ENABLE_GUEST_LOGIN && !env.FLAG_DISABLE_SIGNUPS,
 			smtpEnabled: isSmtpEnabled(),
 			careerSchedulingEnabled: isCareerSchedulingEnabled(),
 		})),

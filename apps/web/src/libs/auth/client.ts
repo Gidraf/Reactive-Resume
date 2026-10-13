@@ -4,7 +4,13 @@ import { dashClient } from "@better-auth/infra/client";
 import { oauthProviderClient } from "@better-auth/oauth-provider/client";
 import { oauthProviderResourceClient } from "@better-auth/oauth-provider/resource-client";
 import { passkeyClient } from "@better-auth/passkey/client";
-import { adminClient, inferAdditionalFields, twoFactorClient, usernameClient } from "better-auth/client/plugins";
+import {
+	adminClient,
+	anonymousClient,
+	inferAdditionalFields,
+	twoFactorClient,
+	usernameClient,
+} from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import { authSearchSchema } from "@/features/auth/redirect";
 
@@ -15,6 +21,7 @@ export const authClient = createAuthClient({
 		apiKeyClient(),
 		passkeyClient(),
 		usernameClient(),
+		anonymousClient(),
 		twoFactorClient({
 			onTwoFactorRedirect() {
 				// Redirect to 2FA verification page

@@ -2890,6 +2890,10 @@ msgstr "内容以网格形式排列。"
 msgid "Continue"
 msgstr "继续"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "以访客身份继续"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "贡献代码"
@@ -3113,6 +3117,10 @@ msgstr "无法更改此定时任务。"
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "无法连接。检查密钥并重试。"
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "无法以访客身份继续，请重试。"
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "创建新简历"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "首先创建一份简历，然后询问。"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "创建账户"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "侧边栏通常是最后阅读的，或者混合到主栏中。"
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "登录"
@@ -12894,6 +12907,10 @@ msgstr "你离线了。离开前重新连接以保存更改。"
 msgid "You're up to date"
 msgstr "已全部看完"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "你正在使用访客账户"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "轮到你了"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "两分钟自我介绍"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "退出登录或会话结束后，你的内容将会丢失。创建账户或登录即可保留你的简历、求职信和申请。"
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

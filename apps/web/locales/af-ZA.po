@@ -2890,6 +2890,10 @@ msgstr "Inhoud is in 'n rooster uitgelê."
 msgid "Continue"
 msgstr "Gaan voort"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Gaan voort as gas"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Dra kode by"
@@ -3113,6 +3117,10 @@ msgstr "Kon nie hierdie skedule verander nie."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Kon nie koppel nie. Kontroleer die sleutel en probeer weer."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Kon nie as gas voortgaan nie. Probeer asseblief weer."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Skep 'n nuwe CV"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Skep eers 'n CV en vra dan daaroor."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Skep rekening"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Sidebars word dikwels laaste gelees, of in die hoofkolom gemeng."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Meld aan"
@@ -12894,6 +12907,10 @@ msgstr "Jy is vanlyn. Herkoppel om jou veranderinge te stoor voordat jy vertrek.
 msgid "You're up to date"
 msgstr "Jy is op datum"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Jy gebruik 'n gasrekening"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Jou beurt"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Jou inleiding van twee minute"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Jou werk gaan verlore wanneer jy afmeld of die sessie eindig. Skep 'n rekening of meld aan om jou CV's, dekbriewe en aansoeke te behou."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

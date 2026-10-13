@@ -2890,6 +2890,10 @@ msgstr "Innholdet er lagt ut i et rutenett."
 msgid "Continue"
 msgstr "Fortsett"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Fortsett som gjest"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Bidra med kode"
@@ -3113,6 +3117,10 @@ msgstr "Kunne ikke endre denne tidsplanen."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Kunne ikke koble til. Sjekk nøkkelen og prøv igjen."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Kunne ikke fortsette som gjest. Prøv igjen."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Opprett en ny CV"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Lag en CV først, og spør deretter om den."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Opprett konto"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Sidefelt leses ofte sist, eller blandes inn i hovedkolonnen."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Logg inn"
@@ -12894,6 +12907,10 @@ msgstr "Du er frakoblet. Koble til på nytt for å lagre endringene dine før du
 msgid "You're up to date"
 msgstr "Du er oppdatert"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Du bruker en gjestekonto"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Din tur"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Introduksjonen din på to minutter"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Arbeidet ditt går tapt når du logger ut eller økten avsluttes. Opprett en konto eller logg inn for å beholde CV-ene, følgebrevene og søknadene dine."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

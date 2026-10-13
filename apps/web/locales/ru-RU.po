@@ -2890,6 +2890,10 @@ msgstr "Содержимое расположено в виде сетки."
 msgid "Continue"
 msgstr "Продолжить"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Продолжить как гость"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Внести вклад в код"
@@ -3113,6 +3117,10 @@ msgstr "Не удалось изменить это расписание."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Не удалось подключиться. Проверьте ключ и повторите попытку."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Не удалось продолжить как гость. Попробуйте ещё раз."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Создать новое резюме"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Сначала составьте резюме, а затем спрашивайте о нем."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Создать аккаунт"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Боковые панели часто читаются последними или смешиваются с основным столбцом."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Войти"
@@ -12894,6 +12907,10 @@ msgstr "Вы оффлайн. Подключитесь повторно, чтоб
 msgid "You're up to date"
 msgstr "Все просмотрено"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Вы используете гостевой аккаунт"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Ваша очередь"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Ваша самопрезентация на две минуты"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Ваша работа будет потеряна, когда вы выйдете или сеанс завершится. Создайте аккаунт или войдите, чтобы сохранить резюме, сопроводительные письма и заявки."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

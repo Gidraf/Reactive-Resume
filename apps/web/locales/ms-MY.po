@@ -2890,6 +2890,10 @@ msgstr "Kandungan disusun dalam grid."
 msgid "Continue"
 msgstr "Teruskan"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Teruskan sebagai tetamu"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Sumbangkan kod"
@@ -3113,6 +3117,10 @@ msgstr "Tidak dapat menukar jadual ini."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "tidak dapat menyambung. Semak kunci dan cuba lagi."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Tidak dapat meneruskan sebagai tetamu. Sila cuba lagi."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Cipta resume baharu"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Buat resume dahulu, kemudian tanya tentangnya."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Cipta akaun"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Bar sisi sering dibaca terakhir, atau dicampur ke dalam lajur utama."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Log masuk"
@@ -12894,6 +12907,10 @@ msgstr "Anda di luar talian. Sambung semula untuk menyimpan perubahan anda sebel
 msgid "You're up to date"
 msgstr "Anda sudah dikemas kini"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Anda menggunakan akaun tetamu"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Giliran awak"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Pengenalan diri dua minit anda"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Kerja anda akan hilang apabila anda log keluar atau sesi tamat. Cipta akaun atau log masuk untuk menyimpan resume, surat pengantar dan permohonan anda."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

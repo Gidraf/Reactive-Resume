@@ -2890,6 +2890,10 @@ msgstr "உள்ளடக்கம் ஒரு கட்டமைப்பி�
 msgid "Continue"
 msgstr "தொடர்க"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "விருந்தினராகத் தொடரவும்"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "குறியீடு பங்களிக்கவும்"
@@ -3113,6 +3117,10 @@ msgstr "இந்த அட்டவணையை மாற்ற முடிய
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "இணைக்க முடியவில்லை. விசையைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "விருந்தினராகத் தொடர முடியவில்லை. மீண்டும் முயற்சிக்கவும்."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "ஒரு புதிய ரெஸ்யூமியை உருவா
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "முதலில் ஒரு ரெஸ்யூமே உருவாக்கவும், பிறகு அதைப் பற்றி கேட்கவும்."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "கணக்கை உருவாக்கவும்"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "பக்கப்பட்டிகள் பெரும்பாலும் கடைசியாக படிக்கப்படுகின்றன அல்லது பிரதான நெடுவரிசையில் கலக்கப்படுகின்றன."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "உள்நுழைக"
@@ -12894,6 +12907,10 @@ msgstr "ஆஃப்லைனில் உள்ளீர்கள். வெள
 msgid "You're up to date"
 msgstr "அனைத்தையும் பார்த்துவிட்டீர்கள்"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "நீங்கள் விருந்தினர் கணக்கைப் பயன்படுத்துகிறீர்கள்"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "உங்கள் முறை"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "உங்கள் இரண்டு நிமிட அறிமுகம்"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "வெளியேறும்போது அல்லது அமர்வு முடியும்போது உங்கள் வேலை இழக்கப்படும். உங்கள் வாழ்க்கைக் குறிப்புகள், கவர் கடிதங்கள் மற்றும் விண்ணப்பங்களை வைத்திருக்க கணக்கை உருவாக்கவும் அல்லது உள்நுழையவும்."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

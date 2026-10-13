@@ -2890,6 +2890,10 @@ msgstr "सामग्री ग्रिडमध्ये मांडले�
 msgid "Continue"
 msgstr "पुढे"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "अतिथी म्हणून सुरू ठेवा"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "कोडमध्ये योगदान द्या"
@@ -3113,6 +3117,10 @@ msgstr "हे वेळापत्रक बदलता आले नाह�
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "कनेक्ट करू शकलो नाही. की तपासा आणि पुन्हा प्रयत्न करा."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "अतिथी म्हणून सुरू ठेवता आले नाही. कृपया पुन्हा प्रयत्न करा."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "नवीन रेझ्युमे बनवा"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "प्रथम एक रेझ्युमे तयार करा, नंतर त्याबद्दल विचारा."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "खाते तयार करा"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "साइडबार अनेकदा शेवटचे वाचले जातात किंवा मुख्य स्तंभात मिसळले जातात."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "साइन इन"
@@ -12894,6 +12907,10 @@ msgstr "तुम्ही ऑफलाइन आहात. जाण्या�
 msgid "You're up to date"
 msgstr "तुम्ही अद्ययावत आहात"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "तुम्ही अतिथी खाते वापरत आहात"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "तुमची पाळी"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "तुमची दोन मिनिटांची ओळख"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "साइन आउट केल्यावर किंवा सत्र संपल्यावर तुमचे काम हरवेल. तुमचे रेझ्युमे, कव्हर लेटर्स आणि अर्ज जतन करण्यासाठी खाते तयार करा किंवा साइन इन करा."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

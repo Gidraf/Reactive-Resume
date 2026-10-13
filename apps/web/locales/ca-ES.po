@@ -2890,6 +2890,10 @@ msgstr "El contingut està disposat en una graella."
 msgid "Continue"
 msgstr "Continua"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Continua com a convidat"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Contribueix amb codi"
@@ -3113,6 +3117,10 @@ msgstr "No s'ha pogut canviar aquesta programació."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "No s'ha pogut connectar. Comprova la clau i torna-ho a provar."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "No s'ha pogut continuar com a convidat. Torna-ho a provar."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Crea un currículum nou"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Creeu primer un currículum i després pregunteu-ne."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Crea un compte"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Les barres laterals es llegeixen sovint per últim o es barregen a la columna principal."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Inicia sessió"
@@ -12894,6 +12907,10 @@ msgstr "Estàs fora de línia. Torneu a connectar-vos per desar els vostres canv
 msgid "You're up to date"
 msgstr "Ho teniu tot al dia"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Estàs fent servir un compte de convidat"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "El teu torn"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "La vostra presentació de dos minuts"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "La teva feina es perdrà quan tanquis la sessió o quan aquesta acabi. Crea un compte o inicia sessió per conservar els teus currículums, cartes de presentació i candidatures."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

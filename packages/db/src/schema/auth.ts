@@ -33,6 +33,7 @@ export const user = pg.pgTable(
 			precision: 6,
 			withTimezone: true,
 		}),
+		isAnonymous: pg.boolean("is_anonymous").notNull().default(false),
 		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: pg
 			.timestamp("updated_at", { withTimezone: true })

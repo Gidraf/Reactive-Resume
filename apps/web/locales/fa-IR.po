@@ -2890,6 +2890,10 @@ msgstr "محتوا به‌صورت شبکه‌ای چیده شده است."
 msgid "Continue"
 msgstr "ادامه"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "ادامه به‌عنوان مهمان"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "در کدنویسی مشارکت کنید"
@@ -3113,6 +3117,10 @@ msgstr "تغییر این زمان‌بندی ممکن نشد."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "وصل نشد. کلید را بررسی کنید و دوباره امتحان کنید."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "ادامه به‌عنوان مهمان ممکن نشد. لطفاً دوباره تلاش کنید."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "ایجاد رزومهٔ جدید"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "ابتدا یک رزومه ایجاد کنید، سپس در مورد آن بپرسید."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "ایجاد حساب کاربری"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "نوارهای کناری اغلب آخرین خوانده می شوند یا در ستون اصلی ترکیب می شوند."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "ورود"
@@ -12894,6 +12907,10 @@ msgstr "شما آفلاین هستید. برای ذخیره تغییرات قب�
 msgid "You're up to date"
 msgstr "همه‌چیز به‌روز است"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "شما از حساب مهمان استفاده می‌کنید"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "نوبت شماست"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "معرفی دودقیقه‌ای شما"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "با خروج از حساب یا پایان نشست، کارتان از دست می‌رود. برای نگه داشتن رزومه‌ها، نامه‌های پوششی و درخواست‌هایتان، حساب کاربری بسازید یا وارد شوید."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

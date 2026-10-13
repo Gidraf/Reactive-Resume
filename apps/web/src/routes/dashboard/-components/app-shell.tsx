@@ -17,6 +17,7 @@ import { cn } from "@reactive-resume/utils/style";
 import { MobileTabIndicator } from "@/components/layout/mobile-tab-indicator";
 import { useDialogStore } from "@/dialogs/store";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
+import { GuestBanner } from "@/features/auth/components/guest-banner";
 import { useCommandPaletteStore } from "@/features/command-palette/store";
 import { isEditableElementFocused } from "@/features/resume/builder/draft";
 import { UserDropdownMenu } from "@/features/user/dropdown-menu";
@@ -105,6 +106,7 @@ export function AppShell({ children }: AppShellProps) {
 			</a>
 			{breakpoint !== "mobile" && (breakpoint === "tablet" ? <Rail /> : <Sidebar />)}
 			<main id="main-content" className="min-w-0">
+				<GuestBanner />
 				{children}
 			</main>
 			{tabs && <MobileTabs />}

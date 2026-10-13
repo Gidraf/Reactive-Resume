@@ -2890,6 +2890,10 @@ msgstr "ይዘቱ በግሪድ ውስጥ ተቀምጧል።"
 msgid "Continue"
 msgstr "ቀጥል"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "እንደ እንግዳ ይቀጥሉ"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "ኮድ ያበርክቱ"
@@ -3113,6 +3117,10 @@ msgstr "ይህን መርሐ ግብር መቀየር አልተቻለም።"
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "መገናኘት አልተቻለም። ቁልፉን ይፈትሹ እና እንደገና ይሞክሩ።"
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "እንደ እንግዳ መቀጠል አልተቻለም። እባክዎ እንደገና ይሞክሩ።"
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "አዲስ የየታሪክ ማቅረቢያ ፍጠር"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "መጀመሪያ የትምህርት ማስረጃ ይፍጠሩ፣ ከዚያ ስለሱ ይጠይቁ።"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "መለያ ፍጠር"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "የጎን አሞሌዎች ብዙውን ጊዜ በመጨረሻ ይነበባሉ ወይም ወደ ዋናው አምድ ይደባለቃሉ።"
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "ግባ"
@@ -12894,6 +12907,10 @@ msgstr "ከመስመር ውጭ ነዎት። ከመውጣትዎ በፊት ለው�
 msgid "You're up to date"
 msgstr "ሁሉንም አይተዋል"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "የእንግዳ መለያ እየተጠቀሙ ነው"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "ተራህ"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "የሁለት ደቂቃ መግቢያዎ"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "ሲወጡ ወይም ክፍለ ጊዜው ሲያበቃ ስራዎ ይጠፋል። የስራ ልምድ ማስረጃዎችዎን፣ የሽፋን ደብዳቤዎችዎን እና ማመልከቻዎችዎን ለማቆየት መለያ ይፍጠሩ ወይም ይግቡ።"
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

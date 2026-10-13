@@ -2890,6 +2890,10 @@ msgstr "O conteúdo está organizado numa grelha."
 msgid "Continue"
 msgstr "Continuar"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Continuar como convidado"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Contribua com código"
@@ -3113,6 +3117,10 @@ msgstr "Não foi possível alterar este agendamento."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Não foi possível ligar. Verifique a chave e tente novamente."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Não foi possível continuar como convidado. Tente novamente."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Criar um currículo"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Crie primeiro um currículo e depois pergunte sobre ele."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Criar conta"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "As barras laterais são geralmente lidas por último ou misturadas na coluna principal."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Iniciar sessão"
@@ -12894,6 +12907,10 @@ msgstr "Está off-line. Volte a ligar-se para guardar as suas alterações antes
 msgid "You're up to date"
 msgstr "Está tudo em dia"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Está a usar uma conta de convidado"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "A sua vez"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "A sua apresentação de dois minutos"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "O seu trabalho perde-se quando terminar sessão ou a sessão expirar. Crie uma conta ou inicie sessão para manter os seus currículos, cartas de apresentação e candidaturas."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

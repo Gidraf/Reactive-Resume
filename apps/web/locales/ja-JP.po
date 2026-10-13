@@ -2890,6 +2890,10 @@ msgstr "コンテンツがグリッドレイアウトになっています。"
 msgid "Continue"
 msgstr "続行"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "ゲストとして続ける"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "コードで貢献する"
@@ -3113,6 +3117,10 @@ msgstr "このスケジュールを変更できませんでした。"
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "接続できませんでした。キーを確認して再試行してください。"
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "ゲストとして続行できませんでした。もう一度お試しください。"
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "新しいレジュメを作成"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "まず履歴書を作成してから、それについて質問してください。"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "アカウントを作成"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "サイドバーは多くの場合、最後に読まれるか、メインコラムに混ぜて読まれます。"
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "サインイン"
@@ -12894,6 +12907,10 @@ msgstr "オフラインです。終了する前に、再接続して変更を保
 msgid "You're up to date"
 msgstr "すべて確認済みです"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "ゲストアカウントを使用しています"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "あなたの番です"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "2分間の自己紹介"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "サインアウトするかセッションが終了すると、作業内容は失われます。レジュメ、カバーレター、応募を残すには、アカウントを作成するかサインインしてください。"
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

@@ -2890,6 +2890,10 @@ msgstr "కంటెంట్ గ్రిడ్‌లో అమర్చబడ�
 msgid "Continue"
 msgstr "కొనసాగించు"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "అతిథిగా కొనసాగండి"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "కోడ్ అందించండి"
@@ -3113,6 +3117,10 @@ msgstr "ఈ షెడ్యూల్‌ను మార్చడం సాధ్
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "కనెక్ట్ చేయడం సాధ్యపడలేదు. కీని తనిఖీ చేసి, మళ్లీ ప్రయత్నించండి."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "అతిథిగా కొనసాగడం సాధ్యపడలేదు. దయచేసి మళ్లీ ప్రయత్నించండి."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "కొత్త రిజ్యూమ్ సృష్టించండ�
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "ముందుగా రెజ్యూమేని సృష్టించండి, ఆపై దాని గురించి అడగండి."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "ఖాతాను సృష్టించండి"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "సైడ్‌బార్లు తరచుగా చివరిగా చదవబడతాయి లేదా ప్రధాన కాలమ్‌లో కలపబడతాయి."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "సైన్ ఇన్ చేయండి"
@@ -12894,6 +12907,10 @@ msgstr "మీరు ఆఫ్‌లైన్‌లో ఉన్నారు. �
 msgid "You're up to date"
 msgstr "అన్నీ చూసేశారు"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "మీరు అతిథి ఖాతాను ఉపయోగిస్తున్నారు"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "మీ వంతు"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "మీ రెండు నిమిషాల పరిచయం"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "మీరు సైన్ అవుట్ చేసినప్పుడు లేదా సెషన్ ముగిసినప్పుడు మీ పని పోతుంది. మీ రిజ్యూమ్స్, కవర్ లెటర్స్ మరియు దరఖాస్తులను ఉంచుకోవడానికి ఖాతాను సృష్టించండి లేదా సైన్ ఇన్ చేయండి."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

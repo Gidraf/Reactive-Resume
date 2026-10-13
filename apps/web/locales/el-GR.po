@@ -2890,6 +2890,10 @@ msgstr "Το περιεχόμενο είναι διατεταγμένο σε π�
 msgid "Continue"
 msgstr "Συνέχεια"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Συνέχεια ως επισκέπτης"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Συνεισφέρετε κώδικα"
@@ -3113,6 +3117,10 @@ msgstr "Δεν ήταν δυνατή η αλλαγή αυτού του προγ�
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Δεν ήταν δυνατή η σύνδεση. Ελέγξτε το κλειδί και δοκιμάστε ξανά."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Δεν ήταν δυνατή η συνέχεια ως επισκέπτης. Δοκιμάστε ξανά."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Δημιουργία νέου βιογραφικού σημειώματ�
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Δημιουργήστε πρώτα ένα βιογραφικό και μετά ρωτήστε το."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Δημιουργία λογαριασμού"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Οι πλευρικές γραμμές συχνά διαβάζονται τελευταίες ή αναμιγνύονται στην κύρια στήλη."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Σύνδεση"
@@ -12894,6 +12907,10 @@ msgstr "Είστε εκτός σύνδεσης. Επανασυνδεθείτε �
 msgid "You're up to date"
 msgstr "Είστε ενημερωμένοι"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Χρησιμοποιείτε λογαριασμό επισκέπτη"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Σειρά σου"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Η δίλεπτη παρουσίασή σας"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Η εργασία σας θα χαθεί όταν αποσυνδεθείτε ή λήξει η συνεδρία. Δημιουργήστε λογαριασμό ή συνδεθείτε για να κρατήσετε τα βιογραφικά, τις συνοδευτικές επιστολές και τις αιτήσεις σας."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

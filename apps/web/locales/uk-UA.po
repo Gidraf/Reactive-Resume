@@ -2890,6 +2890,10 @@ msgstr "Вміст розташований у вигляді сітки."
 msgid "Continue"
 msgstr "Продовжити"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Продовжити як гість"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Долучитися кодом"
@@ -3113,6 +3117,10 @@ msgstr "Не вдалося змінити цей розклад."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Не вдалося підключитися. Перевірте ключ і повторіть спробу."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Не вдалося продовжити як гість. Спробуйте ще раз."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Створіть нове резюме"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Спочатку складіть резюме, а потім запитуйте про нього."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Створити обліковий запис"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Бічні панелі часто читаються в останню чергу або змішуються з основною колонкою."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Увійти"
@@ -12894,6 +12907,10 @@ msgstr "Ви офлайн. Повторно підключіться, щоб з�
 msgid "You're up to date"
 msgstr "Нічого нового"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Ви використовуєте гостьовий обліковий запис"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Ваша черга"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Ваша двохвилинна самопрезентація"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Ваша робота буде втрачена, коли ви вийдете або сеанс завершиться. Створіть обліковий запис або увійдіть, щоб зберегти резюме, супровідні листи та заявки."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

@@ -2890,6 +2890,10 @@ msgstr "Saturs ir izkārtots režģī."
 msgid "Continue"
 msgstr "Turpināt"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Turpināt kā viesim"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Sniedziet ieguldījumu kodā"
@@ -3113,6 +3117,10 @@ msgstr "Nevarēja mainīt šo grafiku."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Nevarēja izveidot savienojumu. Pārbaudiet atslēgu un mēģiniet vēlreiz."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Neizdevās turpināt kā viesim. Lūdzu, mēģiniet vēlreiz."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Izveidot jaunu CV"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Vispirms izveidojiet CV, pēc tam jautājiet par to."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Izveidot kontu"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Sānjoslas bieži tiek lasītas pēdējās vai sajauktas galvenajā kolonnā."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Pieteikties"
@@ -12894,6 +12907,10 @@ msgstr "Jūs esat bezsaistē. Atkārtoti izveidojiet savienojumu, lai pirms aizi
 msgid "You're up to date"
 msgstr "Viss apskatīts"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Jūs izmantojat viesa kontu"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Tava kārta"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Jūsu divu minūšu prezentācija par sevi"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Jūsu darbs tiks zaudēts, kad izrakstīsieties vai sesija beigsies. Izveidojiet kontu vai piesakieties, lai saglabātu savus CV, motivācijas vēstules un pieteikumus."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

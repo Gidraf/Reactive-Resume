@@ -16,6 +16,7 @@ export const rateLimitConfig = {
 				"/sign-in/email": { window: 60, max: 5 },
 				"/sign-in/username": { window: 60, max: 5 },
 				"/sign-up/email": { window: 60, max: 3 },
+				"/sign-in/anonymous": { window: 60, max: 3 },
 				"/request-password-reset": { window: 600, max: 3 },
 				"/send-verification-email": { window: 600, max: 3 },
 				"/two-factor/verify-otp": { window: 600, max: 5 },

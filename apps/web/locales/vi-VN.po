@@ -2890,6 +2890,10 @@ msgstr "Nội dung được trình bày theo dạng lưới."
 msgid "Continue"
 msgstr "Tiếp tục"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Tiếp tục với tư cách khách"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Đóng góp mã nguồn"
@@ -3113,6 +3117,10 @@ msgstr "Không thể thay đổi lịch trình này."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Không thể kết nối. Hãy kiểm tra chìa khóa và thử lại."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Không thể tiếp tục với tư cách khách. Vui lòng thử lại."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Tạo sơ yếu lý lịch mới"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Trước tiên hãy tạo một bản lý lịch, sau đó hỏi về nó."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Tạo tài khoản"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Các thanh bên thường được đọc cuối cùng hoặc trộn vào cột chính."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Đăng nhập"
@@ -12894,6 +12907,10 @@ msgstr "Bạn đang ngoại tuyến. Kết nối lại để lưu các thay đ�
 msgid "You're up to date"
 msgstr "Bạn đã xem hết"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Bạn đang dùng tài khoản khách"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Đến lượt bạn"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Phần giới thiệu hai phút của bạn"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Công việc của bạn sẽ mất khi bạn đăng xuất hoặc phiên kết thúc. Hãy tạo tài khoản hoặc đăng nhập để giữ sơ yếu lý lịch, thư xin việc và hồ sơ ứng tuyển của bạn."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

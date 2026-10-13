@@ -2890,6 +2890,10 @@ msgstr "Përmbajtja është vendosur në një rrjetë."
 msgid "Continue"
 msgstr "Vazhdo"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Vazhdo si mysafir"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Kontribuo me kod"
@@ -3113,6 +3117,10 @@ msgstr "Ky orar nuk mund të ndryshohej."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Nuk mund të lidhej. Kontrollo çelësin dhe provo sërish."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Nuk u arrit të vazhdohej si mysafir. Provo përsëri."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Krijo një CV të re"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Fillimisht krijoni një CV dhe më pas pyesni për të."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Krijo llogari"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Shiritat anësor shpesh lexohen të fundit, ose të përziera në kolonën kryesore."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Kyçu"
@@ -12894,6 +12907,10 @@ msgstr "Je jashtë linje. Rilidhu për të ruajtur ndryshimet përpara se të la
 msgid "You're up to date"
 msgstr "Jeni në korrent"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Po përdor një llogari mysafiri"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Radha juaj"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Prezantimi juaj dyminutësh"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Puna jote humbet kur del nga llogaria ose kur seanca përfundon. Krijo një llogari ose kyçu për të ruajtur CV-të, letrat motivuese dhe aplikimet e tua."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

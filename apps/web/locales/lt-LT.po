@@ -2890,6 +2890,10 @@ msgstr "Turinys sumaketuotas tinkleliu."
 msgid "Continue"
 msgstr "Tęsti"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Tęsti kaip svečias"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Prisidėkite prie kodo"
@@ -3113,6 +3117,10 @@ msgstr "Nepavyko pakeisti šio tvarkaraščio."
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Nepavyko prisijungti. Patikrinkite raktą ir bandykite dar kartą."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Nepavyko tęsti kaip svečiui. Bandykite dar kartą."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3507,6 +3515,10 @@ msgstr "Sukurti naują gyvenimo aprašymą"
 #: src/features/command-palette/pages/ask.tsx
 msgid "Create a resume first, then ask about it."
 msgstr "Pirmiausia sukurkite gyvenimo aprašymą, tada paklauskite apie tai."
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Sukurti paskyrą"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
@@ -10121,6 +10133,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Šoninės juostos dažnai skaitomos paskutinės arba įtraukiamos į pagrindinį stulpelį."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Prisijungti"
@@ -12894,6 +12907,10 @@ msgstr "Esate neprisijungęs. Prisijunkite iš naujo, kad išsaugotumėte pakeit
 msgid "You're up to date"
 msgstr "Viskas peržiūrėta"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Naudojate svečio paskyrą"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -13148,6 +13165,10 @@ msgstr "Jūsų eilė"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Jūsų dviejų minučių prisistatymas"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Atsijungus ar pasibaigus sesijai jūsų darbas bus prarastas. Sukurkite paskyrą arba prisijunkite, kad išsaugotumėte gyvenimo aprašymus, motyvacinius laiškus ir paraiškas."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

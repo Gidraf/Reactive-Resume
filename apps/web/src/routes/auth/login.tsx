@@ -5,13 +5,21 @@ import { getAuthRedirectOptions } from "@/features/auth/redirect";
 export const Route = createFileRoute("/auth/login")({
 	component: RouteComponent,
 	beforeLoad: ({ context, search }) => {
-		if (context.session && !search.reauthenticate) throw redirect(getAuthRedirectOptions(search.callbackURL));
-		return { session: null };
+		// Guests come here to keep their work: signing up or in from a guest session moves it to that account.
+		if (context.session && !context.session.user.isAnonymous && !search.reauthenticate)
+			throw redirect(getAuthRedirectOptions(search.callbackURL));
+		return { session: null, isGuest: Boolean(context.session?.user.isAnonymous) };
 	},
 });
 
 function RouteComponent() {
-	const { flags } = Route.useRouteContext();
+	const { flags, isGuest } = Route.useRouteContext();
 
-	return <LoginPage disableEmailAuth={flags.disableEmailAuth} disableSignups={flags.disableSignups} />;
+	return (
+		<LoginPage
+			disableEmailAuth={flags.disableEmailAuth}
+			disableSignups={flags.disableSignups}
+			allowGuestLogin={flags.allowGuestLogin && !isGuest}
+		/>
+	);
 }

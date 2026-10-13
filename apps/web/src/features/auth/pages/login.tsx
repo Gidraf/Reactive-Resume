@@ -2,7 +2,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useSelector } from "@tanstack/react-form";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useRouter, useSearch } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import z from "zod";
@@ -27,6 +27,7 @@ const formSchema = z.object({
 type Props = {
 	disableEmailAuth: boolean;
 	disableSignups: boolean;
+	allowGuestLogin: boolean;
 };
 
 type SubmitLoginOptions = {
@@ -92,7 +93,7 @@ async function submitLogin({ value, callbackURL, reauthenticate, navigate, query
 	}
 }
 
-export function LoginPage({ disableEmailAuth, disableSignups }: Props) {
+export function LoginPage({ disableEmailAuth, disableSignups, allowGuestLogin }: Props) {
 	const router = useRouter();
 	const { callbackURL, reauthenticate } = useSearch({ from: "/auth" });
 	const navigate = useNavigate();
@@ -111,6 +112,18 @@ export function LoginPage({ disableEmailAuth, disableSignups }: Props) {
 	});
 
 	const isSubmitting = useSelector(form.store, (state) => state.isSubmitting);
+
+	const guestSignIn = useMutation({
+		mutationFn: async () => {
+			const { error } = await authClient.signIn.anonymous();
+			if (error) throw new Error(error.message);
+			await queryClient.invalidateQueries({ queryKey: sessionQueryKey });
+			await router.invalidate();
+			void navigate(getAuthRedirectOptions(callbackURL));
+		},
+		onError: (error) =>
+			toast.add({ type: "error", description: error.message || t`Couldn't continue as a guest. Please try again.` }),
+	});
 
 	useEffect(() => {
 		if (!("passkey" in providers)) return;
@@ -245,6 +258,18 @@ export function LoginPage({ disableEmailAuth, disableSignups }: Props) {
 			)}
 
 			<SocialAuth />
+
+			{allowGuestLogin && (
+				<Button
+					type="button"
+					variant="secondary"
+					className="w-full"
+					loading={guestSignIn.isPending}
+					onClick={() => guestSignIn.mutate()}
+				>
+					<Trans>Continue as guest</Trans>
+				</Button>
+			)}
 		</>
 	);
 }
