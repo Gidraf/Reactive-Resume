@@ -29,6 +29,15 @@
     <a href="https://opencollective.com/reactive-resume/donate"><img src="https://img.shields.io/opencollective/backers/reactive-resume?style=flat-square&label=donations" alt="Donations" /></a>
   </p>
 
+  <p><sub>Sponsored by</sub></p>
+  <a href="https://www.hostg.xyz/aff_c?offer_id=48&amp;aff_id=232413&amp;url_id=6857">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/sponsors/hostinger-dark.svg" />
+      <img src="docs/images/sponsors/hostinger-light.svg" alt="Hostinger" width="196" />
+    </picture>
+  </a>
+
+  <br />
   <br />
   <a href="https://vercel.com/open-source-program">
     <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge-2026.svg" />
@@ -102,7 +111,7 @@ You own your data. The codebase is open source under the MIT license, with no tr
 
 **Privacy and Control**
 
-- Self-host with Docker, Vercel, or Cloudflare Workers
+- Self-host with Docker, Vercel, Cloudflare Workers, or a 1-click deploy on Hostinger
 - No tracking or ads; export your account data or delete your account
 - Passkeys, two-factor authentication, and linked sign-in providers
 - Multiple interface languages, light/dark/system themes, and reduced-motion support
@@ -249,7 +258,11 @@ The full documentation lives at [docs.rxresu.me](https://docs.rxresu.me):
 
 ## Self-Hosting
 
-Reactive Resume supports Docker, Kubernetes, Vercel, and Cloudflare Workers. Each deployment runs the same application with PostgreSQL and upload storage.
+Reactive Resume supports Docker, Kubernetes, Vercel, Cloudflare Workers, and a 1-click deploy on Hostinger. Each deployment runs the same application with PostgreSQL and upload storage.
+
+The quickest way to get going is a 1-click deploy on Hostinger, starting at $6.49/month. Their VPS plans include a ready-made Reactive Resume template that provisions the Docker environment and brings the app up for you, with weekly backups and a Docker manager UI included — so you can skip the setup entirely. See the [Hostinger guide](docs/self-hosting/hostinger.mdx) for what the template sets up and what to configure afterwards.
+
+[![Deploy on Hostinger](https://assets.hostinger.com/vps/deploy.svg)](https://www.hostg.xyz/aff_c?offer_id=48&aff_id=232413&url_id=6857)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Freactive-resume%2Freactive-resume&project-name=reactive-resume&repository-name=reactive-resume&env=AUTH_SECRET%2CENCRYPTION_SECRET&envDescription=Generate+two+independent+secrets+with+openssl+rand+-hex+32.+Keep+these+values+across+deployments.&envLink=https%3A%2F%2Fdocs.rxresu.me%2Fself-hosting%2Fvercel&stores=%5B%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22integrationSlug%22%3A%22neon%22%2C%22productSlug%22%3A%22neon%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22integrationSlug%22%3A%22upstash%22%2C%22productSlug%22%3A%22upstash-kv%22%7D%2C%7B%22type%22%3A%22blob%22%2C%22access%22%3A%22private%22%7D%5D)
 
