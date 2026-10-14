@@ -35,9 +35,9 @@ function RollingNumber({ value, roll, delay }: RollingNumberProps) {
 				{Array.from(text).map((character, index) => {
 					const digit = digits.indexOf(character);
 					return (
-						<span key={index} className="inline-block h-[1em] overflow-hidden">
+						<span key={index} className="inline-block h-[1.15em] overflow-hidden">
 							<span
-								className="flex translate-y-[calc(var(--offset)*1em)] flex-col transition-transform duration-[2s] ease-[cubic-bezier(.2,.8,.2,1)] starting:translate-y-0"
+								className="flex translate-y-[calc(var(--offset)*1.15em)] flex-col transition-transform duration-[2s] ease-[cubic-bezier(.2,.8,.2,1)] starting:translate-y-0"
 								style={
 									{
 										"--offset": roll ? -Math.max(0, digit) : 0,
@@ -46,10 +46,10 @@ function RollingNumber({ value, roll, delay }: RollingNumberProps) {
 								}
 							>
 								{digit === -1 ? (
-									<span className="h-[1em] leading-none">{character}</span>
+									<span className="h-[1.15em] leading-[1.15]">{character}</span>
 								) : (
 									digits.map((glyph) => (
-										<span key={glyph} className="h-[1em] leading-none">
+										<span key={glyph} className="h-[1.15em] leading-[1.15]">
 											{glyph}
 										</span>
 									))
@@ -81,27 +81,27 @@ export function Numbers() {
 		<section
 			data-scene={SCENE.numbers}
 			aria-labelledby="numbers-title"
-			className="relative mx-auto max-w-[1440px] px-(--gutter) pt-[18vh] pb-[10vh]"
+			className="relative mx-auto max-w-[1440px] px-(--gutter) pt-[20vh] pb-[14vh]"
 		>
 			<h2 id="numbers-title" className={cn(labelClass, "text-ink-3")}>
 				{t`In good company`}
 			</h2>
 			<dl
-				className="mt-[22px] grid border-t border-line min-[900px]:grid-cols-(--columns)"
-				style={{ "--columns": `repeat(${rows.length}, minmax(0, 1fr))` } as CSSProperties}
+				className="@container mt-8 grid border-t border-line min-[900px]:grid-cols-(--columns)"
+				style={{ "--columns": `repeat(${rows.length}, minmax(0, 1fr))`, "--count": rows.length } as CSSProperties}
 			>
 				{rows.map((row, index) => (
 					<div
 						key={row.label}
-						className="flex flex-col-reverse justify-end gap-4 border-b border-line py-[4vh] min-[900px]:border-e min-[900px]:border-b-0 min-[900px]:pe-8 min-[900px]:not-first:ps-8 min-[900px]:last:border-e-0"
+						className="flex flex-col-reverse justify-end gap-7 border-b border-line py-[6vh] min-[900px]:border-e min-[900px]:border-b-0 min-[900px]:pe-8 min-[900px]:not-first:ps-8 min-[900px]:last:border-e-0 min-[1200px]:pe-12 min-[1200px]:not-first:ps-12"
 					>
-						<dt className="flex flex-col gap-1.5">
+						<dt className="flex flex-col gap-2">
 							<span className={cn(labelClass, "text-ink-3")}>{row.label}</span>
 							<span className="font-display text-[clamp(18px,1.6vw,24px)] leading-[1.3] text-ink-2 italic">
 								{row.detail}
 							</span>
 						</dt>
-						<dd className="font-anybody text-[clamp(52px,5.4vw,104px)] leading-none font-light tracking-[-.03em] text-ink tabular-nums">
+						<dd className="font-anybody text-[clamp(44px,14cqi,80px)] leading-none font-light tracking-[-.03em] text-ink tabular-nums min-[900px]:text-[clamp(40px,calc(15cqi/var(--count)),80px)]">
 							{row.value == null ? (
 								<span className="text-ink-3">
 									<span aria-hidden="true">—</span>
@@ -114,7 +114,7 @@ export function Numbers() {
 					</div>
 				))}
 			</dl>
-			<p className="border-t border-line pt-3.5 font-ui text-[13px] text-ink-3 max-[900px]:border-t-0">{t`Live totals, refreshed every 6 hours.`}</p>
+			<p className="border-t border-line pt-5 font-ui text-[13px] text-ink-3 max-[900px]:border-t-0">{t`Live totals, refreshed every 6 hours.`}</p>
 		</section>
 	);
 }
