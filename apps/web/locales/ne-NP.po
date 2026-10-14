@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "उदाहरणका लागि: \"{0}: मैले 2024 मा … मा … गरेँ, र त्यसले … ल्यायो\""
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "LibreOffice र अन्य खुला स्रोत सम्पादकहरूका लागि। लेआउट सरलीकृत छ।"
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Word सोध्ने पोर्टल वा भर्तीकर्ताहरूका लागि। लेआउट सरलीकृत छ।"
 
@@ -12861,11 +12865,6 @@ msgstr "एक त्रैमासिकभित्र, एक्टिभे
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "एक बिना, तपाईले प्रापक आफैं भर्नुहुन्छ र ड्राफ्टिङले तपाईको रिजुमे मात्र प्रयोग गर्दछ।"
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

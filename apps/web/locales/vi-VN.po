@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "Ví dụ: “{0}: Tôi đã làm … tại … vào năm 2024, và điều đó dẫn đến …”"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "Dành cho LibreOffice và các trình soạn thảo mã nguồn mở khác. Bố cục được đơn giản hóa."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Dành cho các cổng thông tin hoặc nhà tuyển dụng yêu cầu Word. Bố cục được đơn giản hóa."
 
@@ -12861,11 +12865,6 @@ msgstr "Trong một quý, tỷ lệ kích hoạt tăng từ 31% lên 44%."
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "Nếu không có ai, bạn sẽ tự điền thông tin người nhận và việc soạn thảo chỉ sử dụng lý lịch của bạn."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "برای مثال: «{0}: در سال ۲۰۲۴ در … کار … را انجام دادم و به … منجر شد»"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "برای LibreOffice و سایر ویرایشگرهای متن‌باز. طرح‌بندی ساده شده است."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "برای پورتال ها یا استخدام کنندگانی که درخواست Word را دارند. طرح بندی ساده شده است."
 
@@ -12861,11 +12865,6 @@ msgstr "در عرض یک فصل، نرخ فعال‌سازی از ۳۱٪ به ۴
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "بدون رزومه، شما شخص دریافت کننده را پر می کنید و در تهیه پیش نویس فقط از رزومه شما استفاده می شود."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

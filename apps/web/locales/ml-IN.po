@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "ഉദാഹരണത്തിന്: “{0}: 2024-ൽ … എന്നിടത്ത് ഞാൻ … ചെയ്തു, അത് … എന്നതിലേക്ക് നയിച്ചു”"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "LibreOffice-നും മറ്റ് ഓപ്പൺ സോഴ്സ് എഡിറ്ററുകൾക്കും വേണ്ടി. ലേഔട്ട് ലളിതമാക്കിയിരിക്കുന്നു."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Word ആവശ്യപ്പെടുന്ന പോർട്ടലുകൾക്കോ ​​റിക്രൂട്ടർമാർക്കോ വേണ്ടി. ലേഔട്ട് ലളിതമാക്കിയിരിക്കുന്നു."
 
@@ -12861,11 +12865,6 @@ msgstr "ഒരു പാദത്തിനുള്ളിൽ, ആക്റ്റ
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "ഒന്നുമില്ലാതെ, നിങ്ങൾ സ്വീകർത്താവിനെ പൂരിപ്പിക്കുകയും ഡ്രാഫ്റ്റിംഗ് നിങ്ങളുടെ റെസ്യൂമെ മാത്രം ഉപയോഗിക്കുകയും ചെയ്യുന്നു."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

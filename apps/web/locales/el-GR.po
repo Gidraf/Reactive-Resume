@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "Για παράδειγμα: \"{0}: Έκανα … στην … το 2024 και αυτό οδήγησε σε …\""
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "Για το LibreOffice και άλλους επεξεργαστές ανοιχτού κώδικα. Η διάταξη είναι απλοποιημένη."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Για πύλες ή υπαλλήλους προσλήψεων που ζητούν Word. Η διάταξη είναι απλοποιημένη."
 
@@ -12861,11 +12865,6 @@ msgstr "Μέσα σε ένα τρίμηνο, η ενεργοποίηση πήγ�
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "Χωρίς ένα, συμπληρώνετε μόνοι σας τον παραλήπτη και η σύνταξη χρησιμοποιεί μόνο το βιογραφικό σας."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

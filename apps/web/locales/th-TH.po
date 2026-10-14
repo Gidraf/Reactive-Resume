@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "ตัวอย่างเช่น: “{0}: ฉันทำ … ที่ … ในปี 2024 และส่งผลให้ …”"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "สำหรับ LibreOffice และโปรแกรมแก้ไขโอเพนซอร์สอื่นๆ เค้าโครงแบบเรียบง่าย"
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "สำหรับพอร์ทัลหรือนายหน้าที่ต้องการ Word เค้าโครงง่ายขึ้น"
 
@@ -12861,11 +12865,6 @@ msgstr "ภายในหนึ่งไตรมาส อัตรากา�
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "หากไม่มี คุณจะกรอกชื่อผู้รับด้วยตนเองและการร่างจะใช้เฉพาะประวัติย่อของคุณเท่านั้น"
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

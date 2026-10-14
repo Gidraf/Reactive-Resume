@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "Például: „{0}: 2024-ben ezt csináltam: …, itt: …, és ennek eredménye: …”"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "LibreOffice-hoz és más nyílt forráskódú szerkesztőkhöz. Az elrendezés egyszerűsített."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Portáloknak vagy toborzóknak, akik a Word-t kérik. Az elrendezés egyszerűsített."
 
@@ -12861,11 +12865,6 @@ msgstr "Egy negyedéven belül az aktiválás 31%-ról 44%-ra nőtt."
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "Enélkül saját maga tölti ki a címzettet, és a tervezet csak az önéletrajzát használja fel."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

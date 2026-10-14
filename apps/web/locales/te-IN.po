@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "ఉదాహరణకు: “{0}: 2024లో … వద్ద … చేశాను, దాని వల్ల … జరిగింది”"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "LibreOffice మరియు ఇతర ఓపెన్ సోర్స్ ఎడిటర్‌ల కోసం. లేఅవుట్ సరళీకృతం చేయబడింది."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Word కోసం అడిగే పోర్టల్‌లు లేదా రిక్రూటర్‌ల కోసం. లేఅవుట్ సరళీకృతం చేయబడింది."
 
@@ -12861,11 +12865,6 @@ msgstr "ఒక త్రైమాసికంలోనే యాక్టివ�
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "ఒకటి లేకుండా, మీరు స్వీకర్తను మీరే పూరించండి మరియు డ్రాఫ్టింగ్ మీ రెజ్యూమ్‌ను మాత్రమే ఉపయోగిస్తుంది."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

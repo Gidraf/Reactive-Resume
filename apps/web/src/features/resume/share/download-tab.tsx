@@ -44,10 +44,17 @@ export const getExportFormats = (): DownloadFormat[] => [
 	},
 	{
 		id: "docx",
-		label: t`Word`,
+		label: "Word",
 		extension: ".docx",
 		icon: "file-text",
 		description: t`For portals or recruiters who ask for Word. Layout is simplified.`,
+	},
+	{
+		id: "odt",
+		label: "OpenDocument",
+		extension: ".odt",
+		icon: "file-doc",
+		description: t`For LibreOffice and other open-source editors. Layout is simplified.`,
 	},
 	{
 		id: "md",

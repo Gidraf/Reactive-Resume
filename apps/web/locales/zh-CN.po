@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "例如：“{0}：2024 年我在……做了……，带来了……”"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "适用于 LibreOffice 及其他开源编辑器。布局已简化。"
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "对于要求 Word 的门户网站或招聘人员。布局被简化。"
 
@@ -12861,11 +12865,6 @@ msgstr "一个季度内，激活率从 31% 升至 44%。"
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "如果没有，您需要自己填写收件人，并且起草时仅使用您的简历。"
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

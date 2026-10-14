@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "Per exemple: «{0}: el 2024 vaig fer … a …, i això va portar a …»"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "Per a LibreOffice i altres editors de codi obert. El disseny es simplifica."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Per a portals o reclutadors que demanen Word. El disseny es simplifica."
 
@@ -12861,11 +12865,6 @@ msgstr "En un trimestre, l'activació va passar del 31% al 44%."
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "Sense un, empleneu el destinatari vosaltres mateixos i la redacció només utilitza el vostre currículum."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

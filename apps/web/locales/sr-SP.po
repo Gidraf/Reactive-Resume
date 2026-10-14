@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "На пример: „{0}: Урадио сам … у … 2024. године, што је довело до …“"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "За LibreOffice и друге уређиваче отвореног кода. Распоред је поједностављен."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "За портале или регруте који траже Word. Распоред је поједностављен."
 
@@ -12861,11 +12865,6 @@ msgstr "За једно тромесечје активација је пора�
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "Без једног, сами попуњавате примаоца, а за израду користи се само ваш резиме."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

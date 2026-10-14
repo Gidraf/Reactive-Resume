@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "Contoh: “{0}: Saya melakukan … di … pada 2024, dan hasilnya …”"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "Untuk LibreOffice dan editor sumber terbuka lainnya. Tata letak disederhanakan."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Untuk portal atau perekrut yang meminta Word. Tata letak disederhanakan."
 
@@ -12861,11 +12865,6 @@ msgstr "Dalam satu kuartal, aktivasi naik dari 31% ke 44%."
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "Tanpanya, Anda mengisi sendiri penerimanya dan penyusunannya hanya menggunakan resume Anda."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

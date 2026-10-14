@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "Piemēram: “{0}: 2024. gadā uzņēmumā … es …, un tas noveda pie …”"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "LibreOffice un citiem atvērtā koda redaktoriem. Izkārtojums ir vienkāršots."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Portāliem vai vervētājiem, kuri lūdz Word. Izkārtojums ir vienkāršots."
 
@@ -12861,11 +12865,6 @@ msgstr "Ceturkšņa laikā aktivizācija pieauga no 31 % līdz 44 %."
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "Bez tā jūs pats aizpildāt adresātu, un sastādīšanai tiek izmantots tikai jūsu CV."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."

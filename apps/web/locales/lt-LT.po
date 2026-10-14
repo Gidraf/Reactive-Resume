@@ -5030,6 +5030,10 @@ msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "Pavyzdžiui: „{0}: 2024 m. … įmonėje atlikau …, ir tai lėmė …“"
 
 #: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "LibreOffice ir kitoms atvirojo kodo redagavimo programoms. Išdėstymas supaprastintas."
+
+#: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
 msgstr "Portalams ar įdarbintojams, kurie prašo Word. Išdėstymas supaprastintas."
 
@@ -12861,11 +12865,6 @@ msgstr "Per ketvirtį aktyvacija išaugo nuo 31 % iki 44 %."
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "Be jo, jūs pats užpildote gavėją, o rengiant naudojamas tik jūsų gyvenimo aprašymas."
-
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."
