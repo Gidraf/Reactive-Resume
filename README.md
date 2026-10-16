@@ -34,7 +34,7 @@
   <table align="center">
     <tr>
       <td align="center" valign="middle">
-        <a href="https://www.vultr.com/">
+        <a href="https://www.vultr.com/?ref=9929207">
           <img src="https://github.com/user-attachments/assets/860f9a56-c62e-45fe-bfcd-4bfef43a6ca3" alt="Vultr Logo" height="24" />
         </a>
       </td>
