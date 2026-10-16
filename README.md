@@ -1,7 +1,7 @@
 > [!IMPORTANT]
-> **Repository moved:** Reactive Resume now lives at **[`reactive-resume/reactive-resume`](https://github.com/reactive-resume/reactive-resume)** on GitHub.
-> **Docker Hub stays at `amruthpillai/reactive-resume`.** GHCR images publish to `ghcr.io/reactive-resume/reactive-resume`.
-> GitHub Sponsors and Open Collective funding links remain unchanged.
+> Reactive Resume now lives at **[`reactive-resume/reactive-resume`](https://github.com/reactive-resume/reactive-resume)** on GitHub.  
+> GHCR images publish to `ghcr.io/reactive-resume/reactive-resume`.  
+> Docker Hub stays at `amruthpillai/reactive-resume`.  
 
 <div align="center">
   <a href="https://rxresu.me">
@@ -35,7 +35,10 @@
     <tr>
       <td align="center" valign="middle">
         <a href="https://www.vultr.com/?ref=9929207">
-          <img src="https://github.com/user-attachments/assets/860f9a56-c62e-45fe-bfcd-4bfef43a6ca3" alt="Vultr Logo" height="24" />
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/e023617e-563e-4423-817b-2e2d4e70fc84" />
+            <img src="https://github.com/user-attachments/assets/2e47d6a3-75ac-4f62-a50c-eef1b7d1930a" alt="Vultr" height="24" />
+          </picture>
         </a>
       </td>
       <td align="center" valign="middle">
