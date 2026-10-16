@@ -30,18 +30,29 @@
   </p>
 
   <p><sub>Sponsored by</sub></p>
-  <a href="https://www.hostg.xyz/aff_c?offer_id=48&amp;aff_id=232413&amp;url_id=6857">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="docs/images/sponsors/hostinger-dark.svg" />
-      <img src="docs/images/sponsors/hostinger-light.svg" alt="Hostinger" width="118" height="24" />
-    </picture>
-  </a>
 
-  <br />
-  <br />
-  <a href="https://vercel.com/open-source-program">
-    <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge-2026.svg" />
-  </a>
+  <table align="center">
+    <tr>
+      <td align="center" valign="middle">
+        <a href="https://www.vultr.com/">
+          <img src="https://github.com/user-attachments/assets/860f9a56-c62e-45fe-bfcd-4bfef43a6ca3" alt="Vultr Logo" height="24" />
+        </a>
+      </td>
+      <td align="center" valign="middle">
+        <a href="https://www.hostg.xyz/aff_c?offer_id=48&amp;aff_id=232413&amp;url_id=6857">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="docs/images/sponsors/hostinger-dark.svg" />
+            <img src="docs/images/sponsors/hostinger-light.svg" alt="Hostinger" height="24" />
+          </picture>
+        </a>
+      </td>
+      <td align="center" valign="middle">
+        <a href="https://vercel.com/open-source-program">
+          <img src="https://vercel.com/oss/program-badge-2026.svg" alt="Vercel OSS Program" height="24" />
+        </a>
+      </td>
+    </tr>
+  </table>
 </div>
 
 ---
