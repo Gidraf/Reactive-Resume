@@ -1,7 +1,7 @@
 > [!IMPORTANT]
 > Reactive Resume now lives at **[`reactive-resume/reactive-resume`](https://github.com/reactive-resume/reactive-resume)** on GitHub.  
 > GHCR images publish to `ghcr.io/reactive-resume/reactive-resume`.  
-> Docker Hub stays at `amruthpillai/reactive-resume`.  
+> Docker Hub stays at `amruthpillai/reactive-resume`.
 
 <div align="center">
   <a href="https://rxresu.me">
