@@ -1,10 +1,11 @@
 import { afterEach, expect, it, vi } from "vitest";
-import { loadFonts } from "./fonts";
+import { configureFontReader, downloadFont, loadFonts } from "./fonts";
 
 afterEach(() => {
 	vi.useRealTimers();
 	vi.unstubAllGlobals();
 	vi.unstubAllEnvs();
+	configureFontReader(downloadFont);
 });
 
 const font = (path: string) => ({
@@ -91,4 +92,20 @@ it("finishes a slow download that keeps sending, and fails one that stops (#3627
 	await vi.advanceTimersByTimeAsync(300_000);
 	expect((await slow).missing).toEqual([]);
 	expect((await stops).missing).toEqual(["Test"]);
+});
+
+it("uses the configured font reader and native streaming fetch without the global Response constructor", async () => {
+	const bytes = new Uint8Array([0, 1, 0, 0, 7, 8, 9]);
+	const response = new Response(bytes);
+	const fetcher = vi.fn<typeof fetch>().mockResolvedValue(response);
+	vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("Use the native streaming fetch")));
+	vi.stubGlobal("Response", function () {
+		throw new Error("Native Response cannot wrap a stream");
+	});
+	configureFontReader((src) => downloadFont(src, fetcher));
+
+	const loaded = await loadFonts([font("/s/test/native.ttf"), font("/s/test/native.ttf")]);
+	expect(loaded.missing).toEqual([]);
+	expect(loaded.fonts.map((face) => face.src)).toEqual([bytes, bytes]);
+	expect(fetcher).toHaveBeenCalledOnce();
 });
