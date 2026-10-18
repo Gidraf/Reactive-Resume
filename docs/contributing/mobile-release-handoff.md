@@ -119,6 +119,7 @@ Protected Apple deployment values are local at `/Users/amruth/.config/rxresu/app
 - [ ] `/.well-known/apple-app-site-association` returns valid JSON with the expected team/app association.
 - [ ] `/.well-known/assetlinks.json` returns valid JSON containing package and Play signing fingerprint above. At the last live check on 2026-10-17, **both association URLs returned plain `OK`**, so HTTP 200 alone is insufficient.
 - [ ] A fresh store-installed app completes browser login and opens `/auth/native-callback` in the app; test cancellation and an expired session too.
+- [ ] Repeat Android browser login with **Open supported links** disabled. The callback page targets package `me.rxresu` through an Android intent while retaining the registered HTTPS callback and its OAuth query. If the browser blocks automatic opening, **Try opening the app again** must finish the handoff with a tap. This web fallback also supports existing store binaries; native sign-in still validates state, issuer and PKCE.
 - [ ] Private reports persist in production and are visible to the authorized operator. Verify export includes the account's reports.
 - [ ] Test erasure with a separately created disposable account, including attachments/provider tokens and report cascade. Keep the primary reviewer account available.
 - [ ] Public support/privacy/deletion URLs show the final instructions, retention details, contact information, and shared-content policy.

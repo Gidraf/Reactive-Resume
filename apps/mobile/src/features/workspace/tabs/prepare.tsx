@@ -98,12 +98,12 @@ function PlanEmpty({ application, interview }: PlanEmptyProps) {
 						loading={generate.isPending}
 						onPress={() => void generate.run({ task: "briefing", interviewId: interview.id }).catch(() => undefined)}
 					/>
-					<PrivacyLine>
+					<PrivacyLine centered>
 						{t`Sends this application (posting, notes, interview details) and Knowledge that's switched on to ${name}.`}
 					</PrivacyLine>
 				</>
 			) : (
-				<AiNotice />
+				<AiNotice centered />
 			)}
 		</EmptyNotice>
 	);
