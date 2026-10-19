@@ -53,7 +53,8 @@ export function useIsWide(): boolean {
 
 // Shared list motion. Reanimated needs its own (worklet) easing, so these repeat the `motion.ease` and `motion.easeMove` curves.
 const listEase = Easing.bezier(0.2, 0.8, 0.2, 1);
-const listMove = Easing.bezier(0.77, 0, 0.175, 1);
+/** `motion.easeMove` for Reanimated: React Native's `Easing` is not a worklet and crashes on the UI thread. */
+export const workletEaseMove = Easing.bezier(0.77, 0, 0.175, 1);
 const listStagger = 40;
 const listStaggerCap = 8;
 
@@ -73,7 +74,9 @@ export const listItemMotion = (index: number, first: boolean) =>
 	first ? { entering: listEntering(index), exiting: listExiting } : { exiting: listExiting };
 
 /** Rows sliding into the gap a removed or moved row leaves. */
-export const listLayout = LinearTransition.duration(motion.d2).easing(listMove).reduceMotion(ReduceMotion.System);
+export const listLayout = LinearTransition.duration(motion.d2)
+	.easing(workletEaseMove)
+	.reduceMotion(ReduceMotion.System);
 
 /**
  * True until shortly after the list first shows data, so rows stagger in once when the screen opens and never again

@@ -5,7 +5,7 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 import { snapZoom, zoomOffset } from "./zoom";
-import { useReducedMotion, useTheme } from "@/ui";
+import { useReducedMotion, useTheme, workletEaseMove } from "@/ui";
 
 export function usePageZoom() {
 	const [zoom, setZoom] = useState<number | null>(null);
@@ -16,7 +16,7 @@ export function usePageZoom() {
 	const change = (value: number) => {
 		const target = snapZoom(value) ?? 1;
 		live.set(
-			withTiming(target, { duration: reduced ? 0 : motion.d2, easing: motion.easeMove }, (finished) => {
+			withTiming(target, { duration: reduced ? 0 : motion.d2, easing: workletEaseMove }, (finished) => {
 				if (finished) scheduleOnRN(commit, target);
 			}),
 		);
