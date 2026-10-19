@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "{0} దరఖాస్తులు ఎంచుకోబడ్డాయి."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "ఎగుమతి చేయాల్సిన దరఖాస్తులు: {0}."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "{0} జాబ్ పోస్టింగ్"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} \"{1}\"ని తిరిగి ఇచ్చింది. మీ సందేశం ఉంచబడింది."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} వరుసలు సిద్ధంగా ఉన్నాయి. కంపెనీ లేదా పదవి లేని {1} వరుసలు దాటవేయబడతాయి. చెల్లని {2} పరిచయాలు మినహాయించబడతాయి."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "అన్నీ ({0})"
 msgid "All applications"
 msgstr "అన్ని దరఖాస్తులు"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "అన్ని ఉద్యోగ దరఖాస్తులు (మూసివేయబడిన వాటితో సహా)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "ఉద్యోగ ప్రకటనలోని అన్ని కీలక పదాలు చేర్చబడ్డాయి."
@@ -1248,6 +1232,11 @@ msgstr "ఉద్యోగ ప్రకటనలోని అన్ని కీ
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "అన్ని ట్యాగ్‌లు"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "ఉద్యోగ దరఖాస్తు మూసివేయబడ�
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "ఉద్యోగ దరఖాస్తు తేదీ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "దరఖాస్తు తేదీ నుండి"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "దరఖాస్తు తేదీ వరకు"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "కాలక్రమంలో దరఖాస్తులు"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "వారానికి పంపిన దరఖాస్తులు (చివరి 8 వారాలు)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "ఎగుమతి చేయడానికి దరఖాస్తులు"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "“{0}”ని ఉపయోగించే యాప్‌లు పన
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "అరబిక్"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "ఆర్కైవ్ చేయబడింది (దానిని మూసివేస్తుంది)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "దరఖాస్తులకు తిరిగి వెళ్లు"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "తనిఖీలకు తిరిగి వెళ్ళండి"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "తిరిగి CSV డేటాకు"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "తొలగించు"
 msgid "Clear date"
 msgstr "తేదీని క్లియర్ చేయండి"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "సంబోధన లేదా ముగింపు వాక్యా
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "దాని ఎంట్రీలను క్లియర్ చేస్తుంది; విభాగం ఉంటుంది. మీరు చర్యరద్దు చేయవచ్చు."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "రంగు"
 msgid "Colours and level"
 msgstr "రంగులు మరియు స్థాయి"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "నిలువు వరుస {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "నిలువు వరుసలు"
@@ -2331,15 +2294,10 @@ msgstr "సంక్షిప్త"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "కంపెనీ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "కంపెనీ, పదవి తప్పనిసరి. ప్రతి ఫీల్డ్‌ను ఒక్కసారి కేటాయించండి లేదా వదిలేయండి. వివరణలకు గరిష్ఠంగా 20,000 అక్షరాలు."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "కనెక్షన్ సేవ్ చేయబడింది"
 msgid "Contact details"
 msgstr "సంప్రదింపు వివరాలు"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "సంప్రదింపు ఇమెయిల్"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "సంప్రదింపు లేబుల్"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "సంప్రదింపు పేరు"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "ఫోన్‌ను సంప్రదించండి"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "సంప్రదింపు పాత్ర"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "పరిచయాలు"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "చెల్లని ఇమెయిల్ లేదా పేరు లేని పరిచయాలు మినహాయించబడతాయి; వాటి ఉద్యోగ దరఖాస్తులు మాత్రం దిగుమతి అవుతాయి."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "సంవత్సరాన్ని సరిచేయండి, లే
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "అభ్యర్థనను పూర్తి చేయడం సాధ్యపడలేదు. మీ కనెక్షన్‌ని తనిఖీ చేసి, మళ్లీ ప్రయత్నించండి."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "దిగుమతిని నిర్ధారించడం సాధ్యం కాలేదు. నకిలీలను నివారించడానికి మళ్లీ ప్రయత్నించే ముందు ఉద్యోగ దరఖాస్తులను తనిఖీ చేయండి."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "సృష్టించబడింది {0} · చివరిగా 
 msgid "Creating document…"
 msgstr "పత్రాన్ని సృష్టిస్తోంది..."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "CSV డేటా"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV మూసివేయబడని కోట్ చేసిన ఫీల్డ్‌ను కలిగి ఉంది. దిగుమతి చేసుకునే ముందు దాన్ని పరిష్కరించండి."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV 10 MB కంటే పెద్దది. దిగుమతి చేసుకునే ముందు దానిని విభజించండి."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "కరెన్సీ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "ప్రస్తుత ఫిల్టర్లు"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "మీరు బ్రౌజర్‌లో Reactive Resume తెరి
 msgid "Enter the password the resume owner shared with you."
 msgstr "రెజ్యూమ్ యజమాని మీతో పంచుకున్న పాస్‌వర్డ్‌ను నమోదు చేయండి."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "చెల్లుబాటు అయ్యే తేదీలను ప్రారంభం లేదా ముగింపు ముగింపుతో నమోదు చేయండి."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "ఎంట్రీ"
@@ -3932,21 +3841,9 @@ msgstr "{company} కోసం కోచ్ వ్రాసిన ప్రత�
 msgid "Experience"
 msgstr "అనుభవం"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "ఎగుమతి"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "చిన్న PDFని ఎగుమతి చేసి, దాన్ని మళ్లీ తనిఖీ చేయండి లేదా ఖాళీ రెజ్యూమ్‌ని ప్రారంభించి, వాటిని అక్కడ పరిష్కరించండి."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "ఉద్యోగ దరఖాస్తు వివరాలు, పరిచయాలు, గమనికలు మరియు టైమ్‌లైన్ చరిత్రను CSVగా ఎగుమతి చేయండి."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "ఎగుమతి CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "విస్మరించబడిన సమస్యలు తిర�
 msgid "Images cover most of the page."
 msgstr "చిత్రాలు పేజీలో ఎక్కువ భాగాన్ని ఆక్రమిస్తాయి."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "ఇంపోర్ట్"
@@ -4582,10 +4478,6 @@ msgstr "ఇంపోర్ట్"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "రెజ్యూమెను దిగుమతి చేయండి"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "ఉద్యోగ దరఖాస్తులను దిగుమతి చేయండి"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "దిగుమతి రద్దు చేయబడింది."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "దిగుమతి రద్దు చేయబడింది. అప్‌లోడ్ పూర్తయినట్లయితే మళ్లీ ప్రయత్నించే ముందు పత్రాలుని రిఫ్రెష్ చేయండి."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "దిగుమతి పూర్తయింది"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "దిగుమతి ఫైల్"
@@ -4607,25 +4495,13 @@ msgstr "దిగుమతి ఫైల్"
 msgid "Import it"
 msgstr "దానిని దిగుమతి చేయండి"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "CSVని దిగుమతి చేయండి లేదా ఎగుమతి చేయండి"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "మీ ప్రస్తుత రెజ్యూమ్ని దిగుమతి చేసుకోండి లేదా మీ పేరుతో తాజాగా ప్రారంభించండి."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "దిగుమతి/ఎగుమతి"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "దిగుమతి చేయబడింది"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "{imported} ఉద్యోగ దరఖాస్తు‌లు దిగుమతి చేయబడ్డాయి. {overflow} అడ్డు వరుసలు వదిలివేయబడ్డాయి ఎందుకంటే ఒకేసారి మొదటి 500 దిగుమతి మాత్రమే."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "ఎంచుకున్న పంక్తిని మెరుగు�
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "మెరుగుపడుతోంది..."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "హెడర్ మరియు కనీసం ఒక ఉద్యోగ దరఖాస్తు అడ్డు వరుసను చేర్చండి."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "ఉద్యోగం"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "ఉద్యోగ వివరణ"
 
@@ -5055,10 +4926,6 @@ msgstr "ప్రధాన శీర్షికను పునఃస్థా�
 msgid "Leave it empty to remove the link."
 msgstr "లింక్‌ను తీసివేయడానికి దాన్ని ఖాళీగా వదిలేయండి."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "వదిలేయండి"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "ఎడమ"
@@ -5173,7 +5040,6 @@ msgstr "చదివినప్పుడు ఈ దగ్గరగా ఉన్
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "లోడ్ అవుతోంది..."
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "లాక్ చేయబడిన పత్రాలు దాటవే
 msgid "Locked. Unlock to edit."
 msgstr "లాక్ చేయబడింది. సవరించడానికి అన్‌లాక్ చేయండి."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "కార్డ్‌ని మరొక దశకు లాగడానికి ఎక్కువసేపు నొక్కండి."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "ఎంచుకోవడానికి నొక్కి పట్టుకోండి"
@@ -5460,10 +5320,6 @@ msgstr "మీ సర్వర్ ద్వారా నిర్వహించ
 msgid "Many bullets start with the same phrase."
 msgstr "చాలా బుల్లెట్లు ఒకే పదబంధంతో మొదలవుతాయి."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "కంపెనీ, పదవిని ఒక్కోసారి మాత్రమే కేటాయించండి. నకిలీ ఫీల్డ్ కేటాయింపులను తొలగించండి."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "మార్చి 2022"
@@ -5530,10 +5386,6 @@ msgstr "చదివినట్లు గుర్తించబడింద�
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "“{resumeName}”తో సరిపోల్చండి"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "నిలువు వరుసలను సరిపోల్చండి"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "స్థానం లేదు"
 msgid "No matches"
 msgstr "మ్యాచ్‌లు లేవు"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "సరిపోలే ఉద్యోగ దరఖాస్తులు లేవు"
@@ -6225,7 +6078,6 @@ msgstr "సమాచారం"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "నోట్స్"
@@ -6408,10 +6260,6 @@ msgstr "మొదటి {0} పేజీలు మాత్రమే తని�
 msgid "Only the first 30 pages were checked."
 msgstr "మొదటి 30 పేజీలు మాత్రమే తనిఖీ చేయబడ్డాయి."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "{overflow}ని వదిలి, మొదటి 500 అడ్డు వరుసలు మాత్రమే ఒకేసారి దిగుమతి అవుతాయి. మిగిలిన వాటిని దిగుమతి చేయడానికి ఫైల్‌ను విభజించండి."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "మొదటి పేజీలు మాత్రమే చెక్ చేయబడ్డాయి."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "AI సెట్టింగ్‌లను తెరవండి"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "దరఖాస్తును తెరవండి"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "దరఖాస్తులను తెరవండి"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "ఉద్యోగ ప్రకటన"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "ఉద్యోగ ప్రకటన"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "ఉద్యోగ పోస్టింగ్ మూలం"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "దరఖాస్తును సమీక్షించండి"
 msgid "Review Check"
 msgstr "తనిఖీ ఫలితాలను చూడండి"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "నిలువు వరుసలను సమీక్షించండి"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "డ్రాఫ్ట్‌ను సమీక్షించు"
@@ -7905,7 +7742,6 @@ msgstr "కుడి"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "పదవి"
@@ -7951,13 +7787,6 @@ msgstr "రోటేషన్"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "PDF రెండరింగ్ ద్వారా భ్రమణానికి మద్దతు లేదు."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "అడ్డు వరుస {0}, {1}: “{2}” చెల్లదు. CSVని పరిష్కరించండి లేదా ఈ నిలువు వరుసను వదిలివేయండి."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "మళ్లీ నడపండి"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "రస్ట్ బ్రౌన్"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "జీతం"
 
@@ -8008,6 +7836,7 @@ msgstr "నమూనా రెజ్యూమ్"
 msgid "Save"
 msgstr "సేవ్ చేయండి"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "భాగస్వామ్యం & ఎగుమతి"
 msgid "Share calendar event (.ics)"
 msgstr "క్యాలెండర్ ఈవెంట్‌ను భాగస్వామ్యం చేయండి (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "భాగస్వామ్యం CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "రికార్డింగ్‌ను భాగస్వామ్�
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "విభాగాలను భాగస్వామ్యం చేయండి"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "దాటవేయబడిన లేదా చెల్లని అడ్డు వరుసలను భాగస్వామ్యం చేయండి"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "అన్నీ చూపించు"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "షో మూసివేయబడింది"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "మూసివేసిన ఉద్యోగ దరఖాస్తులను చూపండి"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "తేదీ ప్రకారం అమర్చండి"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "మూలం"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "స్క్వేర్"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "దశ"
 
@@ -9175,7 +8999,6 @@ msgstr "ఎంచుకున్న ఉద్యోగ దరఖాస్తు�
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "దీనితో మళ్లీ ప్రయత్నించు"
 msgid "Try another search or clear your filters."
 msgstr "మరొక శోధనను ప్రయత్నించండి లేదా మీ ఫిల్టర్‌లను క్లియర్ చేయండి."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "విభిన్న పదాలను ప్రయత్నించండి లేదా మీ ఫిల్టర్‌లను క్లియర్ చేయండి."
@@ -10250,10 +10074,6 @@ msgstr "{0}లో {completed} నవీకరించబడ్డాయి. ల
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "ప్రివ్యూని నవీకరిస్తోంది…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr ".csv అప్‌లోడ్ చేయండి"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Word దిగుమతి, మెరుగుపరచండి, సహ
 msgid "Words run together when the text is extracted."
 msgstr "టెక్స్ట్ ఎక్స్‌ట్రాక్ట్ అయినప్పుడు పదాలు కలిసిపోతాయి."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "పని జరుగుతోంది. ఈ ప్యానెల్‌ను మూసివేసినా ఇప్పటికే పంపిన దిగుమతి రద్దు కాదు."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "పని జరుగుతోంది…"
@@ -11162,10 +10978,6 @@ msgstr "మీ రెండు నిమిషాల పరిచయం"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "వెబ్ శోధన సెట్టింగ్‌లను తెరవడానికి ముందు మీ సేవ్ చేయని ఉద్యోగ వివరాలు విస్మరించబడతాయి."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (ఐచ్ఛికం)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

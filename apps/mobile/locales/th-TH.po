@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "เลือกใบสมัคร {0} แล้ว"
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "ใบสมัคร {0} ที่จะส่งออก"
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "ลงประกาศรับสมัครงาน {0}"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} ส่งคืน “{1}” ข้อความของคุณถูกเก็บไว้"
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "พร้อมแล้ว {0} แถว จะข้าม {1} แถวที่ไม่มีบริษัทหรือตำแหน่ง และไม่รวมผู้ติดต่อที่ไม่ถูกต้อง {2} ราย"
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "ทั้งหมด ({0})"
 msgid "All applications"
 msgstr "ใบสมัครทั้งหมด"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "การสมัครงานทั้งหมด (รวมถึงปิดแล้ว)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "ครอบคลุมคำสำคัญจากประกาศงานทั้งหมดแล้ว"
@@ -1248,6 +1232,11 @@ msgstr "ครอบคลุมคำสำคัญจากประกาศ
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "แท็กทั้งหมด"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "ปิดรับสมัครงาน"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "วันที่สมัครงาน"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "วันรับสมัครตั้งแต่"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "วันที่สมัคร ถึง"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "ใบสมัครตามเวลา"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "ใบสมัครที่ส่งต่อสัปดาห์ (8 สัปดาห์ล่าสุด)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "ใบสมัครที่จะส่งออก"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "แอพที่ใช้ “{0}” จะหยุดทำงาน 
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "อารบิก"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "เก็บถาวร (ปิด)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "กลับไปที่ใบสมัคร"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "กลับสู่การตรวจสอบ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "กลับไปที่ข้อมูล CSV"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "ล้าง"
 msgid "Clear date"
 msgstr "วันที่ชัดเจน"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "ล้างคำขึ้นต้นหรือคำลงท้า
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "ล้างรายการ; ส่วนยังคงอยู่ คุณสามารถยกเลิกได้"
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "สี"
 msgid "Colours and level"
 msgstr "สีและระดับ"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "คอลัมน์ {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "คอลัมน์"
@@ -2331,15 +2294,10 @@ msgstr "ขนาดกะทัดรัด"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "บริษัท"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "ต้องระบุบริษัทและตำแหน่ง จับคู่แต่ละช่องเพียงครั้งเดียวหรือเว้นไว้ คำอธิบายยาวได้ไม่เกิน 20,000 อักขระ"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "บันทึกการเชื่อมต่อแล้ว"
 msgid "Contact details"
 msgstr "ข้อมูลการติดต่อ"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "อีเมล์ติดต่อ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "ป้ายกำกับการติดต่อ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "ชื่อผู้ติดต่อ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "โทรศัพท์ติดต่อ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "บทบาทการติดต่อ"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "ผู้ติดต่อ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "ผู้ติดต่อที่มีอีเมลไม่ถูกต้องหรือไม่มีชื่อจะถูกละทิ้ง ใบสมัครของพวกเขายังคงนำเข้าอยู่"
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "แก้ไขปีให้ถูกต้อง หรือเข�
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "ไม่สามารถดำเนินการตามคำขอได้ ตรวจสอบการเชื่อมต่อของคุณแล้วลองอีกครั้ง"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "ไม่สามารถยืนยันการนำเข้าได้ ตรวจสอบใบสมัครก่อนลองอีกครั้งเพื่อหลีกเลี่ยงการซ้ำซ้อน"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "สร้าง {0} · ใช้ล่าสุด {1} · หมดอ�
 msgid "Creating document…"
 msgstr "กำลังสร้างเอกสาร…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "ข้อมูล CSV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV มีช่องเครื่องหมายคำพูดที่ไม่ปิด แก้ไขก่อนนำเข้า"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV มีขนาดใหญ่กว่า 10 MB แยกก่อนนำเข้า"
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "สกุลเงิน"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "ตัวกรองปัจจุบัน"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "ป้อนที่อยู่ที่คุณเปิด Reactive
 msgid "Enter the password the resume owner shared with you."
 msgstr "ป้อนรหัสผ่านที่เจ้าของเรซูเม่แชร์ให้คุณ"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "ป้อนวันที่ที่ถูกต้อง โดยวันเริ่มต้นต้องไม่อยู่หลังวันสิ้นสุด"
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "รายการ"
@@ -3932,21 +3841,9 @@ msgstr "ทุกอย่างที่โค้ชเขียนให้ {c
 msgid "Experience"
 msgstr "ประสบการณ์"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "ส่งออก"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "ส่งออก PDF ที่เล็กกว่าแล้วตรวจสอบอีกครั้ง หรือเริ่ม ประวัติย่อ เปล่าแล้วแก้ไขที่นั่น"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "ส่งออกรายละเอียดใบสมัคร ผู้ติดต่อ บันทึก และประวัติไทม์ไลน์เป็น CSV"
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "ส่งออก CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "ปัญหาที่ถูกละเลยกลับมาแล
 msgid "Images cover most of the page."
 msgstr "รูปภาพครอบคลุมพื้นที่ส่วนใหญ่ของหน้า"
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "นำเข้า"
@@ -4582,10 +4478,6 @@ msgstr "นำเข้า"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "นำเข้าเรซูเม่"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "นำเข้าใบสมัคร"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "การนำเข้าถูกยกเลิก"
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "การนำเข้าถูกยกเลิก รีเฟรชเอกสารก่อนลองอีกครั้งหากการอัพโหลดเสร็จสิ้น"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "การนำเข้าเสร็จสมบูรณ์"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "นำเข้าไฟล์"
@@ -4607,25 +4495,13 @@ msgstr "นำเข้าไฟล์"
 msgid "Import it"
 msgstr "นำเข้า"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "นำเข้าหรือส่งออก CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "นำเข้า ประวัติย่อ ปัจจุบันของคุณ หรือเริ่มต้นใหม่ด้วยชื่อของคุณ"
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "นำเข้า/ส่งออก"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "นำเข้า"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "นำเข้าใบสมัคร {imported} รายการแล้ว ข้าม {overflow} แถว เพราะนำเข้าได้ครั้งละ 500 แถวแรกเท่านั้น"
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "ปรับปรุงบรรทัดที่เลือก"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "กำลังปรับปรุง..."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "รวมส่วนหัวและแถวใบสมัครอย่างน้อยหนึ่งแถว"
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "งาน"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "คำอธิบายงาน"
 
@@ -5055,10 +4926,6 @@ msgstr "เว้นว่างไว้เพื่อรีเซ็ตชื
 msgid "Leave it empty to remove the link."
 msgstr "ปล่อยว่างไว้เพื่อลบลิงก์"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "ออกไป"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "ซ้าย"
@@ -5173,7 +5040,6 @@ msgstr "บรรทัดที่ปิดนี้สามารถทำง
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "กำลังโหลด…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "เอกสารที่ล็อคถูกข้าม ปลด�
 msgid "Locked. Unlock to edit."
 msgstr "ล็อคแล้ว ปลดล็อคเพื่อแก้ไข"
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "กดการ์ดค้างไว้เพื่อลากไปยังด่านอื่น"
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "กดค้างเพื่อเลือก"
@@ -5460,10 +5320,6 @@ msgstr "จัดการโดยเซิร์ฟเวอร์ของค
 msgid "Many bullets start with the same phrase."
 msgstr "หัวข้อย่อยหลายรายการขึ้นต้นด้วยวลีเดียวกัน"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "จับคู่บริษัทและตำแหน่งอย่างละหนึ่งครั้ง ลบการจับคู่ช่องที่ซ้ำกัน"
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "มี.ค. 2022"
@@ -5530,10 +5386,6 @@ msgstr "ทำเครื่องหมายว่าอ่านแล้ว
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "ปรับให้ตรงกับ “{resumeName}”"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "จับคู่คอลัมน์"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "ไม่มีที่ตั้ง"
 msgid "No matches"
 msgstr "ไม่มีการแข่งขัน"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "ไม่มีใบสมัครที่ตรงกัน"
@@ -6225,7 +6078,6 @@ msgstr "ข้อมูล"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "โน้ต"
@@ -6408,10 +6260,6 @@ msgstr "มีการตรวจสอบเฉพาะหน้าแรก
 msgid "Only the first 30 pages were checked."
 msgstr "มีการตรวจสอบเฉพาะ 30 หน้าแรกเท่านั้น"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "นำเข้าเฉพาะ 500 แถวแรกในครั้งเดียว โดยไม่ใส่ {overflow} แยกไฟล์เพื่อนำเข้าส่วนที่เหลือ"
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "ตรวจสอบเฉพาะหน้าแรก ๆ เท่านั้น"
@@ -6447,12 +6295,9 @@ msgid "Open AI settings"
 msgstr "เปิดการตั้งค่า AI"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
-msgstr "เปิดใบสมัคร"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
 msgstr "เปิดใบสมัคร"
 
 #: src/features/career/today.tsx
@@ -6917,10 +6762,6 @@ msgstr "ประกาศงาน"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "ประกาศรับสมัครงาน"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "แหล่งประกาศรับสมัครงาน"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "ตรวจสอบใบสมัคร"
 msgid "Review Check"
 msgstr "ดูผลการตรวจสอบ"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "ตรวจสอบคอลัมน์"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "ตรวจทานร่าง"
@@ -7905,7 +7742,6 @@ msgstr "ขวา"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "ตำแหน่งงาน"
@@ -7951,13 +7787,6 @@ msgstr "การหมุน"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "การเรนเดอร์ PDF ไม่รองรับการหมุน"
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "แถว {0}, {1}: “{2}” ไม่ถูกต้อง แก้ไข CSV หรือปล่อยคอลัมน์นี้ออก"
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "รันอีกครั้ง"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "สนิม"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "เงินเดือน"
 
@@ -8008,6 +7836,7 @@ msgstr "ตัวอย่างประวัติย่อ"
 msgid "Save"
 msgstr "บันทึก"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "แบ่งปันและส่งออก"
 msgid "Share calendar event (.ics)"
 msgstr "แชร์กิจกรรมในปฏิทิน (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "แชร์ CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "แบ่งปันการบันทึก"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "แบ่งปันส่วนต่างๆ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "แชร์แถวที่ข้ามหรือไม่ถูกต้อง"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "แสดงทั้งหมด"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "ปิดการแสดง"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "แสดงใบสมัครที่ปิดไปแล้ว"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "เรียงตามวันที่"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "แหล่งที่มา"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "จัตุรัส"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "ขั้นตอน"
 
@@ -9175,7 +8999,6 @@ msgstr "แท็กใบสมัครที่เลือก"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "ลองอีกครั้งด้วยแบบนี้"
 msgid "Try another search or clear your filters."
 msgstr "ลองค้นหาอีกครั้งหรือล้างตัวกรองของคุณ"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "ลองใช้คำอื่นหรือล้างตัวกรอง"
@@ -10250,10 +10074,6 @@ msgstr "อัปเดต {completed} ของ {0} เอกสารที่
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "กำลังอัปเดตตัวอย่าง…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "อัปโหลด .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "การนำเข้า Word การปรับปรุง ผ�
 msgid "Words run together when the text is extracted."
 msgstr "คำต่าง ๆ ติดกันเมื่อแยกข้อความออกมา"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "ทำงาน การปิดแผงนี้ไม่ได้เป็นการยกเลิกการนำเข้าที่ส่งไปแล้ว"
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "ทำงาน…"
@@ -11162,10 +10978,6 @@ msgstr "การแนะนำตัวสองนาทีของคุณ
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "รายละเอียดงานที่ยังไม่ได้บันทึกของคุณจะถูกละทิ้งก่อนที่จะเปิดการตั้งค่าการค้นหาเว็บ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (อุปกรณ์เสริม)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

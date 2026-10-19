@@ -16,11 +16,13 @@ import {
 	upcomingEvents,
 	weekStartsOn,
 } from "./calendar";
+import { useApplicationSearch } from "./search";
 import { ApplicationsViewFrame } from "./views";
 import { interviewTypeLabel, useNow, useUserTime } from "@/features/application-detail/hooks";
 import { InterviewSheet } from "@/features/application-detail/interview-sheet";
 import { FollowUpSheet } from "@/features/application-detail/sheets";
 import { applicationError } from "@/features/applications/error";
+import { filterApplications } from "@/features/applications/list";
 import { useApplications } from "@/features/applications/queries";
 import { routes } from "@/routes";
 import { useIsTablet } from "@/shell/use-is-tablet";
@@ -53,6 +55,7 @@ function ApplicationCalendar() {
 	const [width, setWidth] = useState(0);
 	const query = useApplications();
 	const pull = usePullRefresh(query.refetch);
+	const { search } = useApplicationSearch();
 	const userTime = useUserTime();
 	const now = useNow();
 	const timeZone = userTime.timeZone;
@@ -67,7 +70,7 @@ function ApplicationCalendar() {
 	const [editing, setEditing] = useState<Editing | null>(null);
 	const [editorOpen, setEditorOpen] = useState(false);
 
-	const applications = query.data ?? [];
+	const applications = filterApplications(query.data ?? [], { search, tag: "", showClosed: true });
 	const open = applications.filter((application) => application.status !== "closed");
 	const events = collectEvents(applications, timeZone);
 	const byDay = groupByDay(events);

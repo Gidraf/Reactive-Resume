@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "נבחרו {0} מועמדויות."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "{0} מועמדויות לייצוא."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "פרסום דרושים {0}"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} החזיר את \"{1}\". ההודעה שלך נשמרת."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "שורות {0} מוכנות. ידלגו על שורות {1} שחסרות חברה או תפקיד. אנשי קשר לא חוקיים של {2} יישארו בחוץ."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "הכל ({0})"
 msgid "All applications"
 msgstr "כל המועמדויות"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "כל הבקשות לעבודה (כולל סגורות)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "כל המונחים מהמודעה מכוסים."
@@ -1248,6 +1232,11 @@ msgstr "כל המונחים מהמודעה מכוסים."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "כל התגים"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "בקשה לעבודה נסגרה"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "תאריך הגשת מועמדות לעבודה"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "תאריך הגשת בקשה מ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "תאריך בקשה ל"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "מועמדויות לאורך זמן"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "מועמדויות שנשלחו בשבוע (8 השבועות האחרונים)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "יישומים לייצוא"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "אפליקציות המשתמשות ב-\"{0}\" יפסיקו לעבוד. 
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "ערבית"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "הועבר לארכיון (סוגר אותו)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "חזרה למועמדויות"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "חזרה לבדיקות"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "חזרה לנתוני CSV"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "נקה"
 msgid "Clear date"
 msgstr "תאריך ברור"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "נקו את הפנייה או את משפט הסיום כדי להשמי
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "מנקה את הערכים שלו; הקטע נשאר. אתה יכול לבטל."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "צבע"
 msgid "Colours and level"
 msgstr "צבעים ורמה"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "עמודה {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "עמודות"
@@ -2331,15 +2294,10 @@ msgstr "קומפקטי"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "חברה"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "נדרשים חברה ותפקיד. התאם כל שדה פעם אחת או עזוב אותו. התיאורים מוגבלים ל-20,000 תווים."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "החיבור נשמר"
 msgid "Contact details"
 msgstr "פרטי יצירת קשר"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "אימייל ליצירת קשר"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "תווית איש קשר"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "שם איש הקשר"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "טלפון ליצירת קשר"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "תפקיד יצירת קשר"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "אנשי קשר"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "אנשי קשר עם אימייל לא חוקי או ללא שם נותרים בחוץ; המועמדויות שלהם עדיין מייבאות."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "תקן את השנה, או כתוב ״Present״ עבור עבודה נמ
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "לא ניתן היה להשלים את הבקשה. בדוק את החיבור שלך ונסה שוב."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "לא ניתן לאשר את הייבוא. בדוק במועמדויות לפני ניסיון חוזר כדי למנוע כפילויות."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "נוצר {0} · בשימוש אחרון {1} · יפוג {2}"
 msgid "Creating document…"
 msgstr "יוצר מסמך…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "נתוני CSV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "ל-CSV יש שדה מצוטט לא סגור. תקן את זה לפני הייבוא."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV גדול מ-10 MB. פצל אותו לפני הייבוא."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "מטבע"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "מסננים נוכחיים"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "הזן את הכתובת שבה אתה פותח את Reactive Resume ב�
 msgid "Enter the password the resume owner shared with you."
 msgstr "הזן את הסיסמה שבעל קורות החיים שיתף איתך."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "הזן תאריכים תקינים, כך שתאריך ההתחלה לא יהיה מאוחר מתאריך הסיום."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "רשומה"
@@ -3932,21 +3841,9 @@ msgstr "כל מה שהמאמן כתב עבור {company}, הכי חדש ראשו
 msgid "Experience"
 msgstr "ניסיון"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "ייצוא"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "ייצא PDF קטן יותר ובדוק אותו שוב, או התחל קורות חיים ריקים ותקן בהם את הבעיות."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "ייצא פרטי מועמדויות, אנשי קשר, הערות והיסטוריית ציר זמן בתור CSV."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "ייצוא CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "בעיות שהתעלמו חזרו"
 msgid "Images cover most of the page."
 msgstr "תמונות מכסות את רוב העמוד."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "ייבוא"
@@ -4582,10 +4478,6 @@ msgstr "ייבוא"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "ייבוא ​​קורות חיים"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "ייבוא מועמדויות"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "הייבוא בוטל."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "הייבוא בוטל. רענן מסמכים לפני שתנסה שוב אם ההעלאה הסתיימה."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "הייבוא הושלם"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "ייבוא קובץ"
@@ -4607,25 +4495,13 @@ msgstr "ייבוא קובץ"
 msgid "Import it"
 msgstr "ייבא אותו"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "ייבוא ​​או ייצוא CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "ייבא את קורות החיים הנוכחיים שלך, או התחל מחדש עם השם שלך."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "ייבוא/ייצוא"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "מְיוֹבָּא"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "יובאו {imported} מועמדויות. הושמטו {overflow} שורות, כי ניתן לייבא רק את 500 הראשונות בכל פעם."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "שפר את השורה שנבחרה"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "משפר..."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "כלול כותרת ושורת מועמדויות אחת לפחות."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "מִשׂרָה"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "תיאור משרה"
 
@@ -5055,10 +4926,6 @@ msgstr "השאר ריק כדי לאפס את הכותרת למקורית."
 msgid "Leave it empty to remove the link."
 msgstr "השאר אותו ריק כדי להסיר את הקישור."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "לְהַשְׁמִיט"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "שְׁמֹאל"
@@ -5173,7 +5040,6 @@ msgstr "קווים קרובים כל כך יכולים לרוץ יחד בעת ק
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "טוען…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "דולג על מסמכים נעולים. בטל את נעילתם תחי
 msgid "Locked. Unlock to edit."
 msgstr "נָעוּל. בטל את הנעילה כדי לערוך."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "לחץ לחיצה ארוכה על כרטיס כדי לגרור אותו לשלב אחר."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "לחצו לחיצה ארוכה לבחירה"
@@ -5460,10 +5320,6 @@ msgstr "מנוהל על ידי השרת שלך"
 msgid "Many bullets start with the same phrase."
 msgstr "תבליטים רבים מתחילים באותו ביטוי."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "מפה את חברה ותפקיד פעם אחת בדיוק. הסר מיפויי שדות כפולים."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "מרץ 2022"
@@ -5530,10 +5386,6 @@ msgstr "סומן כנקרא"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "התאמה ל-״{resumeName}״"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "מיפוי עמודות"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "אין מיקום"
 msgid "No matches"
 msgstr "אין התאמות"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "אין מועמדויות תואמות"
@@ -6225,7 +6078,6 @@ msgstr "מֵידָע"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "הערות"
@@ -6408,10 +6260,6 @@ msgstr "רק דפי {0} הראשונים נבדקו."
 msgid "Only the first 30 pages were checked."
 msgstr "רק 30 העמודים הראשונים נבדקו."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "רק 500 השורות הראשונות מייבאות בבת אחת, תוך השארת {overflow} בחוץ. פצל את הקובץ כדי לייבא את השאר."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "רק העמודים הראשונים נבדקו."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "פתח את הגדרות AI"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "פתח מועמדות"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "פתח מועמדויות"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "מודעה"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "מודעת דרושים"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "מקור פרסום דרושים"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "בדוק את הבקשה"
 msgid "Review Check"
 msgstr "סקירת בדיקה"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "בדיקת עמודות"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "עיין בטיוטה"
@@ -7905,7 +7742,6 @@ msgstr "יָמִינָה"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "תפקיד"
@@ -7951,13 +7787,6 @@ msgstr "סיבוב"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "סיבוב אינו נתמך על ידי עיבוד PDF."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "שורה {0}, {1}: \"{2}\" לא חוקי. תקן את ה-CSV או השאר את העמודה בחוץ."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "הרץ שוב"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "חלודה"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "שכר"
 
@@ -8008,6 +7836,7 @@ msgstr "קורות חיים לדוגמה"
 msgid "Save"
 msgstr "שמור"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "שתף וייצוא"
 msgid "Share calendar event (.ics)"
 msgstr "שתף אירוע ביומן (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "שתף CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "שתף הקלטה"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "שתף קטעים"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "שתף שורות שדולגו או שאינן תקינות"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "הצג הכל"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "המופע נסגר"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "הצג מועמדויות סגורות"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "מיין לפי תאריך"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "מקור"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "מרובע"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "שלב"
 
@@ -9175,7 +8999,6 @@ msgstr "תייג מועמדויות נבחרות"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "נסה שוב עם זה"
 msgid "Try another search or clear your filters."
 msgstr "נסה חיפוש נוסף או נקה את המסננים שלך."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "נסה מילים שונות או נקה את המסננים שלך."
@@ -10250,10 +10074,6 @@ msgstr "עודכנו {completed} מתוך {0}. דולג על מסמכים נעו
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "מעדכן את התצוגה המקדימה…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "העלה .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "ייבוא Word, שיפור, העוזר, טיוטות מכתבים, יי
 msgid "Words run together when the text is extracted."
 msgstr "מילים מתמזגות זו בזו כשהטקסט מחולץ."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "עובד. סגירת חלונית זו אינה מבטלת ייבוא שכבר נשלח."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "עובד…"
@@ -11162,10 +10978,6 @@ msgstr "הפתיח שלך בשתי דקות"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "פרטי המשרה שלא נשמרו יימחקו לפני פתיחת הגדרות חיפוש באינטרנט."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (אופציונלי)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

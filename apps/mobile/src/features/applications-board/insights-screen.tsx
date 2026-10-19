@@ -9,10 +9,11 @@ import { RefreshControl, I18nManager, ScrollView, View } from "react-native";
 import Svg, { Circle, Defs, G, LinearGradient, Path, Rect, Stop, Text as SvgText } from "react-native-svg";
 import { weekStartsOn } from "./calendar";
 import { computeOutcomes, computePipeline, computeTimeline, countSources } from "./insights";
+import { useApplicationSearch } from "./search";
 import { ApplicationsViewFrame } from "./views";
 import { useDocuments, useNow, useUserTime } from "@/features/application-detail/hooks";
-import { ApplicationsCsvSheet } from "@/features/applications/csv-sheet";
 import { applicationError } from "@/features/applications/error";
+import { filterApplications } from "@/features/applications/list";
 import { useApplications } from "@/features/applications/queries";
 import { getStageColor, getStageLabel } from "@/features/applications/stages";
 import { useIsTablet } from "@/shell/use-is-tablet";
@@ -37,10 +38,10 @@ function ApplicationInsights() {
 	const tablet = useIsTablet();
 	const query = useApplications();
 	const pull = usePullRefresh(query.refetch);
+	const { search } = useApplicationSearch();
 	const documents = useDocuments();
 	const { timeZone } = useUserTime();
 	const now = useNow();
-	const [csv, setCsv] = useState(false);
 
 	if (query.isError) {
 		return (
@@ -59,7 +60,7 @@ function ApplicationInsights() {
 		);
 	}
 
-	const applications = query.data;
+	const applications = filterApplications(query.data, { search, tag: "", showClosed: true });
 	// A resume is tailored for an application when it was made for it (Copy for a job).
 	const madeFor = new Map(
 		(documents.data ?? []).flatMap((document) =>
@@ -161,12 +162,7 @@ function ApplicationInsights() {
 				</View>
 
 				<PipelineFlow active={pipeline.active} closed={pipeline.closed} steps={pipeline.steps} />
-
-				<Button variant="secondary" icon="download-simple" label={t`Export CSV`} onPress={() => setCsv(true)} />
 			</ScrollView>
-			{csv ? (
-				<ApplicationsCsvSheet applications={applications} filtered={applications} onClose={() => setCsv(false)} />
-			) : null}
 		</>
 	);
 }

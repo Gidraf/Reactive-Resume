@@ -15,13 +15,16 @@ import Animated, {
 	useAnimatedStyle,
 	useFrameCallback,
 	useSharedValue,
+	withSpring,
 } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 import { keepPending, pendingAfterError, stageAt } from "./board";
+import { useApplicationSearch } from "./search";
 import { ApplicationsViewFrame } from "./views";
 import { useUserTime } from "@/features/application-detail/hooks";
 import { CloseSheet, MarkAppliedSheet } from "@/features/application-detail/sheets";
 import { applicationError } from "@/features/applications/error";
+import { filterApplications } from "@/features/applications/list";
 import { describeNextStep, getNextStep } from "@/features/applications/next-step";
 import { useApplicationMutations, useApplications } from "@/features/applications/queries";
 import { getStageColor, getStageLabel } from "@/features/applications/stages";
@@ -84,6 +87,7 @@ function Board() {
 	const tablet = useIsTablet();
 	const reduceMotion = useReducedMotion();
 	const query = useApplications();
+	const { search } = useApplicationSearch();
 	const { update } = useApplicationMutations();
 	const [showClosed, setShowClosed] = useState(false);
 	// One open flag per sheet: a sheet's late dismissal can never close the one that replaced it.
@@ -102,6 +106,7 @@ function Board() {
 	const translateY = useSharedValue(0);
 	const finger = useSharedValue(0);
 	const dragActive = useSharedValue(false);
+	const lift = useSharedValue(1);
 	const columnRects = useSharedValue<{ stage: ApplicationStatus; x: number; width: number }[]>([]);
 	const bounds = useSharedValue({ x: 0, width: 0 });
 	const lastEdgeScroll = useSharedValue(0);
@@ -115,8 +120,8 @@ function Board() {
 	const hovered = useRef<ApplicationStatus | null>(null);
 	const dragged = useRef<Application | null>(null);
 
-	const applications = query.data ?? [];
-	if (pending && !keepPending(pending, applications)) setPending(null);
+	const applications = filterApplications(query.data ?? [], { search, tag: "", showClosed: true });
+	if (pending && !keepPending(pending, query.data ?? [])) setPending(null);
 	const statusOf = (application: Application) =>
 		pending?.id === application.id ? pending.to : (application.status as ApplicationStatus);
 	const stages = showClosed ? STAGES : STAGES.filter((stage) => stage !== "closed");
@@ -176,6 +181,7 @@ function Board() {
 	const handlers: DragHandlers = {
 		motion: { x: translateX, y: translateY, finger, active: dragActive },
 		start: (application, event, width) => {
+			lift.set(withSpring(reduceMotion ? 1 : 1.03, { duration: 260, dampingRatio: 0.8 }));
 			rects.current.clear();
 			void measureColumns();
 			hovered.current = null;
@@ -190,7 +196,7 @@ function Board() {
 				bounds.set({ x, width: boardWidth });
 				setDrag((current) => current && { ...current, left: originX - x, top: originY - y });
 			});
-			haptics.selection();
+			haptics.light();
 		},
 		move: (absoluteX) => {
 			if (!dragged.current) return;
@@ -213,7 +219,11 @@ function Board() {
 			hovered.current = null;
 			dragged.current = null;
 			setHover(null);
-			setDrag(null);
+			lift.set(
+				withSpring(1, { duration: reduceMotion ? 0 : 260, dampingRatio: 0.8 }, (finished) => {
+					if (finished) scheduleOnRN(setDrag, null);
+				}),
+			);
 			if (!drop) return;
 			// Auto-scroll may still be moving the columns: resolve the target from fresh positions at the release point.
 			void measureColumns().then(() => {
@@ -271,9 +281,8 @@ function Board() {
 	});
 
 	// The lifted card follows the finger, slightly raised unless Reduce Motion is on.
-	const lift = reduceMotion ? 1 : 1.02;
 	const overlayStyle = useAnimatedStyle(() => ({
-		transform: [{ translateX: translateX.get() }, { translateY: translateY.get() }, { scale: lift }],
+		transform: [{ translateX: translateX.get() }, { translateY: translateY.get() }, { scale: lift.get() }],
 	}));
 
 	if (query.isError) {
@@ -296,9 +305,17 @@ function Board() {
 		return (
 			<EmptyState
 				icon="briefcase"
-				title={t`Your job search starts here`}
-				message={t`Save a job link, paste a posting, or fill in the details manually.`}
-				action={{ label: t`Open the list`, onPress: () => router.replace(routes.applications()) }}
+				title={search.trim() && query.data?.length ? t`No matching applications` : t`Your job search starts here`}
+				message={
+					search.trim() && query.data?.length
+						? t`Try different words or clear your filters.`
+						: t`Save a job link, paste a posting, or fill in the details manually.`
+				}
+				action={
+					search.trim() && query.data?.length
+						? { label: t`Clear filters`, onPress: () => useApplicationSearch.getState().setSearch("") }
+						: { label: t`Open the list`, onPress: () => router.replace(routes.applications()) }
+				}
 			/>
 		);
 	}
@@ -314,9 +331,9 @@ function Board() {
 					paddingHorizontal: space.s4,
 				}}
 			>
-				<Text variant="callout" color="ink3" style={{ flex: 1 }}>
-					{t`Long press a card to drag it to another stage.`}
-				</Text>
+				{!showClosed && applications.every((application) => statusOf(application) === "closed") ? (
+					<Text style={{ flex: 1 }} color="ink3">{t`All your applications are closed`}</Text>
+				) : null}
 				<Switch label={t`Show closed`} value={showClosed} onValueChange={setShowClosed} />
 			</View>
 			<View
@@ -577,11 +594,6 @@ function BoardCard({ application, onMove }: BoardCardProps) {
 					{next.sub ? `${next.title} · ${next.sub}` : next.title}
 				</Text>
 			</Pressable>
-			{onMove ? (
-				<View style={{ flexDirection: "row", marginTop: space.s1 }}>
-					<Button variant="link" size="sm" label={t`Move to…`} onPress={onMove} />
-				</View>
-			) : null}
 		</Card>
 	);
 }

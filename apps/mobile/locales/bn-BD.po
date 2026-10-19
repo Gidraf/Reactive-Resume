@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "{0} আবেদন নির্বাচিত।"
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "{0} আবেদন রপ্তানি করতে।"
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "{0} চাকরির পোস্টিং"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} \"{1}\" ফেরত দিয়েছে। আপনার বার্তা রাখা হয়."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} সারি প্রস্তুত৷ {1} সারি অনুপস্থিত কোম্পানি বা ভূমিকা বাদ দেওয়া হবে। {2}টি অবৈধ পরিচিতিগুলি বাদ দেওয়া হবে৷"
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "সমস্ত ({0})"
 msgid "All applications"
 msgstr "সব আবেদন"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "সমস্ত চাকরির আবেদন (বন্ধ সহ)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "সমস্ত চাকরির বিজ্ঞাপনের কীওয়ার্ড কভার করা হয়।"
@@ -1248,6 +1232,11 @@ msgstr "সমস্ত চাকরির বিজ্ঞাপনের কী
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "সব ট্যাগ"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "চাকরির আবেদন বন্ধ"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "চাকরির আবেদনের তারিখ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "আবেদনের তারিখ (থেকে)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "আবেদনের তারিখ (পর্যন্ত)"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "সময়ের সাথে আবেদন"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "প্রতি সপ্তাহে পাঠানো আবেদন (শেষ 8 সপ্তাহ)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "রপ্তানির জন্য আবেদন"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "“{0}” ব্যবহার করা অ্যাপগুলি �
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "আরবি"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "সংরক্ষণাগারভুক্ত (এটি বন্ধ করে)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "আবেদনে ফিরে যান"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "পরীক্ষায় ফিরুন"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "CSV ডেটাতে ফিরে যান"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "সাফ করুন"
 msgid "Clear date"
 msgstr "তারিখ পরিষ্কার করুন"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "সম্ভাষণ বা সমাপনী বাদ দিতে �
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "এর এন্ট্রি সাফ করে; বিভাগ থেকে যায়। আপনি পূর্বাবস্থায় ফেরাতে পারেন."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "রং"
 msgid "Colours and level"
 msgstr "রং এবং স্তর"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "কলাম {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "কলামসমূহ"
@@ -2331,15 +2294,10 @@ msgstr "সংক্ষিপ্ত"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "কোম্পানি"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "কোম্পানি এবং ভূমিকা প্রয়োজন. প্রতিটি ক্ষেত্র একবার মেলে বা ছেড়ে দিন। বর্ণনা 20,000 অক্ষরের মধ্যে সীমাবদ্ধ।"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "সংযোগ সংরক্ষিত"
 msgid "Contact details"
 msgstr "যোগাযোগের বিবরণ"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "যোগাযোগ ইমেল"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "যোগাযোগের লেবেল"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "যোগাযোগের নাম"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "যোগাযোগের ফোন"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "যোগাযোগ ভূমিকা"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "যোগাযোগ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "একটি অবৈধ ইমেল বা কোন নাম সহ পরিচিতি বাদ দেওয়া হয়; তাদের আবেদন এখনও আমদানি করা হয়।"
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "বছরটি সংশোধন করুন, অথবা চলম�
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "অনুরোধটি সম্পূর্ণ করা যায়নি। আপনার সংযোগ যাচাই করুন এবং আবার চেষ্টা করুন."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "আমদানি নিশ্চিত করা যায়নি. সদৃশ এড়াতে পুনরায় চেষ্টা করার আগে আবেদন যাচাই করুন।"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "তৈরি করা হয়েছে {0} · সর্বশেষ �
 msgid "Creating document…"
 msgstr "নথি তৈরি করা হচ্ছে..."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "CSV ডেটা"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV-এর একটি খোলা উদ্ধৃত ক্ষেত্র রয়েছে৷ আমদানি করার আগে এটি ঠিক করুন।"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV 10 MB থেকে বড়৷ আমদানি করার আগে এটি বিভক্ত করুন।"
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "মুদ্রা"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "বর্তমান ফিল্টার"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "ব্রাউজারে আপনি Reactive Resume যে ঠি�
 msgid "Enter the password the resume owner shared with you."
 msgstr "জীবনবৃত্তান্তের মালিক আপনার সঙ্গে যে পাসওয়ার্ড শেয়ার করেছেন সেটি দিন।"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "শুরুতে বা শেষ হওয়ার আগে বৈধ তারিখ লিখুন।"
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "এন্ট্রি"
@@ -3932,21 +3841,9 @@ msgstr "কর্মজীবন উপদেষ্টা {company}-এর জ�
 msgid "Experience"
 msgstr "অভিজ্ঞতা"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "এক্সপোর্ট"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "একটি ছোট PDF রপ্তানি করুন এবং এটি আবার পরীক্ষা করুন, অথবা একটি ফাঁকা জীবনবৃত্তান্ত শুরু করুন এবং সেখানে এইগুলি ঠিক করুন৷"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "CSV হিসাবে বিশদ বিবরণ, পরিচিতি, নোট এবং টাইমলাইন ইতিহাস রপ্তানি করুন।"
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "রপ্তানি করুন CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "উপেক্ষিত সমস্যা ফিরে এসেছে
 msgid "Images cover most of the page."
 msgstr "ছবি পৃষ্ঠার বেশিরভাগ অংশ জুড়ে আছে।"
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "ইমপোর্ট"
@@ -4582,10 +4478,6 @@ msgstr "ইমপোর্ট"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "একটি জীবনবৃত্তান্ত আমদানি করুন"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "আমদানি করুন"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "আমদানি বাতিল করা হয়েছে।"
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "আমদানি বাতিল করা হয়েছে। আপলোড শেষ হলে পুনরায় চেষ্টা করার আগে নথিপত্র রিফ্রেশ করুন।"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "আমদানি সম্পূর্ণ"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "ফাইল আমদানি করুন"
@@ -4607,25 +4495,13 @@ msgstr "ফাইল আমদানি করুন"
 msgid "Import it"
 msgstr "এটি আমদানি করুন"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "CSV আমদানি বা রপ্তানি করুন"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "আপনার বর্তমান জীবনবৃত্তান্ত আমদানি করুন, অথবা আপনার নাম দিয়ে নতুন করে শুরু করুন।"
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "আমদানি/রপ্তানি"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "আমদানিকৃত"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "আমদানি করা {imported} আবেদন। {overflow} সারিগুলি বাদ দেওয়া হয়েছে কারণ একবারে শুধুমাত্র প্রথম 500টি আমদানি৷"
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "নির্বাচিত লাইন উন্নত করুন"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "উন্নতি হচ্ছে..."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "একটি শিরোনাম এবং অন্তত একটি আবেদন সারি অন্তর্ভুক্ত করুন।"
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "চাকরি"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "কাজের বিবরণ"
 
@@ -5055,10 +4926,6 @@ msgstr "শিরোনামটি আবার মূল অবস্থায
 msgid "Leave it empty to remove the link."
 msgstr "লিঙ্কটি সরাতে এটি খালি ছেড়ে দিন।"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "ছেড়ে দাও"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "বাম"
@@ -5173,7 +5040,6 @@ msgstr "এই বন্ধ লাইনগুলি পড়ার সময�
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "লোড হচ্ছে..."
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "লক করা নথি এড়িয়ে গেছে। প্�
 msgid "Locked. Unlock to edit."
 msgstr "তালাবদ্ধ। সম্পাদনা করতে আনলক করুন।"
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "একটি কার্ডকে অন্য পর্যায়ে টেনে আনতে দীর্ঘক্ষণ টিপুন।"
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "নির্বাচন করতে চেপে ধরে রাখুন"
@@ -5460,10 +5320,6 @@ msgstr "আপনার সার্ভার দ্বারা পরিচা
 msgid "Many bullets start with the same phrase."
 msgstr "অনেক বুলেট একই বাক্যাংশ দিয়ে শুরু হয়।"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "ম্যাপ কোম্পানি এবং ভূমিকা ঠিক একবার. ডুপ্লিকেট ফিল্ড ম্যাচগুলি সরান।"
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "মার্চ 2022"
@@ -5530,10 +5386,6 @@ msgstr "পড়া হয়েছে বলে চিহ্নিত"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "“{resumeName}”-এর সঙ্গে মেলান"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "কলাম মিলান"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "অবস্থান নেই"
 msgid "No matches"
 msgstr "কোন মিল নেই"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "কোন মিল নেই"
@@ -6225,7 +6078,6 @@ msgstr "তথ্য"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "নোটস"
@@ -6408,10 +6260,6 @@ msgstr "শুধুমাত্র প্রথম {0} পৃষ্ঠাগু
 msgid "Only the first 30 pages were checked."
 msgstr "শুধুমাত্র প্রথম 30 পৃষ্ঠা চেক করা হয়েছে."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "একবারে শুধুমাত্র প্রথম 500টি সারি আমদানি করা হয়, {overflow} বাদ দিয়ে। বাকিটি আমদানি করতে ফাইলটি বিভক্ত করুন।"
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "শুধুমাত্র প্রথম কয়েকটি পৃষ্ঠা চেক করা হয়েছে।"
@@ -6447,12 +6295,9 @@ msgid "Open AI settings"
 msgstr "AI সেটিংস খুলুন"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
-msgstr "আবেদন খুলুন"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
 msgstr "আবেদন খুলুন"
 
 #: src/features/career/today.tsx
@@ -6917,10 +6762,6 @@ msgstr "চাকরির বিজ্ঞপ্তি"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "চাকরির বিজ্ঞপ্তি"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "কাজের পোস্টিং উত্স"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "আবেদন পর্যালোচনা করুন"
 msgid "Review Check"
 msgstr "পরীক্ষা পর্যালোচনা করুন"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "কলাম পর্যালোচনা করুন"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "খসড়া পর্যালোচনা করুন"
@@ -7905,7 +7742,6 @@ msgstr "ঠিক"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "পদ"
@@ -7951,13 +7787,6 @@ msgstr "রোটেশন"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "ঘূর্ণন PDF রেন্ডারিং দ্বারা সমর্থিত নয়৷"
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "সারি {0}, {1}: “{2}” অবৈধ৷ CSV ঠিক করুন বা এই কলামটি ছেড়ে দিন।"
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "আবার চালান"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "মরিচা"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "বেতন"
 
@@ -8008,6 +7836,7 @@ msgstr "নমুনা জীবনবৃত্তান্ত"
 msgid "Save"
 msgstr "সংরক্ষণ করুন"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "শেয়ার এবং রপ্তানি"
 msgid "Share calendar event (.ics)"
 msgstr "ক্যালেন্ডার ইভেন্ট শেয়ার করুন (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "শেয়ার করুন CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "শেয়ার রেকর্ডিং"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "ভাগ ভাগ করুন"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "এড়িয়ে যাওয়া বা অবৈধ সারি শেয়ার করুন"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "সব দেখান"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "শো বন্ধ"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "বন্ধ আবেদন দেখান"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "তারিখ অনুযায়ী সাজান"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "উৎস"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "স্কোয়ার"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "পর্যায়"
 
@@ -9175,7 +8999,6 @@ msgstr "ট্যাগ নির্বাচিত আবেদন"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "এটি দিয়ে আবার চেষ্টা করুন"
 msgid "Try another search or clear your filters."
 msgstr "অন্য অনুসন্ধান চেষ্টা করুন বা আপনার ফিল্টার সাফ করুন."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "বিভিন্ন শব্দ চেষ্টা করুন বা আপনার ফিল্টার সাফ করুন."
@@ -10250,10 +10074,6 @@ msgstr "{0}-এর মধ্যে {completed} আপডেট করা হয�
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "পূর্বরূপ আপডেট করা হচ্ছে..."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr ".csv ফাইল আপলোড করুন"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Word আমদানি, উন্নতি করুন, সহকা�
 msgid "Words run together when the text is extracted."
 msgstr "টেক্সট এক্সট্র্যাক্ট করা হলে শব্দগুলো একসাথে মিশে যায়।"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "কাজ করছে। এই প্যানেলটি বন্ধ করা ইতিমধ্যেই পাঠানো একটি আমদানি বাতিল করে না৷"
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "কাজ করছে..."
@@ -11162,10 +10978,6 @@ msgstr "আপনার দুই মিনিটের পরিচিতি"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "ওয়েব অনুসন্ধান সেটিংস খোলার আগে আপনার অসংরক্ষিত কাজের বিবরণ বাতিল করা হবে।"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (ঐচ্ছিক)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "{0} candidaturi selectate."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "{0} candidaturi de exportat."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "{0} postare de locuri de muncă"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} a returnat „{1}”. Mesajul tău este păstrat."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} rânduri gata. {1} rânduri care lipsesc Companie sau Post vor fi omise. {2} persoane de contact nevalide vor fi excluse."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Toate ({0})"
 msgid "All applications"
 msgstr "Toate candidaturile"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Toate cererile de angajare (inclusiv închise)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Sunt acoperiți toți termenii de postare a locurilor de muncă."
@@ -1248,6 +1232,11 @@ msgstr "Sunt acoperiți toți termenii de postare a locurilor de muncă."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Toate etichetele"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "cerere de angajare închisă"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "data cererii de angajare"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Data depunerii cererii: începând cu"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Data depunerii cererii până la"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Candidaturi în timp"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Candidaturi trimise pe săptămână (ultimele 8 săptămâni)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Candidaturi de exportat"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "Aplicațiile care folosesc „{0}” nu vor mai funcționa. Acest lucru 
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "Arabă"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Arhivat (o închide)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Înapoi la candidaturi"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Înapoi la verificări"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "Înapoi la datele CSV"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Șterge"
 msgid "Clear date"
 msgstr "Data clară"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "Ștergeți formula de adresare sau formula de încheiere pentru a o omit
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Șterge intrările sale; secțiunea rămâne. Puteți anula."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Culoare"
 msgid "Colours and level"
 msgstr "Culori și nivel"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "Coloana {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Coloane"
@@ -2331,15 +2294,10 @@ msgstr "Compact"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Companie"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Companie și Post sunt obligatorii. Potriviți fiecare câmp o dată sau lăsați-l afară. Descrierile sunt limitate la 20.000 de caractere."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "Conexiunea a fost salvată"
 msgid "Contact details"
 msgstr "Date de contact"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "E-mail de contact"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "Eticheta de contact"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Nume de contact"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "Telefon de contact"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "Rolul de contact"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Contacte"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "Contactele cu un e-mail nevalid sau fără nume sunt omise; cererile lor de angajare încă mai importă."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Corectați anul sau scrieți „Prezent” pentru munca în curs."
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "Nu s-a putut finaliza solicitarea. Verificați conexiunea și încercați din nou."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "Nu s-a putut confirma importul. Verificați candidaturile înainte de a reîncerca pentru a evita duplicatele."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Creat {0} · Ultima utilizare {1} · Expiră {2}"
 msgid "Creating document…"
 msgstr "Se creează documentul..."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "date CSV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV are un câmp neînchis citat. Remediați-l înainte de a importa."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV este mai mare de 10 MB. Împărțiți-l înainte de a importa."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Monedă"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Filtre curente"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Introduceți adresa la care deschideți Reactive Resume într-un browser
 msgid "Enter the password the resume owner shared with you."
 msgstr "Introduceți parola pe care v-a trimis-o proprietarul CV-ului."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Introduceți date valabile cu începerea la sau înainte de sfârșit."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Intrare"
@@ -3932,21 +3841,9 @@ msgstr "Tot ce a scris antrenorul pentru {company}, cel mai nou primul."
 msgid "Experience"
 msgstr "Experiență"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Exportă"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Exportați un PDF mai mic și verificați-l din nou sau începeți un CV gol și remediați-le acolo."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Exportă detaliile candidaturii, contactele, notele și istoricul cronologiei în CSV."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "Exportați CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "Problemele ignorate au revenit"
 msgid "Images cover most of the page."
 msgstr "Imaginile acoperă cea mai mare parte a paginii."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "Import"
@@ -4582,10 +4478,6 @@ msgstr "Import"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Importați un CV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "Importă aplicații de muncă"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "Import anulat."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "Import anulat. Actualizează Documente înainte de a reîncerca dacă încărcarea s-a terminat."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "Import finalizat"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Importați fișierul"
@@ -4607,25 +4495,13 @@ msgstr "Importați fișierul"
 msgid "Import it"
 msgstr "Importă-l"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "Importați sau exportați CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Importați-vă CV-ul actual sau începeți din nou cu numele dvs."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "Import/Export"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "Importat"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "Aplicații de locuri de muncă {imported} importate. {overflow} rânduri au fost excluse, deoarece doar primele 500 sunt importate odată."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "Îmbunătățiți linia selectată"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "Se îmbunătățește…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Includeți un antet și cel puțin un rând de candidatură."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "Post"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "Descrierea postului"
 
@@ -5055,10 +4926,6 @@ msgstr "Lăsați necompletat pentru a reseta titlul la cel original."
 msgid "Leave it empty to remove the link."
 msgstr "Lăsați-l gol pentru a elimina linkul."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "Lasă afară"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "Stânga"
@@ -5173,7 +5040,6 @@ msgstr "Rândurile atât de apropiate pot rula împreună când sunt citite. Uti
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Se încarcă…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Documentele blocate au fost omise. Deblochează-le mai întâi."
 msgid "Locked. Unlock to edit."
 msgstr "Blocat. Deblocați pentru a edita."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Apăsați lung un card pentru a-l trage în altă etapă."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Apasă lung pentru a selecta"
@@ -5460,10 +5320,6 @@ msgstr "Gestionat de serverul dvs"
 msgid "Many bullets start with the same phrase."
 msgstr "Multe puncte încep cu aceeași expresie."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "Hartați Companie și Post exact o dată. Eliminați potrivirile câmpurilor duplicate."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "martie 2022"
@@ -5530,10 +5386,6 @@ msgstr "Marcat ca citit"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "Potriviți cu „{resumeName}”"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Potriviți coloanele"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Fără locație"
 msgid "No matches"
 msgstr "Nicio potrivire"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Nu există candidaturi potrivite"
@@ -6225,7 +6078,6 @@ msgstr "Informaţii"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Notițe"
@@ -6408,10 +6260,6 @@ msgstr "Au fost verificate doar primele pagini {0}."
 msgid "Only the first 30 pages were checked."
 msgstr "Au fost verificate doar primele 30 de pagini."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "Numai primele 500 de rânduri sunt importate simultan, lăsând deoparte {overflow}. Împărțiți fișierul pentru a importa restul."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "Au fost verificate doar primele pagini."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "Deschideți setările AI"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Deschideți candidatura"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Deschideți candidaturile"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "anunț"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "Anunț de angajare"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "sursa postării de locuri de muncă"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Examinați aplicația"
 msgid "Review Check"
 msgstr "Consultă Verificare"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Examinați coloanele"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Revizuiți ciorna"
@@ -7905,7 +7742,6 @@ msgstr "Corect"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Post"
@@ -7951,13 +7787,6 @@ msgstr "Rotire"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "Rotația nu este acceptată de redarea PDF."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "Rândul {0}, {1}: „{2}” este nevalid. Remediați CSV sau lăsați această coloană afară."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Executați din nou"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Ruginiu"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Salariu"
 
@@ -8008,6 +7836,7 @@ msgstr "Exemplu de CV"
 msgid "Save"
 msgstr "Salvați"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Distribuiți și exportați"
 msgid "Share calendar event (.ics)"
 msgstr "Partajați evenimentul din calendar (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "Distribuie CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Partajați înregistrarea"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Partajați secțiuni"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Distribuiți rânduri ignorate sau nevalide"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Arată tot"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Emisiune închisă"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Afișați candidaturile închise"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Sortează după dată"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Sursă"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Pătrat"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Etapă"
 
@@ -9175,7 +8999,6 @@ msgstr "Etichetați aplicațiile de locuri de muncă selectate"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Încercați din nou cu aceasta"
 msgid "Try another search or clear your filters."
 msgstr "Încercați o altă căutare sau ștergeți filtrele."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Încercați cuvinte diferite sau ștergeți filtrele."
@@ -10250,10 +10074,6 @@ msgstr "Actualizat {completed} pentru {0}. Documentele blocate și scrisorile de
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Se actualizează previzualizarea…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "Încărcați .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Importul Word, Îmbunătăți, asistentul, ciornele scrisorilor, consili
 msgid "Words run together when the text is extracted."
 msgstr "Cuvintele se contopesc atunci când textul este extras."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Lucru. Închiderea acestei foi nu anulează un import deja trimis."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Lucrează…"
@@ -11162,10 +10978,6 @@ msgstr "Prezentarea dvs. de două minute"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "Detaliile jobului nesalvat vor fi eliminate înainte de a deschide setările de căutare pe web."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (opțional)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

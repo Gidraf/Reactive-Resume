@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
-import { parseDateOnly } from "./csv";
+import { parseDateOnly } from "./date";
 import { applicationError } from "./error";
 import { useApplicationMutations } from "./queries";
 import { getStageLabel } from "./stages";

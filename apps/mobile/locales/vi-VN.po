@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "Hồ sơ ứng tuyển đã chọn: {0}."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "Hồ sơ ứng tuyển cần xuất: {0}."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "Tin tuyển dụng {0}"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} trả về “{1}”. Tin nhắn của bạn được lưu giữ."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} hàng sẵn sàng. Bỏ qua {1} hàng thiếu Công ty hoặc Vị trí. Loại bỏ {2} người liên hệ không hợp lệ."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Tất cả ({0})"
 msgid "All applications"
 msgstr "Tất cả hồ sơ ứng tuyển"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Tất cả các đơn xin việc (bao gồm cả đã đóng)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Đã có đủ từ khóa trong tin tuyển dụng."
@@ -1248,6 +1232,11 @@ msgstr "Đã có đủ từ khóa trong tin tuyển dụng."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Tất cả các thẻ"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "đơn xin việc đã đóng"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "ngày nộp đơn xin việc"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Ngày nộp đơn từ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Ngày nộp đơn đến"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Đơn ứng tuyển theo thời gian"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Đơn ứng tuyển đã gửi mỗi tuần (8 tuần gần nhất)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Hồ sơ ứng tuyển để xuất"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "Ứng dụng sử dụng “{0}” sẽ ngừng hoạt động. Điều 
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "Tiếng Ả Rập"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Đã lưu trữ (đóng nó lại)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Quay lại hồ sơ ứng tuyển"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Về các bước kiểm tra"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "Quay lại dữ liệu CSV"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Xóa"
 msgid "Clear date"
 msgstr "Xóa ngày"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "Xóa lời chào hoặc lời kết để bỏ qua. Xóa lời kết cũ
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Xóa các mục nhưng giữ lại phần. Bạn có thể hoàn tác việc này."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Màu sắc"
 msgid "Colours and level"
 msgstr "Màu sắc và mức độ"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "Cột {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Cột"
@@ -2331,15 +2294,10 @@ msgstr "Nhỏ gọn"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Công ty"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Bắt buộc có Công ty và Vị trí. Đối chiếu mỗi trường một lần hoặc bỏ qua. Mô tả giới hạn 20.000 ký tự."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "Đã lưu kết nối"
 msgid "Contact details"
 msgstr "Thông tin liên hệ"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "Email liên hệ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "Nhãn liên hệ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Tên liên hệ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "Điện thoại liên lạc"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "Vai trò liên hệ"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Liên hệ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "Bỏ người liên hệ thiếu tên hoặc có email không hợp lệ; vẫn nhập hồ sơ ứng tuyển của họ."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Sửa lại năm, hoặc ghi \"Hiện tại\" cho công việc đang di�
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "Không thể hoàn thành yêu cầu. Hãy kiểm tra kết nối của bạn và thử lại."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "Không thể xác nhận quá trình nhập. Kiểm tra Hồ sơ ứng tuyển trước khi thử lại để tránh trùng lặp."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Đã tạo {0} · {1} được sử dụng lần cuối · Hết hạn {
 msgid "Creating document…"
 msgstr "Đang tạo tài liệu…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "Dữ liệu CSV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV có trường trích dẫn không được tiết lộ. Hãy sửa nó trước khi nhập."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV lớn hơn 10 MB. Tách nó trước khi nhập."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Tiền tệ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Bộ lọc hiện tại"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Nhập địa chỉ bạn sử dụng để mở Reactive Resume trong t
 msgid "Enter the password the resume owner shared with you."
 msgstr "Nhập mật khẩu mà chủ sở hữu sơ yếu lý lịch đã chia sẻ với bạn."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Nhập ngày hợp lệ với ngày bắt đầu hoặc trước ngày kết thúc."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Mục"
@@ -3932,21 +3841,9 @@ msgstr "Mọi thứ mà huấn luyện viên sự nghiệp đã viết cho {comp
 msgid "Experience"
 msgstr "Kinh nghiệm"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Xuất"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Xuất PDF nhỏ hơn và kiểm tra lại hoặc bắt đầu một sơ yếu lý lịch trống và sửa những lỗi này ở đó."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Xuất thông tin chi tiết về hồ sơ ứng tuyển, danh bạ, ghi chú và lịch sử dòng thời gian dưới dạng CSV."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "Xuất CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "Các vấn đề bị bỏ qua đã quay trở lại"
 msgid "Images cover most of the page."
 msgstr "Hình ảnh chiếm phần lớn trang."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "Nhập"
@@ -4582,10 +4478,6 @@ msgstr "Nhập"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Nhập sơ yếu lý lịch"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "Nhập hồ sơ ứng tuyển"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "Đã hủy nhập."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "Đã hủy nhập. Làm mới Tài liệu trước khi thử lại nếu quá trình tải lên đã hoàn tất."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "Nhập hoàn tất"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Nhập tệp"
@@ -4607,25 +4495,13 @@ msgstr "Nhập tệp"
 msgid "Import it"
 msgstr "Nhập"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "Nhập hoặc xuất CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Nhập sơ yếu lý lịch hiện tại của bạn hoặc bắt đầu mới với tên của bạn."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "Nhập/Xuất"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "Đã nhập"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "Hồ sơ ứng tuyển đã nhập: {imported}. Các hàng bị bỏ qua: {overflow}. Chỉ 500 hàng đầu tiên được nhập cùng một lúc."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "Cải thiện dòng đã chọn"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "Cải thiện…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Bao gồm tiêu đề và ít nhất một hàng hồ sơ ứng tuyển."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "Công việc"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "Mô tả công việc"
 
@@ -5055,10 +4926,6 @@ msgstr "Để trống để đặt lại tiêu đề về mặc định."
 msgid "Leave it empty to remove the link."
 msgstr "Để trống để xóa liên kết."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "bỏ đi"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "Bên trái"
@@ -5173,7 +5040,6 @@ msgstr "Các dòng gần nhau này có thể chạy cùng nhau khi đọc. Sử 
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Đang tải…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Tài liệu bị khóa bị bỏ qua. Mở khóa chúng trước."
 msgid "Locked. Unlock to edit."
 msgstr "Đã khóa. Mở khóa để chỉnh sửa."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Nhấn và giữ thẻ để kéo thẻ đó sang giai đoạn khác."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Nhấn giữ để chọn"
@@ -5460,10 +5320,6 @@ msgstr "Được quản lý bởi máy chủ của bạn"
 msgid "Many bullets start with the same phrase."
 msgstr "Nhiều gạch đầu dòng bắt đầu bằng cùng một cụm từ."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "Đối chiếu Công ty và Vị trí đúng một lần mỗi trường. Xóa các đối chiếu trùng lặp."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "tháng 3 năm 2022"
@@ -5530,10 +5386,6 @@ msgstr "Đã đánh dấu đã đọc"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "Khớp với “{resumeName}”"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Đối chiếu cột"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Không có vị trí"
 msgid "No matches"
 msgstr "Không có kết quả phù hợp"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Không có hồ sơ ứng tuyển phù hợp"
@@ -6225,7 +6078,6 @@ msgstr "Thông tin"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Ghi chú"
@@ -6408,10 +6260,6 @@ msgstr "Chỉ các trang {0} đầu tiên được kiểm tra."
 msgid "Only the first 30 pages were checked."
 msgstr "Chỉ kiểm tra 30 trang đầu tiên."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "Chỉ nhập 500 hàng đầu tiên cùng một lúc, loại bỏ {overflow}. Chia nhỏ tập tin để nhập phần còn lại."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "Chỉ những trang đầu tiên được kiểm tra."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "Mở cài đặt AI"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Mở hồ sơ ứng tuyển"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Mở Hồ sơ ứng tuyển"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "tin tuyển dụng"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "Tin tuyển dụng"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "nguồn đăng tin tuyển dụng"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Xem xét đơn đăng ký"
 msgid "Review Check"
 msgstr "Xem lại kết quả kiểm tra"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Cột đánh giá"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Xem bản nháp"
@@ -7905,7 +7742,6 @@ msgstr "Phải"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Vị trí"
@@ -7951,13 +7787,6 @@ msgstr "Xoay"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "Kết xuất PDF không hỗ trợ xoay."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "Hàng {0}, {1}: “{2}” không hợp lệ. Sửa CSV hoặc bỏ cột này."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Chạy lại"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Đỏ gỉ"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Lương"
 
@@ -8008,6 +7836,7 @@ msgstr "Sơ yếu lý lịch mẫu"
 msgid "Save"
 msgstr "Lưu"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Chia sẻ và xuất"
 msgid "Share calendar event (.ics)"
 msgstr "Chia sẻ sự kiện lịch (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "Chia sẻ CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Chia sẻ ghi âm"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Chia sẻ phần"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Chia sẻ các hàng bị bỏ qua hoặc không hợp lệ"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Hiển thị tất cả"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Hiển thị đã đóng"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Hiển thị các hồ sơ ứng tuyển đã đóng"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Sắp xếp theo ngày"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Nguồn"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Vuông"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Giai đoạn"
 
@@ -9175,7 +8999,6 @@ msgstr "Gắn thẻ hồ sơ ứng tuyển đã chọn"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Thử lại với bản này"
 msgid "Try another search or clear your filters."
 msgstr "Hãy thử tìm kiếm khác hoặc xóa bộ lọc của bạn."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Hãy thử các từ khác hoặc xóa bộ lọc của bạn."
@@ -10250,10 +10074,6 @@ msgstr "Đã cập nhật {completed} trên {0}. Các tài liệu bị khóa đ�
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Đang cập nhật bản xem trước…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "Tải lên .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Nhập Word, Cải thiện, trợ lý, bản nháp thư xin việc, tư 
 msgid "Words run together when the text is extracted."
 msgstr "Các từ bị dính liền nhau khi văn bản được trích xuất."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Xử lý. Việc đóng bảng này sẽ không hủy quá trình nhập đã được gửi."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Đang hoạt động…"
@@ -11162,10 +10978,6 @@ msgstr "Phần giới thiệu hai phút của bạn"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "Chi tiết công việc chưa lưu của bạn sẽ bị loại bỏ trước khi mở cài đặt tìm kiếm trên web."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (tùy chọn)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

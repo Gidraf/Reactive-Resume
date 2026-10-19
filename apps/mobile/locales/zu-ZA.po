@@ -275,11 +275,6 @@ msgstr ""
 msgid "{0} applications selected."
 msgstr ""
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr ""
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -375,13 +370,6 @@ msgstr ""
 #. placeholder {1}: errorText(error, t`an error`)
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
-msgstr ""
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
 msgstr ""
 
 #. placeholder {0}: selectedIds.length
@@ -1237,16 +1225,17 @@ msgstr ""
 msgid "All applications"
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr ""
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr ""
 
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
+msgstr ""
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
 msgstr ""
 
 #: src/features/settings/profile.tsx
@@ -1431,16 +1420,7 @@ msgstr ""
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
 msgstr ""
 
 #: src/features/application-detail/detail-screen.tsx
@@ -1476,10 +1456,6 @@ msgstr ""
 
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
 msgstr ""
 
 #: src/features/application-detail/sections.tsx
@@ -1528,10 +1504,6 @@ msgstr ""
 
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
 msgstr ""
 
 #: src/features/write/fields.ts
@@ -1705,10 +1677,6 @@ msgstr ""
 
 #: src/features/check/screen.tsx
 msgid "Back to checks"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
 msgstr ""
 
 #: src/features/workspace/shell.tsx
@@ -2217,6 +2185,7 @@ msgstr ""
 msgid "Clear date"
 msgstr ""
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr ""
 msgid "Clears its entries; the section stays. You can undo."
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr ""
 msgid "Colours and level"
 msgstr ""
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr ""
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr ""
@@ -2331,14 +2294,9 @@ msgstr ""
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
 msgstr ""
 
 #: src/features/workspace/tabs/practise.tsx
@@ -2446,34 +2404,9 @@ msgstr ""
 msgid "Contact details"
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr ""
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
 msgstr ""
 
 #: src/features/write/picture-screen.tsx
@@ -2595,10 +2528,6 @@ msgstr ""
 
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
 msgstr ""
 
 #: src/features/applications/add-sheet.tsx
@@ -3097,24 +3026,8 @@ msgstr ""
 msgid "Creating document…"
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr ""
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
 msgstr ""
 
 #. placeholder {0}: getStageLabel(status)
@@ -3869,10 +3782,6 @@ msgstr ""
 msgid "Enter the password the resume owner shared with you."
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr ""
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr ""
@@ -3932,20 +3841,8 @@ msgstr ""
 msgid "Experience"
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr ""
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr ""
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
 msgstr ""
 
 #: src/features/search/search-screen.tsx
@@ -4574,17 +4471,12 @@ msgstr ""
 msgid "Images cover most of the page."
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr ""
 
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
 msgstr ""
 
 #: src/features/documents/import-file.ts
@@ -4595,10 +4487,6 @@ msgstr ""
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr ""
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr ""
@@ -4607,24 +4495,12 @@ msgstr ""
 msgid "Import it"
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr ""
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr ""
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr ""
-
 #: src/features/history/history.tsx
 msgid "Imported"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
 msgstr ""
 
 #: src/features/write/outline.tsx
@@ -4646,10 +4522,6 @@ msgstr ""
 
 #: src/features/write/improve.tsx
 msgid "Improving…"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
 msgstr ""
 
 #: src/features/design/controls.tsx
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr ""
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr ""
 
@@ -5055,10 +4926,6 @@ msgstr ""
 msgid "Leave it empty to remove the link."
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr ""
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr ""
@@ -5173,7 +5040,6 @@ msgstr ""
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr ""
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr ""
 msgid "Locked. Unlock to edit."
 msgstr ""
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr ""
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr ""
@@ -5460,10 +5320,6 @@ msgstr ""
 msgid "Many bullets start with the same phrase."
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr ""
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr ""
@@ -5529,10 +5385,6 @@ msgstr ""
 
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
 msgstr ""
 
 #: src/features/search/search-screen.tsx
@@ -6045,6 +5897,7 @@ msgstr ""
 msgid "No matches"
 msgstr ""
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr ""
@@ -6225,7 +6078,6 @@ msgstr ""
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr ""
@@ -6408,10 +6260,6 @@ msgstr ""
 msgid "Only the first 30 pages were checked."
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr ""
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr ""
@@ -6447,12 +6295,9 @@ msgid "Open AI settings"
 msgstr ""
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
 msgstr ""
 
 #: src/features/career/today.tsx
@@ -6916,10 +6761,6 @@ msgstr ""
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
 msgstr ""
 
 #: src/features/workspace/tabs/practise.tsx
@@ -7839,10 +7680,6 @@ msgstr ""
 msgid "Review Check"
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr ""
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr ""
@@ -7905,7 +7742,6 @@ msgstr ""
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr ""
@@ -7951,13 +7787,6 @@ msgstr ""
 msgid "Rotation isn't supported by PDF rendering."
 msgstr ""
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr ""
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr ""
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr ""
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr ""
 
@@ -8008,6 +7836,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr ""
 msgid "Share calendar event (.ics)"
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr ""
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8498,10 +8323,6 @@ msgstr ""
 #: src/features/letters/share.tsx
 #: src/features/share/screen.tsx
 msgid "Share sections"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
 msgstr ""
 
 #: src/features/share/link.tsx
@@ -8552,11 +8373,16 @@ msgid "Show all"
 msgstr ""
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr ""
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
+msgstr ""
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
 msgstr ""
 
 #: src/features/applications/add-sheet.tsx
@@ -8876,7 +8702,6 @@ msgstr ""
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr ""
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr ""
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr ""
 
@@ -9175,7 +8999,6 @@ msgstr ""
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr ""
 msgid "Try another search or clear your filters."
 msgstr ""
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr ""
@@ -10249,10 +10073,6 @@ msgstr ""
 
 #: src/features/check/page.tsx
 msgid "Updating preview…"
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
 msgstr ""
 
 #: src/features/ats-checker/checker.tsx
@@ -10777,10 +10597,6 @@ msgstr ""
 msgid "Words run together when the text is extracted."
 msgstr ""
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr ""
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr ""
@@ -11161,10 +10977,6 @@ msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
-msgstr ""
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
 msgstr ""
 
 #: src/features/letters/page.tsx

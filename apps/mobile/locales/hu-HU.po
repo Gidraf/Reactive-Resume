@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "{0} jelentkezés kijelölve."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "{0} exportálandó jelentkezés."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "{0} álláshirdetés"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "A {0} visszaküldte a következőt: „{1}”. Üzenetét megtartjuk."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} sor készen áll. A hiányzó Cég vagy Pozíció miatt {1} sor kimarad. {2} érvénytelen kapcsolat szintén kimarad."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Mind ({0})"
 msgid "All applications"
 msgstr "Összes jelentkezés"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Minden álláspályázat (beleértve a lezárt állásokat is)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Az álláshirdetés összes kifejezése szerepel."
@@ -1248,6 +1232,11 @@ msgstr "Az álláshirdetés összes kifejezése szerepel."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Minden címke"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "álláspályázat lezárva"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "állás jelentkezés dátuma"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Jelentkezési dátum tól"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Jelentkezés dátuma ig"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Jelentkezések időben"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Hetente elküldött jelentkezések (az elmúlt 8 hét)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Exportálandó jelentkezések"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "A „{0}” kódot használó alkalmazások nem fognak működni. Ezt ne
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "arab"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Archivált (bezárja)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Vissza a jelentkezésekhez"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Vissza az ellenőrzésekhez"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "Vissza a CSV adatokhoz"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Törlés"
 msgid "Clear date"
 msgstr "Tiszta dátum"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "A megszólítás vagy az elköszönés kihagyásához törölje a tartal
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Törli a bejegyzéseit; a szakasz marad. Visszavonhatja."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Szín"
 msgid "Colours and level"
 msgstr "Színek és szint"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "{0} oszlop: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Oszlopok"
@@ -2331,15 +2294,10 @@ msgstr "Kompakt"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Cég"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Cég és Pozíció kötelező. Minden mezőt egyeztessen egyszer, vagy hagyja ki. A leírások legfeljebb 20 000 karakteresek lehetnek."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "A kapcsolat mentve"
 msgid "Contact details"
 msgstr "Elérhetőségek"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "Kapcsolattartási e-mail"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "Kapcsolattartó címke"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Kapcsolattartó neve"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "Kapcsolattartó telefonszám"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "Kapcsolattartó szerepkör"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Kapcsolatok"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "Az érvénytelen e-mail-című vagy név nélküli kapcsolatok kimaradnak; jelentkezéseik ettől még importálódnak."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Javítsd ki az évszámot, vagy írj \"Jelenleg is\" a folyamatban lév�
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "Nem sikerült teljesíteni a kérést. Ellenőrizze a kapcsolatot, és próbálja újra."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "Nem sikerült megerősíteni az importálást. Az ismétlődések elkerülése érdekében ellenőrizze az jelentkezéseket, mielőtt újra próbálkozna."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Létrehozva: {0} · Utoljára használt: {1} · Lejár: {2}"
 msgid "Creating document…"
 msgstr "Dokumentum létrehozása…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "CSV-adatok"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "A(z) CSV egy záratlan idézőjeles mezőt tartalmaz. Javítsa ki az importálás előtt."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "A CSV nagyobb, mint 10 MB. Importálás előtt oszd meg."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Pénznem"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Aktuális szűrők"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Adja meg a címet, ahol a Reactive Resume-ot böngészőben megnyitja. F
 msgid "Enter the password the resume owner shared with you."
 msgstr "Adja meg a jelszót, amelyet az önéletrajz tulajdonosa megosztott Önnel."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Érvényes dátumokat adjon meg úgy, hogy a kezdés a vége előtt legyen."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Belépés"
@@ -3932,21 +3841,9 @@ msgstr "Minden, amit az edző írt a {company} számára, a legújabbak előszö
 msgid "Experience"
 msgstr "Tapasztalat"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Exportálás"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Exportáljon egy kisebb PDF-ot, és ellenőrizze újra, vagy indítson el egy üres önéletrajzot, és javítsa ki ezeket."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Exportálhatja az jelentkezés részleteit, névjegyeit, jegyzeteit és idővonal-előzményeit CSV formátumban."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "Exportálás: CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "A figyelmen kívül hagyott problémák visszatértek"
 msgid "Images cover most of the page."
 msgstr "A képek az oldal nagy részét lefedik."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "Importálás"
@@ -4582,10 +4478,6 @@ msgstr "Importálás"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Önéletrajz importálása"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "Állásjelentkezések importálása"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "Az importálás megszakítva."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "Az importálás megszakítva. Frissítse a(z) Dokumentumok fájlt, mielőtt újra próbálkozna, ha a feltöltés befejeződött."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "Az importálás befejeződött"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Fájl importálása"
@@ -4607,25 +4495,13 @@ msgstr "Fájl importálása"
 msgid "Import it"
 msgstr "Importálja"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "Importálás vagy exportálás CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Importálja jelenlegi önéletrajzát, vagy kezdje újra a nevét."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "Importálás/Exportálás"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "Importált"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "Importált {imported} jelentkezések. {overflow} sor kimaradt, mert egyszerre csak az első 500 importálása."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "A kiválasztott vonal javítása"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "Javuló…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Tartalmazzon egy fejlécet és legalább egy jelentkezési sort."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "Munka"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "Állásleírás"
 
@@ -5055,10 +4926,6 @@ msgstr "Hagyd üresen az eredeti cím visszaállításához."
 msgid "Leave it empty to remove the link."
 msgstr "A hivatkozás eltávolításához hagyja üresen."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "Hagyd ki"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "Balra"
@@ -5173,7 +5040,6 @@ msgstr "Az ilyen közeli sorok olvasás közben összefuthatnak. Használjon leg
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Betöltés…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "A zárolt dokumentumokat kihagyták. Először oldja fel őket."
 msgid "Locked. Unlock to edit."
 msgstr "Bezárt. A szerkesztéshez oldja fel a zárolást."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Nyomja meg hosszan a kártyát, hogy egy másik szakaszba húzza."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Kijelöléshez tartsa hosszan lenyomva"
@@ -5460,10 +5320,6 @@ msgstr "Az Ön szervere kezeli"
 msgid "Many bullets start with the same phrase."
 msgstr "Sok felsoroláspont ugyanazzal a kifejezéssel kezdődik."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "A Cég és a Pozíció mezőt pontosan egyszer rendelje hozzá. Távolítsa el az ismétlődő hozzárendeléseket."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "2022. márc"
@@ -5530,10 +5386,6 @@ msgstr "Olvasottként megjelölve"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "Igazítás ehhez: „{resumeName}”"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Oszlopok hozzárendelése"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Nincs hely"
 msgid "No matches"
 msgstr "Nincs egyezés"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Nincsenek megfelelő jelentkezések"
@@ -6225,7 +6078,6 @@ msgstr "Információ"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Jegyzetek"
@@ -6408,10 +6260,6 @@ msgstr "Csak az első {0} oldalakat ellenőrizték."
 msgid "Only the first 30 pages were checked."
 msgstr "Csak az első 30 oldalt ellenőrizték."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "Egyszerre csak az első 500 sort importálja, a {overflow} kihagyásával. Oszd fel a fájlt a többi importálásához."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "Csak az első oldalak lettek ellenőrizve."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "Nyissa meg az AI beállításokat"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Nyissa meg az jelentkezést"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Nyissa meg az jelentkezéseket"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "hirdetés"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "Álláshirdetés"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "álláshirdetés forrása"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Az alkalmazás áttekintése"
 msgid "Review Check"
 msgstr "Ellenőrzés áttekintése"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Tekintse át az oszlopokat"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Vázlat áttekintése"
@@ -7905,7 +7742,6 @@ msgstr "Jobbra"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Pozíció"
@@ -7951,13 +7787,6 @@ msgstr "Forgatás"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "A PDF renderelés nem támogatja az elforgatást."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "{0}, {1} sor: „{2}” érvénytelen. Javítsa ki a CSV hibát, vagy hagyja ki ezt az oszlopot."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Futtatás újra"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Rozsdabarna"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Fizetés"
 
@@ -8008,6 +7836,7 @@ msgstr "Önéletrajz minta"
 msgid "Save"
 msgstr "Mentés"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Megosztás és exportálás"
 msgid "Share calendar event (.ics)"
 msgstr "Naptáresemény megosztása (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "Megosztás CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Felvétel megosztása"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Ossza meg a szakaszokat"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Az átugrott vagy érvénytelen sorok megosztása"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Összes megjelenítése"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "A műsor lezárva"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Lezárt jelentkezések megjelenítése"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Rendezés dátum szerint"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Forrás"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Négyzet"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Szakasz"
 
@@ -9175,7 +8999,6 @@ msgstr "Jelölje meg a kiválasztott jelentkezéseket"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Próbáld újra ezzel"
 msgid "Try another search or clear your filters."
 msgstr "Próbálkozzon másik kereséssel, vagy törölje a szűrőket."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Próbáljon ki más szavakat, vagy törölje a szűrőket."
@@ -10250,10 +10074,6 @@ msgstr "Frissítve: {completed} a következőből: {0}. A zárolt dokumentumokat
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Előnézet frissítése…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr ".csv feltöltése"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "A Word-importáláshoz, a Javítani funkcióhoz, az asszisztenshez, a le
 msgid "Words run together when the text is extracted."
 msgstr "A szavak összefolynak, amikor a szöveg kinyerésre kerül."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Feldolgozás. A panel bezárása nem szakítja meg a már elküldött importálást."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Dolgozik…"
@@ -11162,10 +10978,6 @@ msgstr "A kétperces bemutatkozásod"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "A nem mentett munkaadatokat a rendszer elveti az internetes keresési beállítások megnyitása előtt."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (nem kötelező)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

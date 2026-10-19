@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "選択されたジョブ 応募: {0}。"
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "エクスポートするジョブ 応募: {0}。"
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "{0} 求人情報"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} は「{1}」を返しました。あなたのメッセージは保存されます。"
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "行の準備ができました: {0}。 会社名 または 職種 のない行はスキップされます: {1}。無効な連絡先は除外されました: {2}。"
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "すべて ({0})"
 msgid "All applications"
 msgstr "すべての応募"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "すべての求人応募（終了したものを含む）"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "職務内容のすべてのキーワードがカバーされています。"
@@ -1248,6 +1232,11 @@ msgstr "職務内容のすべてのキーワードがカバーされています
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "すべてのタグ"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "求人応募は締め切りました"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "求職応募日"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "応募日（開始）"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "応募日（終了）"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "応募数の推移"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "週ごとの応募送信数（直近8週間）"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "エクスポートする応募"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "「{0}」を使用しているアプリは動作しなくなります。
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "アラビア語"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "アーカイブ済み (閉じます)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "応募一覧に戻る"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "検証結果に戻る"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "CSV データに戻る"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "クリア"
 msgid "Clear date"
 msgstr "日付をクリア"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "宛名の挨拶または結びの言葉を省略するには、内容を
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "エントリをクリアします。セクションは残ります。元に戻すことができます。"
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "カラー"
 msgid "Colours and level"
 msgstr "色とレベル"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "列 {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "列"
@@ -2331,15 +2294,10 @@ msgstr "コンパクト"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "会社名"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "会社名 と 職種 は必須です。各フィールドを 1 回割り当てるか、省略します。説明は 20,000 文字に制限されています。"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "接続が保存されました"
 msgid "Contact details"
 msgstr "連絡先情報"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "連絡先メールアドレス"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "接点ラベル"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "連絡先名"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "連絡先電話番号"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "連絡先の役割"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "連絡先"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "無効な電子メール アドレスを持つ連絡先、または名前のない連絡先は除外されます。彼らの応募は引き続きインポートされます。"
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "年を修正するか、現在も継続中であれば「Present」と�
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "リクエストを完了できませんでした。接続を確認して、もう一度試してください。"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "インポートが確認できませんでした。重複を避けるために、再試行する前に応募を確認してください。"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "作成された {0} · 最後に使用された {1} · 有効期限が�
 msgid "Creating document…"
 msgstr "文書を作成中…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "CSV データ"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV には閉じられていない引用符で囲まれたフィールドがあります。インポートする前に修正してください。"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV は 10 MB を超えています。インポートする前に分割してください。"
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "通貨"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "現在のフィルター"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "ブラウザで Reactive Resume を開くアドレスを入力します�
 msgid "Enter the password the resume owner shared with you."
 msgstr "履歴書の所有者から共有されたパスワードを入力してください。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "有効な日付を開始日または終了日より前に入力してください。"
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "エントリー"
@@ -3932,21 +3841,9 @@ msgstr "コーチが {company} 用に書いたものすべて、最新のもの�
 msgid "Experience"
 msgstr "職歴"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "エクスポート"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "小さい PDF をエクスポートして、再度確認してください。または、空白のレジュメを作成し、そこで問題を修正します。"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "応募の詳細、連絡先、メモ、タイムライン履歴を CSV としてエクスポートします。"
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "CSVをエクスポート"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "無視された問題が戻ってきました"
 msgid "Images cover most of the page."
 msgstr "画像がページの大部分を占めています。"
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "インポート"
@@ -4582,10 +4478,6 @@ msgstr "インポート"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "履歴書をインポートする"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "応募をインポートする"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "輸入がキャンセルされました。"
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "輸入がキャンセルされました。アップロードが完了している場合は、再試行する前に 書類 を更新してください。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "インポートが完了しました"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "インポートファイル"
@@ -4607,25 +4495,13 @@ msgstr "インポートファイル"
 msgid "Import it"
 msgstr "インポートしてください"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "CSV のインポートまたはエクスポート"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "現在のレジュメをインポートするか、自分の名前で新たに始めます。"
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "インポート/エクスポート"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "輸入品"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "ジョブ 応募がインポートされました: {imported}。省略された行: {overflow}。最初の 500 行のみが一度にインポートされるためです。"
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "選択した行を改善します"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "改善中…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "ヘッダーと少なくとも 1 つの応募行を含めます。"
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "仕事"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "職務内容"
 
@@ -5055,10 +4926,6 @@ msgstr "空欄のままにすると、タイトルは元の名前にリセット
 msgid "Leave it empty to remove the link."
 msgstr "リンクを削除するには、空のままにしておきます。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "除外する"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "左"
@@ -5173,7 +5040,6 @@ msgstr "この距離に近い行は、読み取り時に一緒に実行できま
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "読み込み中…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Locked documents were skipped.まずロックを解除してください
 msgid "Locked. Unlock to edit."
 msgstr "ロックされています。編集するにはロックを解除してください。"
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "カードを長押しして、別の段階にドラッグできます。"
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "長押しして選択"
@@ -5460,10 +5320,6 @@ msgstr "サーバーによって管理される"
 msgid "Many bullets start with the same phrase."
 msgstr "多くの箇条書きが同じフレーズで始まっています。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "会社名 と 職種 を 1 回だけ割り当てます。重複したフィールド割り当てを削除します。"
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "2022 年 3 月"
@@ -5530,10 +5386,6 @@ msgstr "既読にしました"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "「{resumeName}」に合わせる"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "列の一致"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "場所がありません"
 msgid "No matches"
 msgstr "一致しません"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "一致する応募はありません"
@@ -6225,7 +6078,6 @@ msgstr "情報"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "メモ"
@@ -6408,10 +6260,6 @@ msgstr "最初の {0} ページのみがチェックされました。"
 msgid "Only the first 30 pages were checked."
 msgstr "最初の30ページのみチェックしました。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "最初の 500 行のみが一度にインポートされ、{overflow} は除外されます。ファイルを分割して残りをインポートします。"
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "最初の数ページのみがチェックされました。"
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "AI設定を開く"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "この応募類を開く"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "応募画面を開く"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "求人情報"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "求人情報"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "求人情報ソース"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "応募内容を確認"
 msgid "Review Check"
 msgstr "チェック結果を確認"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "列の対応を確認"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "下書きを確認"
@@ -7905,7 +7742,6 @@ msgstr "右"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "職種"
@@ -7951,13 +7787,6 @@ msgstr "回転"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "回転は、PDF レンダリングではサポートされていません。"
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "行{0}、{1}：「{2}」は無効です。CSVを修正するか、この列を除外してください。"
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "再実行"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "ラストブラウン"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "給与"
 
@@ -8008,6 +7836,7 @@ msgstr "レジュメのサンプル"
 msgid "Save"
 msgstr "保存"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "共有とエクスポート"
 msgid "Share calendar event (.ics)"
 msgstr "カレンダーイベントの共有 (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "CSVを共有する"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "録画を共有する"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "セクションを共有する"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "スキップされた行または無効な行を共有する"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "すべて表示"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "ショーは終了しました"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "終了した応募を表示する"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "日付で並べ替え"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "ソース"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "正方形"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "ステージ"
 
@@ -9175,7 +8999,6 @@ msgstr "選択した応募にタグを付ける"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "これでもう一度試す"
 msgid "Try another search or clear your filters."
 msgstr "別の検索を試すか、フィルターをクリアしてください。"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "別の単語を試してみるか、フィルターをクリアしてください。"
@@ -10250,10 +10074,6 @@ msgstr "{0} のうち {completed} を更新しました。ロックされた書�
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "プレビューを更新中…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr ".csv をアップロード"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Word のインポート、改善する、アシスタント、カバー�
 msgid "Words run together when the text is extracted."
 msgstr "テキストを抽出すると単語同士がつながってしまいます。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "処理。このパネルを閉じても、送信済みのインポートはキャンセルされません。"
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "処理…"
@@ -11162,10 +10978,6 @@ msgstr "2分間の自己紹介"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "ウェブ検索設定を開くと、保存していない求人情報は破棄されます。"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD（任意）"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "{0} başvuru seçildi."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "Dışa aktarma için {0} başvuruları."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "{0} iş ilanı"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0}, “{1}” değerini döndürdü. Mesajınız saklanmaktadır."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} satır hazır. Şirket veya Rol eksik olan {1} satır atlanacak. {2} geçersiz kişi dışarıda bırakılacak."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Hepsi ({0})"
 msgid "All applications"
 msgstr "Tüm başvurular"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Tüm iş başvuruları (kapalı olanlar dahil)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Tüm iş ilanı anahtar kelimeleri kapsanmaktadır."
@@ -1248,6 +1232,11 @@ msgstr "Tüm iş ilanı anahtar kelimeleri kapsanmaktadır."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Tüm etiketler"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "iş başvurusu kapandı"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "iş başvuru tarihi"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Başvuru tarihi"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Başvuru tarihi"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Zamana göre başvurular"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Haftalık gönderilen başvurular (son 8 hafta)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Dışa aktarılacak başvurular"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "“{0}” kullanan uygulamalar çalışmayı durduracak. Bu geri alınam
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "Arapça"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Arşivlendi (kapatır)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Başvurulara dön"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Okunabilirlik kontrollerine geri dön"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "CSV verilerine geri dön"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Temizle"
 msgid "Clear date"
 msgstr "Tarihi temizle"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "Hitabı veya kapanış ifadesini çıkarmak için içeriğini temizleyin
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Girişlerini temizler; bölüm kalıyor. Geri alabilirsiniz."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Renk"
 msgid "Colours and level"
 msgstr "Renkler ve seviye"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "Sütun {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Sütunlar"
@@ -2331,15 +2294,10 @@ msgstr "Kompakt"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Şirket"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Şirket ve Rol gereklidir. Her alanı bir kez eşleştirin veya dışarıda bırakın. Açıklamalar 20.000 karakterle sınırlıdır."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "Bağlantı kaydedildi"
 msgid "Contact details"
 msgstr "İletişim bilgileri"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "İletişim e-postası"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "İletişim etiketi"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Kişi adı"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "İletişim telefonu"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "İlgili kişi rolü"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Kişiler"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "E-postası geçersiz veya adı eksik kişiler atlanır; başvuruları yine de içe aktarılır."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Yılı düzeltin veya devam eden bir iş için \"Present\" yazın."
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "İstek tamamlanamadı. Bağlantınızı doğrulayıp tekrar deneyin."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "İçe aktarma onaylanamadı. Tekrarlardan kaçınmak için yeniden denemeden önce Başvuruları doğrulayın."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Oluşturuldu: {0} · Son kullanılan {1} · Süresi doluyor: {2}"
 msgid "Creating document…"
 msgstr "Doküman oluşturuluyor…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "CSV verileri"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV kapatılmamış bir tırnaklı alana sahip. İçe aktarmadan önce sorunu düzeltin."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV 10 MB'tan büyük. İçe aktarmadan önce bölün."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Para birimi"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Mevcut filtreler"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Reactive Resume uygulamasını tarayıcıda açtığınız adresi girin.
 msgid "Enter the password the resume owner shared with you."
 msgstr "Özgeçmiş sahibinin sizinle paylaştığı şifreyi girin."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Başlangıcı bitişte veya bitişten önce olacak şekilde geçerli tarihleri ​​girin."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Giriş"
@@ -3932,21 +3841,9 @@ msgstr "Kariyer danışmanının {company} için yazdığı her şey, en yenisi 
 msgid "Experience"
 msgstr "Deneyim"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Dışa aktar"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Daha küçük bir PDF dışa aktarıp tekrar kontrol edin veya boş bir özgeçmiş başlatıp bunları orada düzeltin."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Başvuru ayrıntılarını, kişileri, notları ve zaman çizelgesi geçmişini CSV olarak dışa aktarın."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "CSV'ı dışa aktar"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "Göz ardı edilen sorunlar geri döndü"
 msgid "Images cover most of the page."
 msgstr "Görseller sayfanın büyük bölümünü kaplıyor."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "İçe Aktar"
@@ -4582,10 +4478,6 @@ msgstr "İçe Aktar"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Özgeçmişi içe aktar"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "İthalat başvuruları"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "İçe aktarma iptal edildi."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "İçe aktarma iptal edildi. Yükleme bittiyse yeniden denemeden önce Belgeler'i yenileyin."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "İçe aktarma tamamlandı"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Dosyayı içe aktar"
@@ -4607,25 +4495,13 @@ msgstr "Dosyayı içe aktar"
 msgid "Import it"
 msgstr "İçe aktar"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "CSV'yu içe veya dışa aktarın"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Mevcut özgeçmişinizi içe aktarın veya adınızla yeni bir başlangıç ​​yapın."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "İçe aktar/Dışa aktar"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "İthal"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "{imported} başvuru içe aktarıldı. Aynı anda yalnızca ilk 500 satır aktarıldığından {overflow} satır atlandı."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "Seçilen satırı iyileştir"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "İyileşiyor…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Bir başlık ve en az bir başvuru satırı ekleyin."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "İş"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "İş tanımı"
 
@@ -5055,10 +4926,6 @@ msgstr "Başlığı orijinaline sıfırlamak için boş bırakın."
 msgid "Leave it empty to remove the link."
 msgstr "Bağlantıyı kaldırmak için boş bırakın."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "dışarıda bırak"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "Sol"
@@ -5173,7 +5040,6 @@ msgstr "Bu kadar yakın olan satırlar okunduğunda birlikte çalışabilir. En 
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Yükleniyor…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Kilitli belgeler atlandı. Önce bunların kilidini açın."
 msgid "Locked. Unlock to edit."
 msgstr "Kilitli. Düzenlemek için kilidini açın."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Başka bir aşamaya sürüklemek için bir karta uzun basın."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Seçmek için basılı tutun"
@@ -5460,10 +5320,6 @@ msgstr "Sunucunuz tarafından yönetiliyor"
 msgid "Many bullets start with the same phrase."
 msgstr "Birçok madde işareti aynı ifadeyle başlıyor."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "Şirket ve Rolü tam olarak bir kez eşleyin. Yinelenen alan eşleşmelerini kaldırın."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "Mart 2022"
@@ -5530,10 +5386,6 @@ msgstr "Okundu olarak işaretlendi"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "“{resumeName}” ile eşleştir"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Sütunları eşleştir"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Konum yok"
 msgid "No matches"
 msgstr "Eşleşme yok"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Eşleşen başvuru yok"
@@ -6225,7 +6078,6 @@ msgstr "Bilgi"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Notlar"
@@ -6408,10 +6260,6 @@ msgstr "Yalnızca ilk {0} sayfaları kontrol edildi."
 msgid "Only the first 30 pages were checked."
 msgstr "Sadece ilk 30 sayfa kontrol edildi."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "{overflow} hariç tutularak yalnızca ilk 500 satır aynı anda içe aktarılır. Gerisini içe aktarmak için dosyayı bölün."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "Yalnızca ilk sayfalar kontrol edildi."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "AI ayarlarını açın"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Başvuruyu aç"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Başvurular listesini açın"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "ilan"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "İş ilanı"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "iş ilanı kaynağı"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Başvuruyu inceleyin"
 msgid "Review Check"
 msgstr "Kontrolü İncele"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Sütunları inceleyin"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Taslağı incele"
@@ -7905,7 +7742,6 @@ msgstr "Sağ"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Pozisyon"
@@ -7951,13 +7787,6 @@ msgstr "Döndürme"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "Döndürme, PDF oluşturma tarafından desteklenmez."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "Satır {0}, {1}: “{2}” geçersiz. CSV'ü düzeltin veya bu sütunu dışarıda bırakın."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Tekrar çalıştır"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Pas"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Maaş"
 
@@ -8008,6 +7836,7 @@ msgstr "Örnek özgeçmiş"
 msgid "Save"
 msgstr "Kaydet"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Paylaş ve dışa aktar"
 msgid "Share calendar event (.ics)"
 msgstr "Takvim etkinliğini paylaş (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "CSV'ı paylaş"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Kaydı paylaş"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Bölümleri paylaş"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Atlanan veya geçersiz satırları paylaş"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Tümünü göster"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Kapalı olanı göster"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Kapatılan başvuruları göster"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Tarihe göre sırala"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Kaynak"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Kare"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Aşama"
 
@@ -9175,7 +8999,6 @@ msgstr "Seçilen başvuruları etiketleyin"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Bununla tekrar dene"
 msgid "Try another search or clear your filters."
 msgstr "Başka bir arama yapmayı deneyin veya filtrelerinizi temizleyin."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Farklı kelimeler deneyin veya filtrelerinizi temizleyin."
@@ -10250,10 +10074,6 @@ msgstr "{0} belgeden {completed} tanesi güncellendi. Kilitli belgeler ve herkes
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Önizleme güncelleniyor…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr ".csv yükle"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Word içe aktarma, Geliştirmek, asistan, mektup taslakları, Kariyer ko
 msgid "Words run together when the text is extracted."
 msgstr "Metin çıkarıldığında kelimeler birbirine karışıyor."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Çalışma. Bu panelin kapatılması halihazırda gönderilmiş olan bir içe aktarma işlemini iptal etmez."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Çalışma…"
@@ -11162,10 +10978,6 @@ msgstr "İki dakikalık tanıtımınız"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "Kaydedilmemiş iş ayrıntılarınız, web arama ayarları açılmadan önce silinecektir."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (isteğe bağlı)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

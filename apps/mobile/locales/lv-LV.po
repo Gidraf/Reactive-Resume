@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "Atlasītie pieteikumi: {0}."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "Eksportējamie pieteikumi: {0}."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "{0} darba sludinājums"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} atgrieza “{1}”. Jūsu ziņojums tiek saglabāts."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} rindas gatavas. {1} rindas bez uzņēmuma vai amata tiks izlaistas. {2} nederīgas kontaktpersonas netiks iekļautas."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Visi ({0})"
 msgid "All applications"
 msgstr "Visi pieteikumi"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Visi darba pieteikumi (arī slēgtie)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Visi sludinājuma atslēgvārdi ir iekļauti."
@@ -1248,6 +1232,11 @@ msgstr "Visi sludinājuma atslēgvārdi ir iekļauti."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Visas atzīmes"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "darba pieteikums slēgts"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "darba pieteikuma datums"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Pieteikšanās datums no plkst"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Pieteikšanās datums līdz"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Pieteikumi laika gaitā"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Nedēļā nosūtītie pieteikumi (pēdējās 8 nedēļas)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Pieteikumi eksportēšanai"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "Programmas, kas izmanto “{0}”, pārtrauks darboties. Šo darbību ne
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "Arābu"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Arhivēts (to aizver)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Atpakaļ uz pieteikumiem"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Atpakaļ uz pārbaudēm"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "Atpakaļ pie CSV datiem"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Notīrīt"
 msgid "Clear date"
 msgstr "Skaidrs datums"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "Notīriet uzrunu vai noslēguma frāzi, lai to izlaistu. Notīrot noslē
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Notīra ierakstus, bet saglabā sadaļu. Varat to atsaukt."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Krāsa"
 msgid "Colours and level"
 msgstr "Krāsas un līmenis"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "Kolonna {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Kolonnas"
@@ -2331,15 +2294,10 @@ msgstr "Kompakts"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Uzņēmums"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Uzņēmums un amats ir obligāti. Katru lauku piesaistiet vienreiz vai izlaidiet. Apraksta ierobežojums: 20 000 rakstzīmju."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "Savienojums saglabāts"
 msgid "Contact details"
 msgstr "Kontaktinformācija"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "Saziņas e-pasts"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "Kontaktpersonas etiķete"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Kontaktpersonas vārds"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "Kontakttālrunis"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "Kontaktpersonas loma"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Kontakti"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "Kontaktpersonas ar nederīgu e-pasta adresi vai bez vārda tiek izlaistas; viņu darba pieteikumi joprojām tiek importēti."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Izlabojiet gadu vai pašreizējam darbam rakstiet \"Present\"."
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "Nevarēja pabeigt pieprasījumu. Pārbaudiet savienojumu un mēģiniet vēlreiz."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "Nevarēja apstiprināt importēšanu. Pirms mēģināt vēlreiz, pārbaudiet Pieteikumus, lai neveidotu dublikātus."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Izveidots {0} · Pēdējoreiz lietots {1} · Beidzas {2}"
 msgid "Creating document…"
 msgstr "Notiek dokumenta izveide…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "CSV dati"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV ir neslēgts citāts lauks. Labojiet to pirms importēšanas."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV ir lielāks par 10 MB. Sadaliet to pirms importēšanas."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Valūta"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Pašreizējie filtri"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Ievadiet adresi, kuru izmantojat, lai pārlūkprogrammā atvērtu Reacti
 msgid "Enter the password the resume owner shared with you."
 msgstr "Ievadiet paroli, ko jums ir izsniedzis CV īpašnieks."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Ievadiet derīgus datumus ar sākuma datumu vai pirms beigām."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Ieraksts"
@@ -3932,21 +3841,9 @@ msgstr "Viss, ko karjeras treneris rakstīja {company}, ar jaunāko vispirms."
 msgid "Experience"
 msgstr "Pieredze"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Eksports"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Eksportējiet mazāku PDF un pārbaudiet to vēlreiz vai sāciet tukšu CV un izlabojiet tās."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Eksportējiet darba pieteikuma informāciju, kontaktus, piezīmes un laika skalas vēsturi kā CSV."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "Eksportēt CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "Ignorētās problēmas ir atgriezušās"
 msgid "Images cover most of the page."
 msgstr "Attēli aizņem lielāko daļu lapas."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "Importēt"
@@ -4582,10 +4478,6 @@ msgstr "Importēt"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Importējiet CV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "Importēt darba pieteikumus"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "Importēšana ir atcelta."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "Importēšana ir atcelta. Ja augšupielāde ir pabeigta, pirms atkārtotas mēģinājuma atsvaidziniet Dokumenti."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "Importēšana ir pabeigta"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Importēt failu"
@@ -4607,25 +4495,13 @@ msgstr "Importēt failu"
 msgid "Import it"
 msgstr "Importēt"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "Importēt vai eksportēt CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Importējiet savu pašreizējo CV vai sāciet no jauna ar savu vārdu."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "Importēt/Eksportēt"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "Importēts"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "Importētie darba pieteikumi: {imported}. Izlaistās rindas: {overflow}. Vienlaikus tiek importētas tikai pirmās 500 rindas."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "Uzlabot atlasīto līniju"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "Notiek uzlabošana…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Iekļaujiet galveni un vismaz vienu darba pieteikuma rindu."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "Darbs"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "Darba apraksts"
 
@@ -5055,10 +4926,6 @@ msgstr "Atstājiet tukšu, lai atjaunotu sākotnējo virsrakstu."
 msgid "Leave it empty to remove the link."
 msgstr "Lai noņemtu saiti, atstājiet to tukšu."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "Atstāj ārā"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "Pa kreisi"
@@ -5173,7 +5040,6 @@ msgstr "Lasot tik tuvu rindas, var iet kopā. Izmantojiet vismaz {minimum}."
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Notiek ielāde…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Bloķētie dokumenti tika izlaisti. Vispirms atbloķējiet tos."
 msgid "Locked. Unlock to edit."
 msgstr "Bloķēts. Atbloķējiet, lai rediģētu."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Turiet nospiestu karti, lai velciet to uz citu posmu."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Nospiediet un turiet, lai atlasītu"
@@ -5460,10 +5320,6 @@ msgstr "Pārvalda jūsu serveris"
 msgid "Many bullets start with the same phrase."
 msgstr "Daudzas aizzīmes sākas ar vienu un to pašu frāzi."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "Piesaistiet Uzņēmumu un Amatu katru tieši vienu reizi. Noņemiet lauku piesaistes dublikātus."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "2022. gada marts"
@@ -5530,10 +5386,6 @@ msgstr "Atzīmēts kā izlasīts"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "Saskaņot ar “{resumeName}”"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Saskaņot kolonnas"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Nav atrašanās vietas"
 msgid "No matches"
 msgstr "Nav atbilstības"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Nav atbilstošu darba pieteikumu"
@@ -6225,7 +6078,6 @@ msgstr "Informācija"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Piezīmes"
@@ -6408,10 +6260,6 @@ msgstr "Tika pārbaudītas tikai pirmās {0} lapas."
 msgid "Only the first 30 pages were checked."
 msgstr "Tika pārbaudītas tikai pirmās 30 lapas."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "Vienlaikus tiek importētas tikai pirmās 500 rindas, izņemot {overflow}. Sadaliet failu, lai importētu pārējo."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "Pārbaudītas tikai pirmās lapas."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "Atveriet AI iestatījumus"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Atvērt pieteikumu"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Atveriet Pieteikumi"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "sludinājums"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "Darba sludinājums"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "darba sludinājuma avots"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Pārskatiet pieteikumu"
 msgid "Review Check"
 msgstr "Pārskatīt pārbaudi"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Pārskata kolonnas"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Pārskatīt melnrakstu"
@@ -7905,7 +7742,6 @@ msgstr "Pareizi"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Amats"
@@ -7951,13 +7787,6 @@ msgstr "Rotācija"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "PDF renderēšana neatbalsta rotāciju."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "rinda {0}, {1}: “{2}” nav derīga. Labojiet CSV vai atstājiet šo kolonnu ārpusē."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Palaist vēlreiz"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Rūsas sarkans"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Alga"
 
@@ -8008,6 +7836,7 @@ msgstr "CV paraugs"
 msgid "Save"
 msgstr "Saglabāt"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Kopīgot un eksportēt"
 msgid "Share calendar event (.ics)"
 msgstr "Kopīgot kalendāra notikumu (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "Kopīgojiet CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Kopīgojiet ierakstu"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Kopīgojiet sadaļas"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Kopīgojiet izlaistas vai nederīgas rindas"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Rādīt visu"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Izrāde slēgta"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Rādīt slēgtos darba pieteikumus"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Kārtot pēc datuma"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Avots"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Kvadrāts"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Posms"
 
@@ -9175,7 +8999,6 @@ msgstr "Pievienot birkas atlasītajiem pieteikumiem"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Mēģināt vēlreiz ar šo"
 msgid "Try another search or clear your filters."
 msgstr "Izmēģiniet citu meklēšanu vai notīriet filtrus."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Izmēģiniet citus vārdus vai notīriet filtrus."
@@ -10250,10 +10074,6 @@ msgstr "Atjaunināts {completed} no {0}. Bloķētie dokumenti tika izlaisti. Mot
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Notiek priekšskatījuma atjaunināšana…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "Augšupielādēt .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Word importēšanai, Uzlabot, asistentam, motivācijas vēstuļu melnrak
 msgid "Words run together when the text is extracted."
 msgstr "Iegūstot tekstu, vārdi saplūst kopā."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Apstrāde. Aizverot šo paneli, importēšana, kas jau ir nosūtīta, netiek atcelta."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Darbojas…"
@@ -11162,10 +10978,6 @@ msgstr "Jūsu divu minūšu prezentācija par sevi"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "Pirms tīmekļa meklēšanas iestatījumu atvēršanas jūsu nesaglabātā darba informācija tiks atmesta."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (pēc izvēles)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

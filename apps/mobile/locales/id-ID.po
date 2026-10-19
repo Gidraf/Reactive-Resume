@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "{0} lamaran pekerjaan dipilih."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "{0} lamaran pekerjaan yang akan diekspor."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "Postingan pekerjaan {0}"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} mengembalikan “{1}”. Pesan Anda disimpan."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} baris sudah siap. {1} baris yang tidak berisi Perusahaan atau Posisi akan dilewati. {2} kontak yang tidak valid akan ditinggalkan."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Semua ({0})"
 msgid "All applications"
 msgstr "Semua lamaran"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Semua lamaran pekerjaan (termasuk yang tertutup)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Semua persyaratan lowongan tercakup."
@@ -1248,6 +1232,11 @@ msgstr "Semua persyaratan lowongan tercakup."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Semua tag"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "lamaran pekerjaan ditutup"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "tanggal lamaran pekerjaan"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Tanggal lamaran dari"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Tanggal lamaran sampai"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Lamaran dari waktu ke waktu"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Lamaran dikirim per minggu (8 minggu terakhir)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Lamaran untuk diekspor"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "Aplikasi yang menggunakan “{0}” akan berhenti berfungsi. Hal ini tid
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "Arab"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Diarsipkan (menutupnya)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Kembali ke lamaran"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Kembali ke pemeriksaan"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "Kembali ke data CSV"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Bersihkan"
 msgid "Clear date"
 msgstr "Hapus tanggal"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "Kosongkan salam pembuka atau salam penutup untuk menghilangkannya. Mengo
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Menghapus entri-entrinya; bagian itu tetap ada. Anda dapat membatalkan."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Warna"
 msgid "Colours and level"
 msgstr "Warna dan tingkat"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "Kolom {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Kolom"
@@ -2331,15 +2294,10 @@ msgstr "Ringkas"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Perusahaan"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Perusahaan dan Posisi wajib diisi. Cocokkan setiap bidang satu kali atau tinggalkan. Deskripsi dibatasi hingga 20.000 karakter."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "Koneksi disimpan"
 msgid "Contact details"
 msgstr "Detail kontak"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "Hubungi email"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "Label kontak"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Nama kontak"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "Hubungi telepon"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "Peran kontak"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Kontak"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "Kontak dengan email yang tidak valid atau tanpa nama akan ditinggalkan; lamaran pekerjaan mereka masih diimpor."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Perbaiki tahunnya, atau tulis \"Present\" untuk pekerjaan yang masih ber
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "Tidak dapat menyelesaikan permintaan. Periksa koneksi Anda dan coba lagi."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "Tidak dapat mengonfirmasi impor. Periksa lamaran pekerjaan sebelum mencoba lagi untuk menghindari duplikat."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Dibuat {0} · Terakhir digunakan {1} · Kedaluwarsa {2}"
 msgid "Creating document…"
 msgstr "Membuat dokumen…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "Data CSV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV memiliki kolom tanda kutip yang tidak ditutup. Perbaiki sebelum mengimpor."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV lebih besar dari 10 MB. Pisahkan sebelum mengimpor."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Mata uang"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Filter saat ini"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Masukkan alamat tempat Anda membuka Reactive Resume di browser. Aplikasi
 msgid "Enter the password the resume owner shared with you."
 msgstr "Masukkan kata sandi yang dibagikan pemilik resume kepada Anda."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Masukkan tanggal yang valid dengan awal pada atau sebelum akhir."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Entri"
@@ -3932,21 +3841,9 @@ msgstr "Semua yang ditulis pelatih untuk {company}, yang terbaru terlebih dahulu
 msgid "Experience"
 msgstr "Pengalaman"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Ekspor"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Ekspor PDF yang lebih kecil dan periksa lagi, atau buat CV kosong dan perbaiki di sana."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Ekspor detail lamaran pekerjaan, kontak, catatan, dan riwayat garis waktu sebagai CSV."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "Ekspor CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "Masalah yang terabaikan kembali muncul"
 msgid "Images cover most of the page."
 msgstr "Gambar menutupi sebagian besar halaman."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "Impor"
@@ -4582,10 +4478,6 @@ msgstr "Impor"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Impor resume"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "Impor lamaran kerja"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "Impor dibatalkan."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "Impor dibatalkan. Refresh Dokumen sebelum mencoba lagi jika upload telah selesai."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "Impor selesai"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Impor berkas"
@@ -4607,25 +4495,13 @@ msgstr "Impor berkas"
 msgid "Import it"
 msgstr "Impor itu"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "Impor atau ekspor CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Impor CV Anda saat ini, atau mulai dari awal dengan nama Anda."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "Impor/Ekspor"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "Impor"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "Lamaran pekerjaan {imported} yang diimpor. {overflow} baris ditinggalkan karena hanya 500 baris pertama yang diimpor sekaligus."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "Tingkatkan garis yang dipilih"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "Meningkatkan…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Sertakan header dan setidaknya satu baris lamaran pekerjaan."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "Pekerjaan"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "Deskripsi pekerjaan"
 
@@ -5055,10 +4926,6 @@ msgstr "Biarkan kosong untuk mengatur ulang judul ke aslinya."
 msgid "Leave it empty to remove the link."
 msgstr "Biarkan kosong untuk menghapus tautan."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "Tinggalkan"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "Kiri"
@@ -5173,7 +5040,6 @@ msgstr "Garis sedekat ini dapat berjalan bersamaan saat dibaca. Gunakan setidakn
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Memuat…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Dokumen yang dikunci dilewati. Buka kuncinya terlebih dahulu."
 msgid "Locked. Unlock to edit."
 msgstr "Terkunci. Buka kunci untuk mengedit."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Tekan lama kartu untuk menyeretnya ke tahap lain."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Tekan lama untuk memilih"
@@ -5460,10 +5320,6 @@ msgstr "Dikelola oleh server Anda"
 msgid "Many bullets start with the same phrase."
 msgstr "Banyak poin dimulai dengan frasa yang sama."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "Petakan Perusahaan dan Posisi tepat satu kali. Hapus kecocokan bidang duplikat."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "Maret 2022"
@@ -5530,10 +5386,6 @@ msgstr "Ditandai sudah dibaca"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "Sesuaikan dengan “{resumeName}”"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Cocokkan kolom"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Tidak ada lokasi"
 msgid "No matches"
 msgstr "Tidak ada kecocokan"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Tidak ada lamaran pekerjaan yang cocok"
@@ -6225,7 +6078,6 @@ msgstr "Informasi"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Catatan"
@@ -6408,10 +6260,6 @@ msgstr "Hanya halaman {0} pertama yang diperiksa."
 msgid "Only the first 30 pages were checked."
 msgstr "Hanya 30 halaman pertama yang diperiksa."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "Hanya 500 baris pertama yang diimpor sekaligus, kecuali {overflow}. Pisahkan file untuk mengimpor sisanya."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "Hanya halaman-halaman pertama yang diperiksa."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "Buka pengaturan AI"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Buka lamaran pekerjaan"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Buka lamaran kerja"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "lowongan"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "Lowongan kerja"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "sumber postingan pekerjaan"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Tinjau aplikasi"
 msgid "Review Check"
 msgstr "Tinjau Pemeriksaan"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Kolom ulasan"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Tinjau draf"
@@ -7905,7 +7742,6 @@ msgstr "Benar"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Posisi"
@@ -7951,13 +7787,6 @@ msgstr "Rotasi"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "Rotasi tidak didukung oleh rendering PDF."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "Baris {0}, {1}: “{2}” tidak valid. Perbaiki CSV atau tinggalkan kolom ini."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Jalankan lagi"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Cokelat karat"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Gaji"
 
@@ -8008,6 +7836,7 @@ msgstr "Contoh CV"
 msgid "Save"
 msgstr "Simpan"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Bagikan & ekspor"
 msgid "Share calendar event (.ics)"
 msgstr "Bagikan acara kalender (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "Bagikan CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Bagikan rekaman"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Bagikan bagian"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Bagikan baris yang dilewati atau tidak valid"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Tunjukkan semuanya"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Pertunjukan ditutup"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Tampilkan lamaran pekerjaan yang tertutup"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Urutkan berdasarkan tanggal"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Sumber"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Persegi"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Tahap"
 
@@ -9175,7 +8999,6 @@ msgstr "Tandai lamaran pekerjaan yang dipilih"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Coba lagi dengan ini"
 msgid "Try another search or clear your filters."
 msgstr "Coba penelusuran lain atau hapus filter Anda."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Cobalah kata-kata lain atau hapus filter Anda."
@@ -10250,10 +10074,6 @@ msgstr "Memperbarui {completed} dari {0}. Dokumen yang dikunci, dan surat lamara
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Memperbarui pratinjau…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "Unggah .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Impor Word, Memperbaiki, asisten, draf surat, pelatihan dan pembuatan ko
 msgid "Words run together when the text is extracted."
 msgstr "Kata-kata menyatu ketika teksnya diekstrak."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Bekerja. Menutup sheet ini tidak membatalkan impor yang sudah dikirim."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Bekerja…"
@@ -11162,10 +10978,6 @@ msgstr "Perkenalan dua menit Anda"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "Detail pekerjaan Anda yang belum disimpan akan dibuang sebelum membuka pengaturan pencarian web."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (opsional)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

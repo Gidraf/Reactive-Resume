@@ -224,3 +224,7 @@ Do not close these five issues based only on source checks:
 | [#2794 square-image crop](https://github.com/reactive-resume/reactive-resume/issues/2794) | Original fixture absent; square image with edge markers in preview and exported PDF    |
 
 Prior local checks recorded in the audit passed: API 399 unit and 71 isolated real-DB integration cases; auth 33; PDF 361; AI 7; web account 4; real report/export/deletion browser E2E; mobile consent/public-safety harnesses; relevant typechecks, boundaries, production builds, lint/format. These results do not establish production migration, provider behavior, device coverage, or store approval. Do not run destructive smoke fixtures against personal production accounts.
+
+## Feature parity exceptions
+
+- Applications CSV import/export is web-only on mobile by owner decision, 2026-10-19.

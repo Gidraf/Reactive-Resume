@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "U zgjodhën {0} aplikime."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "{0} aplikime për eksport."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "Postim pune {0}"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} ktheu “{1}”. Mesazhi juaj ruhet."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} rreshta gati. {1} rreshtave që mungojnë kompania ose roli do të anashkalohen. {2} kontakte të pavlefshme do të lihen jashtë."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Të gjitha ({0})"
 msgid "All applications"
 msgstr "Të gjitha aplikimet"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Të gjitha aplikimet për punë (përfshirë ato të mbyllura)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Të gjitha fjalët kyçe të shpalljeve për punë janë të mbuluara."
@@ -1248,6 +1232,11 @@ msgstr "Të gjitha fjalët kyçe të shpalljeve për punë janë të mbuluara."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Të gjitha etiketat"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "aplikimi për punë u mbyll"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "data e aplikimit për punë"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Data e aplikimit nga"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Data e aplikimit për"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Aplikimet me kalimin e kohës"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Aplikimet e dërguara për javë (8 javët e fundit)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Aplikimet për eksport"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "Aplikacionet që përdorin “{0}” do të ndalojnë së punuari. Kjo n
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "Arabisht"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Arkivuar (e mbyll)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Kthehu te aplikimet"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Kthehu te kontrollet e lexueshmërisë"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "Kthehu te të dhënat e CSV"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Pastro"
 msgid "Clear date"
 msgstr "Data e qartë"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "Pastroni përshëndetjen ose mbylljen për ta hequr. Pastrimi i mbylljes
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Pastron hyrjet e tij; seksioni qëndron. Mund ta zhbësh."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Ngjyra"
 msgid "Colours and level"
 msgstr "Ngjyrat dhe niveli"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "Kolona {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Kolonat"
@@ -2331,15 +2294,10 @@ msgstr "Kompakt"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Kompania"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Kërkohet kompania dhe roli. Përputhni secilën fushë një herë ose lëreni jashtë. Përshkrimet janë të kufizuara në 20,000 karaktere."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "Lidhja u ruajt"
 msgid "Contact details"
 msgstr "Detajet e kontaktit"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "Email kontakti"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "Etiketa e kontaktit"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Emri i kontaktit"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "Telefoni i kontaktit"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "Roli i kontaktit"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Kontaktet"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "Kontaktet me email të pavlefshëm ose pa emër janë lënë jashtë; aplikimet e tyre janë ende të importuara."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Korrigjoni vitin, ose shkruani \"Present\" për punë në vazhdim."
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "Kërkesa nuk mund të plotësohej. Verifikoni lidhjen tuaj dhe provoni përsëri."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "Importimi nuk mund të konfirmohej. Verifikoni Aplikimet përpara se të provoni përsëri për të shmangur dublikatat."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Krijuar {0} · Përdorimi i fundit {1} · Skadon {2}"
 msgid "Creating document…"
 msgstr "Po krijohet dokumenti…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "Të dhënat CSV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV ka një fushë të cituar të pambyllur. Rregullojeni përpara se ta importoni."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV është më i madh se 10 MB. Ndani atë përpara se ta importoni."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Monedha"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Filtrat aktualë"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Futni adresën në të cilën hapni Reactive Resume në një shfletues. 
 msgid "Enter the password the resume owner shared with you."
 msgstr "Vendosni fjalëkalimin që ju ndau pronari i CV-së."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Futni data të vlefshme me fillim në ose para përfundimit."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Hyrja"
@@ -3932,21 +3841,9 @@ msgstr "Gjithçka që shkroi këshilltari për {company}, nga më e reja."
 msgid "Experience"
 msgstr "Eksperienca"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Exporto"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Eksporto një PDF më të vogël dhe kontrollo sërish, ose fillo një CV bosh dhe rregullo këto aty."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Eksporto detajet e aplikimit, kontaktet, shënimet dhe historikun e kronologjisë si CSV."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "Eksporto CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "Problemet e injoruara janë kthyer"
 msgid "Images cover most of the page."
 msgstr "Imazhet mbulojnë pjesën më të madhe të faqes."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "Importo"
@@ -4582,10 +4478,6 @@ msgstr "Importo"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Importoni një CV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "Import aplikimet"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "Importi u anulua."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "Importi u anulua. Rifresko Dokumentet përpara se të provosh sërish nëse ngarkimi ka përfunduar."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "Importi përfundoi"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Importo skedarin"
@@ -4607,25 +4495,13 @@ msgstr "Importo skedarin"
 msgid "Import it"
 msgstr "Importojeni atë"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "Importoni ose eksportoni CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Importo CV-në tënde aktuale ose fillo nga fillimi me emrin tënd."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "Importo/Eksporto"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "I importuar"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "U importuan {imported} aplikime. U lanë jashtë {overflow} rreshta, sepse importohen vetëm 500 të parët njëherësh."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "Përmirëso linjën e zgjedhur"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "Po përmirësohet…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Përfshi një kokë dhe të paktën një rresht aplikimi."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "Job"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "Përshkrimi i punës"
 
@@ -5055,10 +4926,6 @@ msgstr "Lëreni bosh për ta rikthyer titullin në origjinal."
 msgid "Leave it empty to remove the link."
 msgstr "Lëreni bosh për të hequr lidhjen."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "Lëreni jashtë"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "Majtas"
@@ -5173,7 +5040,6 @@ msgstr "Rreshtat kaq afër mund të bashkohen kur lexohen. Përdorni të paktën
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Po ngarkohet…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Dokumentet e kyçura u anashkaluan. Zhbllokoni ato së pari."
 msgid "Locked. Unlock to edit."
 msgstr "E mbyllur. Zhblloko për ta modifikuar."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Shtypni gjatë një kartë për ta tërhequr në një fazë tjetër."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Mbajeni shtypur për të përzgjedhur"
@@ -5460,10 +5320,6 @@ msgstr "Menaxhohet nga serveri juaj"
 msgid "Many bullets start with the same phrase."
 msgstr "Shumë pika fillojnë me të njëjtën frazë."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "Harta Kompania dhe Roli saktësisht një herë. Hiq ndeshjet e dyfishta të fushës."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "Mars 2022"
@@ -5530,10 +5386,6 @@ msgstr "U shënua si e lexuar"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "Përshtate me “{resumeName}”"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Përputhni kolonat"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Nuk ka vendndodhje"
 msgid "No matches"
 msgstr "Nuk ka ndeshje"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Nuk ka aplikimet që përputhen"
@@ -6225,7 +6078,6 @@ msgstr "Informacion"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Shënime"
@@ -6408,10 +6260,6 @@ msgstr "Vetëm faqet e para {0} u kontrolluan."
 msgid "Only the first 30 pages were checked."
 msgstr "Janë kontrolluar vetëm 30 faqet e para."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "Vetëm 500 rreshtat e parë importohen menjëherë, duke lënë jashtë {overflow}. Ndani skedarin për të importuar pjesën tjetër."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "U kontrolluan vetëm faqet e para."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "Hapni cilësimet e AI"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Hap aplikimin"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Hap Aplikimet"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "shpallja"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "Shpallje pune"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "burimi i shpalljes së punës"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Rishikoni aplikacionin"
 msgid "Review Check"
 msgstr "Rishiko Kontrollin"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Rishikoni kolonat"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Rishiko draftin"
@@ -7905,7 +7742,6 @@ msgstr "E drejta"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Pozicioni"
@@ -7951,13 +7787,6 @@ msgstr "Rrotullimi"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "Rrotullimi nuk mbështetet nga interpretimi PDF."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "Rreshti {0}, {1}: “{2}” është i pavlefshëm. Rregulloni CSV ose lini këtë kolonë jashtë."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Ekzekutoni përsëri"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Ndryshk"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Paga"
 
@@ -8008,6 +7836,7 @@ msgstr "Shembull cv"
 msgid "Save"
 msgstr "Ruaj"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Ndani dhe eksportoni"
 msgid "Share calendar event (.ics)"
 msgstr "Ndaj ngjarjen e kalendarit (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "Ndaje CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Ndani regjistrimin"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Ndani seksionet"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Ndani rreshtat e anashkaluara ose të pavlefshme"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Trego të gjitha"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Shfaq të mbyllura"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Shfaq aplikimet e mbyllura"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Rendit sipas datës"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Burimi"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Katrori"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Skena"
 
@@ -9175,7 +8999,6 @@ msgstr "Etiketoni aplikimet e zgjedhura"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Provo përsëri me këtë"
 msgid "Try another search or clear your filters."
 msgstr "Provoni një kërkim tjetër ose pastroni filtrat tuaj."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Provoni fjalë të ndryshme ose pastroni filtrat tuaj."
@@ -10250,10 +10074,6 @@ msgstr "U përditësuan {completed} nga {0}. Dokumentet e kyçura dhe letrat pë
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Po përditëson pamjen paraprake…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "Ngarko .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Importi Word, Përmirësojeni, asistenti, draftet e letrave, këshillimi
 msgid "Words run together when the text is extracted."
 msgstr "Fjalët bashkohen kur teksti nxirret."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Duke punuar. Mbyllja e këtij paneli nuk anulon një import të dërguar tashmë."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Punon…"
@@ -11162,10 +10978,6 @@ msgstr "Prezantimi juaj dyminutësh"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "Detajet e punës së paruajtur do të hidhen poshtë përpara se të hapni cilësimet e kërkimit në ueb."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (opsionale)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

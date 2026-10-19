@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "Επιλέχθηκαν {0} αιτήσεις."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "{0} αιτήσεις προς εξαγωγή."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "Ανάρτηση εργασίας {0}"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "Το {0} επέστρεψε το \"{1}\". Το μήνυμά σας διατηρείται."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "Έτοιμες σειρές {0}. Οι σειρές {1} που λείπουν από την εταιρεία ή τον ρόλο θα παραβλεφθούν. Οι μη έγκυρες επαφές {2} θα παραμείνουν εκτός."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Όλα ({0})"
 msgid "All applications"
 msgstr "Όλες οι αιτήσεις"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Όλες οι αιτήσεις εργασίας (συμπεριλαμβανομένων των κλειστών)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Καλύπτονται όλες οι λέξεις-κλειδιά της αγγελίας."
@@ -1248,6 +1232,11 @@ msgstr "Καλύπτονται όλες οι λέξεις-κλειδιά της 
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Όλες οι ετικέτες"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "η αίτηση εργασίας έκλεισε"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "ημερομηνία αίτησης για εργασία"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Ημερομηνία υποβολής αίτησης από"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Ημερομηνία υποβολής αίτησης έως"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Αιτήσεις με την πάροδο του χρόνου"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Αιτήσεις που στάλθηκαν ανά εβδομάδα (τελευταίες 8 εβδομάδες)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Αιτήσεις για εξαγωγή"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "Οι εφαρμογές που χρησιμοποιούν \"{0}\" θα �
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "Αραβικά"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Αρχειοθετήθηκε (το κλείνει)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Πίσω στις αιτήσεις"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Επιστροφή στους ελέγχους"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "Επιστροφή στα δεδομένα CSV"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Εκκαθάριση"
 msgid "Clear date"
 msgstr "Καθαρή ημερομηνία"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "Διαγράψτε την προσφώνηση ή τον αποχαιρ�
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Διαγράφει τις καταχωρίσεις· η ενότητα παραμένει. Μπορείτε να αναιρέσετε."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Χρώμα"
 msgid "Colours and level"
 msgstr "Χρώματα και επίπεδο"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "Στήλη {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Στήλες"
@@ -2331,15 +2294,10 @@ msgstr "Συμπαγής"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Εταιρεία"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Εταιρεία και Θέση είναι υποχρεωτικά. Αντιστοιχίστε κάθε πεδίο μία φορά ή παραλείψτε το. Έως 20.000 χαρακτήρες ανά περιγραφή."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "Η σύνδεση αποθηκεύτηκε"
 msgid "Contact details"
 msgstr "Στοιχεία επικοινωνίας"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "Email επικοινωνίας"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "Ετικέτα επαφής"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Όνομα επικοινωνίας"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "Τηλέφωνο επικοινωνίας"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "Ρόλος επαφής"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Επαφές"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "Οι επαφές με μη έγκυρο email ή χωρίς όνομα παραλείπονται. οι αιτήσεις τους εξακολουθούν να εισάγονται."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Διορθώστε το έτος ή γράψτε «Present» για συ
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "Δεν ήταν δυνατή η ολοκλήρωση του αιτήματος. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "Δεν ήταν δυνατή η επιβεβαίωση της εισαγωγής. Ελέγξτε τις αιτήσεις πριν προσπαθήσετε ξανά για να αποφύγετε διπλότυπα."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Δημιουργήθηκε {0} · Τελευταία χρήση {1} · �
 msgid "Creating document…"
 msgstr "Δημιουργία εγγράφου…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "Δεδομένα CSV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "Το CSV έχει πεδίο με εισαγωγικά που δεν κλείνουν. Διορθώστε το πριν την εισαγωγή."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "Το CSV είναι μεγαλύτερο από 10 MB. Διαχωρίστε το πριν την εισαγωγή."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Νόμισμα"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Τρέχοντα φίλτρα"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Εισαγάγετε τη διεύθυνση στην οποία ανο�
 msgid "Enter the password the resume owner shared with you."
 msgstr "Εισαγάγετε τον κωδικό που σας κοινοποίησε ο κάτοχος του βιογραφικού."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Εισαγάγετε έγκυρες ημερομηνίες με έναρξη στο ή πριν από το τέλος."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Καταχώριση"
@@ -3932,21 +3841,9 @@ msgstr "Όλα όσα έγραψε ο σύμβουλος καριέρας για
 msgid "Experience"
 msgstr "Εμπειρία"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Εξαγωγή"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Εξάγετε ένα μικρότερο PDF και ελέγξτε το ξανά ή ξεκινήστε ένα κενό βιογραφικό και διορθώστε το εκεί."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Εξαγωγή λεπτομερειών αίτησης, επαφών, σημειώσεων και ιστορικού χρονοδιαγράμματος ως CSV."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "Εξαγωγή CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "Τα προβλήματα που αγνοήθηκαν επιστρέφο
 msgid "Images cover most of the page."
 msgstr "Οι εικόνες καλύπτουν το μεγαλύτερο μέρος της σελίδας."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "Εισαγωγή"
@@ -4582,10 +4478,6 @@ msgstr "Εισαγωγή"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Εισαγωγή βιογραφικού"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "Εισαγωγή αιτήσεων εργασίας"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "Η εισαγωγή ακυρώθηκε."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "Η εισαγωγή ακυρώθηκε. Ανανεώστε τα Έγγραφα πριν προσπαθήσετε ξανά, εάν η μεταφόρτωση είχε ολοκληρωθεί."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "Η εισαγωγή ολοκληρώθηκε"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Εισαγωγή αρχείου"
@@ -4607,25 +4495,13 @@ msgstr "Εισαγωγή αρχείου"
 msgid "Import it"
 msgstr "Εισαγάγετε το"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "Εισαγωγή ή εξαγωγή CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Εισαγάγετε το τρέχον βιογραφικό σας ή ξεκινήστε με το όνομά σας."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "Εισαγωγή/Εξαγωγή"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "Εισαγόμενος"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "Εισήχθησαν {imported} αιτήσεις. Παραλείφθηκαν {overflow} γραμμές, καθώς εισάγονται έως 500 κάθε φορά."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "Βελτιώστε την επιλεγμένη γραμμή"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "Βελτίωση…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Συμπεριλάβετε μια κεφαλίδα και τουλάχιστον μία σειρά αίτησης."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "Δουλειά"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "Περιγραφή θέσης"
 
@@ -5055,10 +4926,6 @@ msgstr "Αφήστε το κενό για να επαναφέρετε τον τ�
 msgid "Leave it empty to remove the link."
 msgstr "Αφήστε το κενό για να αφαιρέσετε τον σύνδεσμο."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "Παραλείπω"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "Αριστερά"
@@ -5173,7 +5040,6 @@ msgstr "Οι γραμμές τόσο κοντά μπορούν να εκτελο
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Φόρτωση…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Παραβλέφθηκαν τα κλειδωμένα έγγραφα. Ξ�
 msgid "Locked. Unlock to edit."
 msgstr "Κλειδωμένο. Ξεκλείδωμα για επεξεργασία."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Πατήστε παρατεταμένα μια κάρτα για να τη σύρετε σε άλλο στάδιο."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Πατήστε παρατεταμένα για επιλογή"
@@ -5460,10 +5320,6 @@ msgstr "Διαχειρίζεται ο διακομιστής σας"
 msgid "Many bullets start with the same phrase."
 msgstr "Πολλές κουκκίδες ξεκινούν με την ίδια φράση."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "Αντιστοιχίστε Εταιρεία και Θέση ακριβώς μία φορά. Αφαιρέστε διπλές αντιστοιχίσεις πεδίων."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "Μάρτιος 2022"
@@ -5530,10 +5386,6 @@ msgstr "Σημειώθηκε ως αναγνωσμένο"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "Αντιστοίχιση με το «{resumeName}»"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Αντιστοίχιση στηλών"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Καμία τοποθεσία"
 msgid "No matches"
 msgstr "Χωρίς αντιστοιχίες"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Δεν υπάρχουν αντίστοιχες αιτήσεις"
@@ -6225,7 +6078,6 @@ msgstr "Πληροφορίες"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Σημειώσεις"
@@ -6408,10 +6260,6 @@ msgstr "Ελέγχθηκαν μόνο οι πρώτες σελίδες {0}."
 msgid "Only the first 30 pages were checked."
 msgstr "Ελέγχθηκαν μόνο οι πρώτες 30 σελίδες."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "Μόνο οι πρώτες 500 σειρές εισάγονται ταυτόχρονα, αφήνοντας έξω το {overflow}. Διαχωρίστε το αρχείο για να εισαγάγετε το υπόλοιπο."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "Ελέγχθηκαν μόνο οι πρώτες σελίδες."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "Ανοίξτε τις ρυθμίσεις AI"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Άνοιγμα αίτησης"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Άνοιγμα Αιτήσεων"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "αγγελία"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "Αγγελία εργασίας"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "πηγή δημοσίευσης εργασίας"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Αναθεώρηση της αίτησης"
 msgid "Review Check"
 msgstr "Προβολή Ελέγχου"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Έλεγχος στηλών"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Έλεγχος προσχεδίου"
@@ -7905,7 +7742,6 @@ msgstr "Δικαίωμα"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Θέση εργασίας"
@@ -7951,13 +7787,6 @@ msgstr "Περιστροφή"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "Η περιστροφή δεν υποστηρίζεται από την απόδοση PDF."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "Σειρά {0}, {1}: Το \"{2}\" δεν είναι έγκυρο. Διορθώστε το CSV ή αφήστε αυτήν τη στήλη έξω."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Εκτέλεση ξανά"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Σκουριά"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Μισθός"
 
@@ -8008,6 +7836,7 @@ msgstr "Δείγμα βιογραφικού"
 msgid "Save"
 msgstr "Αποθήκευση"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Κοινή χρήση και εξαγωγή"
 msgid "Share calendar event (.ics)"
 msgstr "Κοινή χρήση συμβάντος ημερολογίου (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "Κοινή χρήση CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Κοινή χρήση εγγραφής"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Κοινή χρήση ενοτήτων"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Κοινή χρήση σειρών που παραλείφθηκαν ή δεν είναι έγκυρες"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Εμφάνιση όλων"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Εμφάνιση κλειστή"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Εμφάνιση κλειστών αιτήσεων εργασίας"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Ταξινόμηση κατά ημερομηνία"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Πηγή"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Τετράγωνο"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Στάδιο"
 
@@ -9175,7 +8999,6 @@ msgstr "Προσθήκη ετικετών σε επιλεγμένες αιτήσ
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Δοκιμάστε ξανά με αυτό"
 msgid "Try another search or clear your filters."
 msgstr "Δοκιμάστε άλλη αναζήτηση ή διαγράψτε τα φίλτρα σας."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Δοκιμάστε διαφορετικές λέξεις ή καθαρίστε τα φίλτρα σας."
@@ -10250,10 +10074,6 @@ msgstr "Ενημερώθηκαν {completed} από {0}. Παραλείφθηκ�
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Ενημέρωση προεπισκόπησης…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "Μεταφόρτωση .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Η εισαγωγή Word, η Βελτίωση, ο βοηθός, τα π�
 msgid "Words run together when the text is extracted."
 msgstr "Οι λέξεις ενώνονται όταν εξάγεται το κείμενο."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Εργασία. Το κλείσιμο αυτού του φύλλου δεν ακυρώνει μια εισαγωγή που έχει ήδη αποσταλεί."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Λειτουργεί…"
@@ -11162,10 +10978,6 @@ msgstr "Η δίλεπτη παρουσίασή σας"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "Οι μη αποθηκευμένες λεπτομέρειες της εργασίας σας θα απορριφθούν πριν ανοίξετε τις ρυθμίσεις αναζήτησης ιστού."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (προαιρετικό)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "Počet vybratých žiadostí o prácu: {0}."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "{0} žiadostí o prácu na export."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "Pracovná ponuka {0}"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} vrátilo „{1}“. Vaša správa je uložená."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "Pripravených je {0} riadkov. Riadky bez Spoločnosti alebo Pozície sa preskočia: {1}. Vynechané neplatné kontakty: {2}."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Všetky ({0})"
 msgid "All applications"
 msgstr "Všetky žiadosti"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Všetky žiadosti o zamestnanie (vrátane uzavretých)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Všetky výrazy pracovného inzerátu sú pokryté."
@@ -1248,6 +1232,11 @@ msgstr "Všetky výrazy pracovného inzerátu sú pokryté."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Všetky značky"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "žiadosť o zamestnanie uzavretá"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "dátum žiadosti o zamestnanie"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Dátum prihlášky od"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Dátum prihlášky do"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Žiadosti v čase"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Žiadosti odoslané za týždeň (posledných 8 týždňov)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Žiadosti na export"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "Aplikácie používajúce „{0}“ prestanú fungovať. Toto sa nedá v
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "Arabčina"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Archivované (zavrie sa)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Späť na žiadosti"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Späť na kontroly"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "Späť na údaje CSV"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Vymazať"
 msgid "Clear date"
 msgstr "Vymazať dátum"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "Ak chcete oslovenie alebo záverečnú formulu vynechať, vymažte ich. 
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Vymaže svoje záznamy; oddiel zostáva. Môžete vrátiť späť."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Farba"
 msgid "Colours and level"
 msgstr "Farby a úroveň"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "Stĺpec {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Stĺpce"
@@ -2331,15 +2294,10 @@ msgstr "Kompaktný"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Spoločnosť"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Spoločnosť a Pozícia sú povinné. Priraďte každé pole raz alebo ho vynechajte. Popisy sú obmedzené na 20 000 znakov."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "Pripojenie bolo uložené"
 msgid "Contact details"
 msgstr "Kontaktné údaje"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "Kontaktný email"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "Kontaktný štítok"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Meno kontaktu"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "Kontaktný telefón"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "Kontaktná rola"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Kontakty"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "Kontakty s neplatným e-mailom alebo bez mena sú vynechané; ich žiadosti o zamestnanie sa stále importujú."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Opravte rok alebo pre prebiehajúcu prácu napíšte „Present“."
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "Žiadosť sa nepodarilo dokončiť. Skontrolujte pripojenie a skúste to znova."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "Import sa nepodarilo potvrdiť. Pred opätovným pokusom skontrolujte žiadosti o prácu, aby ste sa vyhli duplikáciám."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Vytvorené {0} · Naposledy použité {1} · Platnosť vyprší {2}"
 msgid "Creating document…"
 msgstr "Vytvára sa dokument…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "údaje CSV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV má neuzavreté pole v úvodzovkách. Pred importovaním to opravte."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV je väčšie ako 10 MB. Pred importovaním ho rozdeľte."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Mena"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Aktuálne filtre"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Zadajte adresu, na ktorej otvárate Reactive Resume v prehliadači. Apli
 msgid "Enter the password the resume owner shared with you."
 msgstr "Zadajte heslo, ktoré vám poskytol vlastník životopisu."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Zadajte platné dátumy so začiatkom najneskôr v deň konca."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Záznam"
@@ -3932,21 +3841,9 @@ msgstr "Všetko, čo tréner napísal pre {company}, najnovšie ako prvé."
 msgid "Experience"
 msgstr "Skúsenosti"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Export"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Exportujte menšie PDF a znova ho skontrolujte, alebo vytvorte prázdny životopis a opravte ho tam."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Exportujte podrobnosti žiadosti o prácu, kontakty, poznámky a históriu časovej osi ako CSV."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "Exportovať CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "Ignorované problémy sú späť"
 msgid "Images cover most of the page."
 msgstr "Obrázky pokrývajú väčšinu strany."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "Importovať"
@@ -4582,10 +4478,6 @@ msgstr "Importovať"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Importovať životopis"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "Importujte žiadosti o prácu"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "Import bol zrušený."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "Import bol zrušený. Ak sa nahrávanie skončilo, pred opätovným pokusom obnovte Dokumenty."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "Import dokončený"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Importovať súbor"
@@ -4607,25 +4495,13 @@ msgstr "Importovať súbor"
 msgid "Import it"
 msgstr "Importujte ho"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "Importujte alebo exportujte CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Importujte svoj aktuálny životopis alebo začnite odznova so svojím menom."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "Import/Export"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "Importované"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "Importované žiadosti o prácu v počte {imported}. {overflow} riadkov je vynechaných, pretože importuje iba prvých 500 naraz."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "Vylepšite vybraný riadok"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "Zlepšuje sa…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Zahrňte hlavičku a aspoň jeden riadok žiadosti o prácu."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "Práca"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "Popis práce"
 
@@ -5055,10 +4926,6 @@ msgstr "Ak necháš prázdne, názov sa vráti na pôvodný."
 msgid "Leave it empty to remove the link."
 msgstr "Ak chcete odkaz odstrániť, nechajte pole prázdne."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "Vynechať"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "Vľavo"
@@ -5173,7 +5040,6 @@ msgstr "Takto blízke riadky sa môžu pri čítaní zbiehať. Použite aspoň {
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Načítava sa..."
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Zamknuté dokumenty boli preskočené. Najprv ich odomknite."
 msgid "Locked. Unlock to edit."
 msgstr "Zamknuté. Ak chcete upraviť, odomknite."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Dlhým stlačením kartu presuňte do inej fázy."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Vyberte dlhým stlačením"
@@ -5460,10 +5320,6 @@ msgstr "Spravované vaším serverom"
 msgid "Many bullets start with the same phrase."
 msgstr "Mnohé odrážky začínajú rovnakou frázou."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "Spoločnosť a Pozíciu priraďte práve raz. Odstráňte duplicitné priradenia polí."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "mar 2022"
@@ -5530,10 +5386,6 @@ msgstr "Označené ako prečítané"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "Zladiť s „{resumeName}“"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Priraďte stĺpce"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Žiadna poloha"
 msgid "No matches"
 msgstr "Žiadne zhody"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Žiadne zodpovedajúce žiadosti o zamestnanie"
@@ -6225,7 +6078,6 @@ msgstr "Informácie"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Poznámky"
@@ -6408,10 +6260,6 @@ msgstr "Boli skontrolované iba prvé strany {0}."
 msgid "Only the first 30 pages were checked."
 msgstr "Skontrolovaných bolo iba prvých 30 strán."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "Importuje sa naraz iba prvých 500 riadkov, pričom sa vynechá {overflow}. Rozdeľte súbor a importujte zvyšok."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "Skontrolované boli iba prvé strany."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "Otvorte nastavenia AI"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Otvorte žiadosť o zamestnanie"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Otvoriť žiadosti o zamestnanie"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "inzerát"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "Inzerát"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "zdroj pracovných ponúk"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Kontrola aplikácie"
 msgid "Review Check"
 msgstr "Pozrieť výsledky Kontroly"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Skontrolujte stĺpce"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Skontrolovať koncept"
@@ -7905,7 +7742,6 @@ msgstr "Správne"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Pozícia"
@@ -7951,13 +7787,6 @@ msgstr "Otočenie"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "Otáčanie nie je podporované vykresľovaním PDF."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "Riadok {0}, {1}: „{2}“ je neplatný. Opravte CSV alebo vynechajte tento stĺpec."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Spustiť znova"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Hrdzavo hnedá"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Plat"
 
@@ -8008,6 +7836,7 @@ msgstr "Vzorový životopis"
 msgid "Save"
 msgstr "Uložiť"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Zdieľať a exportovať"
 msgid "Share calendar event (.ics)"
 msgstr "Zdieľať udalosť kalendára (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "Zdieľať CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Zdieľať nahrávku"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Zdieľať sekcie"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Zdieľať preskočené alebo neplatné riadky"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Zobraziť všetky"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Zobraziť zatvorené"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Zobraziť uzavreté žiadosti o prácu"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Zoradiť podľa dátumu"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Zdroj"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Štvorec"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Etapa"
 
@@ -9175,7 +8999,6 @@ msgstr "Označte vybrané žiadosti o prácu"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Skúsiť znova s týmto"
 msgid "Try another search or clear your filters."
 msgstr "Skúste ďalšie vyhľadávanie alebo vymažte filtre."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Skúste iné slová alebo vymažte filtre."
@@ -10250,10 +10074,6 @@ msgstr "Aktualizované {completed} z {0}. Zamknuté dokumenty a sprievodné list
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Aktualizuje sa ukážka…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "Nahrajte súbor .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Import Word, Zlepšiť sa, asistent, koncepty listov, koučovanie a gene
 msgid "Words run together when the text is extracted."
 msgstr "Pri extrahovaní textu sa slová spájajú dokopy."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Spracúva sa. Zatvorením tohto panela sa nezruší už odoslaný import."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Spracúva sa…"
@@ -11162,10 +10978,6 @@ msgstr "Vaše dvojminútové predstavenie"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "Pred otvorením nastavení vyhľadávania na webe sa vaše neuložené podrobnosti o úlohe zahodia."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (voliteľné)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

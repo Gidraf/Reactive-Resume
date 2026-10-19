@@ -288,3 +288,92 @@ for (const [overrides, label, destination] of [
 console.log(
 	"PASS file-first sharing, single-flight/current-document/offline PDF export, fallback, explicit stage edits and state-aware next actions",
 );
+
+// Applications empty states must offer an action that changes the visible collection.
+let applications = [];
+let applicationSearch = "";
+const listLogic = load("features/applications/list.ts", {
+	"./next-step": { getNextStep: () => ({ kind: "none" }) },
+	"./stages": { LIST_ORDER: ["saved", "applied", "closed"] },
+});
+const { ApplicationsListScreen } = load("features/applications/list-screen.tsx", {
+	"@lingui/react/macro": { useLingui: () => ({ t: tag, i18n: { locale: "en" } }) },
+	"./add-sheet": { AddApplicationSheet: "AddApplicationSheet" },
+	"./csv-sheet": { ApplicationsCsvSheet: "ApplicationsCsvSheet" },
+	"./error": { applicationError: String },
+	"./list": listLogic,
+	"./next-step": { getNextStep: () => ({}), describeNextStep: () => ({ title: "Saved" }) },
+	"./queries": { useApplications: () => ({ data: applications }), useApplicationMutations: () => ({}) },
+	"./stages": { PIPELINE: [], CLOSED_REASONS: [], getStageColor: () => "gray", getStageLabel: (value) => value },
+	"@/auth/session": { useSession: () => ({ status: "signed-in", server: "fixture" }) },
+	"@/features/application-detail/hooks": { useUserTime: () => ({ timeZone: "UTC" }) },
+	"@/features/applications-board/views": { ApplicationsViewFrame: "ApplicationsViewFrame" },
+	"@/features/applications-board/search": {
+		useApplicationSearch: () => ({
+			search: applicationSearch,
+			setSearch: (value) => {
+				applicationSearch = value;
+			},
+		}),
+	},
+	"@/routes": { routes: { ...routes, applicationDetails: (id) => `/applications/${id}` } },
+	"react-native": { View: "View", Pressable: "Pressable", SectionList: "SectionList" },
+	"@/ui": { ...ui, Screen: "Screen", EmptyState: "EmptyState", Sheet: "Sheet", SelectSheet: "SelectSheet" },
+});
+reset();
+const List = render(ApplicationsListScreen, {}).type;
+const listView = () => render(List, {});
+let listTree = listView();
+let sectionList = nodes(listTree).find((node) => node.type === "SectionList");
+assert.equal(
+	sectionList.props.ListEmptyComponent.props.action.label,
+	"Save a job",
+	"new collection has creation action",
+);
+const job = {
+	id: "closed-job",
+	role: "Engineer",
+	company: "Example",
+	status: "closed",
+	tags: [],
+	contacts: [],
+	updatedAt: "2026-10-19T10:00:00Z",
+};
+applications = [job];
+listTree = listView();
+sectionList = nodes(listTree).find((node) => node.type === "SectionList");
+assert.equal(sectionList.props.ListEmptyComponent.props.title, "All your applications are closed");
+assert.equal(sectionList.props.ListEmptyComponent.props.action.label, "Show closed");
+sectionList.props.ListEmptyComponent.props.action.onPress();
+listTree = listView();
+sectionList = nodes(listTree).find((node) => node.type === "SectionList");
+assert.equal(sectionList.props.sections[0].data[0].id, job.id, "Show closed reveals hidden records");
+applicationSearch = "missing company";
+listTree = listView();
+sectionList = nodes(listTree).find((node) => node.type === "SectionList");
+assert.equal(sectionList.props.ListEmptyComponent.props.action.label, "Clear filters");
+sectionList.props.ListEmptyComponent.props.action.onPress();
+assert.equal(applicationSearch, "");
+listTree = listView();
+sectionList = nodes(listTree).find((node) => node.type === "SectionList");
+assert.equal(sectionList.props.sections.length, 0, "Clear filters restores default closed visibility");
+applications = [{ ...job, status: "saved" }];
+listTree = listView();
+sectionList = nodes(listTree).find((node) => node.type === "SectionList");
+const rowTree = sectionList.props.renderItem({ item: applications[0] });
+const row = nodes(rowTree).find((node) => node.type === "ListRow");
+assert.equal(row.props.onLongPress, undefined, "list long press never enters bulk selection");
+row.props.onPress();
+assert.equal(calls.at(-1), "/applications/closed-job", "single press opens application");
+nodes(rowTree)
+	.find((node) => node.props.icon === "dots-three")
+	.props.onPress();
+listTree = listView();
+sectionList = nodes(listTree).find((node) => node.type === "SectionList");
+const selectedRow = nodes(sectionList.props.renderItem({ item: applications[0] })).find(
+	(node) => node.type === "ListRow",
+);
+assert.equal(selectedRow.props.leading, "check-square", "ellipsis keeps explicit bulk selection reachable");
+console.log(
+	"PASS Applications empty/create, closed-only reveal, filter reset, single press and explicit bulk selection entry",
+);

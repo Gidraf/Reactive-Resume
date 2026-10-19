@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "已選取 {0} 筆應徵紀錄。"
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "將匯出 {0} 筆應徵紀錄。"
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "{0} 職缺發布"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} 返回「{1}」。您的留言將會保留。"
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "{0} 列已就緒。將略過缺少公司或職位的 {1} 列，以及 {2} 個無效聯絡人。"
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "全部({0})"
 msgid "All applications"
 msgstr "所有應徵紀錄"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "所有職位申請（包括已關閉的職位申請）"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "已涵蓋職缺說明中的所有關鍵字。"
@@ -1248,6 +1232,11 @@ msgstr "已涵蓋職缺說明中的所有關鍵字。"
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "所有標籤"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "工作申請已關閉"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "工作申請日期"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "應徵日期自"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "應徵日期至"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "申請隨時間變化"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "每週送出的申請（最近 8 週）"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "待匯出的應徵紀錄"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "使用「{0}」的應用程式將停止運作。此操作無法撤銷。
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "阿拉伯文"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "已存檔（關閉）"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "返回應徵紀錄"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "返回檢查"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "返回CSV數據"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "清除"
 msgid "Clear date"
 msgstr "清除日期"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "清除稱呼或結尾敬語即可省略。清除結尾敬語也會移除
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "清除其項目；該部分保留。您可以撤銷。"
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "顏色"
 msgid "Colours and level"
 msgstr "顏色與級別"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "欄{0}:{header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "欄"
@@ -2331,15 +2294,10 @@ msgstr "緊湊型"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "公司"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "公司和職位為必填欄位。每個欄位只能對應一次，也可略過。說明最多 20,000 個字元。"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "連線已儲存"
 msgid "Contact details"
 msgstr "聯絡資訊"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "聯絡信箱"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "接觸標籤"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "聯絡人姓名"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "聯絡電話"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "聯繫角色"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "聯絡人"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "無效電子郵件或沒有姓名的聯絡人將略過，其應徵紀錄仍會匯入。"
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "更正年份，或為仍在進行的工作寫上「現在」。"
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "無法完成請求。檢查您的連線並重試。"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "無法確認匯入。在重試之前檢查應徵紀錄以避免重複。"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "建立 {0} · 最後使用 {1} · 過期 {2}"
 msgid "Creating document…"
 msgstr "建立文件…"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "CSV 資料"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV 中有引號未閉合的欄位。請修正後再匯入。"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV大於10MB。在匯入之前將其拆分。"
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "幣別"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "目前的篩選條件"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "請輸入您在瀏覽器中開啟 Reactive Resume 的地址。繼續前�
 msgid "Enter the password the resume owner shared with you."
 msgstr "請輸入履歷擁有者告訴您的密碼。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "請輸入有效日期，開始日期不得晚於結束日期。"
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "項目"
@@ -3932,21 +3841,9 @@ msgstr "教練為 {company} 撰寫的所有內容，從最新開始。"
 msgid "Experience"
 msgstr "經歷"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "導出"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "請匯出較小的 PDF 再檢查，或建立空白履歷並在其中修正這些問題。"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "將應徵紀錄的資料、聯絡人、筆記和時間軸紀錄匯出為 CSV。"
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "匯出CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "被忽略的問題又回來了"
 msgid "Images cover most of the page."
 msgstr "圖片佔據了頁面的大部分空間。"
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "匯入"
@@ -4582,10 +4478,6 @@ msgstr "匯入"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "導入履歷"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "匯入應徵紀錄"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "匯入已取消。"
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "匯入已取消。如果上傳已完成，請先重新整理文件，然後再試一次。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "匯入完成"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "匯入文件"
@@ -4607,25 +4495,13 @@ msgstr "匯入文件"
 msgid "Import it"
 msgstr "匯入"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "匯入或匯出 CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "匯入您目前的履歷，或以您的名字重新開始。"
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "匯入/匯出"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "進口"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "已匯入 {imported} 筆應徵紀錄。每次只匯入前 500 列，因此略過了 {overflow} 列。"
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "改進選定的線路"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "改善…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "包括標題和至少一個應徵紀錄行。"
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "工作"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "職缺描述"
 
@@ -5055,10 +4926,6 @@ msgstr "留空則會將標題重設為原始值。"
 msgid "Leave it empty to remove the link."
 msgstr "將其留空以刪除連結。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "省略"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "左邊"
@@ -5173,7 +5040,6 @@ msgstr "如此接近的行在閱讀時可以連在一起。至少使用 {minimum
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "載入中…"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "鎖定的文件被跳過。首先將它們解鎖。"
 msgid "Locked. Unlock to edit."
 msgstr "鎖定。解鎖即可編輯。"
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "長按卡片可將其拖曳至另一階段。"
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "長按選取"
@@ -5460,10 +5320,6 @@ msgstr "由您的伺服器管理"
 msgid "Many bullets start with the same phrase."
 msgstr "很多重點都以相同的詞句開頭。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "公司和職位各只能對應一次。請移除重複的欄位對應。"
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "2022 年 3 月"
@@ -5530,10 +5386,6 @@ msgstr "已標記為已讀"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "符合「{resumeName}」"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "對應欄位"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "沒有位置"
 msgid "No matches"
 msgstr "沒有匹配項"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "沒有配對的應徵紀錄"
@@ -6225,7 +6078,6 @@ msgstr "資訊"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "備註"
@@ -6408,10 +6260,6 @@ msgstr "僅檢查前 {0} 頁。"
 msgid "Only the first 30 pages were checked."
 msgstr "僅檢查前30頁。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "一次只匯入前500行，忽略{overflow}。拆分文件以匯入其餘部分。"
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "只檢查了前幾頁。"
@@ -6447,12 +6295,9 @@ msgid "Open AI settings"
 msgstr "開啟AI設定"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
-msgstr "開啟應徵紀錄"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
 msgstr "開啟應徵紀錄"
 
 #: src/features/career/today.tsx
@@ -6917,10 +6762,6 @@ msgstr "職缺公告"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "職缺公告"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "職缺發布來源"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "查看求職申請"
 msgid "Review Check"
 msgstr "檢視檢查結果"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "檢視欄位"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "查看草稿"
@@ -7905,7 +7742,6 @@ msgstr "正確的"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "職位"
@@ -7951,13 +7787,6 @@ msgstr "旋轉"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "PDF 渲染不支援旋轉。"
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "第 {0} 列，{1}：「{2}」無效。請修正 CSV 或略過此欄。"
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "重新執行"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "鐵鏽紅"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "薪資"
 
@@ -8008,6 +7836,7 @@ msgstr "範例履歷"
 msgid "Save"
 msgstr "儲存"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "分享和匯出"
 msgid "Share calendar event (.ics)"
 msgstr "分享行事曆活動（.ics）"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "分享 CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "分享錄音"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "分享部分"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "分享已略過或無效的列"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "顯示全部"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "顯示已關閉"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "顯示已結束的應徵紀錄"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "依日期排序"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "來源"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "方形"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "階段"
 
@@ -9175,7 +8999,6 @@ msgstr "為所選應徵紀錄加上標籤"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "用這個再試一次"
 msgid "Try another search or clear your filters."
 msgstr "請嘗試其他搜尋或清除篩選條件。"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "請嘗試其他關鍵字或清除篩選條件。"
@@ -10250,10 +10074,6 @@ msgstr "已更新 {completed} 份，共 {0} 份。已略過鎖定的文件及用
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "正在更新預覽…"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "上傳 .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Word 匯入、改善、助理、求職信草稿、職涯教練與生成�
 msgid "Words run together when the text is extracted."
 msgstr "文字擷取出來後，單字會連在一起。"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "處理中。關閉此面板不會取消已送出的匯入。"
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "處理中…"
@@ -11162,10 +10978,6 @@ msgstr "兩分鐘自我介紹"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "在打开网络搜索设置之前，您未保存的职位详细信息将被丢弃。"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD（選填）"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx

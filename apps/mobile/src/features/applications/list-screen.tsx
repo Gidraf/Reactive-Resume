@@ -5,7 +5,6 @@ import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { RefreshControl, Pressable, SectionList, View } from "react-native";
 import { AddApplicationSheet } from "./add-sheet";
-import { ApplicationsCsvSheet } from "./csv-sheet";
 import { applicationError } from "./error";
 import { filterApplications, groupApplications, visibleSelection } from "./list";
 import { describeNextStep, getNextStep } from "./next-step";
@@ -13,6 +12,7 @@ import { useApplicationMutations, useApplications } from "./queries";
 import { CLOSED_REASONS, getClosedReasonLabel, getStageColor, getStageLabel, PIPELINE } from "./stages";
 import { useSession } from "@/auth/session";
 import { useUserTime } from "@/features/application-detail/hooks";
+import { useApplicationSearch } from "@/features/applications-board/search";
 import { ApplicationsViewFrame } from "@/features/applications-board/views";
 import { routes } from "@/routes";
 import {
@@ -56,7 +56,7 @@ function ApplicationsList() {
 	const pull = usePullRefresh(query.refetch);
 	const { timeZone } = useUserTime();
 	const { bulkUpdate, bulkDelete } = useApplicationMutations();
-	const [search, setSearch] = useState("");
+	const { search, setSearch } = useApplicationSearch();
 	const [tag, setTag] = useState("");
 	const [showClosed, setShowClosed] = useState(false);
 	const [sort, setSort] = useState<ApplicationSort>("updated");
@@ -65,7 +65,6 @@ function ApplicationsList() {
 	const [selected, setSelected] = useState<Set<string>>(new Set());
 	const [selecting, setSelecting] = useState(false);
 	const [adding, setAdding] = useState(false);
-	const [csv, setCsv] = useState(false);
 	const [filters, setFilters] = useState(false);
 	const [bulk, setBulk] = useState<"move" | "tag" | "close" | "delete" | null>(null);
 	const [moveStage, setMoveStage] = useState<ApplicationStatus>("applied");
@@ -77,6 +76,7 @@ function ApplicationsList() {
 	const lock = useRef(false);
 	const applications = query.data ?? [];
 	const filtered = filterApplications(applications, { search, tag, showClosed });
+	const filtersActive = Boolean(search.trim() || tag || showClosed);
 	const groups = groupApplications(filtered, sort, direction);
 	const selectedIds = visibleSelection(groups, collapsed, selected);
 	const tags = [...new Set(applications.flatMap((item) => item.tags))].sort();
@@ -144,7 +144,6 @@ function ApplicationsList() {
 						}}
 					/>
 				)}
-				<Button label={t`Import/Export`} variant="link" disabled={busy} onPress={() => setCsv(true)} />
 			</View>
 			{(search || tag || showClosed) && (
 				<Text color="ink2">
@@ -258,21 +257,31 @@ function ApplicationsList() {
 						!query.isPending && !query.isError ? (
 							<EmptyState
 								icon="briefcase"
-								title={applications.length ? t`No matching applications` : t`Your job search starts here`}
+								title={
+									!applications.length
+										? t`Your job search starts here`
+										: filtersActive
+											? t`No matching applications`
+											: t`All your applications are closed`
+								}
 								message={
 									applications.length
-										? t`Try different words or clear your filters.`
+										? filtersActive
+											? t`Try different words or clear your filters.`
+											: t`Show closed applications to see your past job searches.`
 										: t`Save a job link, paste a posting, or fill in the details manually.`
 								}
 								action={{
-									label: applications.length ? t`Clear filters` : t`Save a job`,
+									label: !applications.length ? t`Save a job` : filtersActive ? t`Clear filters` : t`Show closed`,
 									onPress: () =>
 										applications.length
-											? changeFilters(() => {
-													setSearch("");
-													setTag("");
-													setShowClosed(false);
-												})
+											? !filtersActive
+												? setShowClosed(true)
+												: changeFilters(() => {
+														setSearch("");
+														setTag("");
+														setShowClosed(false);
+													})
 											: setAdding(true),
 								}}
 							/>
@@ -337,13 +346,9 @@ function ApplicationsList() {
 										subtitle={`${item.company}${item.location ? ` · ${item.location}` : ""}\n${next.title}${next.sub ? ` · ${next.sub}` : ""}`}
 										selected={selectedIds.includes(item.id)}
 										leading={selecting ? (selectedIds.includes(item.id) ? "check-square" : "square") : undefined}
-										accessibilityHint={selecting ? t`Toggle selection` : t`Long press to select`}
+										accessibilityHint={selecting ? t`Toggle selection` : t`Open application`}
 										disabled={busy}
 										onPress={() => (selecting ? toggle(item.id) : router.push(routes.applicationDetails(item.id)))}
-										onLongPress={() => {
-											setSelecting(true);
-											toggle(item.id);
-										}}
 									/>
 								</View>
 								<IconButton
@@ -458,7 +463,6 @@ function ApplicationsList() {
 					</View>
 				</Sheet>
 				{adding && <AddApplicationSheet onClose={() => setAdding(false)} />}
-				{csv && <ApplicationsCsvSheet applications={applications} filtered={filtered} onClose={() => setCsv(false)} />}
 			</Screen>
 		</ApplicationsViewFrame>
 	);

@@ -275,11 +275,6 @@ msgstr "{0} → {1}: {2}{3}"
 msgid "{0} applications selected."
 msgstr "Izbrane prijave: {0}."
 
-#. placeholder {0}: selected.length
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} applications to export."
-msgstr "Prijave za izvoz: {0}."
-
 #. placeholder {0}: proposals.length
 #: src/features/assistant/document.ts
 #: src/features/assistant/proposals.ts
@@ -376,13 +371,6 @@ msgstr "{0} delovno mesto"
 #: src/features/assistant/chat-view.tsx
 msgid "{0} returned “{1}”. Your message is kept."
 msgstr "{0} je vrnil »{1}«. Vaše sporočilo se hrani."
-
-#. placeholder {0}: importable.length
-#. placeholder {1}: mapped.skipped
-#. placeholder {2}: mapped.contactsSkipped
-#: src/features/applications/csv-sheet.tsx
-msgid "{0} rows ready. {1} rows missing Company or Role will be skipped. {2} invalid contacts will be left out."
-msgstr "Vrstice {0} pripravljene. Vrstice {1}, v katerih manjka podjetje ali vloga, bodo preskočene. Neveljavni stiki {2} bodo izpuščeni."
 
 #. placeholder {0}: selectedIds.length
 #: src/features/applications/list-screen.tsx
@@ -1237,10 +1225,6 @@ msgstr "Vse ({0})"
 msgid "All applications"
 msgstr "Vse prijave"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "All applications (including closed)"
-msgstr "Vse prijave za delo (vključno z zaprtimi)"
-
 #: src/features/check/job-match.tsx
 msgid "All posting terms are covered."
 msgstr "Zajete so vse ključne besede iz oglasa."
@@ -1248,6 +1232,11 @@ msgstr "Zajete so vse ključne besede iz oglasa."
 #: src/features/applications/list-screen.tsx
 msgid "All tags"
 msgstr "Vse oznake"
+
+#: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
+msgid "All your applications are closed"
+msgstr ""
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1431,17 +1420,8 @@ msgstr "prijava za delo zaključena"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Application date"
 msgstr "datum prijave na delo"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date from"
-msgstr "Datum prijave od"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Application date to"
-msgstr "Datum prijave do"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Application deleted"
@@ -1477,10 +1457,6 @@ msgstr "Prijave skozi čas"
 #: src/features/applications-board/insights-screen.tsx
 msgid "Applications sent per week (last 8 weeks)"
 msgstr "Prijave, poslane na teden (zadnjih 8 tednov)"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Applications to export"
-msgstr "Prijave za izvoz"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/stages.ts
@@ -1529,10 +1505,6 @@ msgstr "Aplikacije, ki uporabljajo »{0}«, bodo prenehale delovati. Tega ni mog
 #: src/features/settings/locale-names.ts
 msgid "Arabic"
 msgstr "Arabščina"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Archived (closes it)"
-msgstr "Arhivirano (zapre)"
 
 #: src/features/write/fields.ts
 msgid "Area of study"
@@ -1706,10 +1678,6 @@ msgstr "Nazaj na prijave"
 #: src/features/check/screen.tsx
 msgid "Back to checks"
 msgstr "Nazaj na preglede"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Back to CSV data"
-msgstr "Nazaj na podatke CSV"
 
 #: src/features/workspace/shell.tsx
 msgid "Back to current"
@@ -2217,6 +2185,7 @@ msgstr "Počisti"
 msgid "Clear date"
 msgstr "Počisti datum"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Clear filters"
@@ -2239,7 +2208,6 @@ msgstr "Počistite nagovor ali zaključni pozdrav, da ga izpustite. Če počisti
 msgid "Clears its entries; the section stays. You can undo."
 msgstr "Počisti vnose; razdelek ostane. To lahko razveljavite."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
 #: src/features/documents/document-sheets.tsx
@@ -2307,11 +2275,6 @@ msgstr "Barva"
 msgid "Colours and level"
 msgstr "Barve in raven"
 
-#. placeholder {0}: index + 1
-#: src/features/applications/csv-sheet.tsx
-msgid "Column {0}: {header}"
-msgstr "Stolpec {0}: {header}"
-
 #: src/features/write/section-sheet.tsx
 msgid "Columns"
 msgstr "Stolpci"
@@ -2331,15 +2294,10 @@ msgstr "Kompakten"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/letters/write.tsx
 #: src/features/write/fields.ts
 msgid "Company"
 msgstr "Podjetje"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Company and Role are required. Match each field once or leave it out. Descriptions are limited to 20,000 characters."
-msgstr "Podjetje in Delovno mesto sta obvezna. Vsako polje povežite enkrat ali ga izpustite. Opisi so omejeni na 20.000 znakov."
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -2446,35 +2404,10 @@ msgstr "Povezava shranjena"
 msgid "Contact details"
 msgstr "Kontaktni podatki"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact email"
-msgstr "Kontaktni email"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact label"
-msgstr "Oznaka stika"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact name"
-msgstr "Ime kontakta"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact phone"
-msgstr "Kontaktni telefon"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contact role"
-msgstr "Kontaktna vloga"
-
 #: src/features/application-detail/sections.tsx
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Contacts"
 msgstr "Kontakti"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Contacts with an invalid email or no name are left out; their applications still import."
-msgstr "Stiki z neveljavno e-pošto ali brez imena so izpuščeni; njihove prijave še vedno uvažajo."
 
 #: src/features/write/picture-screen.tsx
 msgid "Contain"
@@ -2596,10 +2529,6 @@ msgstr "Popravite letnico ali za trenutno zaposlitev zapišite „Present“."
 #: src/features/applications/error.ts
 msgid "Could not complete the request. Check your connection and try again."
 msgstr "Zahteve ni bilo mogoče dokončati. Preverite povezavo in poskusite znova."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Could not confirm the import. Check Applications before retrying to avoid duplicates."
-msgstr "Ni bilo mogoče potrditi uvoza. Pred ponovnim poskusom preverite prijave, da se izognete dvojnikom."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Could not confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3097,25 +3026,9 @@ msgstr "Ustvarjeno {0} · Nazadnje uporabljeno {1} · Poteče {2}"
 msgid "Creating document…"
 msgstr "Ustvarjanje dokumenta …"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV data"
-msgstr "podatki CSV"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV has an unclosed quoted field. Fix it before importing."
-msgstr "CSV ima nezaprto narekovano polje. Popravite pred uvozom."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "CSV is larger than 10 MB. Split it before importing."
-msgstr "CSV je večji od 10 MB. Pred uvozom ga razdelite."
-
 #: src/features/career/preferences.tsx
 msgid "Currency"
 msgstr "Valuta"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Current filters"
-msgstr "Trenutni filtri"
 
 #. placeholder {0}: getStageLabel(status)
 #: src/features/application-detail/sections.tsx
@@ -3869,10 +3782,6 @@ msgstr "Vnesite naslov, na katerem odprete Reactive Resume v brskalniku. Aplikac
 msgid "Enter the password the resume owner shared with you."
 msgstr "Vnesite geslo, ki ga je z vami delil lastnik življenjepisa."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Enter valid dates with start on or before end."
-msgstr "Vnesite veljavne datume; začetek ne sme biti za koncem."
-
 #: src/features/write/entry-screen.tsx
 msgid "Entry"
 msgstr "Vnos"
@@ -3932,21 +3841,9 @@ msgstr "Vse, kar je trener napisal za {company}, najprej najnovejše."
 msgid "Experience"
 msgstr "Izkušnje"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Export"
-msgstr "Izvozi"
-
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
 msgstr "Izvozite manjši PDF in ga znova preverite ali pa zaženite prazen življenjepis in jih tam popravite."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Export application details, contacts, notes and timeline history as CSV."
-msgstr "Izvoz podrobnosti prijave, kontaktov, opomb in zgodovine časovnice kot CSV."
-
-#: src/features/applications-board/insights-screen.tsx
-msgid "Export CSV"
-msgstr "Izvoz CSV"
 
 #: src/features/search/search-screen.tsx
 msgid "Export Data"
@@ -4574,7 +4471,6 @@ msgstr "Prezrte težave so se vrnile"
 msgid "Images cover most of the page."
 msgstr "Slike prekrivajo večino strani."
 
-#: src/features/applications/csv-sheet.tsx
 #: src/features/search/search-screen.tsx
 msgid "Import"
 msgstr "Uvozi"
@@ -4582,10 +4478,6 @@ msgstr "Uvozi"
 #: src/features/documents/new-document.tsx
 msgid "Import a resume"
 msgstr "Uvozi življenjepis"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Import applications"
-msgstr "Uvoz prijav"
 
 #: src/features/documents/import-file.ts
 msgid "Import cancelled."
@@ -4595,10 +4487,6 @@ msgstr "Uvoz preklican."
 msgid "Import cancelled. Refresh Documents before retrying if the upload had finished."
 msgstr "Uvoz preklican. Če je nalaganje končano, pred ponovnim poskusom osvežite dokumente."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import complete"
-msgstr "Uvoz končan"
-
 #: src/features/documents/new-document.tsx
 msgid "Import file"
 msgstr "Uvozi datoteko"
@@ -4607,25 +4495,13 @@ msgstr "Uvozi datoteko"
 msgid "Import it"
 msgstr "Uvozi"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Import or export CSV"
-msgstr "Uvoz ali izvoz CSV"
-
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
 msgstr "Uvozite svoj trenutni življenjepis ali začnite znova s svojim imenom."
 
-#: src/features/applications/list-screen.tsx
-msgid "Import/Export"
-msgstr "Uvoz/Izvoz"
-
 #: src/features/history/history.tsx
 msgid "Imported"
 msgstr "Uvoženo"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Imported {imported} applications. {overflow} rows left out because only the first 500 import at once."
-msgstr "Uvožene prijave: {imported}. Izpuščenih je {overflow} vrstic, ker se naenkrat uvozi le prvih 500."
 
 #: src/features/write/outline.tsx
 msgid "Imported from {source}."
@@ -4647,10 +4523,6 @@ msgstr "Izboljšaj izbrano vrstico"
 #: src/features/write/improve.tsx
 msgid "Improving…"
 msgstr "Izboljšanje ..."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Include a header and at least one application row."
-msgstr "Vključite glavo in vsaj eno vrstico prijave."
 
 #: src/features/design/controls.tsx
 msgid "Increase {label}"
@@ -4815,7 +4687,6 @@ msgid "Job"
 msgstr "Delo"
 
 #: src/features/application-detail/sheets.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Job description"
 msgstr "Opis delovnega mesta"
 
@@ -5055,10 +4926,6 @@ msgstr "Pustite prazno, da ponastavite naslov na izvirnega."
 msgid "Leave it empty to remove the link."
 msgstr "Pustite prazno, da odstranite povezavo."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Leave out"
-msgstr "Pusti ven"
-
 #: src/features/design/template-group.tsx
 msgid "Left"
 msgstr "levo"
@@ -5173,7 +5040,6 @@ msgstr "Vrstice tako blizu lahko tečejo skupaj, ko jih berete. Uporabite vsaj {
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/share/screen.tsx
 #: src/features/write/fields.ts
 #: src/features/write/rich-text-field.tsx
@@ -5338,7 +5204,6 @@ msgstr "Nalaganje …"
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/write/basics-screen.tsx
 #: src/features/write/fields.ts
 msgid "Location"
@@ -5371,11 +5236,6 @@ msgstr "Zaklenjeni dokumenti so bili preskočeni. Najprej jih odkleni."
 msgid "Locked. Unlock to edit."
 msgstr "Zaklenjeno. Odklenite za urejanje."
 
-#: src/features/applications-board/board-screen.tsx
-msgid "Long press a card to drag it to another stage."
-msgstr "Dolgo pritisnite kartico, da jo povlečete na drugo stopnjo."
-
-#: src/features/applications/list-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Long press to select"
 msgstr "Za izbiro pritisnite in pridržite"
@@ -5460,10 +5320,6 @@ msgstr "Upravlja ga vaš strežnik"
 msgid "Many bullets start with the same phrase."
 msgstr "Mnoge alineje se začnejo z isto besedno zvezo."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Map Company and Role exactly once. Remove duplicate field matches."
-msgstr "Podjetje in Delovno mesto povežite natanko enkrat. Odstranite podvojene povezave polj."
-
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "marec 2022"
@@ -5530,10 +5386,6 @@ msgstr "Označeno kot prebrano"
 #: src/features/letters/design.tsx
 msgid "Match “{resumeName}”"
 msgstr "Uskladi z »{resumeName}«"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Match columns"
-msgstr "Poveži stolpce"
 
 #: src/features/search/search-screen.tsx
 msgid "Match system theme"
@@ -6045,6 +5897,7 @@ msgstr "Brez lokacije"
 msgid "No matches"
 msgstr "Ni ujemanja"
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "No matching applications"
 msgstr "Ni ustreznih prijav"
@@ -6225,7 +6078,6 @@ msgstr "Informacije"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/document-menu/index.tsx
 msgid "Notes"
 msgstr "Opombe"
@@ -6408,10 +6260,6 @@ msgstr "Preverjene so bile samo prve strani {0}."
 msgid "Only the first 30 pages were checked."
 msgstr "Preverjenih je bilo le prvih 30 strani."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Only the first 500 rows import at once, leaving out {overflow}. Split the file to import the rest."
-msgstr "Samo prvih 500 vrstic se uvozi naenkrat, pri čemer je {overflow} izpuščen. Razdelite datoteko, da uvozite ostalo."
-
 #: src/features/ats-checker/messages.ts
 msgid "Only the first pages were checked."
 msgstr "Preverjene so bile le prve strani."
@@ -6447,13 +6295,10 @@ msgid "Open AI settings"
 msgstr "Odprite nastavitve AI"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 #: src/features/check/job-match.tsx
 msgid "Open application"
 msgstr "Odpri prijavo"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Open Applications"
-msgstr "Odpri Prijave"
 
 #: src/features/career/today.tsx
 msgid "Open briefing"
@@ -6917,10 +6762,6 @@ msgstr "oglas"
 #: src/features/workspace/tabs/fit.tsx
 msgid "Posting"
 msgstr "Oglas za delo"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Posting source"
-msgstr "vir objave zaposlitve"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/saved.tsx
@@ -7839,10 +7680,6 @@ msgstr "Pregled aplikacije"
 msgid "Review Check"
 msgstr "Preglej Preverjanje"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Review columns"
-msgstr "Preglej stolpce"
-
 #: src/features/career/today.tsx
 msgid "Review draft"
 msgstr "Preglej osnutek"
@@ -7905,7 +7742,6 @@ msgstr "prav"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Role"
 msgstr "Delovno mesto"
@@ -7951,13 +7787,6 @@ msgstr "Rotacija"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "Upodabljanje PDF ne podpira rotacije."
 
-#. placeholder {0}: value.row
-#. placeholder {1}: fieldLabels[value.field]
-#. placeholder {2}: value.value
-#: src/features/applications/csv-sheet.tsx
-msgid "Row {0}, {1}: “{2}” is invalid. Fix the CSV or leave this column out."
-msgstr "Vrstica {0}, {1}: \"{2}\" ni veljaven. Popravite CSV ali izpustite ta stolpec."
-
 #: src/features/check/writing.tsx
 msgid "Run again"
 msgstr "Zaženi znova"
@@ -7982,7 +7811,6 @@ msgid "Rust"
 msgstr "Rja"
 
 #: src/features/application-detail/sections.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Salary"
 msgstr "Plača"
 
@@ -8008,6 +7836,7 @@ msgstr "Vzorec življenjepisa"
 msgid "Save"
 msgstr "Shrani"
 
+#: src/features/applications-board/views.tsx
 #: src/features/applications/add-sheet.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Save a job"
@@ -8466,10 +8295,6 @@ msgstr "Delite in izvozite"
 msgid "Share calendar event (.ics)"
 msgstr "Skupna raba koledarskega dogodka (.ics)"
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Share CSV"
-msgstr "Delite CSV"
-
 #. placeholder {0}: provider.label
 #: src/api/ai-consent.ts
 msgid "Share data with {0}?"
@@ -8499,10 +8324,6 @@ msgstr "Delite posnetek"
 #: src/features/share/screen.tsx
 msgid "Share sections"
 msgstr "Delite razdelke"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Share skipped or invalid rows"
-msgstr "Delite preskočene ali neveljavne vrstice"
 
 #: src/features/share/link.tsx
 msgid "Share via…"
@@ -8552,12 +8373,17 @@ msgid "Show all"
 msgstr "Prikaži vse"
 
 #: src/features/applications-board/board-screen.tsx
+#: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Oddaja zaprta"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications"
 msgstr "Pokaži zaprte prijave"
+
+#: src/features/applications/list-screen.tsx
+msgid "Show closed applications to see your past job searches."
+msgstr ""
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -8876,7 +8702,6 @@ msgstr "Razvrsti po datumu"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Source"
 msgstr "Vir"
 
@@ -8939,7 +8764,6 @@ msgid "Square"
 msgstr "Kvadrat"
 
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 msgid "Stage"
 msgstr "Stopnja"
 
@@ -9175,7 +8999,6 @@ msgstr "Označite izbrane prijave"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/add-sheet.tsx
-#: src/features/applications/csv-sheet.tsx
 #: src/features/career/stories.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/library.tsx
@@ -10064,6 +9887,7 @@ msgstr "Poskusi znova s tem"
 msgid "Try another search or clear your filters."
 msgstr "Poskusite z drugim iskanjem ali počistite filtre."
 
+#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Try different words or clear your filters."
 msgstr "Poskusite z drugimi besedami ali počistite filtre."
@@ -10250,10 +10074,6 @@ msgstr "Posodobljeno: {completed} od {0}. Zaklenjeni dokumenti in pisma za javne
 #: src/features/check/page.tsx
 msgid "Updating preview…"
 msgstr "Posodabljanje predogleda …"
-
-#: src/features/applications/csv-sheet.tsx
-msgid "Upload .csv"
-msgstr "Naložite .csv"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed."
@@ -10777,10 +10597,6 @@ msgstr "Uvoz Word, Izboljšava, pomočnik, osnutki pisem, karierno svetovanje in
 msgid "Words run together when the text is extracted."
 msgstr "Ob izvlečenju besedila se besede zlijejo skupaj."
 
-#: src/features/applications/csv-sheet.tsx
-msgid "Working. Closing this sheet does not cancel an import already sent."
-msgstr "Deluje. Zapiranje tega podokna ne prekliče že poslanega uvoza."
-
 #: src/features/ai/web-access.tsx
 msgid "Working…"
 msgstr "Delo …"
@@ -11162,10 +10978,6 @@ msgstr "Vaša dvominutna predstavitev"
 #: src/features/applications/add-sheet.tsx
 msgid "Your unsaved job details will be discarded before opening web search settings."
 msgstr "Vaše neshranjene podrobnosti o delu bodo zavržene, preden odprete nastavitve spletnega iskanja."
-
-#: src/features/applications/csv-sheet.tsx
-msgid "YYYY-MM-DD (optional)"
-msgstr "YYYY-MM-DD (neobvezno)"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx
