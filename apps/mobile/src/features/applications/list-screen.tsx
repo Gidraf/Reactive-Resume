@@ -4,6 +4,7 @@ import { useLingui } from "@lingui/react/macro";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { Pressable, SectionList, View } from "react-native";
+import Animated from "react-native-reanimated";
 import { AddApplicationSheet } from "./add-sheet";
 import { ApplicationsCsvSheet } from "./csv-sheet";
 import { applicationError } from "./error";
@@ -29,6 +30,8 @@ import {
 	Switch,
 	Text,
 	TextField,
+	listItemMotion,
+	useFirstAppearance,
 	useTheme,
 } from "@/ui";
 
@@ -52,6 +55,7 @@ function ApplicationsList() {
 	const { t, i18n } = useLingui();
 	const { colors, space, radius, size } = useTheme();
 	const query = useApplications();
+	const firstAppearance = useFirstAppearance(!query.isPending);
 	const { timeZone } = useUserTime();
 	const { bulkUpdate, bulkDelete } = useApplicationMutations();
 	const [search, setSearch] = useState("");
@@ -319,10 +323,11 @@ function ApplicationsList() {
 							/>
 						</Pressable>
 					)}
-					renderItem={({ item }) => {
+					renderItem={({ item, index }) => {
 						const next = describeNextStep(getNextStep(item), item, i18n.locale, timeZone);
 						return (
-							<View
+							<Animated.View
+								{...listItemMotion(index, firstAppearance)}
 								style={{
 									borderBottomWidth: 1,
 									borderBottomColor: colors.line,
@@ -354,7 +359,7 @@ function ApplicationsList() {
 										setSelecting(true);
 									}}
 								/>
-							</View>
+							</Animated.View>
 						);
 					}}
 				/>

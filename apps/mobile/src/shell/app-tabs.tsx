@@ -3,11 +3,19 @@ import type { BottomTabBarProps } from "expo-router/tabs";
 import type { ReactNode } from "react";
 import { useLingui } from "@lingui/react/macro";
 import { useRouter, usePathname } from "expo-router";
+import { Children, useEffect, useState } from "react";
 import { I18nManager, Platform, Pressable, ScrollView, View, useWindowDimensions } from "react-native";
 import { useKeyboardState } from "react-native-keyboard-controller";
+import Animated, {
+	useAnimatedStyle,
+	useSharedValue,
+	withSequence,
+	withSpring,
+	withTiming,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { routes } from "@/routes";
-import { Button, Icon, IconButton, Text, haptics, useTheme } from "@/ui";
+import { Button, Icon, IconButton, Text, haptics, useReducedMotion, useTheme } from "@/ui";
 
 /** The tab routes of `app/(tabs)`, in tab-bar order. `create` is the raised "+" that opens New. */
 const appTabIcons: Record<string, IconName> = {
@@ -17,9 +25,11 @@ const appTabIcons: Record<string, IconName> = {
 	settings: "gear-six",
 };
 
-// tokens.md §7: the iOS active-tab marker and the Android active-tab pill; Android tab cells are 64 tall (app.html).
-const iosMarker = { width: 28, height: 3 };
-const androidPill = { width: 56, height: 30 };
+// tokens.md §7: the active-tab marker on the bar's top rule; Android tab cells are 64 tall (app.html).
+const railMarker = { width: 28, height: 3 };
+// The edge moving toward the new tab arrives first; the other catches up with a little overshoot, so the marker stretches.
+const leadingEdge = { duration: 260, dampingRatio: 0.8 };
+const trailingEdge = { duration: 420, dampingRatio: 0.62 };
 const androidTabHeight = 64;
 const badgeMinWidth = 18;
 
@@ -41,7 +51,11 @@ const tabLabel = ({ descriptors }: BottomTabBarProps, route: TabRoute) => {
 	return typeof tabBarLabel === "string" ? tabBarLabel : (title ?? route.name);
 };
 
-const tabBadge = ({ descriptors }: BottomTabBarProps, route: TabRoute) => descriptors[route.key]?.options.tabBarBadge;
+/** A count of 0 shows nothing, like the web sidebar. */
+const tabBadge = ({ descriptors }: BottomTabBarProps, route: TabRoute) => {
+	const badge = descriptors[route.key]?.options.tabBarBadge;
+	return badge === 0 || badge === "0" ? undefined : badge;
+};
 
 /** `quiet`: a grey count. `accent`: unread. `warn`: open issues on Check. */
 type BadgeTone = "quiet" | "accent" | "warn";
@@ -65,7 +79,7 @@ function TabBadge({ value, tone }: BadgeProps) {
 				position: "absolute",
 				top: -space.s1,
 				// Just past the middle of the icon cell (app.html: left 50% + 6px).
-				start: (Platform.OS === "android" ? androidPill.width : size.icon.bar) / 2 + space.s1,
+				start: size.icon.bar / 2 + space.s1,
 				minWidth: badgeMinWidth,
 				paddingHorizontal: space.s1,
 				borderRadius: radius.rPill,
@@ -106,7 +120,7 @@ export function BarItem({ label, icon, focused, onPress, badge, badgeTone = "acc
 				if (icon && !focused) haptics.selection();
 				onPress();
 			}}
-			android_ripple={{ color: colors.press, borderless: true }}
+			android_ripple={{ color: colors.press, borderless: false }}
 			style={({ pressed }) => ({
 				flex: 1,
 				minHeight: android ? androidTabHeight : size.tabBar,
@@ -118,28 +132,8 @@ export function BarItem({ label, icon, focused, onPress, badge, badgeTone = "acc
 				backgroundColor: pressed && !android ? colors.press : "transparent",
 			})}
 		>
-			{focused && !android ? (
-				<View
-					style={{
-						position: "absolute",
-						top: 0,
-						...iosMarker,
-						borderBottomStartRadius: iosMarker.height,
-						borderBottomEndRadius: iosMarker.height,
-						backgroundColor: colors.accent,
-					}}
-				/>
-			) : null}
 			{icon ? (
-				<View
-					style={{
-						...(android ? androidPill : null),
-						borderRadius: radius.rPill,
-						alignItems: "center",
-						justifyContent: "center",
-						backgroundColor: focused && android ? colors.accentSoft : "transparent",
-					}}
-				>
+				<View style={{ alignItems: "center", justifyContent: "center" }}>
 					<Icon name={icon} filled={focused} color={focused ? colors.ink : colors.ink2} size={size.icon.bar} />
 					{badge === undefined ? null : <TabBadge value={badge} tone={badgeTone} />}
 				</View>
@@ -163,15 +157,80 @@ export function BarItem({ label, icon, focused, onPress, badge, badgeTone = "acc
 	);
 }
 
+type RailMarkerProps = {
+	index: number;
+	count: number;
+	/** The width of the row of cells. */
+	width: number;
+};
+
+/** The `accent` marker on the bar's top rule, over the focused cell. Its two edges spring separately, so it stretches. */
+function RailMarker({ index, count, width }: RailMarkerProps) {
+	const { colors, motion } = useTheme();
+	const reduced = useReducedMotion();
+	const cell = width / count;
+	// Cells are equal `flex: 1`; in RTL the row runs right to left but translateX does not.
+	const slot = I18nManager.isRTL ? count - 1 - index : index;
+	const target = slot * cell + (cell - railMarker.width) / 2;
+	const left = useSharedValue(target);
+	const right = useSharedValue(target + railMarker.width);
+	const opacity = useSharedValue(1);
+
+	useEffect(() => {
+		const end = target + railMarker.width;
+		if (reduced) {
+			// No stretch or travel: jump, then fade in.
+			left.set(target);
+			right.set(end);
+			opacity.set(withSequence(withTiming(0, { duration: 0 }), withTiming(1, { duration: motion.d1 })));
+			return;
+		}
+		// Springs start from where the marker is now, so a tap mid-flight retargets instead of restarting.
+		const forward = target > left.get();
+		left.set(withSpring(target, forward ? trailingEdge : leadingEdge));
+		right.set(withSpring(end, forward ? leadingEdge : trailingEdge));
+	}, [target, reduced, left, right, opacity, motion.d1]);
+
+	const style = useAnimatedStyle(() => ({
+		opacity: opacity.get(),
+		// Absolute and childless, so animating width costs no sibling layout.
+		width: Math.max(right.get() - left.get(), railMarker.height),
+		transform: [{ translateX: left.get() }],
+	}));
+
+	return (
+		<Animated.View
+			pointerEvents="none"
+			style={[
+				{
+					position: "absolute",
+					// Sits on the bar's 1 pt top rule.
+					top: -1,
+					left: 0,
+					height: railMarker.height,
+					borderBottomLeftRadius: railMarker.height,
+					borderBottomRightRadius: railMarker.height,
+					backgroundColor: colors.accent,
+				},
+				style,
+			]}
+		/>
+	);
+}
+
 type BarProps = {
 	children: ReactNode;
+	/** The focused cell, marked on the top rule. Omit for no marker. */
+	activeIndex?: number | undefined;
 };
 
 /** A bottom bar on `surface` with a top rule, padding the bottom and side safe areas. Hidden while the keyboard is up. */
-export function Bar({ children }: BarProps) {
+export function Bar({ children, activeIndex }: BarProps) {
 	const insets = useSafeAreaInsets();
 	const { colors } = useTheme();
 	const keyboardVisible = useKeyboardState((keyboard) => keyboard.isVisible);
+	const [width, setWidth] = useState(0);
+	const count = Children.count(children);
 
 	if (keyboardVisible) return null;
 
@@ -188,14 +247,19 @@ export function Bar({ children }: BarProps) {
 				borderTopColor: colors.line,
 			}}
 		>
-			{children}
+			<View style={{ flex: 1, flexDirection: "row" }} onLayout={(event) => setWidth(event.nativeEvent.layout.width)}>
+				{children}
+				{activeIndex !== undefined && activeIndex >= 0 && width > 0 && count > 0 ? (
+					<RailMarker index={activeIndex} count={count} width={width} />
+				) : null}
+			</View>
 		</View>
 	);
 }
 
 /**
- * The phone tab bar (app.html): five cells, the active tab with a filled icon plus an `accent` 28×3 marker on iOS or
- * an `accentSoft` pill on Android, and the raised "+" pill in the middle. Labels stay under the icons at every text
+ * The phone tab bar (app.html): five cells, the active tab with a filled icon and the `accent` 28×3 marker on the top
+ * rule (both platforms), and the raised "+" pill in the middle. Labels stay under the icons at every text
  * size (`micro` caps its scale); the bar grows taller instead of truncating.
  */
 export function PhoneTabBar(props: BottomTabBarProps) {
@@ -203,7 +267,7 @@ export function PhoneTabBar(props: BottomTabBarProps) {
 	const onPress = useTabPress(props);
 
 	return (
-		<Bar>
+		<Bar activeIndex={props.state.index}>
 			{props.state.routes.map((route, index) => (
 				<BarItem
 					key={route.key}

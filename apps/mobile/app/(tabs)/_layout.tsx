@@ -15,7 +15,7 @@ import { AppStrip, BannerAbove } from "@/shell/app-banner";
 import { AppSidebar, PhoneTabBar } from "@/shell/app-tabs";
 import { useKeyCommands } from "@/shell/key-commands";
 import { useIsTablet } from "@/shell/use-is-tablet";
-import { useTheme } from "@/ui";
+import { useReducedMotion, useTheme } from "@/ui";
 
 /**
  * Five tabs: Documents, Applications, the raised "+" (opens New as a modal), Career, Settings. Phone: the bottom tab
@@ -29,7 +29,8 @@ export default function TabsLayout() {
 	const insets = useSafeAreaInsets();
 	const network = useNetworkState();
 	const offline = network.isConnected === false || network.isInternetReachable === false;
-	const { colors } = useTheme();
+	const { colors, motion } = useTheme();
+	const reduced = useReducedMotion();
 	useKeyCommands(
 		[
 			{ id: "search", input: "k", title: t`Search`, run: () => router.push(routes.search()) },
@@ -57,7 +58,16 @@ export default function TabsLayout() {
 							<SafeAreaProvider>
 								<Tabs
 									tabBar={(props) => (tablet ? <AppSidebar {...props} /> : <PhoneTabBar {...props} />)}
-									screenOptions={{ animation: "none", headerShown: false, tabBarPosition: tablet ? "left" : "bottom" }}
+									screenOptions={{
+										// Owner asked for a swipe between tabs; reduced motion keeps a short crossfade.
+										animation: reduced ? "fade" : "shift",
+										transitionSpec: {
+											animation: "timing",
+											config: { duration: reduced ? motion.d1 : 220, easing: motion.ease },
+										},
+										headerShown: false,
+										tabBarPosition: tablet ? "left" : "bottom",
+									}}
 								>
 									<Tabs.Screen name="documents" options={{ title: t`Documents` }} />
 									<Tabs.Screen name="applications" options={{ title: t`Applications` }} />

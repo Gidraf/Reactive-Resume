@@ -50,7 +50,7 @@ export {
 	type ToastOptions,
 } from "./overlays";
 export { SortableList, type SortableItemInfo, type SortableListProps } from "./sortable";
-export { haptics, useReducedMotion } from "./motion";
+export { haptics, listItemMotion, listLayout, useFirstAppearance, useReducedMotion } from "./motion";
 export { Screen, Text, type ScreenProps, type TextProps, type TextVariant } from "./text";
 export { WindowSafeAreaProvider, useWindowSafeAreaInsets } from "./safe-area";
 export { setThemePreference, useTheme, useThemePreference, type Theme, type ThemePreference } from "./theme";
