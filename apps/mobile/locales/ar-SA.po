@@ -1233,7 +1233,6 @@ msgstr "جميع الكلمات المفتاحية في الإعلان مشمو�
 msgid "All tags"
 msgstr "جميع العلامات"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
 msgstr ""
@@ -1487,6 +1486,10 @@ msgstr "تم التطبيق. حُدِّدت المتابعة في {0}."
 #: src/features/workspace/tabs/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "تم التطبيق. تم تحديث الطلب."
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Applies to this device only."
+msgstr ""
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -3417,8 +3420,8 @@ msgid "Don't share"
 msgstr "لا تشارك"
 
 #: app/(tabs)/settings/index.tsx
-msgid "Donate"
-msgstr "يتبرع"
+msgid "Donate on Open Collective"
+msgstr ""
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -3894,6 +3897,10 @@ msgstr "فشل تحميل الصورة. يرجى المحاولة مرة أخر�
 msgid "Failed to verify the password. Please try again."
 msgstr "فشل التحقق من كلمة المرور. يرجى المحاولة مرة أخرى."
 
+#: app/(tabs)/settings/preferences.tsx
+msgid "Feedback"
+msgstr "الملاحظات"
+
 #: src/features/workspace/tabs/practise.tsx
 msgid "Feedback needs an AI connection. Nothing is sent until you ask."
 msgstr "تحتاج تعليقات إلى اتصال AI. لا يتم إرسال أي شيء حتى تسأل."
@@ -4209,6 +4216,10 @@ msgstr "التحية"
 #: src/features/documents/library.tsx
 msgid "Grid view"
 msgstr "عرض الشبكة"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Haptic feedback"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4722,6 +4733,10 @@ msgstr "مسار البحث عن وظيفة"
 msgid "Jobs"
 msgstr "وظائف"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Join the Discord"
+msgstr ""
+
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
 msgid "JSON"
@@ -4930,6 +4945,10 @@ msgstr "اتركه فارغًا لإزالة الرابط."
 msgid "Left"
 msgstr "غادر"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Legal"
+msgstr "قانوني"
+
 #: src/features/letters/write.tsx
 msgid "Length"
 msgstr "طول"
@@ -5000,7 +5019,6 @@ msgstr "خطابات التقديم ليس لها رابط عام. تحتفظ ا
 msgid "Level"
 msgstr "المستوى"
 
-#: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/licences.tsx
 msgid "Licences"
 msgstr "التراخيص"
@@ -5444,6 +5462,10 @@ msgstr "الحد الأدنى للراتب الأساسي"
 #: src/features/career/offers.tsx
 msgid "Minimum salary cannot be compared in these terms."
 msgstr "ولا يمكن مقارنة الحد الأدنى للراتب باستخدام هذه العملات أو فترات الدفع."
+
+#: app/(tabs)/settings/index.tsx
+msgid "MIT License"
+msgstr "رخصة MIT"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Mixed"
@@ -6364,6 +6386,10 @@ msgstr "افتح الجدول"
 #: src/features/career/today.tsx
 msgid "Open workspace"
 msgstr "افتح مساحة العمل"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Open-source licences"
+msgstr ""
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7476,6 +7502,10 @@ msgstr "تقرير"
 msgid "Report AI content"
 msgstr "الإبلاغ عن محتوى الذكاء الاصطناعي"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Report an issue"
+msgstr "الإبلاغ عن مشكلة"
+
 #: src/features/ai/report-content.tsx
 msgid "Report received by your server operator. Thank you."
 msgstr "تم استلام التقرير من قبل مشغل الخادم الخاص بك. شكرًا لك."
@@ -8372,7 +8402,6 @@ msgstr "إظهار {title} على الصفحة"
 msgid "Show all"
 msgstr "إظهار الكل"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "عرض مغلق"
@@ -8938,6 +8967,10 @@ msgstr "يقترح القطع، ولا يحذف أبدًا من تلقاء نف�
 msgid "Summary"
 msgstr "الملخّص"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Support"
+msgstr "يدعم"
+
 #: src/features/workspace/parts.tsx
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Supported"
@@ -9089,6 +9122,10 @@ msgstr "يتبع القالب والنوع والألوان السيرة الذ�
 #: src/features/ats-checker/checker.tsx
 msgid "Terms from the posting"
 msgstr "مصطلحات من إعلان الوظيفة"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Terms of service"
+msgstr ""
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"

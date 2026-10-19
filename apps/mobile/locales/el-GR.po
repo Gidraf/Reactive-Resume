@@ -1233,7 +1233,6 @@ msgstr "Καλύπτονται όλες οι λέξεις-κλειδιά της 
 msgid "All tags"
 msgstr "Όλες οι ετικέτες"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
 msgstr ""
@@ -1487,6 +1486,10 @@ msgstr "Εφαρμόστηκε. Η επανεπικοινωνία ορίστηκ
 #: src/features/workspace/tabs/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "Εφαρμόστηκε. Η αίτηση ενημερώθηκε."
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Applies to this device only."
+msgstr ""
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -3417,8 +3420,8 @@ msgid "Don't share"
 msgstr "Μην μοιράζεσαι"
 
 #: app/(tabs)/settings/index.tsx
-msgid "Donate"
-msgstr "Προσφέρω"
+msgid "Donate on Open Collective"
+msgstr ""
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -3894,6 +3897,10 @@ msgstr "Απέτυχε το ανέβασμα εικόνας. Προσπαθήσ�
 msgid "Failed to verify the password. Please try again."
 msgstr "Απέτυχε η επαλήθευση του κωδικού πρόσβασης. Προσπαθήστε ξανά."
 
+#: app/(tabs)/settings/preferences.tsx
+msgid "Feedback"
+msgstr "Ανατροφοδότηση"
+
 #: src/features/workspace/tabs/practise.tsx
 msgid "Feedback needs an AI connection. Nothing is sent until you ask."
 msgstr "Η ανατροφοδότηση απαιτεί σύνδεση AI. Τίποτα δεν αποστέλλεται μέχρι να το ζητήσετε."
@@ -4209,6 +4216,10 @@ msgstr "Προσφώνηση"
 #: src/features/documents/library.tsx
 msgid "Grid view"
 msgstr "Προβολή πλέγματος"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Haptic feedback"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4722,6 +4733,10 @@ msgstr "Ροή αναζήτησης εργασίας"
 msgid "Jobs"
 msgstr "Θέσεις εργασίας"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Join the Discord"
+msgstr ""
+
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
 msgid "JSON"
@@ -4930,6 +4945,10 @@ msgstr "Αφήστε το κενό για να αφαιρέσετε τον σύ�
 msgid "Left"
 msgstr "Αριστερά"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Legal"
+msgstr "Νομικά"
+
 #: src/features/letters/write.tsx
 msgid "Length"
 msgstr "Μήκος"
@@ -5000,7 +5019,6 @@ msgstr "οι συνοδευτικές επιστολές δεν έχουν δη�
 msgid "Level"
 msgstr "Επίπεδο"
 
-#: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/licences.tsx
 msgid "Licences"
 msgstr "Άδειες"
@@ -5444,6 +5462,10 @@ msgstr "Ελάχιστος βασικός μισθός"
 #: src/features/career/offers.tsx
 msgid "Minimum salary cannot be compared in these terms."
 msgstr "Ο κατώτατος μισθός δεν μπορεί να συγκριθεί με αυτούς τους όρους."
+
+#: app/(tabs)/settings/index.tsx
+msgid "MIT License"
+msgstr "Άδεια MIT"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Mixed"
@@ -6364,6 +6386,10 @@ msgstr "Άνοιγμα του προγράμματος"
 #: src/features/career/today.tsx
 msgid "Open workspace"
 msgstr "Άνοιγμα χώρου εργασίας"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Open-source licences"
+msgstr ""
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7476,6 +7502,10 @@ msgstr "Έκθεση"
 msgid "Report AI content"
 msgstr "Αναφορά περιεχομένου AI"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Report an issue"
+msgstr "Αναφορά προβλήματος"
+
 #: src/features/ai/report-content.tsx
 msgid "Report received by your server operator. Thank you."
 msgstr "Η αναφορά ελήφθη από τον χειριστή του διακομιστή σας. Σας ευχαριστώ."
@@ -8372,7 +8402,6 @@ msgstr "Εμφάνιση {title} στη σελίδα"
 msgid "Show all"
 msgstr "Εμφάνιση όλων"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Εμφάνιση κλειστή"
@@ -8938,6 +8967,10 @@ msgstr "Προτείνει περικοπές, ποτέ δεν διαγράφε�
 msgid "Summary"
 msgstr "Σύνοψη"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Support"
+msgstr "Υποστήριξη"
+
 #: src/features/workspace/parts.tsx
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Supported"
@@ -9089,6 +9122,10 @@ msgstr "Το πρότυπο, ο τύπος και τα χρώματα ακολο
 #: src/features/ats-checker/checker.tsx
 msgid "Terms from the posting"
 msgstr "Όροι από την ανάρτηση εργασίας"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Terms of service"
+msgstr ""
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"

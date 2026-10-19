@@ -1233,7 +1233,6 @@ msgstr "Alle nøgleord fra opslaget er dækket."
 msgid "All tags"
 msgstr "Alle tags"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
 msgstr ""
@@ -1487,6 +1486,10 @@ msgstr "Gennemført. Opfølgning sat til {0}."
 #: src/features/workspace/tabs/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "Gennemført. Ansøgningen er opdateret."
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Applies to this device only."
+msgstr ""
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -3417,8 +3420,8 @@ msgid "Don't share"
 msgstr "Del ikke"
 
 #: app/(tabs)/settings/index.tsx
-msgid "Donate"
-msgstr "Donér"
+msgid "Donate on Open Collective"
+msgstr ""
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -3894,6 +3897,10 @@ msgstr "Det lykkedes ikke at uploade et billede. Prøv venligst igen."
 msgid "Failed to verify the password. Please try again."
 msgstr "Det lykkedes ikke at bekræfte adgangskoden. Prøv venligst igen."
 
+#: app/(tabs)/settings/preferences.tsx
+msgid "Feedback"
+msgstr "Feedback"
+
 #: src/features/workspace/tabs/practise.tsx
 msgid "Feedback needs an AI connection. Nothing is sent until you ask."
 msgstr "Feedback kræver en AI-forbindelse. Der sendes intet, før du spørger."
@@ -4209,6 +4216,10 @@ msgstr "Hilsen"
 #: src/features/documents/library.tsx
 msgid "Grid view"
 msgstr "Gittervisning"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Haptic feedback"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4722,6 +4733,10 @@ msgstr "Jobsøgningspipeline"
 msgid "Jobs"
 msgstr "Job"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Join the Discord"
+msgstr ""
+
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
 msgid "JSON"
@@ -4930,6 +4945,10 @@ msgstr "Lad det være tomt for at fjerne linket."
 msgid "Left"
 msgstr "Venstre"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Legal"
+msgstr "Juridisk"
+
 #: src/features/letters/write.tsx
 msgid "Length"
 msgstr "Længde"
@@ -5000,7 +5019,6 @@ msgstr "Følgebreve har intet offentligt link. Låste CV’er bevarer deres nuv�
 msgid "Level"
 msgstr "Niveau"
 
-#: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/licences.tsx
 msgid "Licences"
 msgstr "Licenser"
@@ -5444,6 +5462,10 @@ msgstr "Mindste grundløn"
 #: src/features/career/offers.tsx
 msgid "Minimum salary cannot be compared in these terms."
 msgstr "Minimumsløn kan ikke sammenlignes i disse vilkår."
+
+#: app/(tabs)/settings/index.tsx
+msgid "MIT License"
+msgstr "MIT-licens"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Mixed"
@@ -6364,6 +6386,10 @@ msgstr "Åbn tidsplanen"
 #: src/features/career/today.tsx
 msgid "Open workspace"
 msgstr "Åbn arbejdsområde"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Open-source licences"
+msgstr ""
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7476,6 +7502,10 @@ msgstr "Rapport"
 msgid "Report AI content"
 msgstr "Rapportér AI-indhold"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Report an issue"
+msgstr "Rapportér et problem"
+
 #: src/features/ai/report-content.tsx
 msgid "Report received by your server operator. Thank you."
 msgstr "Rapport modtaget af din serveroperatør. Tak."
@@ -8372,7 +8402,6 @@ msgstr "Vis {title} på siden"
 msgid "Show all"
 msgstr "Vis alle"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Show lukket"
@@ -8938,6 +8967,10 @@ msgstr "Foreslår nedskæringer, sletter aldrig af sig selv"
 msgid "Summary"
 msgstr "Opsummering"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Support"
+msgstr "Støtte"
+
 #: src/features/workspace/parts.tsx
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Supported"
@@ -9089,6 +9122,10 @@ msgstr "Skabelon, type og farver følger cv'et, så parret altid matcher."
 #: src/features/ats-checker/checker.tsx
 msgid "Terms from the posting"
 msgstr "Udtryk fra jobopslaget"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Terms of service"
+msgstr ""
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"

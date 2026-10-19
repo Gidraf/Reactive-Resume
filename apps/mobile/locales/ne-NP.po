@@ -1233,7 +1233,6 @@ msgstr "विज्ञापनका सबै शब्दहरू समा
 msgid "All tags"
 msgstr "सबै ट्यागहरू"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
 msgstr ""
@@ -1487,6 +1486,10 @@ msgstr "लागू गरियो। {0} का लागि फलो-अप
 #: src/features/workspace/tabs/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "लागू गरियो। आवेदन अद्यावधिक भयो।"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Applies to this device only."
+msgstr ""
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -3417,8 +3420,8 @@ msgid "Don't share"
 msgstr "साझेदारी नगर्नुहोस्"
 
 #: app/(tabs)/settings/index.tsx
-msgid "Donate"
-msgstr "दान गर्नुहोस्"
+msgid "Donate on Open Collective"
+msgstr ""
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -3894,6 +3897,10 @@ msgstr "तस्बिर अपलोड गर्न असफल भयो�
 msgid "Failed to verify the password. Please try again."
 msgstr "पासवर्ड प्रमाणित गर्न असफल भयो। कृपया फेरि प्रयास गर्नुहोस्।"
 
+#: app/(tabs)/settings/preferences.tsx
+msgid "Feedback"
+msgstr "प्रतिक्रिया"
+
 #: src/features/workspace/tabs/practise.tsx
 msgid "Feedback needs an AI connection. Nothing is sent until you ask."
 msgstr "प्रतिक्रियालाई AI जडान चाहिन्छ। तपाईले सोध्नुभएसम्म केहि पठाइदैन।"
@@ -4209,6 +4216,10 @@ msgstr "अभिवादन"
 #: src/features/documents/library.tsx
 msgid "Grid view"
 msgstr "ग्रिड दृश्य"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Haptic feedback"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4722,6 +4733,10 @@ msgstr "रोजगार खोज पाइपलाइन"
 msgid "Jobs"
 msgstr "जागिरहरू"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Join the Discord"
+msgstr ""
+
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
 msgid "JSON"
@@ -4930,6 +4945,10 @@ msgstr "लिङ्क हटाउन यसलाई खाली छोड�
 msgid "Left"
 msgstr "बायाँ"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Legal"
+msgstr "कानुनी"
+
 #: src/features/letters/write.tsx
 msgid "Length"
 msgstr "लम्बाइ"
@@ -5000,7 +5019,6 @@ msgstr "आवरण पत्रहरूमा कुनै सार्वज
 msgid "Level"
 msgstr "स्तर"
 
-#: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/licences.tsx
 msgid "Licences"
 msgstr "इजाजतपत्रहरू"
@@ -5444,6 +5462,10 @@ msgstr "न्यूनतम आधारभूत तलब"
 #: src/features/career/offers.tsx
 msgid "Minimum salary cannot be compared in these terms."
 msgstr "यी सर्तहरूमा न्यूनतम तलब तुलना गर्न सकिँदैन।"
+
+#: app/(tabs)/settings/index.tsx
+msgid "MIT License"
+msgstr "MIT इजाजतपत्र"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Mixed"
@@ -6364,6 +6386,10 @@ msgstr "तालिका खोल्नुहोस्"
 #: src/features/career/today.tsx
 msgid "Open workspace"
 msgstr "कार्यक्षेत्र खोल्नुहोस्"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Open-source licences"
+msgstr ""
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7476,6 +7502,10 @@ msgstr "रिपोर्ट"
 msgid "Report AI content"
 msgstr "AI सामग्री रिपोर्ट गर्नुहोस्"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Report an issue"
+msgstr "समस्या रिपोर्ट गर्नुहोस्"
+
 #: src/features/ai/report-content.tsx
 msgid "Report received by your server operator. Thank you."
 msgstr "तपाईंको सर्भर अपरेटर द्वारा प्राप्त रिपोर्ट। धन्यवाद।"
@@ -8372,7 +8402,6 @@ msgstr "पृष्ठमा {title} देखाउनुहोस्"
 msgid "Show all"
 msgstr "सबै देखाउनुहोस्"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "शो बन्द"
@@ -8938,6 +8967,10 @@ msgstr "कटौतीको सुझाव दिन्छ, आफैले �
 msgid "Summary"
 msgstr "सारांश"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Support"
+msgstr "समर्थन"
+
 #: src/features/workspace/parts.tsx
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Supported"
@@ -9089,6 +9122,10 @@ msgstr "टेम्प्लेट, प्रकार र रङहरू र�
 #: src/features/ats-checker/checker.tsx
 msgid "Terms from the posting"
 msgstr "जागिर पोस्टिङबाट सर्तहरू"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Terms of service"
+msgstr ""
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"

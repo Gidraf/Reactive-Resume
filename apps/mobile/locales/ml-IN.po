@@ -1233,7 +1233,6 @@ msgstr "ജോലി വിവരണത്തിൽ നിന്നുള്ള 
 msgid "All tags"
 msgstr "എല്ലാ ടാഗുകളും"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
 msgstr ""
@@ -1487,6 +1486,10 @@ msgstr "പ്രയോഗിച്ചു. ഫോളോ-അപ്പ് {0}-ന�
 #: src/features/workspace/tabs/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "പ്രയോഗിച്ചു. അപേക്ഷ അപ്ഡേറ്റ് ചെയ്തു."
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Applies to this device only."
+msgstr ""
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -3417,8 +3420,8 @@ msgid "Don't share"
 msgstr "ഷെയർ ചെയ്യരുത്"
 
 #: app/(tabs)/settings/index.tsx
-msgid "Donate"
-msgstr "സംഭാവന ചെയ്യുക"
+msgid "Donate on Open Collective"
+msgstr ""
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -3894,6 +3897,10 @@ msgstr "ചിത്രം അപ്‌ലോഡ് ചെയ്യുന്ന�
 msgid "Failed to verify the password. Please try again."
 msgstr "പാസ്‌വേഡ് പരിശോധിക്കാൻ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക."
 
+#: app/(tabs)/settings/preferences.tsx
+msgid "Feedback"
+msgstr "ഫീഡ്‌ബാക്ക്"
+
 #: src/features/workspace/tabs/practise.tsx
 msgid "Feedback needs an AI connection. Nothing is sent until you ask."
 msgstr "ഫീഡ്ബാക്കിന് AI കണക്ഷൻ ആവശ്യമാണ്. നിങ്ങൾ ചോദിക്കുന്നതുവരെ ഒന്നും അയയ്ക്കില്ല."
@@ -4209,6 +4216,10 @@ msgstr "അഭിസംബോധന"
 #: src/features/documents/library.tsx
 msgid "Grid view"
 msgstr "ഗ്രിഡ് കാഴ്ച"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Haptic feedback"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4722,6 +4733,10 @@ msgstr "ജോലി തിരച്ചിൽ പൈപ്പ്‌ലൈൻ"
 msgid "Jobs"
 msgstr "ജോലികൾ"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Join the Discord"
+msgstr ""
+
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
 msgid "JSON"
@@ -4930,6 +4945,10 @@ msgstr "ലിങ്ക് നീക്കം ചെയ്യാൻ അത് �
 msgid "Left"
 msgstr "ഇടത്"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Legal"
+msgstr "നിയമപരം"
+
 #: src/features/letters/write.tsx
 msgid "Length"
 msgstr "നീളം"
@@ -5000,7 +5019,6 @@ msgstr "കവർ ലെറ്ററുകൾക്ക് പൊതു ലിങ
 msgid "Level"
 msgstr "നില"
 
-#: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/licences.tsx
 msgid "Licences"
 msgstr "ലൈസൻസുകൾ"
@@ -5444,6 +5462,10 @@ msgstr "കുറഞ്ഞ അടിസ്ഥാന ശമ്പളം"
 #: src/features/career/offers.tsx
 msgid "Minimum salary cannot be compared in these terms."
 msgstr "ഈ നിബന്ധനകളിൽ കുറഞ്ഞ ശമ്പളം താരതമ്യം ചെയ്യാൻ കഴിയില്ല."
+
+#: app/(tabs)/settings/index.tsx
+msgid "MIT License"
+msgstr "MIT ലൈസൻസ്"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Mixed"
@@ -6364,6 +6386,10 @@ msgstr "ഷെഡ്യൂൾ തുറക്കുക"
 #: src/features/career/today.tsx
 msgid "Open workspace"
 msgstr "വർക്ക്‌സ്‌പേസ് തുറക്കുക"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Open-source licences"
+msgstr ""
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7476,6 +7502,10 @@ msgstr "റിപ്പോർട്ട് ചെയ്യുക"
 msgid "Report AI content"
 msgstr "AI ഉള്ളടക്കം റിപ്പോർട്ട് ചെയ്യുക"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Report an issue"
+msgstr "ഒരു പ്രശ്നം റിപ്പോർട്ട് ചെയ്യുക"
+
 #: src/features/ai/report-content.tsx
 msgid "Report received by your server operator. Thank you."
 msgstr "നിങ്ങളുടെ സെർവർ ഓപ്പറേറ്റർക്ക് റിപ്പോർട്ട് ലഭിച്ചു. നന്ദി."
@@ -8372,7 +8402,6 @@ msgstr "പേജിൽ {title} കാണിക്കുക"
 msgid "Show all"
 msgstr "എല്ലാം കാണിക്കുക"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "ഷോ അടച്ചു"
@@ -8938,6 +8967,10 @@ msgstr "മുറിവുകൾ നിർദ്ദേശിക്കുന്�
 msgid "Summary"
 msgstr "സമ്മരി"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Support"
+msgstr "പിന്തുണ"
+
 #: src/features/workspace/parts.tsx
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Supported"
@@ -9089,6 +9122,10 @@ msgstr "ടെംപ്ലേറ്റ്, തരം, നിറങ്ങൾ എ�
 #: src/features/ats-checker/checker.tsx
 msgid "Terms from the posting"
 msgstr "ജോലി പോസ്റ്റിംഗിൽ നിന്നുള്ള നിബന്ധനകൾ"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Terms of service"
+msgstr ""
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"

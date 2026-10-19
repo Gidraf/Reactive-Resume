@@ -1233,7 +1233,6 @@ msgstr "সমস্ত চাকরির বিজ্ঞাপনের কী
 msgid "All tags"
 msgstr "সব ট্যাগ"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
 msgstr ""
@@ -1487,6 +1486,10 @@ msgstr "প্রয়োগ করা হয়েছে। ফলোআপে
 #: src/features/workspace/tabs/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "প্রয়োগ করা হয়েছে। আবেদন হালনাগাদ হয়েছে।"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Applies to this device only."
+msgstr ""
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -3417,8 +3420,8 @@ msgid "Don't share"
 msgstr "শেয়ার করবেন না"
 
 #: app/(tabs)/settings/index.tsx
-msgid "Donate"
-msgstr "দান করুন"
+msgid "Donate on Open Collective"
+msgstr ""
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -3894,6 +3897,10 @@ msgstr "ছবি আপলোড করতে ব্যর্থ হয়ে�
 msgid "Failed to verify the password. Please try again."
 msgstr "পাসওয়ার্ড যাচাই করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
 
+#: app/(tabs)/settings/preferences.tsx
+msgid "Feedback"
+msgstr "মতামত"
+
 #: src/features/workspace/tabs/practise.tsx
 msgid "Feedback needs an AI connection. Nothing is sent until you ask."
 msgstr "প্রতিক্রিয়া একটি AI সংযোগ প্রয়োজন৷ আপনি জিজ্ঞাসা না করা পর্যন্ত কিছুই পাঠানো হয় না."
@@ -4209,6 +4216,10 @@ msgstr "সম্ভাষণ"
 #: src/features/documents/library.tsx
 msgid "Grid view"
 msgstr "গ্রিড ভিউ"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Haptic feedback"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4722,6 +4733,10 @@ msgstr "চাকরি খোঁজার পাইপলাইন"
 msgid "Jobs"
 msgstr "চাকরি"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Join the Discord"
+msgstr ""
+
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
 msgid "JSON"
@@ -4930,6 +4945,10 @@ msgstr "লিঙ্কটি সরাতে এটি খালি ছেড�
 msgid "Left"
 msgstr "বাম"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Legal"
+msgstr "আইনি"
+
 #: src/features/letters/write.tsx
 msgid "Length"
 msgstr "দৈর্ঘ্য"
@@ -5000,7 +5019,6 @@ msgstr "চিঠিপত্রের কোনো পাবলিক লিঙ
 msgid "Level"
 msgstr "লেভেল"
 
-#: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/licences.tsx
 msgid "Licences"
 msgstr "লাইসেন্সসমূহ"
@@ -5444,6 +5462,10 @@ msgstr "ন্যূনতম মূল বেতন"
 #: src/features/career/offers.tsx
 msgid "Minimum salary cannot be compared in these terms."
 msgstr "ন্যূনতম বেতন এই শর্তাবলী মধ্যে তুলনা করা যাবে না."
+
+#: app/(tabs)/settings/index.tsx
+msgid "MIT License"
+msgstr "MIT লাইসেন্স"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Mixed"
@@ -6364,6 +6386,10 @@ msgstr "সময়সূচি খুলুন"
 #: src/features/career/today.tsx
 msgid "Open workspace"
 msgstr "ওয়ার্কস্পেস খুলুন"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Open-source licences"
+msgstr ""
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7476,6 +7502,10 @@ msgstr "রিপোর্ট"
 msgid "Report AI content"
 msgstr "এআই কন্টেন্ট রিপোর্ট করুন"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Report an issue"
+msgstr "সমস্যা রিপোর্ট করুন"
+
 #: src/features/ai/report-content.tsx
 msgid "Report received by your server operator. Thank you."
 msgstr "আপনার সার্ভার অপারেটর দ্বারা প্রাপ্ত রিপোর্ট. ধন্যবাদ"
@@ -8372,7 +8402,6 @@ msgstr "পৃষ্ঠায় {title} দেখান"
 msgid "Show all"
 msgstr "সব দেখান"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "শো বন্ধ"
@@ -8938,6 +8967,10 @@ msgstr "কাটার পরামর্শ দেয়, নিজে থে�
 msgid "Summary"
 msgstr "সারাংশ"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Support"
+msgstr "সমর্থন"
+
 #: src/features/workspace/parts.tsx
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Supported"
@@ -9089,6 +9122,10 @@ msgstr "টেমপ্লেট, টাইপ এবং রঙগুলি জ�
 #: src/features/ats-checker/checker.tsx
 msgid "Terms from the posting"
 msgstr "চাকরির বিজ্ঞপ্তির শব্দ"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Terms of service"
+msgstr ""
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"

@@ -42,32 +42,65 @@ export default function SettingsScreen() {
 			</SettingsGroup>
 			<SettingsGroup>
 				<SignOutRow switchServer />
+			</SettingsGroup>
+			<SettingsGroup title={t`Support`}>
 				<ListRow
-					title={t`Licences`}
-					leading="file-text"
-					chevron
-					onPress={() => router.push("/(tabs)/settings/licences")}
+					title={t`Help & docs`}
+					leading="question"
+					external
+					onPress={() => openLink("https://docs.rxresu.me")}
 				/>
-				<ListRow title={t`Help & docs`} leading="question" onPress={() => openLink("https://docs.rxresu.me")} />
+				<ListRow
+					title={t`Report an issue`}
+					leading="bug"
+					external
+					onPress={() => openLink("https://github.com/reactive-resume/reactive-resume/issues")}
+				/>
+				<ListRow
+					title={t`Join the Discord`}
+					leading="discord-logo"
+					external
+					onPress={() => openLink("https://discord.gg/aSyA5ZSxpb")}
+				/>
+				<ListRow
+					title={t`Source code on GitHub`}
+					leading="github-logo"
+					external
+					onPress={() => openLink("https://github.com/reactive-resume/reactive-resume")}
+				/>
+				{Platform.OS !== "ios" ? (
+					<ListRow
+						title={t`Donate on Open Collective`}
+						leading="hand-heart"
+						external
+						onPress={() => openLink("https://opencollective.com/reactive-resume/donate")}
+					/>
+				) : null}
+			</SettingsGroup>
+			<SettingsGroup title={t`Legal`}>
 				<ListRow
 					title={t`Privacy policy`}
 					leading="shield-check"
 					external
 					onPress={() => openLink("https://docs.rxresu.me/legal/privacy-policy")}
 				/>
-				{Platform.OS !== "ios" ? (
-					<ListRow
-						title={t`Donate`}
-						leading="hand-heart"
-						external
-						onPress={() => openLink("https://opencollective.com/reactive-resume/donate")}
-					/>
-				) : null}
 				<ListRow
-					title={t`Source code on GitHub`}
-					leading="code"
+					title={t`Terms of service`}
+					leading="scroll"
 					external
-					onPress={() => openLink("https://github.com/reactive-resume/reactive-resume")}
+					onPress={() => openLink("https://docs.rxresu.me/legal/terms-of-service")}
+				/>
+				<ListRow
+					title={t`MIT License`}
+					leading="scales"
+					external
+					onPress={() => openLink("https://github.com/reactive-resume/reactive-resume/blob/main/LICENSE")}
+				/>
+				<ListRow
+					title={t`Open-source licences`}
+					leading="file-text"
+					chevron
+					onPress={() => router.push("/(tabs)/settings/licences")}
 				/>
 			</SettingsGroup>
 			<SettingsGroup>

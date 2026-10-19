@@ -19,10 +19,14 @@ import {
 	ListRow,
 	Segmented,
 	Sheet,
+	Switch,
 	Text,
 	TextField,
+	haptics,
+	setHapticsEnabled,
 	setThemePreference,
 	showToast,
+	useHapticsEnabled,
 	useTheme,
 	useThemePreference,
 } from "@/ui";
@@ -30,6 +34,11 @@ import {
 export default function PreferencesScreen() {
 	const { t, i18n } = useLingui();
 	const theme = useThemePreference();
+	const hapticsOn = useHapticsEnabled();
+	const toggleHaptics = (value: boolean) => {
+		setHapticsEnabled(value);
+		haptics.selection();
+	};
 	const { space } = useTheme();
 	const profile = useProfile();
 	const queryClient = useQueryClient();
@@ -100,6 +109,14 @@ export default function PreferencesScreen() {
 				]}
 			/>
 			<Text variant="callout" color="ink3">{t`Resumes always render on white paper, whatever the theme.`}</Text>
+			<SettingsGroup title={t`Feedback`} note={t`Applies to this device only.`}>
+				<ListRow
+					title={t`Haptic feedback`}
+					leading="vibrate"
+					onPress={() => toggleHaptics(!hapticsOn)}
+					trailing={<Switch label={t`Haptic feedback`} value={hapticsOn} onValueChange={toggleHaptics} />}
+				/>
+			</SettingsGroup>
 			<SettingsGroup title={t`Language`} note={t`Interface only. Each resume sets its own language in Design.`}>
 				<ListRow
 					title={t`Language`}

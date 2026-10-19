@@ -1233,7 +1233,6 @@ msgstr "அறிவிப்பின் அனைத்து முக்க�
 msgid "All tags"
 msgstr "அனைத்து குறிச்சொற்களும்"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
 msgstr ""
@@ -1487,6 +1486,10 @@ msgstr "பயன்படுத்தப்பட்டது. பின்த�
 #: src/features/workspace/tabs/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "பயன்படுத்தப்பட்டது. விண்ணப்பம் புதுப்பிக்கப்பட்டது."
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Applies to this device only."
+msgstr ""
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -3417,8 +3420,8 @@ msgid "Don't share"
 msgstr "பகிர வேண்டாம்"
 
 #: app/(tabs)/settings/index.tsx
-msgid "Donate"
-msgstr "நன்கொடை அளிக்கவும்"
+msgid "Donate on Open Collective"
+msgstr ""
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -3894,6 +3897,10 @@ msgstr "படத்தை ஏற்றத் தவறிவிட்டது.
 msgid "Failed to verify the password. Please try again."
 msgstr "கடவுச்சொல்லைச் சரிபார்க்கத் தவறியது. மீண்டும் முயற்சிக்கவும்."
 
+#: app/(tabs)/settings/preferences.tsx
+msgid "Feedback"
+msgstr "கருத்து"
+
 #: src/features/workspace/tabs/practise.tsx
 msgid "Feedback needs an AI connection. Nothing is sent until you ask."
 msgstr "கருத்துக்கு AI இணைப்பு தேவை. நீங்கள் கேட்கும் வரை எதுவும் அனுப்பப்படாது."
@@ -4209,6 +4216,10 @@ msgstr "விளிப்பு"
 #: src/features/documents/library.tsx
 msgid "Grid view"
 msgstr "கிரிட் காட்சி"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Haptic feedback"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4722,6 +4733,10 @@ msgstr "வேலை தேடல் நிலைவரிசை"
 msgid "Jobs"
 msgstr "வேலைகள்"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Join the Discord"
+msgstr ""
+
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
 msgid "JSON"
@@ -4930,6 +4945,10 @@ msgstr "இணைப்பை அகற்ற அதை காலியாக �
 msgid "Left"
 msgstr "விட்டு"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Legal"
+msgstr "சட்டரீதியான"
+
 #: src/features/letters/write.tsx
 msgid "Length"
 msgstr "நீளம்"
@@ -5000,7 +5019,6 @@ msgstr "கவர் கடிதங்களுக்கு பொது இண
 msgid "Level"
 msgstr "நிலை"
 
-#: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/licences.tsx
 msgid "Licences"
 msgstr "உரிமங்கள்"
@@ -5444,6 +5462,10 @@ msgstr "குறைந்தபட்ச அடிப்படைச் சம�
 #: src/features/career/offers.tsx
 msgid "Minimum salary cannot be compared in these terms."
 msgstr "இந்த நாணயங்கள் அல்லது ஊதியக் காலங்களைப் பயன்படுத்தி குறைந்தபட்ச சம்பளத்தை ஒப்பிட முடியாது."
+
+#: app/(tabs)/settings/index.tsx
+msgid "MIT License"
+msgstr "எம்ஐடி உரிமம்"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Mixed"
@@ -6364,6 +6386,10 @@ msgstr "அட்டவணையைத் திற"
 #: src/features/career/today.tsx
 msgid "Open workspace"
 msgstr "பணியிடத்தைத் திற"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Open-source licences"
+msgstr ""
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7476,6 +7502,10 @@ msgstr "அறிக்கை"
 msgid "Report AI content"
 msgstr "AI உள்ளடக்கத்தைப் புகாரளிக்கவும்"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Report an issue"
+msgstr "ஒரு பிரச்சினையை அறிக்கையிடவும்"
+
 #: src/features/ai/report-content.tsx
 msgid "Report received by your server operator. Thank you."
 msgstr "உங்கள் சர்வர் ஆபரேட்டரால் அறிக்கை பெறப்பட்டது. நன்றி."
@@ -8372,7 +8402,6 @@ msgstr "பக்கத்தில் {title} ஐக் காட்டு"
 msgid "Show all"
 msgstr "அனைத்தையும் காட்டு"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "காட்சி மூடப்பட்டது"
@@ -8938,6 +8967,10 @@ msgstr "வெட்டுக்களை பரிந்துரைக்க�
 msgid "Summary"
 msgstr "சுருக்கம்"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Support"
+msgstr "ஆதரவு"
+
 #: src/features/workspace/parts.tsx
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Supported"
@@ -9089,6 +9122,10 @@ msgstr "டெம்ப்ளேட், வகை மற்றும் வண�
 #: src/features/ats-checker/checker.tsx
 msgid "Terms from the posting"
 msgstr "வேலை இடுகையின் விதிமுறைகள்"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Terms of service"
+msgstr ""
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"

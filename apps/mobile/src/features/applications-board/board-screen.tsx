@@ -38,7 +38,6 @@ import {
 	ListRow,
 	Sheet,
 	Skeleton,
-	Switch,
 	Text,
 	haptics,
 	listItemMotion,
@@ -92,7 +91,6 @@ function Board() {
 	const query = useApplications();
 	const { search } = useApplicationSearch();
 	const { update } = useApplicationMutations();
-	const [showClosed, setShowClosed] = useState(false);
 	// One open flag per sheet: a sheet's late dismissal can never close the one that replaced it.
 	const [moving, setMoving] = useState<Application | null>(null);
 	const [moveOpen, setMoveOpen] = useState(false);
@@ -127,8 +125,7 @@ function Board() {
 	if (pending && !keepPending(pending, query.data ?? [])) setPending(null);
 	const statusOf = (application: Application) =>
 		pending?.id === application.id ? pending.to : (application.status as ApplicationStatus);
-	const stages = showClosed ? STAGES : STAGES.filter((stage) => stage !== "closed");
-	const byStage = new Map<ApplicationStatus, Application[]>(stages.map((stage) => [stage, []]));
+	const byStage = new Map<ApplicationStatus, Application[]>(STAGES.map((stage) => [stage, []]));
 	for (const application of applications) byStage.get(statusOf(application))?.push(application);
 
 	const columnWidth = tablet ? TABLET_COLUMN : Math.min(PHONE_COLUMN, windowWidth - space.s4 * 2 - space.s8);
@@ -326,20 +323,6 @@ function Board() {
 	return (
 		<View style={{ flex: 1 }}>
 			<View
-				style={{
-					flexDirection: "row",
-					alignItems: "center",
-					justifyContent: "space-between",
-					gap: space.s3,
-					paddingHorizontal: space.s4,
-				}}
-			>
-				{!showClosed && applications.every((application) => statusOf(application) === "closed") ? (
-					<Text style={{ flex: 1 }} color="ink3">{t`All your applications are closed`}</Text>
-				) : null}
-				<Switch label={t`Show closed`} value={showClosed} onValueChange={setShowClosed} />
-			</View>
-			<View
 				ref={board}
 				style={{ flex: 1 }}
 				onLayout={() =>
@@ -360,7 +343,7 @@ function Board() {
 					onScroll={onBoardScroll}
 					contentContainerStyle={{ padding: space.s4, gap: space.s3 }}
 				>
-					{stages.map((stage) => (
+					{STAGES.map((stage) => (
 						<Column
 							key={stage}
 							onRefresh={query.refetch}

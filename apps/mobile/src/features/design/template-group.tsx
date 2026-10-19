@@ -3,7 +3,6 @@ import type { TemplateFilter } from "./presets";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import type { Template } from "@reactive-resume/schema/templates";
 import { useLingui } from "@lingui/react/macro";
-import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { useEffect, useState } from "react";
 import { PixelRatio, Pressable, ScrollView, View } from "react-native";
@@ -13,7 +12,7 @@ import { Field, Slider } from "./controls";
 import { TEMPLATES, matchesFilter, templateName } from "./presets";
 import { useSession } from "@/auth/session";
 import { usePreview } from "@/preview/usePreview";
-import { Chip, Icon, Segmented, Text, useTheme } from "@/ui";
+import { Chip, Icon, Segmented, Text, haptics, useTheme } from "@/ui";
 
 const A4_WIDTH_PT = 595.28;
 
@@ -150,7 +149,7 @@ function TemplateCard(props: TemplateCardProps) {
 			delayLongPress={400}
 			onLongPress={() => {
 				setHeld(true);
-				void Haptics.selectionAsync();
+				haptics.selection();
 				onPreview(selected ? null : id);
 			}}
 			onPressOut={() => setHeld(false)}

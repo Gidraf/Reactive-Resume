@@ -1,5 +1,6 @@
 // Reduced motion, haptics and the tablet check shared by the primitives (tokens.md §6).
 import * as Haptics from "expo-haptics";
+import Storage from "expo-sqlite/kv-store";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { AccessibilityInfo, useWindowDimensions } from "react-native";
 import { Easing, FadeInDown, FadeOut, LinearTransition, ReduceMotion } from "react-native-reanimated";
@@ -31,15 +32,43 @@ export function useReducedMotion(): boolean {
 
 const ignore = () => undefined;
 
-/** tokens.md §6 Haptics. Separate from motion: they play with reduced motion on too. */
+// Settings → Preferences → Haptic feedback. On by default; only "off" is stored.
+const hapticsKey = "haptics";
+let hapticsEnabled = Storage.getItemSync(hapticsKey) !== "off";
+const hapticsListeners = new Set<() => void>();
+
+export function setHapticsEnabled(value: boolean) {
+	hapticsEnabled = value;
+	if (value) Storage.removeItemSync(hapticsKey);
+	else Storage.setItemSync(hapticsKey, "off");
+	for (const listener of hapticsListeners) listener();
+}
+
+export function useHapticsEnabled(): boolean {
+	return useSyncExternalStore(
+		(listener) => {
+			hapticsListeners.add(listener);
+			return () => hapticsListeners.delete(listener);
+		},
+		() => hapticsEnabled,
+	);
+}
+
+const play = (feedback: () => Promise<void>) => {
+	if (hapticsEnabled) void feedback().catch(ignore);
+};
+
+/** tokens.md §6 Haptics. Separate from motion: they play with reduced motion on too. Every haptic goes through here. */
 export const haptics = {
 	/** Segmented change, detent change, lifting a row to reorder. */
-	selection: () => void Haptics.selectionAsync().catch(ignore),
+	selection: () => play(Haptics.selectionAsync),
 	/** Long-press to select. */
-	light: () => void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(ignore),
+	light: () => play(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)),
+	/** Picking up a section to drag it. */
+	medium: () => play(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)),
 	/** Confirming a destructive action. */
-	warning: () => void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(ignore),
-	success: () => void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(ignore),
+	warning: () => play(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning)),
+	success: () => play(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)),
 };
 
 /**

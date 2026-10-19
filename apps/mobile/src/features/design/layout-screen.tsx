@@ -1,7 +1,6 @@
 import type { ColumnId, Drop, DropZone, Location } from "./layout";
 import type { GroupProps } from "./style-groups";
 import { useLingui } from "@lingui/react/macro";
-import * as Haptics from "expo-haptics";
 import { useRef, useState } from "react";
 import { View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
@@ -20,7 +19,7 @@ import {
 	setFullWidth,
 	toggleBreak,
 } from "./layout";
-import { Button, Icon, IconButton, ListRow, Sheet, Text, useTheme } from "@/ui";
+import { Button, Icon, IconButton, ListRow, Sheet, Text, haptics, useTheme } from "@/ui";
 
 type Measurable = {
 	measureInWindow: (callback: (x: number, y: number, width: number, height: number) => void) => void;
@@ -89,7 +88,7 @@ export function LayoutScreen({ data, write, disabled, onDragChange }: LayoutScre
 			write("layout.move", (draft) => void moveSection(draft.metadata.layout, id, target, visible), true);
 	};
 	const lift = (id: string) => {
-		void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+		haptics.medium();
 		onDragChange(true);
 		update({ id, dy: 0, zones: [], target: null });
 		void begin(id);
@@ -99,7 +98,7 @@ export function LayoutScreen({ data, write, disabled, onDragChange }: LayoutScre
 		if (current?.id !== id) return;
 		const target = dropAt(current.zones, y);
 		if (target && (target.page !== current.target?.page || target.column !== current.target?.column))
-			void Haptics.selectionAsync();
+			haptics.selection();
 		update({ ...current, dy, target });
 	};
 

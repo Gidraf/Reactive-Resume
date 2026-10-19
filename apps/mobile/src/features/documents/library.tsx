@@ -4,7 +4,6 @@ import type { FlatListProps } from "react-native";
 import { plural } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
-import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import { useRouter, Stack, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { RefreshControl, I18nManager, Platform, Pressable, ScrollView, View, useWindowDimensions } from "react-native";
@@ -35,6 +34,7 @@ import {
 	Sheet,
 	Skeleton,
 	Text,
+	haptics,
 	listItemMotion,
 	listLayout,
 	useFirstAppearance,
@@ -213,7 +213,7 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 	const toggle = (document: DocumentSummary) => {
 		if (!selecting) {
 			setSelecting(true);
-			void impactAsync(ImpactFeedbackStyle.Light).catch(() => {});
+			haptics.light();
 		}
 		const key = documentKey(document);
 		setSelection((previous) =>
@@ -487,13 +487,11 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 					)
 				}
 				ListFooterComponent={
-					session.status === "signed-in" && !trashed ? (
+					session.status === "signed-in" && !trashed && counts.data?.trash ? (
 						<Card style={{ paddingVertical: space.s3 / 2 }}>
 							<ListRow
 								title={t`Trash`}
-								subtitle={
-									counts.data ? plural(counts.data.trash, { one: "# document", other: "# documents" }) : undefined
-								}
+								subtitle={plural(counts.data.trash, { one: "# document", other: "# documents" })}
 								leading="trash"
 								chevron
 								onPress={() => router.push(routes.trash())}

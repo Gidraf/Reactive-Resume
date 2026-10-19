@@ -1233,7 +1233,6 @@ msgstr "Tüm iş ilanı anahtar kelimeleri kapsanmaktadır."
 msgid "All tags"
 msgstr "Tüm etiketler"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
 msgstr ""
@@ -1487,6 +1486,10 @@ msgstr "Uygulandı. Takip {0} tarihine ayarlandı."
 #: src/features/workspace/tabs/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "Uygulandı. Başvuru güncellendi."
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Applies to this device only."
+msgstr ""
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -3417,8 +3420,8 @@ msgid "Don't share"
 msgstr "Paylaşma"
 
 #: app/(tabs)/settings/index.tsx
-msgid "Donate"
-msgstr "Bağış yapmak"
+msgid "Donate on Open Collective"
+msgstr ""
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -3894,6 +3897,10 @@ msgstr "Resim yüklenemedi. Lütfen tekrar deneyin."
 msgid "Failed to verify the password. Please try again."
 msgstr "Şifre doğrulanamadı. Lütfen tekrar deneyin."
 
+#: app/(tabs)/settings/preferences.tsx
+msgid "Feedback"
+msgstr "Geri bildirim"
+
 #: src/features/workspace/tabs/practise.tsx
 msgid "Feedback needs an AI connection. Nothing is sent until you ask."
 msgstr "Geri bildirimin bir AI bağlantısına ihtiyacı var. Siz sorana kadar hiçbir şey gönderilmez."
@@ -4209,6 +4216,10 @@ msgstr "Hitap"
 #: src/features/documents/library.tsx
 msgid "Grid view"
 msgstr "Izgara görünümü"
+
+#: app/(tabs)/settings/preferences.tsx
+msgid "Haptic feedback"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4722,6 +4733,10 @@ msgstr "İş arama hattı"
 msgid "Jobs"
 msgstr "İşler"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Join the Discord"
+msgstr ""
+
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
 msgid "JSON"
@@ -4930,6 +4945,10 @@ msgstr "Bağlantıyı kaldırmak için boş bırakın."
 msgid "Left"
 msgstr "Sol"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Legal"
+msgstr "Yasal"
+
 #: src/features/letters/write.tsx
 msgid "Length"
 msgstr "Uzunluk"
@@ -5000,7 +5019,6 @@ msgstr "Mektupların halka açık bir bağlantısı yoktur. Kilitli özgeçmişl
 msgid "Level"
 msgstr "Düzey"
 
-#: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/licences.tsx
 msgid "Licences"
 msgstr "Lisanslar"
@@ -5444,6 +5462,10 @@ msgstr "Asgari temel maaş"
 #: src/features/career/offers.tsx
 msgid "Minimum salary cannot be compared in these terms."
 msgstr "Asgari maaş bu şartlarda karşılaştırılamaz."
+
+#: app/(tabs)/settings/index.tsx
+msgid "MIT License"
+msgstr "MIT Lisansı"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Mixed"
@@ -6364,6 +6386,10 @@ msgstr "Zamanlamayı aç"
 #: src/features/career/today.tsx
 msgid "Open workspace"
 msgstr "Çalışma alanını aç"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Open-source licences"
+msgstr ""
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7476,6 +7502,10 @@ msgstr "Rapor"
 msgid "Report AI content"
 msgstr "Yapay zekâ içeriğini bildir"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Report an issue"
+msgstr "Bir sorunu bildirin"
+
 #: src/features/ai/report-content.tsx
 msgid "Report received by your server operator. Thank you."
 msgstr "Rapor sunucu operatörünüz tarafından alındı. Teşekkür ederim."
@@ -8372,7 +8402,6 @@ msgstr "{title}'yu sayfada göster"
 msgid "Show all"
 msgstr "Tümünü göster"
 
-#: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
 msgid "Show closed"
 msgstr "Kapalı olanı göster"
@@ -8938,6 +8967,10 @@ msgstr "Kesim önerir, asla kendi başına silmez"
 msgid "Summary"
 msgstr "Özet"
 
+#: app/(tabs)/settings/index.tsx
+msgid "Support"
+msgstr "Destek"
+
 #: src/features/workspace/parts.tsx
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Supported"
@@ -9089,6 +9122,10 @@ msgstr "Şablon, tür ve renkler özgeçmişi takip eder, böylece çift her zam
 #: src/features/ats-checker/checker.tsx
 msgid "Terms from the posting"
 msgstr "İş ilanındaki şartlar"
+
+#: app/(tabs)/settings/index.tsx
+msgid "Terms of service"
+msgstr ""
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"
