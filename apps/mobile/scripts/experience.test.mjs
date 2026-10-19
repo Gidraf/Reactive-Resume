@@ -62,6 +62,7 @@ const mocks = {
 	"@lingui/core/macro": { t: tag, plural: (value, forms) => forms.other.replace("#", String(value)) },
 	"@/routes": { routes },
 	"@/ui": ui,
+	"@/ui/use-pull-refresh": { usePullRefresh: () => ({ refreshing: false, onRefresh: () => undefined }) },
 };
 function load(path, extra = {}) {
 	const module = { exports: {} };
@@ -299,7 +300,6 @@ const listLogic = load("features/applications/list.ts", {
 const { ApplicationsListScreen } = load("features/applications/list-screen.tsx", {
 	"@lingui/react/macro": { useLingui: () => ({ t: tag, i18n: { locale: "en" } }) },
 	"./add-sheet": { AddApplicationSheet: "AddApplicationSheet" },
-	"./csv-sheet": { ApplicationsCsvSheet: "ApplicationsCsvSheet" },
 	"./error": { applicationError: String },
 	"./list": listLogic,
 	"./next-step": { getNextStep: () => ({}), describeNextStep: () => ({ title: "Saved" }) },
