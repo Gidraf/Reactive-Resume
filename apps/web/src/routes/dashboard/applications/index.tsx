@@ -18,6 +18,7 @@ import { Skeleton } from "@reactive-resume/ui/components/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@reactive-resume/ui/components/tabs";
 import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
 import { cn } from "@reactive-resume/utils/style";
+import { PageHeader } from "@/components/layout/page-header";
 import { AddApplicationDialog } from "@/features/applications/components/add-application-dialog";
 import { ApplicationDetailSheet } from "@/features/applications/components/application-detail-sheet";
 import { ApplicationFormSheet } from "@/features/applications/components/application-form-sheet";
@@ -112,54 +113,34 @@ function RouteComponent() {
 
 	return (
 		<div className="mx-auto grid w-full max-w-[1180px] content-start gap-5 px-8 py-8 max-sm:px-4 max-sm:py-5">
-			<header className="flex flex-wrap items-center justify-between gap-3">
-				<h1 className="font-display text-[30px] leading-9 font-medium">
-					<Trans>Applications</Trans>
-				</h1>
-				<div className="flex items-center gap-2">
-					<DropdownMenu>
-						<DropdownMenuTrigger
-							render={<Button size="icon" variant="secondary" aria-label={t`Import or export CSV`} />}
-						>
-							<Icon name="arrows-down-up" />
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end">
-							<DropdownMenuItem onClick={() => setImporting(true)}>
-								<Trans>Import from CSV…</Trans>
-							</DropdownMenuItem>
-							<DropdownMenuItem disabled={empty || !applications} onClick={() => setExporting(true)}>
-								<Trans>Export to CSV…</Trans>
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-					<Button onClick={() => setAdding(true)}>
-						<Icon name="plus" />
-						<Trans>Save job</Trans>
-					</Button>
-				</div>
-			</header>
-
-			{applications && <FollowUpNudge applications={applications} onOpen={setSelectedId} />}
-
-			{isError && (
-				<div
-					role="alert"
-					className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line p-4"
-				>
-					<p className="text-sm text-danger-text">
-						<Trans>Couldn't load applications. Try again.</Trans>
-					</p>
-					<Button variant="secondary" disabled={isFetching} onClick={() => void refetch()}>
-						<Trans>Retry</Trans>
-					</Button>
-				</div>
-			)}
-
-			{isError && !applications ? null : empty ? (
-				<EmptyState onAdd={() => setAdding(true)} onImport={() => setImporting(true)} />
-			) : (
-				<>
-					<div className="flex flex-wrap items-center gap-2">
+			<PageHeader
+				title={<Trans>Applications</Trans>}
+				actions={
+					<>
+						<DropdownMenu>
+							<DropdownMenuTrigger
+								render={<Button size="icon" variant="secondary" aria-label={t`Import or export CSV`} />}
+							>
+								<Icon name="arrows-down-up" />
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="end">
+								<DropdownMenuItem onClick={() => setImporting(true)}>
+									<Trans>Import from CSV…</Trans>
+								</DropdownMenuItem>
+								<DropdownMenuItem disabled={empty || !applications} onClick={() => setExporting(true)}>
+									<Trans>Export to CSV…</Trans>
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
+						<Button onClick={() => setAdding(true)}>
+							<Icon name="plus" />
+							<Trans>Save job</Trans>
+						</Button>
+					</>
+				}
+			>
+				{!(isError && !applications) && !empty && (
+					<>
 						<Tabs
 							value={shown}
 							onValueChange={(value) => {
@@ -218,8 +199,30 @@ function RouteComponent() {
 								<Trans>Show closed</Trans>
 							</Button>
 						)}
-					</div>
+					</>
+				)}
+			</PageHeader>
 
+			{applications && <FollowUpNudge applications={applications} onOpen={setSelectedId} />}
+
+			{isError && (
+				<div
+					role="alert"
+					className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line p-4"
+				>
+					<p className="text-sm text-danger-text">
+						<Trans>Couldn't load applications. Try again.</Trans>
+					</p>
+					<Button variant="secondary" disabled={isFetching} onClick={() => void refetch()}>
+						<Trans>Retry</Trans>
+					</Button>
+				</div>
+			)}
+
+			{isError && !applications ? null : empty ? (
+				<EmptyState onAdd={() => setAdding(true)} onImport={() => setImporting(true)} />
+			) : (
+				<>
 					{isPending ? (
 						<ViewSkeleton view={shown} />
 					) : noMatches ? (
