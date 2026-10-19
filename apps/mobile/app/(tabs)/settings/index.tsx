@@ -20,7 +20,7 @@ export default function SettingsScreen() {
 	const theme = useThemePreference();
 	const appearance = { system: t`System`, light: t`Light`, dark: t`Dark` }[theme];
 	return (
-		<SettingsPage title={t`Settings`} root>
+		<SettingsPage onRefresh={profile.refetch} title={t`Settings`} root>
 			<SettingsGroup>
 				<ListRow
 					title={profile.data?.name ?? t`Account`}

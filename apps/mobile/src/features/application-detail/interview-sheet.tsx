@@ -27,6 +27,7 @@ import {
 	useReminders,
 	zonedParts,
 } from "@/features/reminders";
+import { timeZones } from "@/lib/timezones";
 import {
 	Button,
 	Chip,
@@ -102,20 +103,6 @@ function draftFrom(interview: InterviewTimelineEntry, fallbackZone: string): Dra
 	};
 }
 
-// Hermes may lack Intl.supportedValuesOf; the picker then offers the common zones plus any typed IANA name.
-const ZONES: string[] =
-	typeof Intl.supportedValuesOf === "function"
-		? Intl.supportedValuesOf("timeZone")
-		: [
-				"UTC",
-				"Europe/London",
-				"Europe/Berlin",
-				"America/New_York",
-				"America/Los_Angeles",
-				"Asia/Kolkata",
-				"Asia/Tokyo",
-			];
-
 type InterviewSheetProps = {
 	application: Application;
 	/** The interview to edit, or null to schedule a new one. */
@@ -143,6 +130,7 @@ function InterviewForm({ application, interview, onClose }: InterviewFormProps) 
 	const [draft, setDraft] = useState(initial);
 	const saving = useRef(false);
 	const [zonePicker, setZonePicker] = useState(false);
+	const [zoneLimit, setZoneLimit] = useState(40);
 	const [zoneQuery, setZoneQuery] = useState("");
 	const existingLead = interview
 		? reminders.leadFor({ kind: "interview", applicationId: application.id, entryId: interview.id })
@@ -184,7 +172,10 @@ function InterviewForm({ application, interview, onClose }: InterviewFormProps) 
 		? LENGTHS
 		: [...LENGTHS, draft.durationMinutes].sort((a, b) => a - b);
 	const query = zoneQuery.trim().toLowerCase().replaceAll(" ", "_");
-	const zones = (query ? ZONES.filter((zone) => zone.toLowerCase().includes(query)) : ZONES).slice(0, 40);
+	const deviceZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+	const allZones = [...new Set([...timeZones, deviceZone, userZone, draft.timezone])].sort();
+	const matchingZones = allZones.filter((zone) => zone.toLowerCase().includes(query));
+	const zones = matchingZones.slice(0, zoneLimit);
 
 	const applyReminder = async (saved: Application, entryId: string) => {
 		const entry = saved.activity.filter(isInterview).find((item) => item.id === entryId);
@@ -344,12 +335,15 @@ function InterviewForm({ application, interview, onClose }: InterviewFormProps) 
 						<TextField
 							label={t`Interview timezone`}
 							value={zoneQuery}
-							onChangeText={setZoneQuery}
+							onChangeText={(value) => {
+								setZoneQuery(value);
+								setZoneLimit(40);
+							}}
 							placeholder={draft.timezone.replaceAll("_", " ")}
 							autoCapitalize="none"
 							autoCorrect={false}
 						/>
-						{query ? (
+						{zonePicker || query ? (
 							<View>
 								{(zones.length > 0 || !isTimeZone(zoneQuery.trim()) ? zones : [zoneQuery.trim()]).map((zone) => (
 									<ListRow
@@ -362,6 +356,9 @@ function InterviewForm({ application, interview, onClose }: InterviewFormProps) 
 										}}
 									/>
 								))}
+								{matchingZones.length > zoneLimit ? (
+									<Button variant="ghost" label={t`Show more`} onPress={() => setZoneLimit((limit) => limit + 40)} />
+								) : null}
 							</View>
 						) : null}
 						{at && draft.timezone !== userZone ? (

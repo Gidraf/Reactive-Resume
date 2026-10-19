@@ -1688,6 +1688,7 @@ msgstr "아제르바이잔어"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "요청 취소"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "커리어"
 
@@ -2240,7 +2242,6 @@ msgstr "항목을 지웁니다. 섹션이 유지됩니다. 실행 취소할 수 
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "오퍼"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "오퍼"
 
@@ -7413,10 +7413,6 @@ msgstr "추천"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "성찰"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "새로고침"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "키 표시"
 msgid "Show link in title"
 msgstr "제목에 링크 표시"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "더 보기"
@@ -9956,7 +9954,6 @@ msgstr "알림을 받으려면 기기 설정에서 알림을 허용하세요."
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "오늘"

@@ -1,5 +1,4 @@
 import { useLingui } from "@lingui/react/macro";
-import { Stack } from "expo-router";
 import { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import { Facts } from "./facts";
@@ -15,10 +14,9 @@ export function KnowledgeScreen() {
 	const [tab, setTab] = useState("facts");
 	const { fontScale } = useWindowDimensions();
 	const session = useSession();
-	const { profile } = useCareerQueries();
+	const { facts, stories, profile } = useCareerQueries();
 	return (
-		<Screen>
-			<Stack.Screen options={{ title: t`Knowledge` }} />
+		<Screen onRefresh={() => Promise.allSettled([facts.refetch(), stories.refetch(), profile.refetch()])}>
 			<Text color="ink3">{t`Your facts, stories and preferences. Editing Knowledge sends nothing to an AI connection.`}</Text>
 			<Segmented
 				orientation={fontScale > 1.3 ? "vertical" : "horizontal"}

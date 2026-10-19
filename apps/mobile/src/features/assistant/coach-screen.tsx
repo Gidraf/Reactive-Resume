@@ -5,7 +5,6 @@ import type { IconName } from "@/ui";
 import { plural } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Stack } from "expo-router";
 import { useState } from "react";
 import { Pressable, View } from "react-native";
 import { refreshThreads, useThreads } from "./chat";
@@ -126,18 +125,13 @@ export function CoachScreen({ offerIds }: CoachScreenProps) {
 
 	return (
 		<View style={{ flex: 1, backgroundColor: colors.surface }}>
-			<Stack.Screen
-				options={{
-					title: summary ? title(summary) : t`Coach`,
-					headerLargeTitle: false,
-					headerRight: () => (
-						<View style={{ flexDirection: "row" }}>
-							<IconButton icon="clock-counter-clockwise" label={t`Conversations`} onPress={() => setListOpen(true)} />
-							<IconButton icon="note-pencil" label={t`New conversation`} onPress={newConversation} />
-						</View>
-					),
-				}}
-			/>
+			<View style={{ paddingHorizontal: space.s4, flexDirection: "row", alignItems: "center" }}>
+				<Text variant="label" style={{ flex: 1 }}>
+					{summary ? title(summary) : t`Coach`}
+				</Text>
+				<IconButton icon="clock-counter-clockwise" label={t`Conversations`} onPress={() => setListOpen(true)} />
+				<IconButton icon="note-pencil" label={t`New conversation`} onPress={newConversation} />
+			</View>
 			<ProviderGate
 				providers={providers}
 				readOnly={threadId !== null}
@@ -189,6 +183,15 @@ export function CoachScreen({ offerIds }: CoachScreenProps) {
 					}}
 					context={context}
 					document={null}
+					onRefresh={() =>
+						Promise.allSettled([
+							threads.refetch(),
+							queryClient.invalidateQueries({ queryKey: orpc.career.key() }),
+							queryClient.invalidateQueries({ queryKey: orpc.applications.key() }),
+							queryClient.invalidateQueries({ queryKey: orpc.auth.getProfile.key() }),
+							queryClient.invalidateQueries({ queryKey: orpc.aiProviders.key() }),
+						])
+					}
 					connection={connection}
 					privacy={privacy}
 					placeholder={t`Ask about your next career step…`}

@@ -1688,6 +1688,7 @@ msgstr "Azerbaijani"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "បោះបង់សំណើ"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "អាជីព"
 
@@ -2240,7 +2242,6 @@ msgstr "លុបធាតុទាំងអស់ ប៉ុន្តែរក�
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "ផ្តល់ការងារ"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "ការផ្តល់ការងារ"
 
@@ -7413,10 +7413,6 @@ msgstr "យោង"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "ការឆ្លុះបញ្ចាំង"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "ធ្វើឱ្យស្រស់"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "បង្ហាញគន្លឹះ"
 msgid "Show link in title"
 msgstr "បង្ហាញតំណភ្ជាប់ក្នុងចំណងជើង"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "មើលច្រើនទៀត"
@@ -9956,7 +9954,6 @@ msgstr "ដើម្បីទទួលបានការរំលឹក សូ�
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "ថ្ងៃនេះ"

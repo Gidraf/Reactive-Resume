@@ -7,7 +7,16 @@ import { useQuery } from "@tanstack/react-query";
 import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import { useRouter, Stack, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
-import { FlatList, I18nManager, Platform, Pressable, ScrollView, View, useWindowDimensions } from "react-native";
+import {
+	RefreshControl,
+	FlatList,
+	I18nManager,
+	Platform,
+	Pressable,
+	ScrollView,
+	View,
+	useWindowDimensions,
+} from "react-native";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import { DocumentSheets } from "./document-sheets";
 import { collectTags, daysLeftInTrash, documentKey, documentRef, filterDocuments } from "./filter";
@@ -36,6 +45,7 @@ import {
 	Text,
 	useTheme,
 } from "@/ui";
+import { usePullRefresh } from "@/ui/use-pull-refresh";
 
 type DocumentItemProps = {
 	document: DocumentSummary;
@@ -152,7 +162,7 @@ const viewabilityConfig = { itemVisiblePercentThreshold: 1 };
 export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 	const router = useRouter();
 	const { t } = useLingui();
-	const { space, size } = useTheme();
+	const { colors, space, size } = useTheme();
 	const { fontScale } = useWindowDimensions();
 	const [width, setWidth] = useState(0);
 	const session = useSession();
@@ -193,6 +203,9 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 	const selected = filtered.filter((document) => selection.includes(documentKey(document)));
 	const { refetch: refetchDocuments } = documents;
 	const { refetch: refetchCounts } = counts;
+	const pull = usePullRefresh(async () => {
+		if (session.status === "signed-in") await Promise.allSettled([documents.refetch(), counts.refetch()]);
+	});
 	useFocusEffect(
 		useCallback(() => {
 			if (session.status === "signed-in") {
@@ -415,12 +428,7 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 				extraData={visible}
 				viewabilityConfig={viewabilityConfig}
 				onViewableItemsChanged={onViewableItemsChanged}
-				refreshing={documents.isFetching && !documents.isPending}
-				onRefresh={() => {
-					if (session.status !== "signed-in") return;
-					void documents.refetch();
-					void counts.refetch();
-				}}
+				refreshControl={<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />}
 				style={{ flex: 1 }}
 				keyboardShouldPersistTaps="handled"
 				contentContainerStyle={{ gap: space.s3, paddingBottom: space.s4 }}

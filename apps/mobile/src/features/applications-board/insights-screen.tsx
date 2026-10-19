@@ -5,7 +5,7 @@ import { useLingui } from "@lingui/react/macro";
 import { File, Paths } from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import { useRef, useState } from "react";
-import { I18nManager, ScrollView, View } from "react-native";
+import { RefreshControl, I18nManager, ScrollView, View } from "react-native";
 import Svg, { Circle, Defs, G, LinearGradient, Path, Rect, Stop, Text as SvgText } from "react-native-svg";
 import { weekStartsOn } from "./calendar";
 import { computeOutcomes, computePipeline, computeTimeline, countSources } from "./insights";
@@ -17,6 +17,7 @@ import { useApplications } from "@/features/applications/queries";
 import { getStageColor, getStageLabel } from "@/features/applications/stages";
 import { useIsTablet } from "@/shell/use-is-tablet";
 import { Banner, Button, Card, Skeleton, Text, showToast, useTheme } from "@/ui";
+import { usePullRefresh } from "@/ui/use-pull-refresh";
 
 const BAR_HEIGHT = 18;
 const WEEK_CHART_HEIGHT = 112;
@@ -32,9 +33,10 @@ export function InsightsScreen() {
 /** How far applications get, replies, tailored resumes, sending pace and sources (web Insights view). */
 function ApplicationInsights() {
 	const { t, i18n } = useLingui();
-	const { space } = useTheme();
+	const { colors, space } = useTheme();
 	const tablet = useIsTablet();
 	const query = useApplications();
+	const pull = usePullRefresh(query.refetch);
 	const documents = useDocuments();
 	const { timeZone } = useUserTime();
 	const now = useNow();
@@ -86,7 +88,11 @@ function ApplicationInsights() {
 
 	return (
 		<>
-			<ScrollView contentContainerStyle={{ padding: space.s4, gap: space.s4 }}>
+			<ScrollView
+				alwaysBounceVertical
+				refreshControl={<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />}
+				contentContainerStyle={{ padding: space.s4, gap: space.s4 }}
+			>
 				<Section
 					title={t`How far applications get`}
 					note={t`Counts every application that reached each stage, including ones now closed.`}

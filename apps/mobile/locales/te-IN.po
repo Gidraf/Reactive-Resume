@@ -1688,6 +1688,7 @@ msgstr "అజర్బైజానీ"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "అభ్యర్థనను రద్దు చేయండి"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "కెరీర్"
 
@@ -2240,7 +2242,6 @@ msgstr "దాని ఎంట్రీలను క్లియర్ చేస
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "ఆఫర్"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "ఆఫర్‌లు"
 
@@ -7413,10 +7413,6 @@ msgstr "రెఫరల్"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "ఆత్మపరిశీలన"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "రిఫ్రెష్ చేయండి"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "కీ చూపించు"
 msgid "Show link in title"
 msgstr "శీర్షికలో లింక్ చూపించు"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "మరింత చూపించు"
@@ -9956,7 +9954,6 @@ msgstr "రిమైండర్‌ని పొందడానికి, మీ
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "ఈరోజు"

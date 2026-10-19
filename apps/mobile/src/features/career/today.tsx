@@ -1,10 +1,10 @@
 import type { Schedule } from "./hooks";
 import { plural } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react/macro";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
 import { type ComponentRef, useRef, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { RefreshControl, ScrollView, View } from "react-native";
 import { client, useCareerAction, useCareerTime, useNow, useTodayQueries, useUndoRows } from "./hooks";
 import { ScheduleSheet, scheduleTitle } from "./schedule-sheet";
 import { collectInterviews, rollForward } from "./scheduling";
@@ -14,10 +14,11 @@ import { useApplications } from "@/features/applications/queries";
 import { getStageLabel } from "@/features/applications/stages";
 import { routes } from "@/routes";
 import { Banner, Button, Card, Chip, EmptyState, Screen, Text, showToast, useTheme } from "@/ui";
+import { usePullRefresh } from "@/ui/use-pull-refresh";
 
 export function TodayScreen() {
 	const { t } = useLingui();
-	const { space, size } = useTheme();
+	const { colors, space, size } = useTheme();
 	const [width, setWidth] = useState(0);
 	const tablet = width >= size.panel * 2 + space.s6;
 	const router = useRouter();
@@ -26,6 +27,7 @@ export function TodayScreen() {
 	const queries = useTodayQueries();
 	const applications = useApplications();
 	const action = useCareerAction();
+	const pull = usePullRefresh(action.refresh, applications.refetch, time.profile.refetch);
 	const undo = useUndoRows();
 	const [sheet, setSheet] = useState<{ schedule: Schedule | null; kind: "discovery" | "prepare" | "follow-up" } | null>(
 		null,
@@ -77,8 +79,12 @@ export function TodayScreen() {
 	};
 	return (
 		<Screen scroll={false} contentStyle={{ padding: 0 }}>
-			<Stack.Screen options={{ title: t`Today` }} />
-			<ScrollView ref={scroll} contentContainerStyle={{ padding: space.s4, gap: space.s6 }}>
+			<ScrollView
+				alwaysBounceVertical
+				refreshControl={<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />}
+				ref={scroll}
+				contentContainerStyle={{ padding: space.s4, gap: space.s6 }}
+			>
 				<Text variant="heading">{t`Make room for the next step.`}</Text>
 				<LoadState query={time.profile} />
 				<Text variant="callout" color="ink3">
@@ -342,15 +348,6 @@ export function TodayScreen() {
 						</Section>
 					</View>
 				</View>
-				<Button
-					variant="ghost"
-					label={t`Refresh`}
-					onPress={() => {
-						void action.refresh();
-						void applications.refetch();
-						void time.profile.refetch();
-					}}
-				/>
 			</ScrollView>
 			{sheet ? (
 				<ScheduleSheet

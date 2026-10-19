@@ -1688,6 +1688,7 @@ msgstr "آذربایجانی"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "لغو درخواست"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "مسیر شغلی"
 
@@ -2240,7 +2242,6 @@ msgstr "ورودی های خود را پاک می کند. بخش باقی می �
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "پیشنهاد"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "پیشنهادها"
 
@@ -7413,10 +7413,6 @@ msgstr "ارجاع"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "تأمل"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "تازه کردن"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "نمایش کلید"
 msgid "Show link in title"
 msgstr "نمایش لینک در عنوان"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "نمایش بیشتر"
@@ -9956,7 +9954,6 @@ msgstr "برای دریافت یادآوری، اعلان‌ها را در تن�
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "امروز"

@@ -1688,6 +1688,7 @@ msgstr "阿塞拜疆语"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "取消请求"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "职业"
 
@@ -2240,7 +2242,6 @@ msgstr "清除其条目；该部分保留。您可以撤消。"
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "录用"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "录用通知"
 
@@ -7413,10 +7413,6 @@ msgstr "推荐"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "反思"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "刷新"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "显示密钥"
 msgid "Show link in title"
 msgstr "在标题中显示链接"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "显示更多"
@@ -9956,7 +9954,6 @@ msgstr "要获得提醒，请在设备设置中允许通知。"
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "今天"

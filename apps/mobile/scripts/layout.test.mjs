@@ -76,6 +76,11 @@ const ui = {
 };
 mocks["@/ui"] = ui;
 mocks["./theme"] = ui;
+// Gesture state has its own timing regression; layout fixtures do not pull.
+const pullRefresh = { usePullRefresh: () => ({ refreshing: false, onRefresh() {} }) };
+mocks["./use-pull-refresh"] = pullRefresh;
+mocks["@/ui/use-pull-refresh"] = pullRefresh;
+mocks["@/components/collection-header"] = { CollectionHeader: "CollectionHeader" };
 const { useIsTablet: isTablet } = load("shell/use-is-tablet.ts");
 mocks["./use-is-tablet"] = { useIsTablet: isTablet };
 const { Screen } = load("ui/text.tsx");
@@ -194,7 +199,10 @@ for (const [width, largeTitle] of [
 	window = { ...window, width };
 	assert.equal(stackOptions().headerLargeTitle, largeTitle);
 	const settings = SettingsPage({ title: "Settings", root: true, children: null });
-	assert.equal(nodes(settings).find((node) => node.type === "Stack.Screen").props.options.headerLargeTitle, largeTitle);
+	assert.equal(nodes(settings).find((node) => node.type === "Stack.Screen").props.options.headerShown, false);
+	assert.ok(nodes(settings).some((node) => node.type === "CollectionHeader" && node.props.title === "Settings"));
+	const pushed = SettingsPage({ title: "Account", children: null });
+	assert.equal(nodes(pushed).find((node) => node.type === "Stack.Screen").props.options.headerShown, true);
 }
 const hooks = [];
 let cursor = 0;

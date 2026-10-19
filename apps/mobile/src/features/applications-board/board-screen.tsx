@@ -7,7 +7,7 @@ import type { SharedValue } from "react-native-reanimated";
 import { useLingui } from "@lingui/react/macro";
 import { useRouter } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Pressable, View, useWindowDimensions } from "react-native";
+import { RefreshControl, Pressable, View, useWindowDimensions } from "react-native";
 import { Gesture, GestureDetector, LegacyScrollView } from "react-native-gesture-handler";
 import Animated, {
 	useAnimatedReaction,
@@ -42,6 +42,7 @@ import {
 	useReducedMotion,
 	useTheme,
 } from "@/ui";
+import { usePullRefresh } from "@/ui/use-pull-refresh";
 
 const STAGES: readonly ApplicationStatus[] = ["saved", "applied", "screening", "interview", "offer", "closed"];
 // Column widths from the mockup (career.html `.column`): phone 268 pt, tablet 250 pt.
@@ -342,6 +343,7 @@ function Board() {
 					{stages.map((stage) => (
 						<Column
 							key={stage}
+							onRefresh={query.refetch}
 							stage={stage}
 							applications={byStage.get(stage) ?? []}
 							width={columnWidth}
@@ -397,6 +399,7 @@ function Board() {
 }
 
 type ColumnProps = {
+	onRefresh: () => Promise<unknown>;
 	stage: ApplicationStatus;
 	applications: Application[];
 	width: number;
@@ -409,6 +412,7 @@ type ColumnProps = {
 };
 
 function Column({
+	onRefresh,
 	stage,
 	applications,
 	width,
@@ -421,6 +425,7 @@ function Column({
 }: ColumnProps) {
 	const { t } = useLingui();
 	const { colors, radius, space } = useTheme();
+	const pull = usePullRefresh(onRefresh);
 	const [visible, setVisible] = useState(COLUMN_PAGE_SIZE);
 	const shown = applications.slice(0, visible);
 	const remaining = applications.length - shown.length;
@@ -463,7 +468,11 @@ function Column({
 					{applications.length}
 				</Text>
 			</View>
-			<LegacyScrollView contentContainerStyle={{ padding: space.s3, paddingTop: space.s2, gap: space.s3 }}>
+			<LegacyScrollView
+				alwaysBounceVertical
+				refreshControl={<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />}
+				contentContainerStyle={{ padding: space.s3, paddingTop: space.s2, gap: space.s3 }}
+			>
 				{stage === "closed" && applications.length === 0 ? (
 					<Text variant="callout" color="ink3">{t`Drop here to close with a reason.`}</Text>
 				) : null}

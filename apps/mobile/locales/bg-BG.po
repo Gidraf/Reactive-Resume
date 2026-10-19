@@ -1688,6 +1688,7 @@ msgstr "Азербайджански"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "Отмяна на заявка"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "Кариера"
 
@@ -2240,7 +2242,6 @@ msgstr "Изчиства своите записи; секцията остав�
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "Оферта"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "Оферти"
 
@@ -7413,10 +7413,6 @@ msgstr "Препоръка"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "Размисъл"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "Опресняване"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "Показване на ключ"
 msgid "Show link in title"
 msgstr "Показване на връзка в заглавието"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "Покажи повече"
@@ -9956,7 +9954,6 @@ msgstr "За да получите напомняне, разрешете изв
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "Днес"

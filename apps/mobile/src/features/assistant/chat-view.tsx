@@ -19,7 +19,7 @@ import * as Clipboard from "expo-clipboard";
 import * as DocumentPicker from "expo-document-picker";
 import { File } from "expo-file-system";
 import { useEffect, useEffectEvent, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, AppState, Pressable, ScrollView, TextInput, View } from "react-native";
+import { RefreshControl, ActivityIndicator, AppState, Pressable, ScrollView, TextInput, View } from "react-native";
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { attachmentPart, refreshThreads, transcriptOf, useAssistantChat } from "./chat";
 import { FileChip, MessageView } from "./messages";
@@ -28,11 +28,13 @@ import { createRequestLane, recoverRun } from "./recovery";
 import { client, orpc, SessionChangedError } from "@/api/client";
 import { getAccountScope, useSession } from "@/auth/session";
 import { Button, Icon, Text, showToast, useTheme } from "@/ui";
+import { usePullRefresh } from "@/ui/use-pull-refresh";
 
 export type { ChatAttachment, MessageContext } from "./chat";
 export type { AssistantDocument } from "./document";
 
 export type ChatViewProps = {
+	onRefresh?: (() => Promise<unknown>) | undefined;
 	/** The conversation, or null for a new one: the first message (or attachment) creates it through `createThread`. */
 	threadId: string | null;
 	createThread: (scope: string) => Promise<string>;
@@ -80,8 +82,9 @@ export function ChatView(props: ChatViewProps) {
 type ScopedChatViewProps = ChatViewProps & { scope: string };
 
 function ScopedChatView(props: ScopedChatViewProps) {
+	const pull = usePullRefresh(...(props.onRefresh ? [props.onRefresh] : []));
 	const { t } = useLingui();
-	const { space } = useTheme();
+	const { colors, space } = useTheme();
 	const [prompt, setPrompt] = useState<Prompt | null>(null);
 	const [starting, setStarting] = useState(false);
 	const draft = useRef<string | null>(null);
@@ -146,7 +149,16 @@ function ScopedChatView(props: ScopedChatViewProps) {
 	if (!props.threadId)
 		return (
 			<KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-				<ScrollView style={{ flex: 1 }} contentContainerStyle={{ padding: space.s4, gap: space.s4 }}>
+				<ScrollView
+					alwaysBounceVertical
+					refreshControl={
+						props.onRefresh ? (
+							<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />
+						) : undefined
+					}
+					style={{ flex: 1 }}
+					contentContainerStyle={{ padding: space.s4, gap: space.s4 }}
+				>
 					<Empty render={props.empty} send={(text) => void start(text)} />
 				</ScrollView>
 				<Composer
@@ -226,6 +238,7 @@ function Session(props: SessionProps) {
 type ConversationProps = SessionProps & { initialMessages: UIMessage[]; activeRun: boolean; readOnly: boolean };
 
 function Conversation(props: ConversationProps) {
+	const pull = usePullRefresh(...(props.onRefresh ? [props.onRefresh] : []));
 	const { threadId, document } = props;
 	const { t } = useLingui();
 	const { colors, radius, space } = useTheme();
@@ -458,6 +471,10 @@ function Conversation(props: ConversationProps) {
 		<KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
 			<ScrollView
 				ref={scroller}
+				alwaysBounceVertical
+				refreshControl={
+					props.onRefresh ? <RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} /> : undefined
+				}
 				style={{ flex: 1 }}
 				accessibilityLabel={t`Conversation`}
 				contentContainerStyle={{ padding: space.s4, gap: space.s4 }}

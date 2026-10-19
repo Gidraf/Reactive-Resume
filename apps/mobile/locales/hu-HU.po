@@ -1688,6 +1688,7 @@ msgstr "azerbajdzsáni"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "Törölje a kérést"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "Karrier"
 
@@ -2240,7 +2242,6 @@ msgstr "Törli a bejegyzéseit; a szakasz marad. Visszavonhatja."
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "Ajánlat"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "Ajánlatok"
 
@@ -7413,10 +7413,6 @@ msgstr "Beutaló"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "Tanulság"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "Frissítés"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "Kulcs megjelenítése"
 msgid "Show link in title"
 msgstr "Link megjelenítése a címben"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "Mutass többet"
@@ -9956,7 +9954,6 @@ msgstr "Ha emlékeztetőt szeretne kapni, engedélyezze az értesítéseket az e
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "Ma"

@@ -408,7 +408,7 @@ function DialogAction({ label, onPress, color, bold, fill, separator }: DialogAc
 							minHeight: size.hit,
 							justifyContent: "center",
 							paddingHorizontal: space.s3,
-							borderRadius: radius.rPill,
+							borderRadius: radius.rMd,
 							overflow: "hidden",
 						}
 					: {

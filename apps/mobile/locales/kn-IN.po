@@ -1688,6 +1688,7 @@ msgstr "ಅಜರ್‌ಬೈಜಾನಿ"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "ವಿನಂತಿಯನ್ನು ರದ್ದುಮಾಡಿ"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "ವೃತ್ತಿಜೀವನ"
 
@@ -2240,7 +2242,6 @@ msgstr "ಅದರ ನಮೂದುಗಳನ್ನು ತೆರವುಗೊಳಿ�
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "ಆಫರ್"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "ಆಫರ್‌ಗಳು"
 
@@ -7413,10 +7413,6 @@ msgstr "ರೆಫರಲ್"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "ಆತ್ಮಾವಲೋಕನ"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "ರಿಫ್ರೆಶ್ ಮಾಡಿ"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "ಕೀಲಿಯನ್ನು ತೋರಿಸಿ"
 msgid "Show link in title"
 msgstr "ಶೀರ್ಷಿಕೆಯಲ್ಲಿ ಲಿಂಕ್ ತೋರಿಸಿ"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "ಇನ್ನಷ್ಟು ತೋರಿಸು"
@@ -9956,7 +9954,6 @@ msgstr "ಜ್ಞಾಪನೆಯನ್ನು ಪಡೆಯಲು, ನಿಮ್ಮ
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "ಇಂದು"

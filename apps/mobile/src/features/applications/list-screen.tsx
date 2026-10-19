@@ -3,7 +3,7 @@ import type { ApplicationClosedReason, ApplicationStatus } from "@reactive-resum
 import { useLingui } from "@lingui/react/macro";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
-import { Pressable, SectionList, View } from "react-native";
+import { RefreshControl, Pressable, SectionList, View } from "react-native";
 import { AddApplicationSheet } from "./add-sheet";
 import { ApplicationsCsvSheet } from "./csv-sheet";
 import { applicationError } from "./error";
@@ -31,6 +31,7 @@ import {
 	TextField,
 	useTheme,
 } from "@/ui";
+import { usePullRefresh } from "@/ui/use-pull-refresh";
 
 export function ApplicationsListScreen() {
 	const session = useSession();
@@ -52,6 +53,7 @@ function ApplicationsList() {
 	const { t, i18n } = useLingui();
 	const { colors, space, radius, size } = useTheme();
 	const query = useApplications();
+	const pull = usePullRefresh(query.refetch);
 	const { timeZone } = useUserTime();
 	const { bulkUpdate, bulkDelete } = useApplicationMutations();
 	const [search, setSearch] = useState("");
@@ -248,8 +250,7 @@ function ApplicationsList() {
 					}
 					keyExtractor={(item) => item.id}
 					keyboardShouldPersistTaps="handled"
-					refreshing={query.isRefetching}
-					onRefresh={() => void query.refetch()}
+					refreshControl={<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />}
 					stickySectionHeadersEnabled={false}
 					contentContainerStyle={{ padding: space.s4, gap: space.s2 }}
 					ListHeaderComponent={<View style={{ gap: space.s3, paddingBottom: space.s4 }}>{content}</View>}

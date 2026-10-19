@@ -11,8 +11,10 @@ import { SettingsGroup, SettingsPage } from "@/features/settings/layout";
 import { localeMap } from "@/features/settings/locale-names";
 import { useProfile } from "@/features/settings/queries";
 import { getDeviceLocale, getLocalePreference, setLocalePreference } from "@/i18n";
+import { timeZones } from "@/lib/timezones";
 import {
 	Banner,
+	Button,
 	ConfirmDialog,
 	ListRow,
 	Segmented,
@@ -34,6 +36,7 @@ export default function PreferencesScreen() {
 	const [locale, setLocale] = useState(getLocalePreference);
 	const [picker, setPicker] = useState<"language" | "timezone" | null>(null);
 	const [search, setSearch] = useState("");
+	const [zoneLimit, setZoneLimit] = useState(40);
 	const [changingLanguage, setChangingLanguage] = useState(false);
 	const [restart, setRestart] = useState(false);
 	const deviceTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
@@ -54,14 +57,8 @@ export default function PreferencesScreen() {
 	const matchingLanguages = languages.filter(({ value, label }) =>
 		`${value} ${label}`.toLowerCase().includes(search.trim().toLowerCase()),
 	);
-	// shortcut: Hermes without timezone enumeration offers device/saved zones plus validated IANA text entry.
 	const zones = [
-		...new Set([
-			"UTC",
-			deviceTimezone,
-			...(profile.data ? [profile.data.timezone] : []),
-			...(typeof Intl.supportedValuesOf === "function" ? Intl.supportedValuesOf("timeZone") : []),
-		]),
+		...new Set(["UTC", deviceTimezone, ...(profile.data ? [profile.data.timezone] : []), ...timeZones]),
 	].sort();
 	const matches = zones.filter((zone) => zone.toLowerCase().includes(search.trim().toLowerCase()));
 	const enteredZone = search.trim();
@@ -80,10 +77,11 @@ export default function PreferencesScreen() {
 	};
 	const openPicker = (value: "language" | "timezone") => {
 		setSearch("");
+		setZoneLimit(40);
 		setPicker(value);
 	};
 	return (
-		<SettingsPage title={t`Preferences`}>
+		<SettingsPage onRefresh={profile.refetch} title={t`Preferences`}>
 			<Text variant="caption" color="ink2">{t`Appearance`}</Text>
 			<Segmented<ThemePreference>
 				label={t`Theme`}
@@ -138,7 +136,10 @@ export default function PreferencesScreen() {
 					<TextField
 						label={picker === "language" ? t`Search languages` : t`Search timezones`}
 						value={search}
-						onChangeText={setSearch}
+						onChangeText={(value) => {
+							setSearch(value);
+							setZoneLimit(40);
+						}}
 						autoCapitalize="none"
 						autoCorrect={false}
 						returnKeyType="search"
@@ -174,7 +175,7 @@ export default function PreferencesScreen() {
 								onPress={() => timezone.mutate(deviceTimezone)}
 							/>
 						) : null}
-						{matches.map((zone) => (
+						{matches.slice(0, zoneLimit).map((zone) => (
 							<ListRow
 								key={zone}
 								title={zone}
@@ -183,6 +184,9 @@ export default function PreferencesScreen() {
 								onPress={() => timezone.mutate(zone)}
 							/>
 						))}
+						{matches.length > zoneLimit ? (
+							<Button variant="ghost" label={t`Show more`} onPress={() => setZoneLimit((limit) => limit + 40)} />
+						) : null}
 						{!zones.includes(enteredZone) && timezoneSchema.safeParse(enteredZone).success ? (
 							<ListRow title={enteredZone} disabled={timezone.isPending} onPress={() => timezone.mutate(enteredZone)} />
 						) : null}

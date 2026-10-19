@@ -1688,6 +1688,7 @@ msgstr "Tiếng Azerbaijan"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "Hủy yêu cầu"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "Sự nghiệp"
 
@@ -2240,7 +2242,6 @@ msgstr "Xóa các mục nhưng giữ lại phần. Bạn có thể hoàn tác vi
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "Đề nghị"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "Lời đề nghị"
 
@@ -7413,10 +7413,6 @@ msgstr "Giới thiệu"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "Suy ngẫm"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "Làm mới"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "Hiển thị phím"
 msgid "Show link in title"
 msgstr "Hiển thị liên kết trong tiêu đề"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "Hiển thị thêm"
@@ -9956,7 +9954,6 @@ msgstr "Để nhận lời nhắc, hãy cho phép thông báo trong cài đặt 
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "Hôm nay"

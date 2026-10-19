@@ -2,7 +2,7 @@ import type { SavedItem } from "./hooks";
 import type { CareerProfileData, OfferTerms } from "@reactive-resume/schema/career";
 import { plural, t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react/macro";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
 import { useCareerQueries, useCareerTime, useNow, useOffers } from "./hooks";
@@ -30,8 +30,7 @@ export function OffersScreen() {
 		offers.find((row) => row.id === selected[1] && row.id !== a?.id) ??
 		offers.find((row) => row.id === defaults[1] && row.id !== a?.id);
 	return (
-		<Screen>
-			<Stack.Screen options={{ title: t`Offers` }} />
+		<Screen onRefresh={() => Promise.allSettled([query.refetch(), profile.refetch()])}>
 			<Text color="ink3">{t`Compared in their original currency and pay period. Comparing doesn't share anything with the coach.`}</Text>
 			<LoadState query={query} />
 			<LoadState query={profile} />

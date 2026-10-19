@@ -44,14 +44,14 @@ export function ApplicationDetail({ id }: ApplicationDetailProps) {
 	if (session.status !== "signed-in") return <EmptyState icon="briefcase" title={t`Sign in to view applications`} />;
 	if (query.isPending)
 		return (
-			<Screen>
+			<Screen onRefresh={query.refetch}>
 				<Stack.Screen options={{ title: t`Application` }} />
 				<ActivityIndicator />
 			</Screen>
 		);
 	if (!application)
 		return (
-			<Screen>
+			<Screen onRefresh={query.refetch}>
 				<Stack.Screen options={{ title: t`Application` }} />
 				<EmptyState
 					icon="warning-circle"
@@ -71,7 +71,7 @@ export function ApplicationDetail({ id }: ApplicationDetailProps) {
 	const openInterview = (interview: InterviewTimelineEntry | null) => setOverlay({ kind: "interview", interview });
 
 	return (
-		<Screen contentStyle={{ gap: space.s6, paddingBottom: space.s12 }}>
+		<Screen onRefresh={query.refetch} contentStyle={{ gap: space.s6, paddingBottom: space.s12 }}>
 			<Stack.Screen options={{ title: application.company }} />
 			<View style={{ gap: space.s1 }}>
 				<Text variant="display">{application.role}</Text>

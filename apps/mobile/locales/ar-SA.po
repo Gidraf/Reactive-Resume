@@ -1688,6 +1688,7 @@ msgstr "الأذرية"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "إلغاء الطلب"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "المسار المهني"
 
@@ -2240,7 +2242,6 @@ msgstr "يمسح الإدخالات لكنه يحتفظ بالقسم. يمكنك
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "عرض وظيفي"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "العروض"
 
@@ -7413,10 +7413,6 @@ msgstr "الإحالة"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "التأمّل"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "تحديث"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "إظهار المفتاح"
 msgid "Show link in title"
 msgstr "إظهار الرابط في العنوان"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "عرض المزيد"
@@ -9956,7 +9954,6 @@ msgstr "للحصول على تذكير، اسمح بالإشعارات في إع
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "اليوم"

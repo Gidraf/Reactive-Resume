@@ -24,7 +24,15 @@ export default function AccountScreen() {
 			.catch(() => showToast({ message: t`Couldn't open the browser. Try again.` }));
 	};
 	return (
-		<SettingsPage title={t`Account`}>
+		<SettingsPage
+			title={t`Account`}
+			onRefresh={() =>
+				Promise.allSettled([
+					profile.refetch(),
+					queryClient.invalidateQueries({ queryKey: orpc.auth.apiKeys.list.key() }),
+				])
+			}
+		>
 			{profile.isPending ? <Skeleton height={size.input} /> : null}
 			{profile.isError ? (
 				<Banner

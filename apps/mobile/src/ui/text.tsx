@@ -1,9 +1,10 @@
 import type { ColorToken, type as typeScale } from "./tokens";
 import type { ReactNode } from "react";
 import type { TextProps as NativeTextProps, StyleProp, ViewProps, ViewStyle } from "react-native";
-import { ScrollView, Text as NativeText, View } from "react-native";
+import { RefreshControl, ScrollView, Text as NativeText, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "./theme";
+import { usePullRefresh } from "./use-pull-refresh";
 
 export type TextVariant = keyof typeof typeScale;
 
@@ -49,12 +50,14 @@ export type ScreenProps = {
 	contentStyle?: StyleProp<ViewStyle>;
 	/** Measures the viewport after safe areas, before content padding. */
 	onLayout?: ViewProps["onLayout"];
+	onRefresh?: (() => Promise<unknown>) | undefined;
 };
 
 /** A screen on the `bg` desk with phone side padding (`s4`). */
-export function Screen({ children, scroll = true, edges = [], contentStyle, onLayout }: ScreenProps) {
+export function Screen({ children, scroll = true, edges = [], contentStyle, onLayout, onRefresh }: ScreenProps) {
 	const { colors, space } = useTheme();
 	const insets = useSafeAreaInsets();
+	const pull = usePullRefresh(...(onRefresh ? [onRefresh] : []));
 	const padding = [{ padding: space.s4, gap: space.s4 }, contentStyle];
 
 	return (
@@ -69,7 +72,15 @@ export function Screen({ children, scroll = true, edges = [], contentStyle, onLa
 			}}
 		>
 			{scroll ? (
-				<ScrollView onLayout={onLayout} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={padding}>
+				<ScrollView
+					onLayout={onLayout}
+					contentInsetAdjustmentBehavior="automatic"
+					contentContainerStyle={padding}
+					alwaysBounceVertical
+					refreshControl={
+						onRefresh ? <RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} /> : undefined
+					}
+				>
 					{children}
 				</ScrollView>
 			) : (

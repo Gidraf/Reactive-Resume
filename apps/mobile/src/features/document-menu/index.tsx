@@ -251,7 +251,14 @@ export function DocumentMenu({ id, inChrome = false }: DocumentMenuProps) {
 								</Text>
 							</>
 						)}
-						<Button label={t`Close`} variant="ghost" disabled={operations.busy || printing} onPress={close} />
+						{panel !== "menu" ? (
+							<Button
+								label={t`Back`}
+								variant="ghost"
+								disabled={operations.busy || printing}
+								onPress={() => setPanel("menu")}
+							/>
+						) : null}
 					</View>
 				)}
 			</Sheet>

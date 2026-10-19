@@ -1688,6 +1688,7 @@ msgstr "Azerbajxhanisht"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
+#: src/features/document-menu/index.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/search/search-screen.tsx
 #: src/features/write/entry-screen.tsx
@@ -1932,6 +1933,7 @@ msgid "Cancel request"
 msgstr "Anulo kërkesën"
 
 #: app/(tabs)/_layout.tsx
+#: app/(tabs)/career/_layout.tsx
 msgid "Career"
 msgstr "Karriera"
 
@@ -2240,7 +2242,6 @@ msgstr "Pastron hyrjet e tij; seksioni qëndron. Mund ta zhbësh."
 #: src/features/applications/csv-sheet.tsx
 #: src/features/career/facts.tsx
 #: src/features/check/page.tsx
-#: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
 #: src/features/documents/new-document.tsx
 #: src/features/public/public-resume.tsx
@@ -6318,7 +6319,6 @@ msgid "Offer"
 msgstr "Ofertë"
 
 #: app/(tabs)/career/_layout.tsx
-#: src/features/career/offers.tsx
 msgid "Offers"
 msgstr "Ofertat"
 
@@ -7413,10 +7413,6 @@ msgstr "Referimi"
 #: src/features/career/stories.tsx
 msgid "Reflection"
 msgstr "Reflektimi"
-
-#: src/features/career/today.tsx
-msgid "Refresh"
-msgstr "Rifresko"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -8583,6 +8579,8 @@ msgstr "Shfaq tastin"
 msgid "Show link in title"
 msgstr "Trego linkun në titull"
 
+#: app/(tabs)/settings/preferences.tsx
+#: src/features/application-detail/interview-sheet.tsx
 #: src/features/career/today.tsx
 msgid "Show more"
 msgstr "Trego më shumë"
@@ -9956,7 +9954,6 @@ msgstr "Për të marrë një rikujtues, lejo njoftimet në cilësimet e pajisjes
 
 #: app/(tabs)/career/_layout.tsx
 #: src/features/applications-board/calendar-screen.tsx
-#: src/features/career/today.tsx
 #: src/features/share/link.tsx
 msgid "Today"
 msgstr "Sot"

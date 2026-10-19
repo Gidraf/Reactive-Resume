@@ -5,7 +5,7 @@ import { plural } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react/macro";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, View } from "react-native";
+import { RefreshControl, Pressable, ScrollView, View } from "react-native";
 import {
 	collectEvents,
 	dateOfKey,
@@ -25,6 +25,7 @@ import { useApplications } from "@/features/applications/queries";
 import { routes } from "@/routes";
 import { useIsTablet } from "@/shell/use-is-tablet";
 import { Banner, Button, Card, EmptyState, IconButton, SelectSheet, Sheet, Skeleton, Text, useTheme } from "@/ui";
+import { usePullRefresh } from "@/ui/use-pull-refresh";
 
 // Chips per day cell on tablet before "+N more"; phone cells show up to this many dots.
 const MAX_PER_DAY = 3;
@@ -51,6 +52,7 @@ function ApplicationCalendar() {
 	const tablet = useIsTablet();
 	const [width, setWidth] = useState(0);
 	const query = useApplications();
+	const pull = usePullRefresh(query.refetch);
 	const userTime = useUserTime();
 	const now = useNow();
 	const timeZone = userTime.timeZone;
@@ -311,15 +313,29 @@ function ApplicationCalendar() {
 		<View style={{ flex: 1 }} onLayout={(event) => setWidth(event.nativeEvent.layout.width)}>
 			{tablet && width >= size.panel * 2 + space.s6 + space.s4 * 2 ? (
 				<View style={{ flex: 1, flexDirection: "row", gap: space.s6, paddingHorizontal: space.s4 }}>
-					<ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingVertical: space.s4 }}>
+					<ScrollView
+						alwaysBounceVertical
+						refreshControl={<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />}
+						style={{ flex: 1 }}
+						contentContainerStyle={{ paddingVertical: space.s4 }}
+					>
 						{grid}
 					</ScrollView>
-					<ScrollView style={{ width: size.panel, flexGrow: 0 }} contentContainerStyle={{ paddingVertical: space.s4 }}>
+					<ScrollView
+						alwaysBounceVertical
+						refreshControl={<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />}
+						style={{ width: size.panel, flexGrow: 0 }}
+						contentContainerStyle={{ paddingVertical: space.s4 }}
+					>
 						{agenda}
 					</ScrollView>
 				</View>
 			) : (
-				<ScrollView contentContainerStyle={{ padding: space.s4, gap: space.s6 }}>
+				<ScrollView
+					alwaysBounceVertical
+					refreshControl={<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />}
+					contentContainerStyle={{ padding: space.s4, gap: space.s6 }}
+				>
 					{grid}
 					{agenda}
 				</ScrollView>
