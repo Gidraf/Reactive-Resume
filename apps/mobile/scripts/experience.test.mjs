@@ -54,6 +54,9 @@ const ui = Object.fromEntries(
 );
 ui.useTheme = () => theme;
 ui.showToast = (value) => calls.push(value);
+ui.listItemMotion = () => ({});
+ui.listLayout = {};
+ui.useFirstAppearance = () => false;
 const mocks = {
 	react,
 	"react-native": { View: "View", Pressable: "Pressable", ScrollView: "ScrollView" },
@@ -63,6 +66,13 @@ const mocks = {
 	"@/routes": { routes },
 	"@/ui": ui,
 	"@/ui/use-pull-refresh": { usePullRefresh: () => ({ refreshing: false, onRefresh: () => undefined }) },
+	"react-native-reanimated": {
+		View: "Animated.View",
+		useSharedValue: (initial) => ({ get: () => initial, set() {} }),
+		useAnimatedStyle: () => ({}),
+		withTiming: (value) => value,
+		withSpring: (value) => value,
+	},
 };
 function load(path, extra = {}) {
 	const module = { exports: {} };

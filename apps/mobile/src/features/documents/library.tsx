@@ -7,17 +7,9 @@ import { useQuery } from "@tanstack/react-query";
 import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import { useRouter, Stack, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
-import {
-	RefreshControl,
-	FlatList,
-	I18nManager,
-	Platform,
-	Pressable,
-	ScrollView,
-	View,
-	useWindowDimensions,
-} from "react-native";
+import { RefreshControl, I18nManager, Platform, Pressable, ScrollView, View, useWindowDimensions } from "react-native";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
+import Animated from "react-native-reanimated";
 import { DocumentSheets } from "./document-sheets";
 import { collectTags, daysLeftInTrash, documentKey, documentRef, filterDocuments } from "./filter";
 import { isNewDocument, useNewDocuments } from "./new-documents";
@@ -43,6 +35,9 @@ import {
 	Sheet,
 	Skeleton,
 	Text,
+	listItemMotion,
+	listLayout,
+	useFirstAppearance,
 	useTheme,
 } from "@/ui";
 import { usePullRefresh } from "@/ui/use-pull-refresh";
@@ -200,6 +195,7 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 		? []
 		: pending.filter((document) => !all.some((saved) => documentKey(saved) === documentKey(document)));
 	const filtered = filterDocuments(all, { q, type, tags, sort, public: publicOnly });
+	const firstAppearance = useFirstAppearance(filtered.length > 0);
 	const selected = filtered.filter((document) => selection.includes(documentKey(document)));
 	const { refetch: refetchDocuments } = documents;
 	const { refetch: refetchCounts } = counts;
@@ -419,7 +415,7 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 			onLayout={(event) => setWidth(event.nativeEvent.layout.width - space.s4 * 2)}
 		>
 			<Stack.Screen options={{ title: trashed ? t`Trash` : t`Documents`, headerShown: false }} />
-			<FlatList
+			<Animated.FlatList
 				key={columns}
 				data={session.status === "signed-in" ? filtered : []}
 				ListHeaderComponent={header}
@@ -433,8 +429,13 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 				keyboardShouldPersistTaps="handled"
 				contentContainerStyle={{ gap: space.s3, paddingBottom: space.s4 }}
 				columnWrapperStyle={columns > 1 ? { gap: space.s3 } : undefined}
-				renderItem={({ item }) => (
-					<View style={{ flex: 1, maxWidth: Math.max(0, (width - space.s3 * (columns - 1)) / columns) }}>
+				// Reanimated's item layout animation supports one column only.
+				{...(columns === 1 ? { itemLayoutAnimation: listLayout } : {})}
+				renderItem={({ item, index }) => (
+					<Animated.View
+						{...listItemMotion(index, firstAppearance)}
+						style={{ flex: 1, maxWidth: Math.max(0, (width - space.s3 * (columns - 1)) / columns) }}
+					>
 						<DocumentItem
 							document={item}
 							visible={visible.includes(documentKey(item))}
@@ -449,7 +450,7 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 							onTrash={() => void operations.trash([item])}
 							onDuplicate={() => void duplicate(item)}
 						/>
-					</View>
+					</Animated.View>
 				)}
 				ListEmptyComponent={
 					session.status !== "signed-in" ? (

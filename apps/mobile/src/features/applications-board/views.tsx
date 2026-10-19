@@ -24,12 +24,14 @@ export function ApplicationsViewFrame({ current, children, search, actions }: Ap
 	const shared = useApplicationSearch();
 	const [adding, setAdding] = useState(false);
 	const { t } = useLingui();
-	const { colors, space } = useTheme();
+	const { colors, motion, space } = useTheme();
 	const insets = useSafeAreaInsets();
 	return (
 		<SafeAreaView edges={["top", "left", "right"]} style={{ flex: 1, backgroundColor: colors.bg }}>
-			{/* Views swap in place: no push animation, no back stack between them. Shared title stays above the view tabs. */}
-			<Stack.Screen options={{ title: t`Applications`, animation: "none", headerShown: false }} />
+			{/* Views swap in place with a crossfade: no back stack between them. Shared title stays above the view tabs. */}
+			<Stack.Screen
+				options={{ title: t`Applications`, animation: "fade", animationDuration: motion.d2, headerShown: false }}
+			/>
 			<View style={{ paddingHorizontal: space.s4, paddingTop: space.s4, paddingBottom: space.s1, gap: space.s3 }}>
 				<CollectionHeader
 					title={t`Applications`}

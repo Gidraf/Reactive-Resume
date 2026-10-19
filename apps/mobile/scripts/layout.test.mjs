@@ -85,7 +85,7 @@ const { useIsTablet: isTablet } = load("shell/use-is-tablet.ts");
 mocks["./use-is-tablet"] = { useIsTablet: isTablet };
 const { Screen } = load("ui/text.tsx");
 const { TopBar } = load("shell/top-bar.tsx");
-const { AppSidebar } = load("shell/app-tabs.tsx");
+const { AppSidebar } = load("shell/app-tabs.tsx", { "react-native-reanimated": {} });
 const nodes = (tree) =>
 	!tree || typeof tree !== "object"
 		? []
@@ -309,6 +309,8 @@ const animation = {
 	useSharedValue: (initial) => ({ get: () => initial, set() {} }),
 	useAnimatedStyle: () => ({}),
 	withTiming: (value) => value,
+	withSpring: (value) => value,
+	withSequence: (...values) => values.at(-1),
 };
 const componentFixtures = {
 	"./button": ui,
@@ -327,7 +329,7 @@ const { Segmented } = load("ui/fields.tsx", {
 	"./overlays": { InSheetContext: {}, Sheet: "Sheet" },
 	"@gorhom/bottom-sheet": { BottomSheetTextInput: "TextInput" },
 });
-const { BarItem } = load("shell/app-tabs.tsx");
+const { BarItem } = load("shell/app-tabs.tsx", { "react-native-reanimated": animation });
 const { KnowledgeScreen } = load("features/career/knowledge.tsx", {
 	"./facts": { Facts: "Facts" },
 	"./stories": { Stories: "Stories" },
@@ -354,7 +356,17 @@ const { DocumentsLibrary } = load("features/documents/library.tsx", {
 	"expo-router": { ...mocks["expo-router"], useFocusEffect() {} },
 	"@lingui/core/macro": { plural: (count, options) => options[count === 1 ? "one" : "other"].replace("#", count) },
 	"react-native-gesture-handler/ReanimatedSwipeable": {},
-	"@/ui": { ...ui, Screen: "Screen", ListRow: "ListRow", Chip: "Chip", Banner: "Banner" },
+	"react-native-reanimated": { ...animation, FlatList: "FlatList" },
+	"@/ui": {
+		...ui,
+		Screen: "Screen",
+		ListRow: "ListRow",
+		Chip: "Chip",
+		Banner: "Banner",
+		listItemMotion: () => ({}),
+		listLayout: {},
+		useFirstAppearance: () => false,
+	},
 });
 for (const fontScale of [1, 1.95, 3.12]) {
 	window = { width: 320, height: 568, fontScale };

@@ -1,8 +1,9 @@
 // Reduced motion, haptics and the tablet check shared by the primitives (tokens.md §6).
 import * as Haptics from "expo-haptics";
-import { useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { AccessibilityInfo, useWindowDimensions } from "react-native";
-import { size } from "./tokens";
+import { Easing, FadeInDown, FadeOut, LinearTransition, ReduceMotion } from "react-native-reanimated";
+import { motion, size } from "./tokens";
 
 let reduceMotion = false;
 const listeners = new Set<() => void>();
@@ -48,4 +49,42 @@ export const haptics = {
 export function useIsWide(): boolean {
 	const { width, height } = useWindowDimensions();
 	return Math.min(width, height) >= size.formSheet;
+}
+
+// Shared list motion. Reanimated needs its own (worklet) easing, so these repeat the `motion.ease` and `motion.easeMove` curves.
+const listEase = Easing.bezier(0.2, 0.8, 0.2, 1);
+const listMove = Easing.bezier(0.77, 0, 0.175, 1);
+const listStagger = 40;
+const listStaggerCap = 8;
+
+/** A row fading in from 8 pt below its place, staggered by its index (capped at 8). Reduced motion: no movement. */
+const listEntering = (index: number) =>
+	FadeInDown.duration(motion.d2)
+		.easing(listEase)
+		.withInitialValues({ opacity: 0, transform: [{ translateY: 8 }] })
+		.delay(Math.min(index, listStaggerCap) * listStagger)
+		.reduceMotion(ReduceMotion.System);
+
+/** A removed row fades out, faster than it came in. */
+const listExiting = FadeOut.duration(motion.d1).reduceMotion(ReduceMotion.System);
+
+/** Spread on a row's `Animated.View`: staggers in on the screen's first appearance only, always fades out. */
+export const listItemMotion = (index: number, first: boolean) =>
+	first ? { entering: listEntering(index), exiting: listExiting } : { exiting: listExiting };
+
+/** Rows sliding into the gap a removed or moved row leaves. */
+export const listLayout = LinearTransition.duration(motion.d2).easing(listMove).reduceMotion(ReduceMotion.System);
+
+/**
+ * True until shortly after the list first shows data, so rows stagger in once when the screen opens and never again
+ * on scroll, refresh or filter changes.
+ */
+export function useFirstAppearance(ready: boolean): boolean {
+	const [first, setFirst] = useState(true);
+	useEffect(() => {
+		if (!ready || !first) return;
+		const timer = setTimeout(() => setFirst(false), 400);
+		return () => clearTimeout(timer);
+	}, [ready, first]);
+	return first;
 }

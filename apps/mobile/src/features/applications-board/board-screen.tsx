@@ -41,7 +41,10 @@ import {
 	Switch,
 	Text,
 	haptics,
+	listItemMotion,
+	listLayout,
 	showToast,
+	useFirstAppearance,
 	useReducedMotion,
 	useTheme,
 } from "@/ui";
@@ -445,6 +448,8 @@ function Column({
 	const pull = usePullRefresh(onRefresh);
 	const [visible, setVisible] = useState(COLUMN_PAGE_SIZE);
 	const shown = applications.slice(0, visible);
+	// Columns mount once the board has data, so cards stagger in when the board opens.
+	const firstAppearance = useFirstAppearance(true);
 	const remaining = applications.length - shown.length;
 
 	return (
@@ -493,15 +498,16 @@ function Column({
 				{stage === "closed" && applications.length === 0 ? (
 					<Text variant="callout" color="ink3">{t`Drop here to close with a reason.`}</Text>
 				) : null}
-				{shown.map((application) => (
-					<DraggableCard
-						key={application.id}
-						application={application}
-						width={cardWidth}
-						dragging={application.id === draggingId}
-						handlers={handlers}
-						onMove={() => onMove(application)}
-					/>
+				{shown.map((application, index) => (
+					<Animated.View key={application.id} {...listItemMotion(index, firstAppearance)} layout={listLayout}>
+						<DraggableCard
+							application={application}
+							width={cardWidth}
+							dragging={application.id === draggingId}
+							handlers={handlers}
+							onMove={() => onMove(application)}
+						/>
+					</Animated.View>
 				))}
 				{remaining > 0 ? (
 					<Button

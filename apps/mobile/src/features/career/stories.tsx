@@ -4,10 +4,24 @@ import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react/macro";
 import { useState } from "react";
 import { View } from "react-native";
+import Animated from "react-native-reanimated";
 import { careerStoryInputSchema } from "@reactive-resume/schema/career";
 import { client, useCareerAction, useCareerQueries, useUndoRows } from "./hooks";
 import { Actions, EditorSheet, LoadState, SwitchRow } from "./shared";
-import { Banner, Button, Card, ChipInput, EmptyState, Text, TextArea, TextField, useTheme } from "@/ui";
+import {
+	Banner,
+	Button,
+	Card,
+	ChipInput,
+	EmptyState,
+	Text,
+	TextArea,
+	TextField,
+	listItemMotion,
+	listLayout,
+	useFirstAppearance,
+	useTheme,
+} from "@/ui";
 
 const parts = () =>
 	[
@@ -24,6 +38,7 @@ export function Stories() {
 	const [editor, setEditor] = useState<{ story: Story | null } | null>(null);
 	const undo = useUndoRows();
 	const rows = (stories.data ?? []).filter((row) => !undo.hidden.includes(row.id));
+	const firstAppearance = useFirstAppearance(!stories.isPending);
 	return (
 		<View style={{ gap: space.s4 }}>
 			<Text color="ink3">{t`Situation, Task, Action, Result, Reflection. Link each story to facts you can support; leave unknown outcomes blank.`}</Text>
@@ -33,40 +48,42 @@ export function Stories() {
 			{!stories.isError && !stories.isPending && !rows.length ? (
 				<EmptyState title={t`No stories yet`} message={t`Write one about something you did, in five parts.`} />
 			) : null}
-			{rows.map((story) => {
+			{rows.map((story, index) => {
 				const changed = story.data.factIds.some((id) => {
 					const fact = facts.data?.find((row) => row.id === id);
 					const revision = fact?.revisions.at(-1);
 					return !fact || fact.status !== "active" || (revision && new Date(revision.at) > new Date(story.updatedAt));
 				});
 				return (
-					<Card key={story.id} style={{ gap: space.s3 }}>
-						<Text variant="title">{story.data.title}</Text>
-						{changed ? <Banner tone="warn" message={t`A fact changed. Review this story.`} /> : null}
-						{parts().map((part) => (
-							<View key={part.key}>
-								<Text variant="label">{part.label}</Text>
-								<Text>{story.data[part.key] || t`Not recorded yet. Leave blank until you can support it.`}</Text>
-							</View>
-						))}
-						<Text variant="label">{t`Backed by`}</Text>
-						{story.data.factIds.map((id) => (
-							<Text key={id} color="ink2">
-								{facts.data?.find((row) => row.id === id)?.text ?? t`Fact no longer available`}
-							</Text>
-						))}
-						<Text color="ink3">{story.data.tags.join(" · ")}</Text>
-						<Actions>
-							<Button label={t`Edit`} variant="secondary" onPress={() => setEditor({ story })} />
-							<Button
-								label={t`Delete story`}
-								variant="ghost"
-								onPress={() =>
-									undo.remove(story.id, t`Story deleted`, () => client.career.deleteStory({ id: story.id }))
-								}
-							/>
-						</Actions>
-					</Card>
+					<Animated.View key={story.id} {...listItemMotion(index, firstAppearance)} layout={listLayout}>
+						<Card style={{ gap: space.s3 }}>
+							<Text variant="title">{story.data.title}</Text>
+							{changed ? <Banner tone="warn" message={t`A fact changed. Review this story.`} /> : null}
+							{parts().map((part) => (
+								<View key={part.key}>
+									<Text variant="label">{part.label}</Text>
+									<Text>{story.data[part.key] || t`Not recorded yet. Leave blank until you can support it.`}</Text>
+								</View>
+							))}
+							<Text variant="label">{t`Backed by`}</Text>
+							{story.data.factIds.map((id) => (
+								<Text key={id} color="ink2">
+									{facts.data?.find((row) => row.id === id)?.text ?? t`Fact no longer available`}
+								</Text>
+							))}
+							<Text color="ink3">{story.data.tags.join(" · ")}</Text>
+							<Actions>
+								<Button label={t`Edit`} variant="secondary" onPress={() => setEditor({ story })} />
+								<Button
+									label={t`Delete story`}
+									variant="ghost"
+									onPress={() =>
+										undo.remove(story.id, t`Story deleted`, () => client.career.deleteStory({ id: story.id }))
+									}
+								/>
+							</Actions>
+						</Card>
+					</Animated.View>
 				);
 			})}
 			{editor && facts.data ? (

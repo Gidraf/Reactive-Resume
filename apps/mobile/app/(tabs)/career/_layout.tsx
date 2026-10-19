@@ -9,7 +9,7 @@ import { Segmented, useTheme } from "@/ui";
 
 export default function CareerLayout() {
 	const { t } = useLingui();
-	const { colors, space } = useTheme();
+	const { colors, motion, space } = useTheme();
 	const insets = useSafeAreaInsets();
 	const stackOptions = useTabStackOptions(true);
 	const pathname = usePathname();
@@ -33,7 +33,10 @@ export default function CareerLayout() {
 			</View>
 			{/* Plain content needs an opaque header; SafeAreaView already clears the status bar. */}
 			<SafeAreaInsetsContext value={{ ...insets, top: 0, left: 0, right: 0 }}>
-				<Stack screenOptions={{ ...stackOptions, headerTransparent: false }}>
+				{/* The sub-tabs are peers swapped with `replace`, so they crossfade instead of pushing. */}
+				<Stack
+					screenOptions={{ ...stackOptions, animation: "fade", animationDuration: motion.d2, headerTransparent: false }}
+				>
 					{["index", ...tabs.map((tab) => tab.value)].map((name) => (
 						<Stack.Screen key={name} name={name} options={{ headerShown: false }} />
 					))}

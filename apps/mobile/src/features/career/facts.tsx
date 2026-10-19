@@ -6,10 +6,26 @@ import { useLingui } from "@lingui/react/macro";
 import * as Crypto from "expo-crypto";
 import { useRef, useState } from "react";
 import { View } from "react-native";
+import Animated from "react-native-reanimated";
 import { client, useCareerAction, useCareerQueries, useCareerTime, useUndoRows } from "./hooks";
 import { Actions, EditorSheet, LoadState, SwitchRow } from "./shared";
 import { getServer, useSession } from "@/auth/session";
-import { Banner, Button, Card, Chip, EmptyState, SelectSheet, Sheet, Text, TextArea, TextField, useTheme } from "@/ui";
+import {
+	Banner,
+	Button,
+	Card,
+	Chip,
+	EmptyState,
+	SelectSheet,
+	Sheet,
+	Text,
+	TextArea,
+	TextField,
+	listItemMotion,
+	listLayout,
+	useFirstAppearance,
+	useTheme,
+} from "@/ui";
 
 const categoryLabel = (category: string) =>
 	({ accomplishment: t`Accomplishment`, experience: t`Experience`, skill: t`Skill`, preference: t`Preference` })[
@@ -58,6 +74,7 @@ export function Facts() {
 				.toLocaleLowerCase()
 				.includes(search.trim().toLocaleLowerCase()),
 	);
+	const firstAppearance = useFirstAppearance(!facts.isPending);
 	return (
 		<View style={{ gap: space.s4 }}>
 			<TextField label={t`Search facts`} value={search} onChangeText={setSearch} />
@@ -75,46 +92,48 @@ export function Facts() {
 			{!facts.isPending && !facts.isError && !rows.length ? (
 				<EmptyState title={t`No facts match`} message={t`Add a fact or try another word or type.`} />
 			) : null}
-			{rows.map((fact) => (
-				<Card key={fact.id} style={{ gap: space.s3 }}>
-					<Actions>
-						<Chip label={categoryLabel(fact.category)} />
-						<Chip label={fact.company ? t`${fact.company} only` : t`All applications`} />
-					</Actions>
-					<Text>{fact.text}</Text>
-					<Text variant="callout" color="ink3">
-						{fact.usedBy.stories + fact.usedBy.savedItems === 0
-							? t`Not used in a story or saved item yet`
-							: `${plural(fact.usedBy.stories, { one: "Backs # story", other: "Backs # stories" })} · ${plural(fact.usedBy.savedItems, { one: "used in # saved item", other: "used in # saved items" })}`}
-					</Text>
-					<SwitchRow
-						label={t`Use this fact`}
-						value={fact.status === "active"}
-						disabled={updating.includes(fact.id)}
-						onValueChange={(active) => {
-							void updateFact({ id: fact.id, status: active ? "active" : "excluded" });
-						}}
-					/>
-					<Actions>
-						<Button variant="ghost" label={t`View source`} onPress={() => setSource(fact)} />
-						<Button variant="ghost" label={t`Correct`} onPress={() => setEditor({ fact })} />
-						{fact.applicationId ? (
+			{rows.map((fact, index) => (
+				<Animated.View key={fact.id} {...listItemMotion(index, firstAppearance)} layout={listLayout}>
+					<Card style={{ gap: space.s3 }}>
+						<Actions>
+							<Chip label={categoryLabel(fact.category)} />
+							<Chip label={fact.company ? t`${fact.company} only` : t`All applications`} />
+						</Actions>
+						<Text>{fact.text}</Text>
+						<Text variant="callout" color="ink3">
+							{fact.usedBy.stories + fact.usedBy.savedItems === 0
+								? t`Not used in a story or saved item yet`
+								: `${plural(fact.usedBy.stories, { one: "Backs # story", other: "Backs # stories" })} · ${plural(fact.usedBy.savedItems, { one: "used in # saved item", other: "used in # saved items" })}`}
+						</Text>
+						<SwitchRow
+							label={t`Use this fact`}
+							value={fact.status === "active"}
+							disabled={updating.includes(fact.id)}
+							onValueChange={(active) => {
+								void updateFact({ id: fact.id, status: active ? "active" : "excluded" });
+							}}
+						/>
+						<Actions>
+							<Button variant="ghost" label={t`View source`} onPress={() => setSource(fact)} />
+							<Button variant="ghost" label={t`Correct`} onPress={() => setEditor({ fact })} />
+							{fact.applicationId ? (
+								<Button
+									variant="ghost"
+									label={t`Use for all applications`}
+									disabled={updating.includes(fact.id)}
+									onPress={() => {
+										void updateFact({ id: fact.id, share: true });
+									}}
+								/>
+							) : null}
 							<Button
 								variant="ghost"
-								label={t`Use for all applications`}
-								disabled={updating.includes(fact.id)}
-								onPress={() => {
-									void updateFact({ id: fact.id, share: true });
-								}}
+								label={t`Forget`}
+								onPress={() => undo.remove(fact.id, t`Fact forgotten`, () => client.career.forgetFact({ id: fact.id }))}
 							/>
-						) : null}
-						<Button
-							variant="ghost"
-							label={t`Forget`}
-							onPress={() => undo.remove(fact.id, t`Fact forgotten`, () => client.career.forgetFact({ id: fact.id }))}
-						/>
-					</Actions>
-				</Card>
+						</Actions>
+					</Card>
+				</Animated.View>
 			))}
 			{editor ? <FactEditor key={editor.fact?.id ?? "new"} fact={editor.fact} onClose={() => setEditor(null)} /> : null}
 			<Sheet open={!!source} onClose={() => setSource(null)} title={t`Source and correction history`} detents={[0.75]}>

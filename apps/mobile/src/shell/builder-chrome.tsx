@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { useLingui } from "@lingui/react/macro";
 import { useRouter, Stack, useNavigation, useSegments } from "expo-router";
 import { createContext, use, useEffect, useState } from "react";
-import { ActivityIndicator, Platform, Pressable, View } from "react-native";
+import { ActivityIndicator, I18nManager, Platform, Pressable, View } from "react-native";
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { SafeAreaInsetsContext, useSafeAreaInsets } from "react-native-safe-area-context";
 import { AppStrip } from "./app-banner";
@@ -15,7 +15,7 @@ import { createSlot } from "./slot";
 import { TopBar } from "./top-bar";
 import { useIsTablet } from "./use-is-tablet";
 import { routes } from "@/routes";
-import { Button, Icon, IconButton, Segmented, Text, useTheme } from "@/ui";
+import { Button, Icon, IconButton, Segmented, Text, useReducedMotion, useTheme } from "@/ui";
 
 export type SaveStatusSlot = {
 	status: SaveStatus;
@@ -116,6 +116,7 @@ function Frame<T extends string>({ panes, tabletPanes, page, title, onShare, mod
 	const navigation = useNavigation();
 	const insets = useSafeAreaInsets();
 	const { colors, size } = useTheme();
+	const reduced = useReducedMotion();
 	const current = useSegments().at(-1);
 	const currentPane = panes.find(({ pane }) => pane === current);
 	// The pane under a pushed screen or modal, so the switch and tabs keep showing it.
@@ -130,8 +131,13 @@ function Frame<T extends string>({ panes, tabletPanes, page, title, onShare, mod
 		if (redirect) router.replace(redirect.href);
 	}, [redirect, router]);
 
+	// Panes slide in from the side of the tab that was tapped, like a pager; set before each switch.
+	const [paneAnimation, setPaneAnimation] = useState<"slide_from_right" | "slide_from_left">("slide_from_right");
+
 	const switchPane = (next: PaneTab<T>) => {
 		if (next.pane === currentPane?.pane) return;
+		const after = panes.indexOf(next) > panes.findIndex(({ pane }) => pane === activePane?.pane);
+		setPaneAnimation(after !== I18nManager.isRTL ? "slide_from_right" : "slide_from_left");
 		if (!currentPane && activePane) router.dismissTo(activePane.href);
 		router.replace(next.href);
 	};
@@ -195,13 +201,11 @@ function Frame<T extends string>({ panes, tabletPanes, page, title, onShare, mod
 								}
 							>
 								<Stack
-									screenOptions={({ route }) =>
-										paneNames.has(route.name)
-											? tablet
-												? { headerShown: false, animation: "none" }
-												: { header: () => <ChromeTopBar />, animation: "none" }
-											: { headerTransparent: false }
-									}
+									screenOptions={({ route }) => {
+										if (!paneNames.has(route.name)) return { headerTransparent: false };
+										const animation = reduced ? "fade" : paneAnimation;
+										return tablet ? { headerShown: false, animation } : { header: () => <ChromeTopBar />, animation };
+									}}
 								>
 									{modals.map((name) => (
 										<Stack.Screen
@@ -270,7 +274,7 @@ function PaneBar<T extends string>({ panes, active, onSwitch }: PaneBarProps<T>)
 	const slots = slot.useSlot();
 
 	return (
-		<Bar>
+		<Bar activeIndex={panes.findIndex(({ pane }) => pane === active)}>
 			{panes.map((pane) => (
 				<BarItem
 					key={pane.pane}

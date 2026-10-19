@@ -4,6 +4,7 @@ import { useLingui } from "@lingui/react/macro";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { RefreshControl, Pressable, SectionList, View } from "react-native";
+import Animated from "react-native-reanimated";
 import { AddApplicationSheet } from "./add-sheet";
 import { applicationError } from "./error";
 import { filterApplications, groupApplications, visibleSelection } from "./list";
@@ -29,6 +30,8 @@ import {
 	Switch,
 	Text,
 	TextField,
+	listItemMotion,
+	useFirstAppearance,
 	useTheme,
 } from "@/ui";
 import { usePullRefresh } from "@/ui/use-pull-refresh";
@@ -54,6 +57,7 @@ function ApplicationsList() {
 	const { colors, space, radius, size } = useTheme();
 	const query = useApplications();
 	const pull = usePullRefresh(query.refetch);
+	const firstAppearance = useFirstAppearance(!query.isPending);
 	const { timeZone } = useUserTime();
 	const { bulkUpdate, bulkDelete } = useApplicationMutations();
 	const { search, setSearch } = useApplicationSearch();
@@ -329,10 +333,11 @@ function ApplicationsList() {
 							/>
 						</Pressable>
 					)}
-					renderItem={({ item }) => {
+					renderItem={({ item, index }) => {
 						const next = describeNextStep(getNextStep(item), item, i18n.locale, timeZone);
 						return (
-							<View
+							<Animated.View
+								{...listItemMotion(index, firstAppearance)}
 								style={{
 									borderBottomWidth: 1,
 									borderBottomColor: colors.line,
@@ -360,7 +365,7 @@ function ApplicationsList() {
 										setSelecting(true);
 									}}
 								/>
-							</View>
+							</Animated.View>
 						);
 					}}
 				/>

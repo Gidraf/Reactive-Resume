@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
 import { type ComponentRef, useRef, useState } from "react";
 import { RefreshControl, ScrollView, View } from "react-native";
+import Animated from "react-native-reanimated";
 import { client, useCareerAction, useCareerTime, useNow, useTodayQueries, useUndoRows } from "./hooks";
 import { ScheduleSheet, scheduleTitle } from "./schedule-sheet";
 import { collectInterviews, rollForward } from "./scheduling";
@@ -13,7 +14,20 @@ import { getNextStep } from "@/features/applications/next-step";
 import { useApplications } from "@/features/applications/queries";
 import { getStageLabel } from "@/features/applications/stages";
 import { routes } from "@/routes";
-import { Banner, Button, Card, Chip, EmptyState, Screen, Text, showToast, useTheme } from "@/ui";
+import {
+	Banner,
+	Button,
+	Card,
+	Chip,
+	EmptyState,
+	Screen,
+	Text,
+	listItemMotion,
+	listLayout,
+	showToast,
+	useFirstAppearance,
+	useTheme,
+} from "@/ui";
 import { usePullRefresh } from "@/ui/use-pull-refresh";
 
 export function TodayScreen() {
@@ -53,6 +67,7 @@ export function TodayScreen() {
 	const notes = (queries.notifications.data ?? []).filter(
 		(row) => showRead || (!row.readAt && !undo.hidden.includes(row.id)),
 	);
+	const firstAppearance = useFirstAppearance(!queries.notifications.isPending);
 	const openSchedule = (schedule: Schedule) =>
 		setSheet({ schedule, kind: schedule.kind as "discovery" | "prepare" | "follow-up" });
 	const toggle = (row: Schedule, enabled: boolean) => {
@@ -149,59 +164,61 @@ export function TodayScreen() {
 									message={t`New roles, reminders and finished briefings appear here.`}
 								/>
 							) : null}
-							{notes.map((row) => (
-								<Card key={row.id} style={{ gap: space.s3 }}>
-									<Text variant="title">{row.title}</Text>
-									<Text>{row.body}</Text>
-									<Text variant="caption" color="ink3">
-										{time.when(row.createdAt)}
-									</Text>
-									<Actions>
-										{row.notice.type === "opportunities" ? (
-											<Button
-												label={t`Review`}
-												variant="secondary"
-												onPress={() => {
-													setExpanded(true);
-													scroll.current?.scrollTo({
-														y: groupY.current + columnY.current + rolesY.current,
-														animated: false,
-													});
-												}}
-											/>
-										) : row.applicationId ? (
-											<Button
-												label={row.notice.type === "briefing" ? t`Open briefing` : t`Open workspace`}
-												variant="secondary"
-												onPress={() =>
-													router.push(
-														routes.application(
-															row.applicationId ?? "",
-															row.notice.type === "briefing" ? "prepare" : "messages",
-														),
-													)
-												}
-											/>
-										) : (
-											<Button
-												label={t`Open settings`}
-												variant="secondary"
-												onPress={() => router.push(routes.settings("ai"))}
-											/>
-										)}
-										{!row.readAt && !undo.hidden.includes(row.id) ? (
-											<Button
-												label={t`Mark as read`}
-												variant="ghost"
-												onPress={() =>
-													undo.remove(row.id, t`Marked as read`, () =>
-														client.career.markNotificationRead({ id: row.id }),
-													)
-												}
-											/>
-										) : null}
-									</Actions>
-								</Card>
+							{notes.map((row, index) => (
+								<Animated.View key={row.id} {...listItemMotion(index, firstAppearance)} layout={listLayout}>
+									<Card style={{ gap: space.s3 }}>
+										<Text variant="title">{row.title}</Text>
+										<Text>{row.body}</Text>
+										<Text variant="caption" color="ink3">
+											{time.when(row.createdAt)}
+										</Text>
+										<Actions>
+											{row.notice.type === "opportunities" ? (
+												<Button
+													label={t`Review`}
+													variant="secondary"
+													onPress={() => {
+														setExpanded(true);
+														scroll.current?.scrollTo({
+															y: groupY.current + columnY.current + rolesY.current,
+															animated: false,
+														});
+													}}
+												/>
+											) : row.applicationId ? (
+												<Button
+													label={row.notice.type === "briefing" ? t`Open briefing` : t`Open workspace`}
+													variant="secondary"
+													onPress={() =>
+														router.push(
+															routes.application(
+																row.applicationId ?? "",
+																row.notice.type === "briefing" ? "prepare" : "messages",
+															),
+														)
+													}
+												/>
+											) : (
+												<Button
+													label={t`Open settings`}
+													variant="secondary"
+													onPress={() => router.push(routes.settings("ai"))}
+												/>
+											)}
+											{!row.readAt && !undo.hidden.includes(row.id) ? (
+												<Button
+													label={t`Mark as read`}
+													variant="ghost"
+													onPress={() =>
+														undo.remove(row.id, t`Marked as read`, () =>
+															client.career.markNotificationRead({ id: row.id }),
+														)
+													}
+												/>
+											) : null}
+										</Actions>
+									</Card>
+								</Animated.View>
 							))}
 							<Button
 								variant="ghost"
