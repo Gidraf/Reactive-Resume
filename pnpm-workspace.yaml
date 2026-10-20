@@ -5,10 +5,11 @@ packages:
 catalogMode: prefer
 catalog:
   "@babel/plugin-transform-parameters": ^7.29.7
-  "@better-auth/api-key": "1.7.10"
+  "@better-auth/api-key": "1.7.11"
+  "@better-auth/drizzle-adapter": "1.7.11"
   "@better-auth/infra": ^0.4.20
-  "@better-auth/oauth-provider": "1.7.10"
-  "@better-auth/passkey": "1.7.10"
+  "@better-auth/oauth-provider": "1.7.11"
+  "@better-auth/passkey": "1.7.11"
   "@cloudflare/workers-types": ^5.20261016.1
   "@orpc/client": ^1.15.7
   "@orpc/server": ^1.15.7
@@ -20,7 +21,7 @@ catalog:
   "@uiw/color-convert": "^2.10.3"
   "ai": ^7.0.143
   "bcryptjs": "^3.0.3"
-  "better-auth": "1.7.10"
+  "better-auth": "1.7.11"
   "drizzle-orm": "1.0.0-rc.4"
   "es-toolkit": "^1.52.0"
   esbuild: ^0.28.2
