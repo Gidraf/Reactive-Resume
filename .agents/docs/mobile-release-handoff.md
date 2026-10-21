@@ -46,7 +46,7 @@ The checked-in `.github/workflows/docker-build.yml` currently behaves as follows
 - Current SSH command runs `cd docker` then `./manage_stack.sh up reactive_resume`. Verify the actual VPS script pulls the intended image and updates every replica.
 - GHCR is primary; Docker Hub is a best-effort mirror. A successful workflow may still have failed mirror steps. Confirm the registry/tag/digest consumed by Swarm.
 
-Before invoking a promotion, follow [container publishing](../agents/container-publishing.md). Pushing this feature branch alone does not build or deploy the production Docker image. Do not assume an unrelated external pull trigger follows the same rules; verify its actual execution and the running image digest.
+Before invoking a promotion, follow [container publishing](./container-publishing.md). Pushing this feature branch alone does not build or deploy the production Docker image. Do not assume an unrelated external pull trigger follows the same rules; verify its actual execution and the running image digest.
 
 ### Over-the-air updates
 
@@ -157,10 +157,10 @@ binaries and deploy the backend first.
 1. Deploy the backend first. Keep the API backward compatible: older binaries and OTA bundles remain in use.
 2. Optionally bump `version` in `apps/mobile/app.config.ts` (for example `1.0.0` to `1.1.0`). CI supplies increasing iOS build numbers and Android version codes. iOS needs a new version string after a version is released; Play needs only a higher `versionCode`.
 3. Dispatch **Mobile Release** on `main`, platform `all`. The [Blacksmith setup guide](./mobile-ci.md) covers migrating existing signing credentials, seeding `MOBILE_BUILD_NUMBER_BASE`, and configuring the `mobile-store` approval environment. Build without uploads first to verify signing. No EAS Build credits are used.
-4. Dispatch with **upload** enabled to send the signed artifacts to App Store Connect and Play's internal draft track. This does not submit App Review, distribute to external testers, or publish a production release. Fastlane signs locally using existing credentials and does not synchronize Apple capabilities. If exporting credentials through `eas credentials`, keep `EXPO_NO_CAPABILITY_SYNC=1`; Apple sign-in uses web Services ID `me.rxresu.web`, so turning off its primary App ID's Sign in with Apple capability would break sign-in.
+4. Dispatch with **upload** enabled to publish the signed artifacts to every existing Play testing track and all existing TestFlight groups, including external beta groups. iOS waits for processing and submits for TestFlight beta review where required; configure at least one TestFlight group first. This does not submit public App Store review or publish a production release. Fastlane signs locally using existing credentials and does not synchronize Apple capabilities. If exporting credentials through `eas credentials`, keep `EXPO_NO_CAPABILITY_SYNC=1`; Apple sign-in uses web Services ID `me.rxresu.web`, so turning off its primary App ID's Sign in with Apple capability would break sign-in.
 
 5. **App Store Connect:** wait for processing, test through TestFlight, create the new app version, attach the build, write "What's New", and submit for review. Release manually or automatically after approval.
-6. **Play Console:** the build lands in the `internal` track as a draft. Roll it out to testers, then promote it to production with release notes. Use a staged rollout for risky changes.
+6. **Play Console:** the build is published on `internal` and promoted to every other existing non-production testing track. After testing, promote it to production with release notes. Use a staged rollout for risky changes.
 7. Run the [signed-device test matrix](#signed-device-test-matrix) on the store-installed builds before promoting to production.
 8. Confirm that a later OTA update reaches the new binary, because its fingerprint and runtime version changed.
 

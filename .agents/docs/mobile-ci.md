@@ -17,9 +17,12 @@ changes reach `main`; no Blacksmith app build or store upload was run during set
 ## One-time migration
 
 Enable Blacksmith for this repository and confirm your plan covers macOS runners.
-The workflow uses `blacksmith-6vcpu-macos-26` with the image's default Xcode and records
-its version in each iOS artifact. Check Apple's current minimum SDK requirements before
-uploading. Ruby, Fastlane and CocoaPods dependencies are locked under `tooling/mobile`.
+The workflows use `blacksmith-12vcpu-macos-latest` for iOS and Forme native prebuilds,
+and `blacksmith-32vcpu-ubuntu-2404` for all their Linux jobs. Android builds cross-compile
+device ABIs on the x64 Linux host; an ARM runner is not required. The latest macOS image
+and its default Xcode can change; each iOS artifact records the Xcode version. Check
+Apple's current minimum SDK requirements before uploading. Ruby, Fastlane and CocoaPods
+dependencies are locked under `tooling/mobile`.
 
 Download the **existing** Android upload keystore and iOS distribution certificate
 (including its private key) and App Store provisioning profile using `eas credentials`
@@ -91,11 +94,16 @@ paths are manual, and signing is limited to `main`.
    or public sideload distribution are created.
 4. Dispatch with **upload** enabled when ready. Upload jobs start only after every
    selected platform built successfully, then pass the `mobile-store` environment gate.
-   They upload the exact signed artifacts from that run. Android goes to an **internal
-   draft**; iOS uploads to App Store Connect without external tester distribution or
-   App Review submission. Upload success does not prove store processing succeeded.
-5. Finish TestFlight/Play tester distribution, signed-device QA, store declarations,
-   review submission and production rollout in the consoles. Follow the
+   They publish the exact signed artifacts from that run. Android creates a **completed
+   release on the internal testing track**, then promotes that exact version to every
+   other existing testing track, including open and closed beta tracks. Production
+   tracks are excluded. iOS waits for processing and assigns the build to **all existing
+   TestFlight groups**, internal and external, submitting for beta review and notifying
+   external testers when applicable. Configure at least one TestFlight group first.
+   Store-side processing and beta review can delay availability; public store releases
+   remain separate.
+5. Confirm tester access, complete signed-device QA and store declarations, then
+   submit for public review and production rollout in the consoles. Follow the
    [release handoff](./mobile-release-handoff.md#signed-device-test-matrix).
 
 CI creates temporary signing files with restrictive permissions, imports the Apple

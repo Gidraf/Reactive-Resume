@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   prebuilt:
-    runs-on: ${{ vars.USE_BLACKSMITH == 'true' && 'blacksmith-6vcpu-macos-26' || 'macos-26' }}
+    runs-on: blacksmith-12vcpu-macos-latest
     timeout-minutes: 60
     outputs:
       tag: ${{ steps.artifact.outputs.tag }}
@@ -78,7 +78,7 @@ jobs:
   publish:
     needs: prebuilt
     if: inputs.publish
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-32vcpu-ubuntu-2404
     timeout-minutes: 5
     permissions:
       contents: write

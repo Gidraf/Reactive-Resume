@@ -9,7 +9,7 @@ on:
         options: [all, android, ios]
         default: all
       upload:
-        description: Upload to TestFlight / Play internal draft (never submit review or publish)
+        description: Publish to all Play testing tracks and TestFlight groups (no production release)
         type: boolean
         default: false
 
@@ -30,7 +30,7 @@ env:
 jobs:
   prepare:
     if: github.ref == 'refs/heads/main'
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: blacksmith-32vcpu-ubuntu-2404
     timeout-minutes: 5
     outputs:
       build_number: ${{ steps.release.outputs.build_number }}
@@ -79,7 +79,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: ${{ fromJSON(needs.prepare.outputs.platforms) }}
-    runs-on: ${{ matrix.platform == 'ios' && 'blacksmith-6vcpu-macos-26' || 'blacksmith-8vcpu-ubuntu-2404' }}
+    runs-on: ${{ matrix.platform == 'ios' && 'blacksmith-12vcpu-macos-latest' || 'blacksmith-32vcpu-ubuntu-2404' }}
     timeout-minutes: 90
     env:
       PLATFORM: ${{ matrix.platform }}
@@ -101,6 +101,8 @@ jobs:
           working-directory: tooling/mobile
       - name: Check signing file handling
         run: bundle exec ruby tooling/mobile/signing_test.rb
+      - name: Check beta distribution targets
+        run: ruby tooling/mobile/distribution_test.rb
       - uses: actions/setup-java@v5
         if: matrix.platform == 'android'
         with:
@@ -161,9 +163,10 @@ jobs:
       fail-fast: false
       matrix:
         platform: ${{ fromJSON(needs.prepare.outputs.platforms) }}
-    runs-on: ${{ matrix.platform == 'ios' && 'blacksmith-6vcpu-macos-26' || 'blacksmith-2vcpu-ubuntu-2404' }}
+    runs-on: ${{ matrix.platform == 'ios' && 'blacksmith-12vcpu-macos-latest' || 'blacksmith-32vcpu-ubuntu-2404' }}
     timeout-minutes: 30
     env:
+      MOBILE_BUILD_NUMBER: ${{ needs.prepare.outputs.build_number }}
       BUNDLE_GEMFILE: ${{ github.workspace }}/tooling/mobile/Gemfile
     steps:
       - uses: useblacksmith/checkout@v1
@@ -178,7 +181,7 @@ jobs:
         with:
           name: mobile-${{ matrix.platform }}-${{ needs.prepare.outputs.build_number }}
           path: ${{ runner.temp }}/mobile-release
-      - name: Upload without review or production rollout
+      - name: Publish to beta testers without production rollout
         working-directory: tooling/mobile
         env:
           PLATFORM: ${{ matrix.platform }}

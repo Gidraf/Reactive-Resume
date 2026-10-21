@@ -92,7 +92,7 @@ at launch, downloaded in the background, and applied on the next restart.
 
 Before first use, add `EXPO_TOKEN`, create preview/production EAS channels, and distribute
 new builds with these channels and update configuration. Existing binaries without
-`expo-updates` cannot receive OTA updates. See [mobile release handoff](../contributing/mobile-release-handoff.md#over-the-air-updates)
+`expo-updates` cannot receive OTA updates. See [mobile release handoff](./mobile-release-handoff.md#over-the-air-updates)
 for setup, rollback, and remaining verification. Keep APIs compatible with older clients
 and self-hosted servers; runtime fingerprints only protect the JavaScript/native boundary.
 
