@@ -965,7 +965,7 @@ msgstr "உங்கள் வார்த்தைகளில் இரண்�
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "இன்னொரு ஜோடி கண்கள்."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "ஆலோசகரிடம் கேள்"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "சமூகத்திடம் கேளுங்கள். பதிவிடும் முன் தனிப்பட்ட விவரங்களை அகற்றுங்கள்."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "நீங்கள் செய்த அனைத்தும், ஒ�
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "ரெஸ்யூமே குறித்த கருத்துகளைப் பகிருங்கள், கேள்விகள் கேளுங்கள், சமூகத்துடன் இணைந்து Reactive Resume-ஐ வடிவமைக்க உதவுங்கள்."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "ஒவ்வொரு காலையும் புதிய பதவ
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Discord-இல் உங்கள் ரெஸ்யூமேக்குக் கருத்து பெறுங்கள்"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "ஜான்.டோ"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "Discord-இல் சேருங்கள்"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "Discord சமூகத்தில் சேருங்கள்"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

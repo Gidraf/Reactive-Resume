@@ -965,7 +965,7 @@ msgstr "Egy másik vélemény a megfogalmazásodról"
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "Egy második szempár."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "Kérdezd a coachot"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "Kérdezd a közösséget. Közzététel előtt távolítsd el a személyes adatokat."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "Minden, amit tett, egy oldalon."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "Cserélj visszajelzést önéletrajzokról, tegyél fel kérdéseket, és formáld a Reactive Resume-ot a közösséggel együtt."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "Kapj új pozíciókat itt minden reggel"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Kérj visszajelzést az önéletrajzodra a Discordon"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "John.Doe"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "Csatlakozás a Discordhoz"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "Csatlakozz a Discord-közösséghez"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

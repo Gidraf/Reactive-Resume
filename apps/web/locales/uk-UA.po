@@ -965,7 +965,7 @@ msgstr "Друга думка щодо вашого формулювання"
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "Погляд збоку."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "Запитати коуча"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "Запитайте спільноту. Перед публікацією видаліть особисті дані."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "Усе, що ви зробили, на одній сторінці."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "Обмінюйтеся відгуками про резюме, ставте запитання й розвивайте Reactive Resume разом зі спільнотою."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "Отримуйте нові вакансії тут щоранку"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Отримайте відгук про резюме в Discord"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "john.doe"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "Приєднатися до Discord"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "Приєднуйтеся до спільноти в Discord"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

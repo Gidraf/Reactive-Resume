@@ -965,7 +965,7 @@ msgstr "نظر دوم در مورد جمله شما"
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "یک جفت چشم دیگر."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "از مربی بپرسید"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "از جامعه بپرسید. پیش از ارسال، اطلاعات شخصی را حذف کنید."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "هر کاری که انجام داده اید، در یک صفحه."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "درباره رزومه‌ها بازخورد ردوبدل کنید، سؤال بپرسید و همراه با جامعه به شکل‌دادن Reactive Resume کمک کنید."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "هر صبح موقعیت‌های شغلی جدید را اینجا در
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "در Discord درباره رزومه‌تان بازخورد بگیرید"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "جان.دو"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "پیوستن به Discord"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "به جامعه Discord بپیوندید"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

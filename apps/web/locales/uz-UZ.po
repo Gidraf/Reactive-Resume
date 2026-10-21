@@ -965,7 +965,7 @@ msgstr "Sizning so'zlaringiz bo'yicha ikkinchi fikr"
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "Yana bir nigoh."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "Murabbiydan so'rash"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "Hamjamiyatdan so‘rang. Joylashdan oldin shaxsiy ma’lumotlarni olib tashlang."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "Siz qilgan hamma narsa bitta sahifada."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "Rezyumelar bo‘yicha fikr almashing, savollar bering va hamjamiyat bilan birga Reactive Resume’ni shakllantirishga yordam bering."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "Har kuni ertalab yangi vakansiyalarni shu yerda oling"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Discord’da rezyumengiz bo‘yicha fikr oling"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "jon.doe"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "Discord’ga qo‘shiling"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "Discord hamjamiyatiga qo‘shiling"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

@@ -965,7 +965,7 @@ msgstr "ನಿಮ್ಮ ಮಾತಿನ ಮೇಲೆ ಎರಡನೇ ಅಭಿ�
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "ಇನ್ನೊಂದು ಜೋಡಿ ಕಣ್ಣುಗಳು."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "ಕೋಚ್ ಅನ್ನು ಕೇಳಿ"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "ಸಮುದಾಯವನ್ನು ಕೇಳಿ. ಪೋಸ್ಟ್ ಮಾಡುವ ಮೊದಲು ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ತೆಗೆದುಹಾಕಿ."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "ನೀವು ಮಾಡಿದ ಎಲ್ಲವೂ ಒಂದೇ ಪುಟ�
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "ರೆಸ್ಯೂಮೆ ಕುರಿತು ಪ್ರತಿಕ್ರಿಯೆ ಹಂಚಿಕೊಳ್ಳಿ, ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ ಮತ್ತು ಸಮುದಾಯದೊಂದಿಗೆ Reactive Resume ಅನ್ನು ರೂಪಿಸಲು ಸಹಾಯ ಮಾಡಿ."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "ಪ್ರತಿದಿನ ಬೆಳಿಗ್ಗೆ ಇಲ್ಲಿ ಹೊ
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Discord ನಲ್ಲಿ ನಿಮ್ಮ ರೆಸ್ಯೂಮೆಗೆ ಪ್ರತಿಕ್ರಿಯೆ ಪಡೆಯಿರಿ"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "john.doe"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "Discord ಸೇರಿ"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "Discord ಸಮುದಾಯವನ್ನು ಸೇರಿ"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

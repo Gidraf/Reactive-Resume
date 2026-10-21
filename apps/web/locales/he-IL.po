@@ -965,7 +965,7 @@ msgstr "חוות דעת שנייה על הניסוח שלך"
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "זוג עיניים נוסף."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "שאל את המאמן"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "שאלו את הקהילה. הסירו פרטים אישיים לפני הפרסום."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "כל מה שעשית, בעמוד אחד."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "החליפו משוב על קורות חיים, שאלו שאלות ועזרו לעצב את Reactive Resume יחד עם הקהילה."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "קבל כאן תפקידים חדשים בכל בוקר"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "קבלו משוב על קורות החיים ב-Discord"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "ג'ון דו"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "הצטרפות ל-Discord"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "הצטרפו לקהילת Discord"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

@@ -965,7 +965,7 @@ msgstr "Μια δεύτερη γνώμη για τη διατύπωσή σας"
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "Ένα δεύτερο ζευγάρι μάτια."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "Ρωτήστε τον σύμβουλο"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "Ρωτήστε την κοινότητα. Αφαιρέστε τα προσωπικά στοιχεία πριν δημοσιεύσετε."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "Όλα όσα έχετε κάνει, σε μια σελίδα."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "Ανταλλάξτε σχόλια για βιογραφικά, κάντε ερωτήσεις και βοηθήστε να διαμορφωθεί το Reactive Resume μαζί με την κοινότητα."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "Λαμβάνετε νέες θέσεις εδώ κάθε πρωί"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Λάβετε σχόλια για το βιογραφικό σας στο Discord"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "john.doe"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "Συμμετοχή στο Discord"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "Γίνετε μέλος της κοινότητας στο Discord"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

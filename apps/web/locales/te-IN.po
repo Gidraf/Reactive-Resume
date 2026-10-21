@@ -965,7 +965,7 @@ msgstr "మీ పదజాలంపై రెండవ అభిప్రాయ
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "మరో జత కళ్ళు."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "కోచ్‌ను అడుగు"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "కమ్యూనిటీని అడగండి. పోస్ట్ చేసే ముందు వ్యక్తిగత వివరాలను తీసివేయండి."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "మీరు చేసిన ప్రతిదీ, ఒక పేజీ�
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "రెజ్యూమేలపై అభిప్రాయాలు పంచుకోండి, ప్రశ్నలు అడగండి, కమ్యూనిటీతో కలిసి Reactive Resumeను తీర్చిదిద్దడంలో సహాయపడండి."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "ప్రతి ఉదయం కొత్త పదవులను ఇ�
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Discordలో మీ రెజ్యూమేపై అభిప్రాయం పొందండి"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "జాన్.డో"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "Discordలో చేరండి"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "Discord కమ్యూనిటీలో చేరండి"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

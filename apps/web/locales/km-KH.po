@@ -965,7 +965,7 @@ msgstr "មតិទីពីរលើពាក្យរបស់អ្នក។
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "ភ្នែកមួយគូទៀត។"
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "សួរគ្រូបង្វឹក"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "សួរសហគមន៍។ លុបព័ត៌មានផ្ទាល់ខ្លួនចេញមុនពេលបង្ហោះ។"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "អ្វីគ្រប់យ៉ាងដែលអ្នកបានធ
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "ផ្លាស់ប្តូរមតិលើប្រវត្តិរូបសង្ខេប សួរសំណួរ និងជួយកសាង Reactive Resume ជាមួយសហគមន៍។"
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "ទទួលតួនាទីថ្មីៗនៅទីនេះរៀ
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "ទទួលមតិលើប្រវត្តិរូបសង្ខេបរបស់អ្នកនៅលើ Discord"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "john.doe"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "ចូលរួម Discord"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "ចូលរួមសហគមន៍ Discord"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

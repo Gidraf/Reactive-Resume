@@ -965,7 +965,7 @@ msgstr "ความคิดเห็นที่สองเกี่ยวก
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "อีกหนึ่งมุมมอง"
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "ถามโค้ช"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "ถามคอมมูนิตี้ ลบข้อมูลส่วนตัวก่อนโพสต์"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "ทุกสิ่งที่คุณทำในหน้าเดี
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "แลกเปลี่ยนความคิดเห็นเกี่ยวกับเรซูเม่ ถามคำถาม และร่วมพัฒนา Reactive Resume ไปกับคอมมูนิตี้"
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "รับตำแหน่งงานใหม่ที่นี่ท
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "รับความคิดเห็นเกี่ยวกับเรซูเม่บน Discord"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "จอห์น.โด"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "เข้าร่วม Discord"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "เข้าร่วมคอมมูนิตี้ Discord"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"

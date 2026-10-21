@@ -965,7 +965,7 @@ msgstr "तुमच्या शब्दरचनेवर दुसरे म
 
 #: src/features/homepage/sections.tsx
 msgid "A second pair of eyes."
-msgstr ""
+msgstr "आणखी एक नजर."
 
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
@@ -1964,7 +1964,7 @@ msgstr "कोचला विचारा"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "समुदायाला विचारा. पोस्ट करण्यापूर्वी वैयक्तिक तपशील काढून टाका."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -4622,7 +4622,7 @@ msgstr "आपण केलेले सर्व काही, एका पृ
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
-msgstr ""
+msgstr "रेझ्युमेवर अभिप्राय देवाणघेवाण करा, प्रश्न विचारा आणि समुदायासोबत Reactive Resume घडवण्यात मदत करा."
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Exit focus mode"
@@ -5220,7 +5220,7 @@ msgstr "दररोज सकाळी येथे नवीन भूमि�
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Discord वर तुमच्या रेझ्युमेवर अभिप्राय मिळवा"
 
 #: src/features/homepage/footer.tsx
 msgid "Get started"
@@ -5983,11 +5983,11 @@ msgstr "जॉन.डो"
 
 #: src/features/homepage/footer.tsx
 msgid "Join Discord"
-msgstr ""
+msgstr "Discord मध्ये सामील व्हा"
 
 #: src/features/homepage/sections.tsx
 msgid "Join the Discord community"
-msgstr ""
+msgstr "Discord समुदायात सामील व्हा"
 
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"
