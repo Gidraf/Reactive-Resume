@@ -147,7 +147,7 @@ type WithoutEndpointMetadata<TPlugin> = TPlugin extends { endpoints: infer TEndp
 		}
 	: TPlugin;
 
-/** Prepare external resources before the transaction; optional cleanup runs only after commit. */
+/** Prepare external resources before commit; optional cleanup runs only after commit. */
 export type AccountLinkHook = (params: {
 	fromUserId: string;
 	toUserId: string;
@@ -176,11 +176,6 @@ export async function linkAnonymousAccount({
 	if (fromUserId === toUserId) return;
 
 	const cleanups: (() => Promise<void>)[] = [];
-	for (const hook of accountLinkHooks) {
-		const cleanup = await hook({ fromUserId, toUserId });
-		if (cleanup) cleanups.push(cleanup);
-	}
-
 	await db.transaction(async (tx) => {
 		const rewriteUploadsJson = (column: unknown) =>
 			sql`cast(replace(cast(${column} as text), 'uploads/' || ${fromUserId} || '/', 'uploads/' || ${toUserId} || '/') as jsonb)`;
@@ -244,6 +239,12 @@ export async function linkAnonymousAccount({
 			.update(schema.resumeSlugRedirect)
 			.set({ userId: toUserId })
 			.where(eq(schema.resumeSlugRedirect.userId, fromUserId));
+
+		// Ownership updates lock document rows, so guest saves cannot add uncopied references during copying.
+		for (const hook of accountLinkHooks) {
+			const cleanup = await hook({ fromUserId, toUserId });
+			if (cleanup) cleanups.push(cleanup);
+		}
 	});
 
 	const results = await Promise.allSettled(

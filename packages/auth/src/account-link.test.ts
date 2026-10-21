@@ -42,18 +42,10 @@ beforeEach(() => {
 });
 
 describe("linkAnonymousAccount", () => {
-	it("keeps database ownership and URLs unchanged when storage preparation fails", async () => {
-		registerAccountLinkHook(vi.fn().mockRejectedValue(new Error("Storage unavailable")));
-
-		await expect(linkAnonymousAccount({ fromUserId: "guest-123", toUserId: "user-456" })).rejects.toThrow(
-			"Storage unavailable",
-		);
-		expect(mocks.transaction).not.toHaveBeenCalled();
-	});
-
-	it("copies before the transaction and cleans up only after commit", async () => {
+	it("copies before commit and cleans up only after commit", async () => {
 		const events: string[] = [];
 		registerAccountLinkHook(async () => {
+			expect(mocks.updateWhere).toHaveBeenCalled();
 			events.push("copy");
 			return async () => {
 				events.push("cleanup");
