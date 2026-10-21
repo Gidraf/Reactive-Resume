@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "לא ניתן היה לבדוק את ספקי ה-AI שלך."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "לא ניתן היה להשלים את הפעולה הזו. נסה שוב."
 
@@ -8717,6 +8718,10 @@ msgstr "חלק מהטקסט נופל מחוץ לעמוד."
 msgid "Some text is rotated."
 msgstr "חלק מהטקסט מסובב."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "משהו השתבש"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "לא ניתן היה לטעון את הגרסה השמורה הזו."
 msgid "This saved version is no longer available."
 msgstr "הגרסה השמורה הזו כבר אינה זמינה."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "השרת הזה ישן מדי עבור האפליקציה. בקש ממנהל המערכת לעדכן אותו."
@@ -9907,6 +9916,7 @@ msgstr "מקצץ מילים"
 msgid "Try {suggestion}"
 msgstr "נסה את {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

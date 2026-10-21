@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Không thể kiểm tra nhà cung cấp AI của bạn."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Không thể hoàn thành hành động này. Hãy thử lại."
 
@@ -8717,6 +8718,10 @@ msgstr "Một số văn bản nằm ngoài phạm vi trang."
 msgid "Some text is rotated."
 msgstr "Một số văn bản bị xoay."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Đã xảy ra lỗi"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Không thể tải phiên bản đã lưu này."
 msgid "This saved version is no longer available."
 msgstr "Phiên bản đã lưu này không còn nữa."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Máy chủ này quá cũ đối với ứng dụng. Hãy yêu cầu quản trị viên của bạn cập nhật nó."
@@ -9907,6 +9916,7 @@ msgstr "Đang lược bớt từ"
 msgid "Try {suggestion}"
 msgstr "Hãy thử {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

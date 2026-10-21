@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "የAI አቅራቢዎችዎን መፈተሽ አልተቻለም።"
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "ይህን እርምጃ ማጠናቀቅ አልተቻለም። እንደገና ይሞክሩ።"
 
@@ -8717,6 +8718,10 @@ msgstr "አንዳንድ ጽሁፍ ከገጹ ውጭ ይወድቃል።"
 msgid "Some text is rotated."
 msgstr "አንዳንድ ጽሁፍ ተሽከርክሯል።"
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "የሆነ ችግር ተፈጥሯል"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "ይህን የተቀመጠ ስሪት መጫን አልተቻለም።"
 msgid "This saved version is no longer available."
 msgstr "ይህ የተቀመጠ ስሪት ከአሁን በኋላ አይገኝም።"
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "ይህ አገልጋይ ለመተግበሪያው በጣም ያረጀ ነው። አስተዳዳሪዎን እንዲያዘምኑት ይጠይቁ።"
@@ -9907,6 +9916,7 @@ msgstr "ቃላትን በመቀነስ ላይ"
 msgid "Try {suggestion}"
 msgstr "{suggestion}ን ይሞክሩ"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

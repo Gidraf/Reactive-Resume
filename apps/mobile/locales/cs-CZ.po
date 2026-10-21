@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Nepodařilo se ověřit vaše poskytovatele AI."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Tuto akci nelze dokončit. Zkuste to znovu."
 
@@ -8717,6 +8718,10 @@ msgstr "Část textu je mimo stránku."
 msgid "Some text is rotated."
 msgstr "Část textu je otočená."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Něco se pokazilo"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Tuto uloženou verzi se nepodařilo načíst."
 msgid "This saved version is no longer available."
 msgstr "Tato uložená verze už není k dispozici."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Tento server je pro aplikaci příliš starý. Požádejte správce o aktualizaci."
@@ -9907,6 +9916,7 @@ msgstr "Škrtají se slova"
 msgid "Try {suggestion}"
 msgstr "Zkuste {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

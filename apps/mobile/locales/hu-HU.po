@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Nem sikerült ellenőrizni a mesterséges intelligencia szolgáltatóit."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Ezt a műveletet nem sikerült végrehajtani. Próbáld újra."
 
@@ -8717,6 +8718,10 @@ msgstr "Néhány szövegrész az oldalon kívülre esik."
 msgid "Some text is rotated."
 msgstr "Néhány szövegrész el van forgatva."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Valami rosszul sült el"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Ezt a mentett verziót nem sikerült betölteni."
 msgid "This saved version is no longer available."
 msgstr "Ez a mentett verzió már nem érhető el."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Ez a szerver túl régi az alkalmazáshoz. Kérje meg rendszergazdáját, hogy frissítse."
@@ -9907,6 +9916,7 @@ msgstr "Szavak lefaragása"
 msgid "Try {suggestion}"
 msgstr "Próbálja ki a következőt: {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

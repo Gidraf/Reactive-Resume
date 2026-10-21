@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "നിങ്ങളുടെ AI ദാതാക്കളെ പരിശോധിക്കാനായില്ല."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "ഈ പ്രവർത്തനം പൂർത്തിയാക്കാൻ കഴിഞ്ഞില്ല. വീണ്ടും ശ്രമിക്കുക."
 
@@ -8717,6 +8718,10 @@ msgstr "ചില ടെക്സ്റ്റ് പേജിന് പുറത
 msgid "Some text is rotated."
 msgstr "ചില ടെക്സ്റ്റ് തിരിഞ്ഞിരിക്കുന്നു."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "എന്തോ കുഴപ്പം സംഭവിച്ചു."
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "ഈ സംരക്ഷിച്ച പതിപ്പ് ലോഡ് �
 msgid "This saved version is no longer available."
 msgstr "ഈ സംരക്ഷിച്ച പതിപ്പ് ഇനി ലഭ്യമല്ല."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "ഈ സെർവർ ആപ്പിന് വളരെ പഴയതാണ്. ഇത് അപ്‌ഡേറ്റ് ചെയ്യാൻ നിങ്ങളുടെ അഡ്‌മിനിസ്‌ട്രേറ്ററോട് ആവശ്യപ്പെടുക."
@@ -9907,6 +9916,7 @@ msgstr "വാക്കുകൾ കുറയ്ക്കുന്നു"
 msgid "Try {suggestion}"
 msgstr "{suggestion} ശ്രമിക്കുക"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

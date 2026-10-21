@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Δεν ήταν δυνατός ο έλεγχος των παρόχων AI σας."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Δεν ήταν δυνατή η ολοκλήρωση αυτής της ενέργειας. Προσπαθήστε ξανά."
 
@@ -8717,6 +8718,10 @@ msgstr "Ορισμένο κείμενο βρίσκεται εκτός της σ�
 msgid "Some text is rotated."
 msgstr "Ορισμένο κείμενο είναι περιστραμμένο."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Κάτι πήγε στραβά"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Δεν ήταν δυνατή η φόρτωση αυτής της απο�
 msgid "This saved version is no longer available."
 msgstr "Αυτή η αποθηκευμένη έκδοση δεν είναι πλέον διαθέσιμη."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Αυτός ο διακομιστής είναι πολύ παλιός για την εφαρμογή. Ζητήστε από τον διαχειριστή σας να το ενημερώσει."
@@ -9907,6 +9916,7 @@ msgstr "Περικοπή λέξεων"
 msgid "Try {suggestion}"
 msgstr "Δοκιμάστε το {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

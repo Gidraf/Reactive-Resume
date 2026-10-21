@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "AI provayderlərinizi yoxlamaq mümkün olmadı."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Bu əməliyyatı tamamlamaq mümkün olmadı. Yenidən cəhd edin."
 
@@ -8717,6 +8718,10 @@ msgstr "Bəzi mətn səhifədən kənara düşür."
 msgid "Some text is rotated."
 msgstr "Bəzi mətn döndərilib."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Nəsə səhv getdi"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Bu saxlanılmış versiyanı yükləmək mümkün olmadı."
 msgid "This saved version is no longer available."
 msgstr "Bu saxlanılmış versiya artıq mövcud deyil."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Bu server proqram üçün çox köhnədir. Administratorunuzdan onu yeniləməsini xahiş edin."
@@ -9907,6 +9916,7 @@ msgstr "Sözlər ixtisar edilir"
 msgid "Try {suggestion}"
 msgstr "{suggestion} cəhd edin"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

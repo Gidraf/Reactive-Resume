@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Nu s-au putut verifica furnizorii dvs. de AI."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Această acțiune nu a putut fi finalizată. Încearcă din nou."
 
@@ -8717,6 +8718,10 @@ msgstr "O parte din text cade în afara paginii."
 msgid "Some text is rotated."
 msgstr "O parte din text este rotită."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Ceva nu a mers bine"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Această versiune salvată nu a putut fi încărcată."
 msgid "This saved version is no longer available."
 msgstr "Această versiune salvată nu mai este disponibilă."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Acest server este prea vechi pentru aplicație. Cereți administratorului să-l actualizeze."
@@ -9907,6 +9916,7 @@ msgstr "Se taie cuvinte"
 msgid "Try {suggestion}"
 msgstr "Încercați {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

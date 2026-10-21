@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Tidak dapat memeriksa penyedia AI Anda."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Tidak dapat menyelesaikan tindakan ini. Coba lagi."
 
@@ -8717,6 +8718,10 @@ msgstr "Beberapa teks jatuh di luar halaman."
 msgid "Some text is rotated."
 msgstr "Beberapa teks diputar."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Terjadi kesalahan."
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Versi tersimpan ini tidak dapat dimuat."
 msgid "This saved version is no longer available."
 msgstr "Versi tersimpan ini sudah tidak tersedia."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Server ini terlalu tua untuk aplikasi ini. Minta administrator Anda untuk memperbaruinya."
@@ -9907,6 +9916,7 @@ msgstr "Memangkas kata"
 msgid "Try {suggestion}"
 msgstr "Coba {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "AI 제공업체를 확인할 수 없습니다."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "이 작업을 완료할 수 없습니다. 다시 시도해 보세요."
 
@@ -8717,6 +8718,10 @@ msgstr "일부 텍스트가 페이지 밖으로 벗어나 있습니다."
 msgid "Some text is rotated."
 msgstr "일부 텍스트가 회전되어 있습니다."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "뭔가 잘못됐어요"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "이 저장된 버전을 불러올 수 없습니다."
 msgid "This saved version is no longer available."
 msgstr "이 저장된 버전은 더 이상 사용할 수 없습니다."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "이 서버는 앱을 사용하기에는 너무 오래되었습니다. 관리자에게 업데이트를 요청하세요."
@@ -9907,6 +9916,7 @@ msgstr "단어 줄이는 중"
 msgid "Try {suggestion}"
 msgstr "{suggestion}를 사용해 보세요"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

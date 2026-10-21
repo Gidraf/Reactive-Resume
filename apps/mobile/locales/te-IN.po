@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "మీ AI ప్రొవైడర్‌లను తనిఖీ చేయలేకపోయాము."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "ఈ చర్యను పూర్తి చేయడం సాధ్యపడలేదు. మళ్లీ ప్రయత్నించండి."
 
@@ -8717,6 +8718,10 @@ msgstr "కొంత టెక్స్ట్ పేజీ వెలుపల �
 msgid "Some text is rotated."
 msgstr "కొంత టెక్స్ట్ తిప్పబడింది."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "ఏదో తప్పు జరిగింది"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "ఈ సేవ్ చేసిన వెర్షన్‌ను లో�
 msgid "This saved version is no longer available."
 msgstr "ఈ సేవ్ చేసిన వెర్షన్ ఇక అందుబాటులో లేదు."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "ఈ సర్వర్ యాప్‌కి చాలా పాతది. దీన్ని అప్‌డేట్ చేయమని మీ అడ్మినిస్ట్రేటర్‌ని అడగండి."
@@ -9907,6 +9916,7 @@ msgstr "పదాలను తగ్గిస్తోంది"
 msgid "Try {suggestion}"
 msgstr "{suggestion}ని ప్రయత్నించండి"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

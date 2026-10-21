@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "तुमचे AI प्रदाते तपासता आले नाहीत."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "ही क्रिया पूर्ण करू शकलो नाही. पुन्हा प्रयत्न करा."
 
@@ -8717,6 +8718,10 @@ msgstr "काही मजकूर पानाबाहेर आहे."
 msgid "Some text is rotated."
 msgstr "काही मजकूर फिरवलेला आहे."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "काहीतरी चूक झाली."
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "ही जतन केलेली आवृत्ती लोड क�
 msgid "This saved version is no longer available."
 msgstr "ही जतन केलेली आवृत्ती आता उपलब्ध नाही."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "हा सर्व्हर ॲपसाठी खूप जुना आहे. प्रशासकाला अपडेट करण्यास सांगा."
@@ -9907,6 +9916,7 @@ msgstr "शब्द कमी करत आहे"
 msgid "Try {suggestion}"
 msgstr "{suggestion} वापरून पहा"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

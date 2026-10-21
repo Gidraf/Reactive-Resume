@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "ನಿಮ್ಮ AI ಪೂರೈಕೆದಾರರನ್ನು ಪರಿಶೀಲಿಸಲಾಗಲಿಲ್ಲ."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "ಈ ಕ್ರಿಯೆಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
@@ -8717,6 +8718,10 @@ msgstr "ಕೆಲವು ಪಠ್ಯ ಪುಟದ ಹೊರಗೆ ಬೀಳು�
 msgid "Some text is rotated."
 msgstr "ಕೆಲವು ಪಠ್ಯ ತಿರುಗಿಸಲ್ಪಟ್ಟಿದೆ."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "ಏನೋ ತಪ್ಪಾಗಿದೆ."
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "ಈ ಉಳಿಸಿದ ಆವೃತ್ತಿಯನ್ನು ಲೋಡ್
 msgid "This saved version is no longer available."
 msgstr "ಈ ಉಳಿಸಿದ ಆವೃತ್ತಿ ಇನ್ನು ಲಭ್ಯವಿಲ್ಲ."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "ಈ ಸರ್ವರ್ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ತುಂಬಾ ಹಳೆಯದಾಗಿದೆ. ಅದನ್ನು ನವೀಕರಿಸಲು ನಿಮ್ಮ ನಿರ್ವಾಹಕರನ್ನು ಕೇಳಿ."
@@ -9907,6 +9916,7 @@ msgstr "ಪದಗಳನ್ನು ಕತ್ತರಿಸಲಾಗುತ್ತಿ�
 msgid "Try {suggestion}"
 msgstr "{suggestion} ಪ್ರಯತ್ನಿಸಿ"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

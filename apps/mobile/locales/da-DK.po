@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Kunne ikke tjekke dine AI-udbydere."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Kunne ikke fuldføre denne handling. Prøv igen."
 
@@ -8717,6 +8718,10 @@ msgstr "Noget tekst falder uden for siden."
 msgid "Some text is rotated."
 msgstr "Noget tekst er roteret."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Noget gik galt"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Denne gemte version kunne ikke indlæses."
 msgid "This saved version is no longer available."
 msgstr "Denne gemte version er ikke længere tilgængelig."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Denne server er for gammel til appen. Bed din administrator om at opdatere den."
@@ -9907,6 +9916,7 @@ msgstr "Skærer ord væk"
 msgid "Try {suggestion}"
 msgstr "Prøv {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

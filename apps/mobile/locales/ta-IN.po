@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "உங்கள் AI வழங்குநர்களைச் சரிபார்க்க முடியவில்லை."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "இந்த செயலை முடிக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்."
 
@@ -8717,6 +8718,10 @@ msgstr "சில உரை பக்கத்திற்கு வெளிய
 msgid "Some text is rotated."
 msgstr "சில உரை சுழற்றப்பட்டுள்ளது."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "ஏதோ தவறு நடந்துவிட்டது"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "இந்தச் சேமித்த பதிப்பை ஏற்
 msgid "This saved version is no longer available."
 msgstr "இந்தச் சேமித்த பதிப்பு இனி கிடைக்காது."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "இந்த சேவையகம் பயன்பாட்டிற்கு மிகவும் பழையது. அதைப் புதுப்பிக்க உங்கள் நிர்வாகியிடம் கேளுங்கள்."
@@ -9907,6 +9916,7 @@ msgstr "சொற்களைக் குறைக்கிறது"
 msgid "Try {suggestion}"
 msgstr "{suggestion} முயற்சிக்கவும்"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

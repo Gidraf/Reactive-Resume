@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "تعذّر التحقق من مزودي AI لديك."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "تعذر إكمال هذا الإجراء. حاول ثانية."
 
@@ -8717,6 +8718,10 @@ msgstr "يقع بعض النص خارج الصفحة."
 msgid "Some text is rotated."
 msgstr "بعض النص مُدوَّر."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "حدث خطأ ما"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "تعذّر تحميل هذه النسخة المحفوظة."
 msgid "This saved version is no longer available."
 msgstr "لم تعد هذه النسخة المحفوظة متاحة."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "هذا الخادم قديم جدًا بالنسبة للتطبيق. اطلب من المسؤول تحديثه."
@@ -9907,6 +9916,7 @@ msgstr "جارٍ تقليص الكلمات"
 msgid "Try {suggestion}"
 msgstr "جرب {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

@@ -547,4 +547,4 @@ jobs:
 
       - name: Publish matching mobile update
         working-directory: apps/mobile
-        run: eas update --channel "$UPDATE_CHANNEL" --environment "$UPDATE_CHANNEL" --message "Docker $COMMIT_SHA" --non-interactive
+        run: eas update --channel "$UPDATE_CHANNEL" --environment "$UPDATE_CHANNEL" --message "Docker $COMMIT_SHA" --upload-source-maps --non-interactive

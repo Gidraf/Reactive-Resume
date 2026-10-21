@@ -1,6 +1,7 @@
 import type { BuilderPane } from "@/routes";
 import type { PaneTab } from "@/shell/builder-chrome";
 import { useLingui } from "@lingui/react/macro";
+import { ObserveInteractiveMarker } from "expo-observe";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import PageScreen from "./page";
 import { ResumeConflictSheet, useResumeDraftOwner, useResumeStore } from "@/draft";
@@ -22,7 +23,8 @@ function DraftChrome() {
 		{ id: "undo", input: "z", title: t`Undo`, run: () => useResumeStore.getState().undo() },
 		{ id: "redo", input: "z", shift: true, title: t`Redo`, run: () => useResumeStore.getState().redo() },
 	]);
-	return null;
+	// Deep links open the builder directly; it is interactive once the draft has loaded.
+	return name === undefined ? null : <ObserveInteractiveMarker />;
 }
 
 /**

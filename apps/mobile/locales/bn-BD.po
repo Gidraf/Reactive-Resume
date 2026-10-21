@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "আপনার AI প্রদানকারীদের পরীক্ষা করা যায়নি।"
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "এই কাজটি সম্পূর্ণ করা যায়নি। আবার চেষ্টা করুন"
 
@@ -8717,6 +8718,10 @@ msgstr "কিছু টেক্সট পৃষ্ঠার বাইরে �
 msgid "Some text is rotated."
 msgstr "কিছু টেক্সট ঘোরানো আছে।"
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "কিছু একটা ভুল হয়েছে"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "এই সংরক্ষিত সংস্করণটি লোড �
 msgid "This saved version is no longer available."
 msgstr "এই সংরক্ষিত সংস্করণটি আর উপলব্ধ নেই।"
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "এই সার্ভারটি অ্যাপের জন্য খুবই পুরানো৷ আপনার প্রশাসককে এটি আপডেট করতে বলুন।"
@@ -9907,6 +9916,7 @@ msgstr "শব্দ ছাঁটা হচ্ছে"
 msgid "Try {suggestion}"
 msgstr "চেষ্টা করুন {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

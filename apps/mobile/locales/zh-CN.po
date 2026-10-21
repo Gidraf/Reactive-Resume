@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "无法检查您的 AI 提供商。"
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "无法完成此操作。再试一次。"
 
@@ -8717,6 +8718,10 @@ msgstr "有些文字落在页面之外。"
 msgid "Some text is rotated."
 msgstr "有些文字被旋转了。"
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "出问题了"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "无法加载此已保存版本。"
 msgid "This saved version is no longer available."
 msgstr "此已保存版本已不可用。"
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "该服务器对于应用程序来说太旧了。请您的管理员更新它。"
@@ -9907,6 +9916,7 @@ msgstr "正在删减字词"
 msgid "Try {suggestion}"
 msgstr "尝试{suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

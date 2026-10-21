@@ -4,6 +4,7 @@ import { useLingui } from "@lingui/react/macro";
 import { TrueSheetProvider } from "@lodev09/react-native-true-sheet";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
+import { Observe, ObserveErrorBoundary, ObserveRoot } from "expo-observe";
 import { Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
@@ -15,9 +16,13 @@ import { restoreSession } from "@/auth/session";
 import { SessionGate } from "@/auth/session-gate";
 import { useOpenReminder } from "@/features/reminders/open";
 import { i18n, initI18n } from "@/i18n";
-import { Toaster, WindowSafeAreaProvider, useReducedMotion, useTheme } from "@/ui";
+import { EmptyState, Screen, Toaster, WindowSafeAreaProvider, useReducedMotion, useTheme } from "@/ui";
 import { fontAssets } from "@/ui/fonts";
 import { initTheme } from "@/ui/theme";
+
+// One configure call: each call replaces the whole config, and it must run before any screen mounts.
+// The OAuth callback carries `code` and `state`; `server` can name a private self-hosted instance.
+Observe.configure({ integrations: { "expo-router": { filteredParams: ["code", "state", "token", "server"] } } });
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -42,6 +47,22 @@ function useNavigationTheme() {
 			heavy: { fontFamily: fonts.ui[700], fontWeight: "700" as const },
 		},
 	} satisfies typeof DefaultTheme;
+}
+
+type CrashScreenProps = { onRetry: () => void };
+
+function CrashScreen({ onRetry }: CrashScreenProps) {
+	const { t } = useLingui();
+	return (
+		<Screen scroll={false} edges={["top", "bottom"]} contentStyle={{ flex: 1, justifyContent: "center" }}>
+			<EmptyState
+				icon="warning-circle"
+				title={t`Something went wrong`}
+				message={t`This screen stopped working. Try again, or restart the app.`}
+				action={{ label: t`Try again`, onPress: onRetry }}
+			/>
+		</Screen>
+	);
 }
 
 function RootStack() {
@@ -76,7 +97,7 @@ function RootStack() {
 	);
 }
 
-export default function RootLayout() {
+function RootLayout() {
 	const [fontsLoaded, fontError] = useFonts(fontAssets);
 	const [ready, setReady] = useState(false);
 
@@ -101,8 +122,10 @@ export default function RootLayout() {
 						<QueryClientProvider client={queryClient}>
 							<I18nProvider i18n={i18n}>
 								<TrueSheetProvider>
-									<RootStack />
-									<SessionGate />
+									<ObserveErrorBoundary fallback={({ resetError }) => <CrashScreen onRetry={resetError} />}>
+										<RootStack />
+										<SessionGate />
+									</ObserveErrorBoundary>
 									<Toaster />
 								</TrueSheetProvider>
 							</I18nProvider>
@@ -113,3 +136,5 @@ export default function RootLayout() {
 		</GestureHandlerRootView>
 	);
 }
+
+export default ObserveRoot.wrap(RootLayout);

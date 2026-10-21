@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "ไม่สามารถตรวจสอบผู้ให้บริการ AI ของคุณได้"
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "ไม่สามารถดำเนินการนี้ให้เสร็จสิ้นได้ ลองอีกครั้ง"
 
@@ -8717,6 +8718,10 @@ msgstr "ข้อความบางส่วนอยู่นอกขอบ
 msgid "Some text is rotated."
 msgstr "ข้อความบางส่วนถูกหมุน"
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "เกิดข้อผิดพลาดบางอย่าง"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "โหลดเวอร์ชันที่บันทึกไว้
 msgid "This saved version is no longer available."
 msgstr "เวอร์ชันที่บันทึกไว้นี้ไม่มีแล้ว"
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "เซิร์ฟเวอร์นี้เก่าเกินไปสำหรับแอป ขอให้ผู้ดูแลระบบของคุณอัปเดต"
@@ -9907,6 +9916,7 @@ msgstr "กำลังตัดคำ"
 msgid "Try {suggestion}"
 msgstr "ลอง {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

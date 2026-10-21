@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Неуспешна проверка на вашите AI доставчици."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Това действие не можа да бъде завършено. Опитайте отново."
 
@@ -8717,6 +8718,10 @@ msgstr "Част от текста попада извън страницата.
 msgid "Some text is rotated."
 msgstr "Част от текста е завъртяна."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Нещо се обърка"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Тази запазена версия не можа да се заре�
 msgid "This saved version is no longer available."
 msgstr "Тази запазена версия вече не е налична."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Този сървър е твърде стар за приложението. Помолете вашия администратор да го актуализира."
@@ -9907,6 +9916,7 @@ msgstr "Съкращаване на думи"
 msgid "Try {suggestion}"
 msgstr "Опитайте {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

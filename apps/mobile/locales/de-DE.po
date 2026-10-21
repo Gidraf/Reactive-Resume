@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Ihre KI-Anbieter konnten nicht geprüft werden."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Diese Aktion konnte nicht abgeschlossen werden. Versuchen Sie es erneut."
 
@@ -8717,6 +8718,10 @@ msgstr "Manche Textteile liegen außerhalb der Seite."
 msgid "Some text is rotated."
 msgstr "Manche Textteile sind gedreht."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Etwas ist schiefgelaufen."
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Diese gespeicherte Version konnte nicht geladen werden."
 msgid "This saved version is no longer available."
 msgstr "Diese gespeicherte Version ist nicht mehr verfügbar."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Dieser Server ist zu alt für die App. Bitten Sie Ihren Administrator, ihn zu aktualisieren."
@@ -9907,6 +9916,7 @@ msgstr "Wörter werden gekürzt"
 msgid "Try {suggestion}"
 msgstr "Versuchen Sie es mit {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx

@@ -2575,6 +2575,7 @@ msgid "Couldn't check your AI providers."
 msgstr "Kon nie jou KI-verskaffers nagaan nie."
 
 #: src/features/documents/queries.ts
+#: src/ui/overlays.tsx
 msgid "Couldn't complete this action. Try again."
 msgstr "Kon nie hierdie handeling voltooi nie. Probeer weer."
 
@@ -8717,6 +8718,10 @@ msgstr "Sommige teks val buite die bladsy."
 msgid "Some text is rotated."
 msgstr "Sommige teks is gedraai."
 
+#: app/_layout.tsx
+msgid "Something went wrong"
+msgstr "Iets het verkeerd geloop"
+
 #: src/features/ats-checker/check.ts
 #: src/features/ats-checker/checker.tsx
 msgid "Something went wrong while reading that file. Try again."
@@ -9723,6 +9728,10 @@ msgstr "Hierdie gestoorde weergawe kon nie gelaai word nie."
 msgid "This saved version is no longer available."
 msgstr "Hierdie gestoorde weergawe is nie meer beskikbaar nie."
 
+#: app/_layout.tsx
+msgid "This screen stopped working. Try again, or restart the app."
+msgstr ""
+
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
 msgstr "Hierdie bediener is te oud vir die toepassing. Vra jou administrateur om dit op te dateer."
@@ -9907,6 +9916,7 @@ msgstr "Snoei woorde"
 msgid "Try {suggestion}"
 msgstr "Probeer {suggestion}"
 
+#: app/_layout.tsx
 #: app/(auth)/server.tsx
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/preferences.tsx
