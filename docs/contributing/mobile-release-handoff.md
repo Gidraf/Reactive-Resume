@@ -1,6 +1,6 @@
 # Mobile release handoff
 
-Last updated: **2026-10-18**. Branch: `mobile/native-app`. **Not ready for store submission yet.** Uploaded binaries, saved listing drafts, passing source checks, production deployment, device verification, and store approval are separate states.
+Release workflow updated: **2026-10-21**. Store observations below remain historical unless dated otherwise. **Not ready for store submission yet.** Uploaded binaries, saved listing drafts, passing source checks, production deployment, device verification, and store approval are separate states.
 
 This is the operational handoff. See [mobile-store-review.md](./mobile-store-review.md) for policy sources, detailed verification history, report-queue SQL, and issue triage; see [store metadata](../../apps/mobile/store/README.md) for localization mappings.
 
@@ -74,11 +74,12 @@ One-time activation:
 2. From `apps/mobile`, create `preview` and `production` channels with
    `eas channel:create preview --non-interactive` and
    `eas channel:create production --non-interactive` if they do not already exist.
-3. Build `preview` for internal testing and `production` for store distribution on both
-   platforms. These builds replace earlier binaries without `expo-updates`; complete the
-   store/device gates in this document before production release.
-4. Publish a preview update, install the matching build, open it to download, then restart
-   to apply. Verify startup offline and saved drafts. Repeat on iOS and Android.
+3. Configure [Blacksmith native releases](./mobile-ci.md), then build store binaries on
+   both platforms. These builds explicitly embed the `production` update channel;
+   complete the store/device gates in this document before production release.
+4. Publish a production update through the Docker release workflow, install the matching
+   store build, open it to download, then restart to apply. Verify startup offline and
+   saved drafts. Repeat on iOS and Android. Existing preview binaries keep their channel.
 
 The Docker workflow publishes from the image's exact source commit: non-production
 images go to preview, stable releases to production after SSH deployment and three
@@ -137,34 +138,26 @@ Protected Apple deployment values are local at `/Users/amruth/.config/rxresu/app
 
 ## Releasing a new version
 
-Decide first whether the change needs a store build. Run this from `apps/mobile`:
+Decide first whether the change needs a store build. Compare the saved platform hash
+from the installed Blacksmith build's `fingerprint.json` with the current production
+fingerprint, from `apps/mobile`:
 
 ```sh
-eas fingerprint:compare --build-id <EAS build ID of the current store binary>
+eas fingerprint:compare <INSTALLED_NATIVE_FINGERPRINT_HASH> --environment production
 ```
 
 **Fingerprint unchanged (JavaScript-only change):** no store work. A stable Docker release publishes the update to the `production` channel after the deployment health probes pass (see [Over-the-air updates](#over-the-air-updates)). Apps download it on launch and apply it on the next restart. OTA updates must not change the app's primary purpose or add features that need new store declarations; ship those through review.
 
-**Fingerprint changed (native change):** build and submit new binaries.
+For an older EAS-built binary, `--build-id <EAS build ID>` remains supported instead
+of the hash. Compare both platforms. Keep API changes backward compatible with older
+binaries and deploy the backend first.
+
+**Fingerprint changed (native change):** build and upload new binaries.
 
 1. Deploy the backend first. Keep the API backward compatible: older binaries and OTA bundles remain in use.
-2. Optionally bump `version` in `apps/mobile/app.config.ts` (for example `1.0.0` to `1.1.0`). Do not edit build numbers: `appVersionSource` is `remote` and the production profile auto-increments the iOS build number and Android `versionCode`. iOS needs a new version string after a version is released; Play needs only a higher `versionCode`.
-3. Build both platforms:
-
-   ```sh
-   EXPO_NO_CAPABILITY_SYNC=1 eas build --profile production --platform all
-   ```
-
-   Always set `EXPO_NO_CAPABILITY_SYNC=1` for iOS builds and `eas credentials`. The app has no native Sign in with Apple entitlement (Apple sign-in runs through the web flow with Services ID `me.rxresu.web`), so capability sync tries to turn Sign in with Apple off for App ID `me.rxresu`. Apple refuses because the Services ID uses that App ID as its primary app, and turning it off would break Apple sign-in. Manage capabilities manually in the Apple developer console.
-
-4. Submit the latest builds. Use `--auto-submit` on the build command to combine steps 3 and 4.
-
-   ```sh
-   eas submit --profile production --platform ios --latest
-   eas submit --profile production --platform android --latest
-   ```
-
-   Both platforms submit with keys stored in EAS credentials, so submission also works from CI: the App Store Connect API key for iOS, and the Google service-account key (scoped to this app with release-to-testing permission in Play Console) for Android. `eas.json` holds no credential paths. Never commit credential files.
+2. Optionally bump `version` in `apps/mobile/app.config.ts` (for example `1.0.0` to `1.1.0`). CI supplies increasing iOS build numbers and Android version codes. iOS needs a new version string after a version is released; Play needs only a higher `versionCode`.
+3. Dispatch **Mobile Release** on `main`, platform `all`. The [Blacksmith setup guide](./mobile-ci.md) covers migrating existing signing credentials, seeding `MOBILE_BUILD_NUMBER_BASE`, and configuring the `mobile-store` approval environment. Build without uploads first to verify signing. No EAS Build credits are used.
+4. Dispatch with **upload** enabled to send the signed artifacts to App Store Connect and Play's internal draft track. This does not submit App Review, distribute to external testers, or publish a production release. Fastlane signs locally using existing credentials and does not synchronize Apple capabilities. If exporting credentials through `eas credentials`, keep `EXPO_NO_CAPABILITY_SYNC=1`; Apple sign-in uses web Services ID `me.rxresu.web`, so turning off its primary App ID's Sign in with Apple capability would break sign-in.
 
 5. **App Store Connect:** wait for processing, test through TestFlight, create the new app version, attach the build, write "What's New", and submit for review. Release manually or automatically after approval.
 6. **Play Console:** the build lands in the `internal` track as a draft. Roll it out to testers, then promote it to production with release notes. Use a staged rollout for risky changes.
@@ -186,11 +179,11 @@ Distribution is store-only. No IPA, AAB, or APK is attached to GitHub Releases. 
 
 Earlier builds are superseded. Local IPA/AAB/inspection outputs and evidence are under `/tmp/rxresu-store-artifacts`; listing verification is under `/tmp/reactive-resume-listing-audit`. These are temporary local evidence, not durable build storage. Retrieve store artifacts through EAS links if local files disappear. The inspection APK is debug-signed solely for inspection; it does not prove Play-installed identity or behavior.
 
-EAS project is `reactive-resume/reactive-resume`, ID `5830280e-e1ba-45b7-b9c9-ba048fa3bd4d`. Versions are remote with production auto-increment; do not reset counters to 4/5 when rebuilding. Capability sync must stay disabled with `EXPO_NO_CAPABILITY_SYNC=1` (see [Releasing a new version](#releasing-a-new-version)); Apple capabilities are configured manually. The flag does not provision missing capabilities.
+EAS project is `reactive-resume/reactive-resume`, ID `5830280e-e1ba-45b7-b9c9-ba048fa3bd4d`, retained for OTA updates and Observe. The historical EAS builds used remote version counters; Blacksmith uses the GitHub counter and migration offset described in [mobile-ci.md](./mobile-ci.md). Never reset versions to 4/5. Apple capabilities remain manually configured; `EXPO_NO_CAPABILITY_SYNC=1` is still required when using `eas credentials`.
 
-`apps/mobile/eas.json` holds no credential paths; submission keys live in EAS credentials. iOS upload used an existing developer API key, while distribution signing required an approved Admin team key. Android's first AAB upload was done manually; later submissions use the Google service-account key stored in EAS credentials. Never commit credential files. Expo Doctor passed 20/20 after adding direct `expo-asset` dependency.
+Historically, submission keys lived in EAS credentials and `apps/mobile/eas.json` held no credential paths. Blacksmith requires exporting those existing signing credentials and storing upload keys in Actions secrets. iOS upload used an existing developer API key, while distribution signing required an approved Admin team key. Android's first AAB upload was manual. Never commit credential files. Historical Expo Doctor result: 20/20 after adding direct `expo-asset` dependency.
 
-Forme native artifacts are published and checksum-pinned in `packages/forme-native/scripts/prebuilt.json`; EAS pre-install fetches them. A source/ABI change needs matching published prebuilts and checksum updates. Do not replace the pin with an unverified download or assume package version alone identifies native content.
+Forme native artifacts are published and checksum-pinned in `packages/forme-native/scripts/prebuilt.json`; the Blacksmith build explicitly fetches them before prebuild. A source/ABI change needs matching published prebuilts and checksum updates. Do not replace the pin with an unverified download or assume package version alone identifies native content.
 
 ## Signed-device test matrix
 

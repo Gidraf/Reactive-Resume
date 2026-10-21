@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   prebuilt:
-    runs-on: macos-15
+    runs-on: ${{ vars.USE_BLACKSMITH == 'true' && 'blacksmith-6vcpu-macos-26' || 'macos-26' }}
     timeout-minutes: 60
     outputs:
       tag: ${{ steps.artifact.outputs.tag }}
@@ -94,4 +94,4 @@ jobs:
           TAG: ${{ needs.prebuilt.outputs.tag }}
           ARTIFACT_DIR: ${{ runner.temp }}/forme-native
         run: |
-          gh release create "$TAG" "$ARTIFACT_DIR/$TAG.tar.gz" "$ARTIFACT_DIR/prebuilt.json" --target "$GITHUB_SHA" --title "$TAG" --notes "Native Forme binaries. Review and commit prebuilt.json before EAS Build." --prerelease
+          gh release create "$TAG" "$ARTIFACT_DIR/$TAG.tar.gz" "$ARTIFACT_DIR/prebuilt.json" --target "$GITHUB_SHA" --title "$TAG" --notes "Native Forme binaries. Review and commit prebuilt.json before building mobile apps." --prerelease

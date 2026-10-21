@@ -41,6 +41,7 @@ const mocks = {
 	"react-native-safe-area-context": safe,
 	"@lingui/react/macro": { useLingui: () => ({ t: tag }) },
 	"expo-router": { useRouter: () => router, usePathname: () => "/documents" },
+	"expo-observe": { useObserve: () => ({ markInteractive() {} }) },
 	"react-native-keyboard-controller": { useKeyboardState: () => false },
 	"@/routes": { routes },
 };

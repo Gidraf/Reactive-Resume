@@ -77,6 +77,9 @@ temp
 /apps/mobile/.expo
 /apps/mobile/dist
 /apps/mobile/expo-env.d.ts
+/tooling/mobile/.bundle/
+/tooling/mobile/vendor/
+/tooling/mobile/fastlane/report.xml
 
 # Design exports live in Figma/Penpot; keep only runtime assets in source.
 /apps/mobile/assets/launch-kit/

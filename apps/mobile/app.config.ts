@@ -14,6 +14,7 @@ const config: ExpoConfig = {
 	runtimeVersion: { policy: "fingerprint" },
 	updates: {
 		url: "https://u.expo.dev/5830280e-e1ba-45b7-b9c9-ba048fa3bd4d",
+		requestHeaders: { "expo-channel-name": "production" },
 		checkAutomatically: "ON_LOAD",
 		fallbackToCacheTimeout: 0,
 	},
@@ -21,6 +22,7 @@ const config: ExpoConfig = {
 	orientation: "default",
 	userInterfaceStyle: "automatic",
 	ios: {
+		buildNumber: process.env.MOBILE_BUILD_NUMBER ?? "1",
 		icon: {
 			light: "./assets/icon.png",
 			dark: "./assets/icon-dark.png",
@@ -57,6 +59,7 @@ const config: ExpoConfig = {
 		associatedDomains: [`applinks:${host}`, `webcredentials:${host}`],
 	},
 	android: {
+		versionCode: Number(process.env.MOBILE_BUILD_NUMBER ?? "1"),
 		package: "me.rxresu",
 		predictiveBackGestureEnabled: false,
 		adaptiveIcon: {
