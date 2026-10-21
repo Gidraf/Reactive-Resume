@@ -55,7 +55,7 @@ export function Write() {
 			className="relative h-[280vh] motion-reduce:h-svh min-[900px]:h-[330vh]"
 		>
 			<div
-				className="sticky top-0 h-svh overflow-hidden [--card:calc(1-var(--cl))] [--chip:var(--cl)] [--cl:clamp(0,(var(--p)-.8)/.08,1)] [--cm:clamp(0,(var(--p)-.36)/.08,1)] [--in:clamp(0,var(--p)/.12,1)] [--oc:var(--cl)] [--st:clamp(0,(var(--p)-.48)/.08,1)] [--ta:clamp(0,(var(--p)-.12)/.22,1)] [--ti:clamp(0,(var(--p)-.56)/.2,1)]"
+				className="sticky top-0 h-svh overflow-clip [--card:calc(1-var(--cl))] [--chip:var(--cl)] [--cl:clamp(0,(var(--p)-.8)/.08,1)] [--cm:clamp(0,(var(--p)-.36)/.08,1)] [--in:clamp(0,var(--p)/.12,1)] [--oc:var(--cl)] [--st:clamp(0,(var(--p)-.48)/.08,1)] [--ta:clamp(0,(var(--p)-.12)/.22,1)] [--ti:clamp(0,(var(--p)-.56)/.2,1)]"
 				// Keep mine: the original line stays, unstruck, and the comment gives way to a note saying so.
 				style={kept ? ({ "--st": 0, "--ti": 0, "--oc": 0, "--card": 0, "--chip": 1 } as CSSProperties) : undefined}
 			>
@@ -67,27 +67,27 @@ export function Write() {
 
 				<h2
 					id="write-title"
-					className="font-anybody absolute start-(--gutter) top-[10vh] text-[16vw] leading-[.9] font-light tracking-[-.03em] whitespace-nowrap text-ink [font-stretch:calc(86%+var(--in)*14%)] [transition:font-stretch_.3s] min-[900px]:top-[11vh] min-[900px]:text-[clamp(72px,9vw,160px)]"
+					className="font-anybody absolute start-(--gutter) top-[10vh] max-w-[90vw] text-[10vw] leading-[.95] font-light tracking-[-.03em] text-balance text-ink min-[900px]:top-[11vh] min-[900px]:max-w-[34vw] min-[900px]:text-[clamp(48px,4.5vw,80px)]"
 				>
-					{t`Write`}
+					{t`Write your professional resume`}
 					<span className="text-accent">.</span>
 				</h2>
 
 				<SceneCaption
 					number="01"
 					title={t`Write`}
-					className="absolute inset-x-(--gutter) top-[calc(10vh+17vw)] min-[900px]:end-auto min-[900px]:top-auto min-[900px]:bottom-[clamp(20px,5vh,44px)] min-[900px]:max-w-[min(30em,34vw)] min-[900px]:opacity-(--in)"
+					className="absolute inset-x-(--gutter) top-[calc(10vh+24vw)] min-[900px]:end-auto min-[900px]:top-auto min-[900px]:bottom-[clamp(20px,5vh,44px)] min-[900px]:max-w-[min(30em,34vw)] min-[900px]:opacity-(--in)"
 				>
 					{t`Write beside a live page. It saves as you type and keeps every version. Ask the assistant for a sharper line: it suggests, you decide.`}
 				</SceneCaption>
 
-				<div className="absolute start-[5vw] top-[calc(10vh+17vw+150px)] h-[120vh] w-[90vw] origin-top-left [transform:translateY(calc((1-var(--in))*14vh))_rotate(-1.2deg)_scale(calc(.94+var(--in)*.06))] rounded-[3px] bg-paper p-[6vw] font-ui text-[14px] leading-[1.55] text-[oklch(0.28_0.01_95)] shadow-paper [transition:transform_.5s_var(--ease)] min-[900px]:start-[42vw] min-[900px]:top-[14vh] min-[900px]:w-[60vw] min-[900px]:px-[5vw] min-[900px]:py-[4.5vw] min-[900px]:text-[clamp(14px,1.3vw,20px)] min-[900px]:opacity-[clamp(0,var(--p)*20,1)] rtl:origin-top-right">
+				<div className="absolute start-[5vw] top-[calc(10vh+17vw+150px)] h-[120vh] w-[90vw] origin-top-left [transform:translateY(calc((1-var(--in))*14vh))_rotate(-1.2deg)_scale(calc(.94+var(--in)*.06))] rounded-[3px] bg-paper p-[6vw] font-ui text-[14px] leading-[1.55] text-[oklch(0.28_0.01_95)] shadow-paper [transition:transform_.5s_var(--ease)] min-[900px]:start-[42vw] min-[900px]:top-[14vh] min-[900px]:w-[53vw] min-[900px]:px-[3vw] min-[900px]:py-[3.5vw] min-[900px]:text-[clamp(14px,1.3vw,20px)] min-[900px]:opacity-[clamp(0,var(--p)*20,1)] rtl:origin-top-right">
 					<div className="absolute end-[2vw] top-[1.6vw] flex h-7 items-center gap-1.5 rounded-full bg-[oklch(0.95_0.006_95)] ps-2 pe-[11px] text-[12px] font-medium text-[oklch(0.42_0.01_95)] opacity-(--cl)">
 						<Icon name="cloud-check" size={16} className="text-[oklch(0.42_0.1_150)]" />
 						{t`Saved · version ${version}`}
 					</div>
 
-					<div className="grid grid-cols-[minmax(0,1fr)] items-start gap-x-[3vw] gap-y-[.5em] min-[900px]:grid-cols-[minmax(0,1fr)_minmax(0,max(15vw,210px))]">
+					<div className="grid grid-cols-[minmax(0,1fr)] items-start gap-x-[3vw] gap-y-[.5em] min-[1280px]:grid-cols-[minmax(0,1fr)_minmax(0,max(15vw,210px))]">
 						<div className="col-start-1 flex flex-col gap-[.25em]">
 							<span className="font-martian mb-[.8em] border-b border-[oklch(0.45_0.1_150/.35)] pb-[.6em] text-[.7em] leading-[1.4] tracking-[.14em] text-[oklch(0.45_0.1_150)] uppercase">
 								{t`Experience`}
@@ -119,14 +119,14 @@ export function Write() {
 
 						<div
 							className={cn(
-								// Below 900px the comment sits in the page's flow, so it takes no room until it arrives.
-								"relative col-start-1 grid min-w-0 [transform:translateX(calc(var(--dir)*(1-var(--cm))*30px))] font-ui text-[13px] leading-[1.45] text-[oklch(0.25_0.01_95)] opacity-(--cm) [transition:transform_.4s_var(--ease)] max-[900px]:max-h-[calc(var(--cm)*16em)] max-[900px]:overflow-hidden min-[900px]:col-start-2 min-[900px]:row-start-2",
+								// Below 1280px the comment stays inline so the resume keeps a readable column width.
+								"relative col-start-1 grid min-w-0 [transform:translateX(calc(var(--dir)*(1-var(--cm))*30px))] font-ui text-[13px] leading-[1.45] text-[oklch(0.25_0.01_95)] opacity-(--cm) [transition:transform_.4s_var(--ease)] max-[1280px]:max-h-[calc(var(--cm)*16em)] max-[1280px]:overflow-hidden min-[1280px]:col-start-2 min-[1280px]:row-start-2",
 								!active && "pointer-events-none",
 							)}
 						>
 							<span
 								aria-hidden="true"
-								className="absolute -start-[3vw] top-[22px] hidden w-[3vw] border-t-[1.5px] border-dashed border-[oklch(0.5_0.1_150/.6)] min-[900px]:block"
+								className="absolute -start-[3vw] top-[22px] hidden w-[3vw] border-t-[1.5px] border-dashed border-[oklch(0.5_0.1_150/.6)] min-[1280px]:block"
 							/>
 							<div
 								inert={kept || step !== 1}

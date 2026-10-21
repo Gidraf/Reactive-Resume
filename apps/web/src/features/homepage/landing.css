@@ -145,6 +145,11 @@
 	--p: 0;
 }
 
+/* Pinned scenes have explicit heights, so offscreen demos can skip rendering without moving the scroll positions. */
+.landing [data-pin]:not(#top) {
+	content-visibility: auto;
+}
+
 /* Reduced motion renders every scene at its end state; the pinned scenes also collapse to one screen. */
 @media (prefers-reduced-motion: reduce) {
 	.landing [data-scene] {

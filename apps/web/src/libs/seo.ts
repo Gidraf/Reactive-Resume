@@ -31,7 +31,7 @@ export const serializeJsonLd = (data: Record<string, unknown>) =>
 
 /** The homepage's title and description in the active locale. The prerendered page and the route share them. */
 export const getHomepageMeta = () => ({
-	title: `${appName} — ${t`A free and open-source resume builder`}`,
+	title: `${t`Free Resume Builder with PDF & Word Downloads`} | ${appName}`,
 	description: t`Free, open-source resume builder. Create, update, and share your resume, with PDF and Word downloads, no ads and no paywall.`,
 });
 
@@ -40,4 +40,9 @@ export const getAtsCheckerMeta = () => ({
 	title: `${t`Free ATS resume checker`} — ${appName}`,
 	// Keep under ~120 characters so Google's mobile SERP snippet is not truncated at 3 lines.
 	description: t`Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.`,
+});
+
+export const getTemplatesMeta = () => ({
+	title: `${t`Free Resume Templates with PDF Examples`} | ${appName}`,
+	description: t`Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word.`,
 });

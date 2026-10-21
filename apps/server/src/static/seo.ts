@@ -42,18 +42,23 @@ export function handleRobots(options?: StaticSeoOptions) {
 }
 
 // The indexable pages; everything else is the signed-in app or a public resume, both served noindex.
-const sitemapPaths = ["/", "/ats-checker"];
+const sitemapPaths = ["/", "/ats-checker", "/resume-templates"];
+
+const escapeXml = (value: string) =>
+	value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
 export function handleSitemap(options?: StaticSeoOptions) {
 	const baseUrl = appUrl();
-	// Each page lists its languages, so every `?locale=` address is discoverable without a sitemap entry of its own.
-	const urls = sitemapPaths.map((path) => {
+	const urls = sitemapPaths.flatMap((path) => {
 		const pageUrl = `${baseUrl}${path}`;
-		const alternates = getLocaleAlternates(pageUrl).map(
-			({ hreflang, href }) =>
-				`    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href.replaceAll("&", "&amp;")}"/>`,
+		const languages = getLocaleAlternates(pageUrl);
+		const alternates = languages.map(
+			({ hreflang, href }) => `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${escapeXml(href)}"/>`,
 		);
-		return ["  <url>", `    <loc>${pageUrl}</loc>`, ...alternates, "  </url>"].join("\n");
+		// x-default shares the English URL; each canonical URL appears once with the same alternate set.
+		return [...new Set(languages.map(({ href }) => href))].map((href) =>
+			["  <url>", `    <loc>${escapeXml(href)}</loc>`, ...alternates, "  </url>"].join("\n"),
+		);
 	});
 	const body = [
 		'<?xml version="1.0" encoding="UTF-8"?>',
@@ -78,6 +83,7 @@ export function handleLlms(options?: StaticSeoOptions) {
 		"## Product",
 		"",
 		`- [Homepage](${baseUrl}/): what Reactive Resume does, with answers to common questions.`,
+		`- [Resume templates](${baseUrl}/resume-templates): browse all ${templateSchema.options.length} free templates, compare layouts and download sample PDFs.`,
 		`- [ATS checker](${baseUrl}/ats-checker): a free tool that shows the text applicant tracking systems extract from a resume PDF and what to fix. It runs in the browser; the file is never uploaded.`,
 		`- [Get started](${baseUrl}/dashboard): create an account and a first resume.`,
 		"",

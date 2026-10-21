@@ -18,9 +18,9 @@ export const templates = {
 	},
 	bronzor: {
 		name: "Bronzor",
-		description: msg`Two-column, clean and professional with subtle section dividers; suits corporate, finance, or consulting positions.`,
+		description: msg`One column with labeled section rows and subtle dividers. A compact layout for experience, education and supporting details.`,
 		imageUrl: "/templates/jpg/bronzor.jpg",
-		tags: ["Two-column", "Clean", "Professional", "Corporate", "Finance", "Consulting"],
+		tags: ["Single-column", "Clean", "Professional", "Corporate", "Finance", "Consulting"],
 	},
 	chikorita: {
 		name: "Chikorita",
@@ -36,9 +36,9 @@ export const templates = {
 	},
 	ditto: {
 		name: "Ditto",
-		description: msg`Two-column, minimal and text-dense with no decorative elements; perfect for traditional industries or ATS-heavy applications.`,
+		description: msg`Two columns beneath a colored header band. Keep experience in the main column and supporting details in the sidebar.`,
 		imageUrl: "/templates/jpg/ditto.jpg",
-		tags: ["Two-column", "ATS friendly", "Minimal", "Text-dense", "Traditional", "No decoration"],
+		tags: ["Two-column", "Minimal", "Text-dense", "Traditional"],
 	},
 	gengar: {
 		name: "Gengar",
@@ -78,9 +78,9 @@ export const templates = {
 	},
 	onyx: {
 		name: "Onyx",
-		description: msg`Single-column with a sidebar and clean grid layout; versatile for any professional or technical role.`,
+		description: msg`One column with a photo beside the header and clear section headings. A simple top-to-bottom layout for your experience.`,
 		imageUrl: "/templates/jpg/onyx.jpg",
-		tags: ["Single-column", "ATS friendly", "Sidebar", "Grid layout", "Versatile", "Professional", "Technical"],
+		tags: ["Single-column", "ATS friendly", "Versatile", "Professional", "Technical"],
 	},
 	persian: {
 		name: "Persian",

@@ -127,6 +127,7 @@ function drawThreads(section: HTMLElement) {
 	const origin = svg.getBoundingClientRect();
 	const leftToRight = page.left > card.right;
 
+	const paths: { path: SVGPathElement; d: string }[] = [];
 	for (const path of svg.querySelectorAll<SVGPathElement>("[data-thread]")) {
 		const key = path.dataset.thread;
 		const from = section.querySelector(`[data-posting-keyword="${key}"]`)?.getBoundingClientRect();
@@ -138,8 +139,10 @@ function drawThreads(section: HTMLElement) {
 		const y1 = from.top + from.height / 2 - origin.top;
 		const y2 = to.top + to.height / 2 - origin.top;
 		const mid = (x1 + x2) / 2;
-		path.setAttribute("d", `M${x1} ${y1} C${mid} ${y1} ${mid} ${y2} ${x2} ${y2}`);
+		paths.push({ path, d: `M${x1} ${y1} C${mid} ${y1} ${mid} ${y2} ${x2} ${y2}` });
 	}
+	// Read every anchor before writing SVG geometry, avoiding a layout flush between threads.
+	for (const { path, d } of paths) path.setAttribute("d", d);
 }
 
 /**
@@ -162,8 +165,9 @@ export function useScrollScenes(root: RefObject<HTMLElement | null>) {
 		let lensPark = { x: 60, y: 50 };
 
 		// Values that only change with the viewport, not with scrolling.
-		const layout = () => {
-			const check = sectionAt(SCENE.check);
+		const measuredScenes = new Set<number>();
+		const layout = (nearby: Set<number>) => {
+			const check = nearby.has(SCENE.check) && !measuredScenes.has(SCENE.check) ? sectionAt(SCENE.check) : undefined;
 			const lensPage = check?.querySelector("[data-lens-page]")?.getBoundingClientRect();
 			const park = check?.querySelector("[data-park]")?.getBoundingClientRect();
 			if (lensPage && park && lensPage.width > 0) {
@@ -171,9 +175,11 @@ export function useScrollScenes(root: RefObject<HTMLElement | null>) {
 					x: ((park.left + park.width / 2 - lensPage.left) / lensPage.width) * 100,
 					y: ((park.top + park.height / 2 - lensPage.top) / lensPage.height) * 100,
 				};
+				measuredScenes.add(SCENE.check);
 			}
 
-			const design = sectionAt(SCENE.design);
+			const design =
+				nearby.has(SCENE.design) && !measuredScenes.has(SCENE.design) ? sectionAt(SCENE.design) : undefined;
 			const stack = design?.querySelector<HTMLElement>("[data-stack]");
 			if (!design || !stack) return;
 			const pageWidth = stack.offsetWidth || 1;
@@ -183,10 +189,10 @@ export function useScrollScenes(root: RefObject<HTMLElement | null>) {
 				(window.innerHeight * 0.57) / (4.122 * pageWidth),
 			);
 			design.style.setProperty("--smin", scale.toFixed(4));
+			measuredScenes.add(SCENE.design);
 		};
 
 		let frame = 0;
-		let threadsDrawn = false;
 		let writtenClock = "";
 		let writtenNight = "";
 
@@ -195,15 +201,21 @@ export function useScrollScenes(root: RefObject<HTMLElement | null>) {
 			const viewportHeight = window.innerHeight;
 			const reduced = reducedMotion.matches;
 			const progress: number[] = [];
+			const nearby = new Set<number>();
 			let activeScene: number = SCENE.hero;
 
 			for (const section of sections) {
 				const index = Number(section.dataset.scene);
 				const rect = section.getBoundingClientRect();
+				if (rect.top < viewportHeight * 2 && rect.bottom > -viewportHeight) nearby.add(index);
 				const pinned = section.dataset.pin !== undefined;
 				progress[index] = reduced ? 1 : sectionProgress(rect.top, rect.height, viewportHeight, pinned);
 				if (rect.top <= viewportHeight / 2 && rect.bottom > viewportHeight / 2) activeScene = index;
 			}
+			// Descendant geometry would force content-visibility to render an offscreen scene.
+			layout(nearby);
+			const tailorSection = sectionAt(SCENE.tailor);
+			if (tailorSection && nearby.has(SCENE.tailor) && window.innerWidth >= 900) drawThreads(tailorSection);
 			for (const section of sections) {
 				const value = (progress[Number(section.dataset.scene)] ?? 0).toFixed(4);
 				if (writtenProgress.get(section) === value) continue;
@@ -236,21 +248,13 @@ export function useScrollScenes(root: RefObject<HTMLElement | null>) {
 			// Check's lens wanders down the page to the date line it flags and rests there while the fix lands, unless
 			// the pointer is steering it.
 			const checkSection = sectionAt(SCENE.check);
-			if (checkSection && (reduced || checkSection.dataset.lensHover === undefined)) {
+			if (checkSection && nearby.has(SCENE.check) && (reduced || checkSection.dataset.lensHover === undefined)) {
 				const approach = clamp01(scan / 0.45);
 				const settle = clamp01((approach - 0.6) / 0.4);
 				const ease = settle * settle * (3 - 2 * settle);
 				const wander = 50 + 30 * Math.sin(approach * Math.PI * 2);
 				checkSection.style.setProperty("--lx", `${(wander + (lensPark.x - wander) * ease).toFixed(2)}%`);
 				checkSection.style.setProperty("--ly", `${(14 + (lensPark.y - 14) * approach).toFixed(2)}%`);
-			}
-
-			// Threads follow the keywords' real positions, so they're redrawn while Tailor is near the screen.
-			const tailorSection = sectionAt(SCENE.tailor);
-			const nearTailor = activeScene >= SCENE.check && activeScene <= SCENE.share;
-			if (tailorSection && (nearTailor || !threadsDrawn)) {
-				drawThreads(tailorSection);
-				threadsDrawn = true;
 			}
 
 			const state = useLanding.getState();
@@ -277,7 +281,7 @@ export function useScrollScenes(root: RefObject<HTMLElement | null>) {
 			if (!frame) frame = requestAnimationFrame(measure);
 		};
 		const onResize = () => {
-			layout();
+			measuredScenes.clear();
 			schedule();
 		};
 
@@ -302,7 +306,6 @@ export function useScrollScenes(root: RefObject<HTMLElement | null>) {
 			});
 		};
 
-		layout();
 		measure();
 		window.addEventListener("scroll", schedule, { passive: true });
 		window.addEventListener("resize", onResize);

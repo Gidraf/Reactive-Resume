@@ -32,7 +32,7 @@ const noindexShellPrefixes = ["/auth", "/dashboard", "/builder", "/agent", "/tem
  * Without an entry here the fallback below returns 404 for the path in production — the dev Vite
  * server serves the shell for anything, so this failure only ever shows up once deployed.
  */
-const indexableAppPaths = new Set(["/ats-checker"]);
+const indexableAppPaths = new Set(["/ats-checker", "/resume-templates"]);
 const reservedPublicResumeSegments = new Set([
 	"api",
 	"mcp",
@@ -44,6 +44,7 @@ const reservedPublicResumeSegments = new Set([
 	"agent",
 	"templates",
 	"ats-checker",
+	"resume-templates",
 ]);
 
 function isAssetPath(pathname: string): boolean {
@@ -77,12 +78,15 @@ const BASE_SECURITY_HEADERS = {
 const githubUrl = "https://github.com/reactive-resume/reactive-resume";
 // The English copy, for a build without prerendered pages; a prerendered page carries its own locale's title and
 // description, and the social cards reuse them.
-const ROOT_TITLE = "Reactive Resume — A free and open-source resume builder";
+const ROOT_TITLE = "Free Resume Builder with PDF &amp; Word Downloads | Reactive Resume";
 const ROOT_DESCRIPTION =
 	"Free, open-source resume builder. Create, update, and share your resume, with PDF and Word downloads, no ads and no paywall.";
 const ATS_CHECKER_TITLE = "Free ATS resume checker — Reactive Resume";
 const ATS_CHECKER_DESCRIPTION =
 	"Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.";
+const TEMPLATES_TITLE = "Free Resume Templates with PDF Examples | Reactive Resume";
+const TEMPLATES_DESCRIPTION =
+	"Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word.";
 
 type StructuredData = Record<string, unknown>;
 
@@ -129,7 +133,6 @@ function homepageStructuredData(origin: string): StructuredData {
 				isAccessibleForFree: true,
 				offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 				license: `${githubUrl}/blob/main/LICENSE`,
-				codeRepository: githubUrl,
 				publisher: { "@id": `${origin}/#organization` },
 				featureList: [
 					"Resume editor with a live page preview",
@@ -337,7 +340,7 @@ const prerenderedPages: Record<
 		meta: { title: ROOT_TITLE, description: ROOT_DESCRIPTION },
 		image: "/opengraph/banner.jpg",
 		structuredData: homepageStructuredData,
-		fallback: (shell) => shell,
+		fallback: (shell) => withMeta(shell, { title: ROOT_TITLE, description: ROOT_DESCRIPTION }),
 	},
 	"/ats-checker": {
 		name: "ats-checker",
@@ -345,6 +348,28 @@ const prerenderedPages: Record<
 		image: "/opengraph/ats-checker.png",
 		structuredData: atsCheckerStructuredData,
 		fallback: (shell) => withMeta(shell, { title: ATS_CHECKER_TITLE, description: ATS_CHECKER_DESCRIPTION }),
+	},
+	"/resume-templates": {
+		name: "resume-templates",
+		meta: { title: TEMPLATES_TITLE, description: TEMPLATES_DESCRIPTION },
+		image: "/opengraph/banner.jpg",
+		structuredData: (origin) => ({
+			"@context": "https://schema.org",
+			"@type": "CollectionPage",
+			name: "Free resume templates",
+			url: `${origin}/resume-templates`,
+			description: TEMPLATES_DESCRIPTION,
+			mainEntity: {
+				"@type": "ItemList",
+				itemListElement: templateSchema.options.map((template, index) => ({
+					"@type": "ListItem",
+					position: index + 1,
+					name: template.charAt(0).toUpperCase() + template.slice(1),
+					url: `${origin}/resume-templates#${template}`,
+				})),
+			},
+		}),
+		fallback: (shell) => withMeta(shell, { title: TEMPLATES_TITLE, description: TEMPLATES_DESCRIPTION }),
 	},
 };
 

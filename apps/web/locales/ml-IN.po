@@ -457,6 +457,10 @@ msgstr "{count, plural, one {# എൻട്രി} other {# എൻട്രി�
 msgid "{count, plural, one {Apply # change} other {Apply # changes}}"
 msgstr "{count, plural, one {# മാറ്റം പ്രയോഗിക്കുക} other {# മാറ്റങ്ങൾ പ്രയോഗിക്കുക}}"
 
+#: src/features/templates/gallery.tsx
+msgid "{count} free resume templates. Find your fit."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "{count} selected"
 msgstr "{count} എണ്ണം തിരഞ്ഞെടുത്തു"
@@ -603,6 +607,10 @@ msgstr "{name} പ്രധാന നിരയിലേക്ക് നീക്
 msgid "{name} never prints"
 msgstr "{name} ഒരിക്കലും പ്രിൻ്റ് ചെയ്യുന്നില്ല"
 
+#: src/features/templates/gallery.tsx
+msgid "{name} resume template preview"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "{name} sits in the sidebar"
 msgstr "{name} സൈഡ്‌ബാറിൽ ഇരിക്കുന്നു"
@@ -673,8 +681,8 @@ msgid "{supported} supported · {partial} partly · {missing} missing"
 msgstr "{supported} പിന്തുണയുള്ളത് · {partial} ഭാഗികം · {missing} ഇല്ല"
 
 #: src/features/homepage/design.tsx
-msgid "{templateCount} templates."
-msgstr "{templateCount} ടെംപ്ലേറ്റുകൾ."
+msgid "{templateCount} free resume templates."
+msgstr ""
 
 #: src/features/homepage/prepare.tsx
 msgid "{time} · Video call · 45 min"
@@ -903,9 +911,13 @@ msgid "A font is referenced but not embedded."
 msgstr "ഒരു ഫോണ്ട് പരാമർശിച്ചിട്ടുണ്ട്, പക്ഷേ എംബെഡ് ചെയ്തിട്ടില്ല."
 
 #: src/features/homepage/sections.tsx
-#: src/libs/seo.ts
 msgid "A free and open-source resume builder"
 msgstr "ഒരു സ്വതന്ത്രവും ഓപ്പൺ സോഴ്‌സ് റെസ്യൂമെ ബിൽഡറും"
+
+#. Hero headline, line 1 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "A free, open-source"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "A full-height gap splits this page into two columns."
@@ -1423,6 +1435,10 @@ msgstr "വിലാസം"
 msgid "Adds a reminder to Today if you haven't heard back by then."
 msgstr "അപ്പോഴേക്കും മറുപടി ലഭിച്ചില്ലെങ്കിൽ “ഇന്ന്” എന്നതിൽ ഒരു ഓർമ്മപ്പെടുത്തൽ ചേർക്കുന്നു."
 
+#: src/features/templates/gallery.tsx
+msgid "Adjust fonts, colors, spacing and sections in the resume builder. Export your finished resume to PDF or Word, or share a link. The PDFs above are examples to help you compare designs."
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Ads"
 msgstr "പരസ്യങ്ങൾ"
@@ -1617,10 +1633,6 @@ msgstr "ഒരു എൻട്രിക്ക് തീയതികളില്�
 msgid "an error"
 msgstr "ഒരു പിശക്"
 
-#: src/features/homepage/hero.tsx
-msgid "An open-source resume builder"
-msgstr "ഒരു ഓപ്പൺ സോഴ്സ് റെസ്യൂമെ ബിൽഡർ"
-
 #: src/components/layout/error-screen.tsx
 msgid "An unexpected error stopped this page from loading. You can try again or head back."
 msgstr "ഒരു അപ്രതീക്ഷിത പിശക് ഈ പേജ് ലോഡ് ചെയ്യുന്നത് നിർത്തി. നിങ്ങൾക്ക് വീണ്ടും ശ്രമിക്കാം അല്ലെങ്കിൽ തിരികെ പോകാം."
@@ -1629,6 +1641,11 @@ msgstr "ഒരു അപ്രതീക്ഷിത പിശക് ഈ പേ�
 #: src/features/applications/components/detail/contacts.tsx
 msgid "and {0} more"
 msgstr "കൂടാതെ {0} കൂടുതൽ"
+
+#. Hero headline, line 3 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "and career"
+msgstr ""
 
 #: src/features/homepage/sections.tsx
 msgid "and counting"
@@ -2268,12 +2285,25 @@ msgstr "ബ്രീഫിംഗ് പുതുക്കൽ ഓണാണ് · 
 msgid "Briefing refresh paused"
 msgstr "ബ്രീഫിംഗ് പുതുക്കൽ താൽക്കാലികമായി നിർത്തി"
 
+#: src/features/ats-checker/page.tsx
+msgid "Browse free resume templates and sample PDFs"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word."
+msgstr ""
+
+#: src/features/homepage/hero.tsx
+msgid "Build a professional resume, download it as PDF or Word, and manage your job search in one place. Free templates, no ads, no paywall."
+msgstr ""
+
 #: src/features/homepage/ui.tsx
+#: src/features/templates/gallery.tsx
 msgid "Build your resume"
 msgstr "നിങ്ങളുടെ റെസ്യൂമെ നിർമ്മിക്കുക"
 
 #. Screen-reader dialog title for the command palette in the resume builder
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Builder Command Palette"
 msgstr "ബിൽഡർ കമാൻഡ് പാലറ്റ്"
 
@@ -2444,7 +2474,6 @@ msgstr "വിഭാഗ ശീർഷകങ്ങളും തീയതി വാ
 msgid "Changing it sends a confirmation to the new address. Your username is part of every public link."
 msgstr "ഇത് മാറ്റുന്നത് പുതിയ വിലാസത്തിലേക്ക് ഒരു സ്ഥിരീകരണം അയയ്ക്കുന്നു. നിങ്ങളുടെ ഉപയോക്തൃനാമം എല്ലാ പൊതു ലിങ്കുകളുടെയും ഭാഗമാണ്."
 
-#: src/features/homepage/check.tsx
 #: src/features/homepage/header.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
@@ -2522,6 +2551,11 @@ msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് റീസെറ�
 #: src/features/auth/pages/register.tsx
 msgid "Check your email for a link to verify your account."
 msgstr "നിങ്ങളുടെ അക്കൗണ്ട് സ്ഥിരീകരിക്കുന്നതിന് ഒരു ലിങ്കിനായി നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കുക."
+
+#: src/features/homepage/check.tsx
+#: src/features/templates/gallery.tsx
+msgid "Check your resume’s ATS readability"
+msgstr ""
 
 #. placeholder {0}: file.name
 #: src/features/ats-checker/checker.tsx
@@ -2732,12 +2766,12 @@ msgstr "വരാനിരിക്കുന്നത്"
 
 #. Accessible label for command list region inside command palette
 #. Accessible label for the command palette dialog
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette"
 msgstr "കമാൻഡ് പാലറ്റ്"
 
 #. Accessible label for command palette dialog when browsing a nested command page
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette - {currentPage}"
 msgstr "കമാൻഡ് പാലറ്റ് - {currentPage}"
 
@@ -2767,6 +2801,10 @@ msgstr "എന്താണ് മെച്ചപ്പെട്ടതെന്�
 #: src/features/career/workspace/shell.tsx
 msgid "Compare offers"
 msgstr "ഓഫറുകൾ താരതമ്യം ചെയ്യുക"
+
+#: src/features/templates/gallery.tsx
+msgid "Compare real resume layouts before you sign up. Every template is free to customize, with PDF and Word downloads and no watermark."
+msgstr ""
 
 #: src/features/career/offers.tsx
 msgid "Compared in their original currency and pay period. Comparing doesn't share anything with the coach."
@@ -3567,6 +3605,10 @@ msgstr "കവർ ലെറ്ററുകൾ"
 msgid "Create"
 msgstr "സൃഷ്‌ടിക്കുക"
 
+#: src/features/templates/gallery.tsx
+msgid "Create a free account, then choose your template in Design. Switch layouts anytime without rewriting your content."
+msgstr ""
+
 #: src/features/auth/pages/register.tsx
 msgid "Create a new account"
 msgstr "ഒരു പുതിയ അക്കൗണ്ട് സൃഷ്‌ടിക്കുക"
@@ -4113,6 +4155,10 @@ msgstr "ഡൗൺലോഡ് ചെയ്യുക"
 msgid "Download {label}"
 msgstr "{label} ഡൗൺലോഡ് ചെയ്യുക"
 
+#: src/features/templates/gallery.tsx
+msgid "Download {name} sample PDF"
+msgstr ""
+
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "Download application details, contacts, notes, and timeline history as CSV."
 msgstr "അപേക്ഷയുടെ വിശദാംശങ്ങൾ, കോൺടാക്റ്റുകൾ, കുറിപ്പുകൾ, ടൈംലൈൻ ചരിത്രം എന്നിവ CSV ആയി ഡൗൺലോഡ് ചെയ്യുക."
@@ -4135,6 +4181,10 @@ msgstr "PDF ഡൗൺലോഡ് ചെയ്യുക"
 #: src/features/resume/share/download-tab.tsx
 msgid "Download PDF instead"
 msgstr "പകരം PDF ഡൗൺലോഡ് ചെയ്യുക"
+
+#: src/features/templates/gallery.tsx
+msgid "Download sample PDF"
+msgstr ""
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Download them"
@@ -4606,19 +4656,10 @@ msgstr "ജോലി പോസ്റ്റിംഗ് സമ്മർദ്ദ�
 msgid "Every week"
 msgstr "എല്ലാ ആഴ്ചയും"
 
-#. Hero headline, line 1 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "Everything"
-msgstr "നിങ്ങൾ"
-
 #. placeholder {0}: application.company
 #: src/features/career/workspace/saved.tsx
 msgid "Everything the coach wrote for {0}, newest first."
 msgstr "{0}-നായി കോച്ച് എഴുതിയതെല്ലാം, ഏറ്റവും പുതിയത് ആദ്യം."
-
-#: src/features/homepage/hero.tsx
-msgid "Everything you’ve done, on one page."
-msgstr "നിങ്ങൾ ചെയ്തതെല്ലാം, ഒരു പേജിൽ."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
@@ -5119,6 +5160,14 @@ msgstr "ഇന്നലെ കണ്ടെത്തിയത്"
 msgid "Free ATS resume checker"
 msgstr "സൗജന്യ ATS റെസ്യൂമെ ചെക്കർ"
 
+#: src/libs/seo.ts
+msgid "Free Resume Builder with PDF & Word Downloads"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Free Resume Templates with PDF Examples"
+msgstr ""
+
 #: src/features/resume/editor/design/style-groups.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -5506,6 +5555,10 @@ msgstr "എത്ര ദിവസത്തെ അവധി ലഭിക്കു
 #: src/features/career/schedule-sheet.tsx
 msgid "How often"
 msgstr "എത്ര തവണ"
+
+#: src/features/templates/gallery.tsx
+msgid "How to choose a template"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 msgid "How to show the file"
@@ -6583,6 +6636,10 @@ msgstr "ആകെ ലോഡ് ചെയ്യുന്നു"
 msgid "Loading workspace…"
 msgstr "വർക്ക്‌സ്‌പേസ് ലോഡ് ചെയ്യുന്നു…"
 
+#: src/features/command-palette/index.tsx
+msgid "Loading…"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
@@ -6667,6 +6724,10 @@ msgstr "ഇത് കൂടുതൽ വ്യക്തമാക്കുക"
 msgid "Make it shorter"
 msgstr "ഇത് ചെറുതാക്കുക"
 
+#: src/features/templates/gallery.tsx
+msgid "Make it yours, then take it with you."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "സ്വകാര്യമാക്കുക"
@@ -6702,6 +6763,11 @@ msgstr "സെർവർ നിയന്ത്രിക്കുന്നത്"
 #: src/features/settings/ai/providers.tsx
 msgid "Managed by your server"
 msgstr "നിങ്ങളുടെ സെർവർ നിയന്ത്രിക്കുന്നത്"
+
+#. Hero headline, line 4 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "manager."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Many bullets start with the same phrase."
@@ -7273,7 +7339,7 @@ msgid "No change needed. It's already at {stage}."
 msgstr "മാറ്റം ആവശ്യമില്ല. ഇത് ഇതിനകം “{stage}” ഘട്ടത്തിലാണ്."
 
 #. Empty-state message when no command palette results match the search query
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "No commands match that search."
 msgstr "ആ തിരയലിന് ചേരുന്ന കമാൻഡുകളൊന്നുമില്ല."
 
@@ -7730,11 +7796,6 @@ msgstr "ഓഫീസ് ദിവസങ്ങൾ പറഞ്ഞിട്ടി�
 msgid "Offline · saved on this device"
 msgstr "ഓഫ്‌ലൈൻ · ഈ ഉപകരണത്തിൽ സംരക്ഷിച്ചു"
 
-#. Hero headline, line 3 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "on one"
-msgstr "ഒരൊറ്റ"
-
 #: src/features/resume/share/link-tab.tsx
 msgid "On. Anyone with the link can view. It isn't listed or indexed by search engines."
 msgstr "ഓൺ. ലിങ്കുള്ള ആർക്കും കാണാനാകും. ഇത് സെർച്ച് എഞ്ചിനുകൾ ലിസ്റ്റുചെയ്യുകയോ സൂചികയിലാക്കുകയോ ചെയ്തിട്ടില്ല."
@@ -7752,12 +7813,29 @@ msgid "Once you've sent a few applications, this shows how far they get and how 
 msgstr "നിങ്ങൾ കുറച്ച് ജോലി അപേക്ഷകൾ അയച്ചുകഴിഞ്ഞാൽ, അവർ എത്രത്തോളം എത്തുന്നുവെന്നും ആളുകൾ എത്ര വേഗത്തിൽ മറുപടി നൽകുന്നുവെന്നും ഇത് കാണിക്കുന്നു."
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "One column"
 msgstr "ഒരു കോളം"
+
+#: src/features/templates/gallery.tsx
+msgid "One column or two?"
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with a photo beside the header and clear section headings. A simple top-to-bottom layout for your experience."
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with labeled section rows and subtle dividers. A compact layout for experience, education and supporting details."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "one format"
 msgstr "ഒരേ ഫോർമാറ്റ്"
+
+#: src/features/templates/gallery.tsx
+msgid "One-column templates give hiring software a simple top-to-bottom reading order. Two-column templates put supporting details in a sidebar and leave more room for visual hierarchy. Choose for your content, then check the exported PDF."
+msgstr ""
 
 #: src/features/auth/pages/consent.tsx
 msgid "Only allow applications you trust. This application will be able to:"
@@ -8053,11 +8131,6 @@ msgstr "പേജ് വായന പൂർത്തിയായില്ല."
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "Page view"
 msgstr "പേജ് കാഴ്ച"
-
-#. Hero headline, line 4 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "page."
-msgstr "പേജിൽ."
 
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Paper"
@@ -8509,6 +8582,10 @@ msgstr "നിലവിലെ കീവേഡ് ചേർക്കാനോ സ
 msgid "Press <0>Enter</0> to open"
 msgstr "തുറക്കാൻ <0>എന്റർ</0> അമർത്തുക"
 
+#: src/features/templates/gallery.tsx
+msgid "Preview {name} sample PDF"
+msgstr ""
+
 #. placeholder {0}: templates[previewTemplate].name
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -8768,10 +8845,6 @@ msgstr "Reactive Resume - ഹോംപേജിലേക്കു പോകു�
 msgid "Reactive Resume {__APP_VERSION__} · MIT"
 msgstr "Reactive Resume {__APP_VERSION__} · MIT"
 
-#: src/features/homepage/hero.tsx
-msgid "Reactive Resume is a free, open-source resume builder. Write it, design it, check it, tailor it for every job and walk into the interview prepared."
-msgstr "Reactive Resume ഒരു സൗജന്യ, ഓപ്പൺ സോഴ്‌സ് റെസ്യൂമെ ബിൽഡറാണ്. എഴുതുക, ഡിസൈൻ ചെയ്യുക, പരിശോധിക്കുക, ഓരോ ജോലിക്കും അനുസരിച്ച് ക്രമീകരിക്കുക, തയ്യാറെടുപ്പോടെ അഭിമുഖത്തിന് പോകുക."
-
 #: src/features/homepage/sections.tsx
 msgid "Reactive Resume is open source under the MIT License. Amruth Pillai and a community of contributors keep it running, and donations pay for hosting and development. There’s no paid tier."
 msgstr "Reactive Resume MIT ലൈസൻസിന് കീഴിലുള്ള ഓപ്പൺ സോഴ്‌സാണ്. Amruth Pillai-യും ഒരു കൂട്ടം സംഭാവകരുമാണ് ഇത് നടത്തിക്കൊണ്ടുപോകുന്നത്, ഹോസ്റ്റിംഗിനും വികസനത്തിനുമുള്ള ചെലവ് സംഭാവനകളിലൂടെയാണ്. പണമടച്ചുള്ള പ്ലാൻ ഇല്ല."
@@ -8854,6 +8927,10 @@ msgstr "വായിക്കുക, എഴുതുക, ഇല്ലാതാ�
 #: src/features/ats-checker/messages.ts
 msgid "Readability"
 msgstr "വായനാക്ഷമത"
+
+#: src/features/templates/gallery.tsx
+msgid "Readability does not guarantee an interview or a particular ATS result."
+msgstr ""
 
 #. placeholder {0}: report.score
 #: src/features/ats-checker/checker.tsx
@@ -9370,6 +9447,11 @@ msgstr "റെസ്യൂമെ + കത്ത്"
 msgid "Resume attached"
 msgstr "റെസ്യൂമെ അറ്റാച്ച് ചെയ്തു"
 
+#. Hero headline, line 2 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "resume builder"
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Resume builder"
 msgstr "റെസ്യൂമെ ബിൽഡർ"
@@ -9871,7 +9953,7 @@ msgid "Search applications"
 msgstr "ജോലി അപേക്ഷകൾ തിരയുക"
 
 #. Accessible label for command palette search input
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search commands"
 msgstr "തിരയൽ നിർദ്ദേശങ്ങൾ"
 
@@ -9934,7 +10016,7 @@ msgid "Search..."
 msgstr "തിരയുക..."
 
 #. Placeholder in command palette input on nested pages
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search…"
 msgstr "… തിരയുക"
 
@@ -10421,10 +10503,6 @@ msgstr "ഒറ്റ കോളമാണ്, മജന്റ നിറത്ത�
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators."
 msgstr "ഒറ്റ കോളമാണ്, മിനിമൽ മുകളിലെ ഹെഡറും ധാരാളം തുറസ്സുള്ള സ്‌പെയ്‌സും; ഡിസൈനർമാർക്കും കണ്ടന്റ് ക്രിയേറ്റർമാർക്കും അനുയോജ്യമായ ശുചിയും മോഡേണുമായ ലുക്ക്."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Single-column with a sidebar and clean grid layout; versatile for any professional or technical role."
-msgstr "ഒറ്റ കോളമാണ്, സൈഡ്ബാറും ക്ലീൻ ഗ്രിഡ് ലേയൗട്ടും ഉണ്ട്; ഏത് പ്രൊഫഷണലായോ ടെക്കിക്കൽ റോളായോക്കും അനുയോജ്യമായ വിന്യാസം."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with an inline three-column entry header (position · organization · period); compact and ATS-friendly, well-suited for Asian resume conventions (CN/JP/KR)."
@@ -12011,8 +12089,13 @@ msgid "Turn this schedule on"
 msgstr "ഈ ഷെഡ്യൂൾ ഓണാക്കുക"
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "Two columns"
 msgstr "രണ്ട് നിരകൾ"
+
+#: src/dialogs/resume/template/data.ts
+msgid "Two columns beneath a colored header band. Keep experience in the main column and supporting details in the sidebar."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "Two date formats found"
@@ -12045,14 +12128,6 @@ msgstr "രണ്ടു കോളമാണ്, മൃദുവായ ഹെഡ�
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with accent colors and clean typography; balanced choice for business analysts or operations roles."
 msgstr "രണ്ടു കോളമാണ്, ആക്സന്റ് നിറങ്ങളും ക്ലീൻ ടൈപ്പോഗ്രഫിയും ഉണ്ട്; ബിസിനസ് അനലിസ്റ്റുകൾക്കും ഓപ്പറേഷൻസ് റോളുകൾക്കും സന്തുലിതമായൊരു തിരഞ്ഞെടുപ്പ്."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, clean and professional with subtle section dividers; suits corporate, finance, or consulting positions."
-msgstr "രണ്ടു കോളമാണ്, സൂക്ഷ്മമായ സെക്ഷൻ ഡിവൈഡറുകളോടെ ക്ലീനും പ്രൊഫഷണലും; കോർപ്പറേറ്റ്, ഫിനാൻസ്, കൺസൽട്ടിംഗ് പദവികൾക്കു യോജ്യം."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, minimal and text-dense with no decorative elements; perfect for traditional industries or ATS-heavy applications."
-msgstr "രണ്ടു കോളമാണ്, മിനിമലും ടെക്സ്റ്റ്‑ഡെൻസുമായ, അലങ്കാര ഘടകങ്ങളില്ലാതെ; പരമ്പരാഗത വ്യവസായങ്ങൾക്കും ATS‑കേന്ദ്രികൃതമായ അപേക്ഷകൾക്കും ഏറ്റവും അനുയോജ്യം."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles."
@@ -12096,7 +12171,7 @@ msgstr "സ്ഥിരീകരിക്കാൻ <0>{CONFIRMATION}</0> എന�
 
 #. Placeholder in command palette input on root page
 #. Screen-reader dialog description instructing users how to use the command palette
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Type a command or search…"
 msgstr "ഒരു കമാൻഡ് ടൈപ്പ് ചെയ്യുക അല്ലെങ്കിൽ തിരയുക…"
 
@@ -13005,6 +13080,10 @@ msgstr "നിങ്ങൾ ചെയ്തത് എഴുതുക."
 msgid "Write your answer, or draft one from your Knowledge."
 msgstr "നിങ്ങളുടെ ഉത്തരം എഴുതുക, അല്ലെങ്കിൽ നിങ്ങളുടെ അറിവിൽ നിന്ന് ഒന്ന് ഡ്രാഫ്റ്റ് ചെയ്യുക."
 
+#: src/features/homepage/write.tsx
+msgid "Write your professional resume"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 #: src/features/resume/editor/check/check-panel.tsx
 #: src/features/resume/editor/check/issues.ts
@@ -13140,11 +13219,6 @@ msgstr "എല്ലാം കണ്ടുകഴിഞ്ഞു"
 #: src/features/auth/components/guest-banner.tsx
 msgid "You're using a guest account"
 msgstr "നിങ്ങൾ ഒരു അതിഥി അക്കൗണ്ട് ഉപയോഗിക്കുന്നു"
-
-#. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "you’ve done,"
-msgstr "ചെയ്തതെല്ലാം,"
 
 #: src/features/auth/pages/forgot-password.tsx
 #: src/features/auth/pages/register.tsx
@@ -13314,6 +13388,10 @@ msgstr "റെസ്യൂമെയിൽ നിങ്ങളുടെ പേര�
 #: src/features/resume/editor/check/issues.ts
 msgid "Your name is missing"
 msgstr "നിങ്ങളുടെ പേര് കാണാനില്ല"
+
+#: src/features/homepage/hero.tsx
+msgid "Your next chapter starts here"
+msgstr ""
 
 #: src/features/career/workspace/saved.tsx
 msgid "your notes"

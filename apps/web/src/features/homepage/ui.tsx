@@ -15,7 +15,7 @@ type CtaLinkProps = { size: "header" | "hero" | "closing"; className?: string };
 export function CtaLink({ size, className }: CtaLinkProps) {
 	return (
 		<Link
-			to="/dashboard"
+			to="/auth/register"
 			className={cn(
 				"inline-flex shrink-0 items-center rounded-full bg-accent font-ui font-semibold text-on-accent transition-[background-color,transform] duration-[160ms] ease-out-strong hover:bg-accent-hover motion-safe:active:[transform:scale(.97)]",
 				size === "header" && "h-[38px] px-4 text-sm",

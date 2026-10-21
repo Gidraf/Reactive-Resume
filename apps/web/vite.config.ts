@@ -1,6 +1,6 @@
 import type { ProxyOptions } from "vite-plus";
 import { readFileSync } from "node:fs";
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { lingui } from "@lingui/vite-plugin";
 import babel from "@rolldown/plugin-babel";
@@ -34,6 +34,15 @@ async function prerenderPages() {
 		pathToFileURL(`${prerenderBundleDir}/prerender.js`).href
 	);
 	const shell = await readFile(`${webRoot}dist/index.html`, "utf8");
+	const assets = await readdir(`${webRoot}dist/assets`);
+	// These fonts paint the first screen. Discover the build's hashed URLs before CSS would request them.
+	const fontPreloads = ["hanken-grotesk-latin-wght-normal-", "newsreader-latin-opsz-normal-"]
+		.map((prefix) => {
+			const asset = assets.find((name) => name.startsWith(prefix) && name.endsWith(".woff2"));
+			if (!asset) throw new Error(`Missing marketing font: ${prefix}`);
+			return `<link rel="preload" as="font" type="font/woff2" href="/assets/${asset}" crossorigin>`;
+		})
+		.join("");
 
 	await rm(prerenderOutDir, { recursive: true, force: true });
 
@@ -43,6 +52,7 @@ async function prerenderPages() {
 		for (const locale of locales) {
 			const page = await renderPage(name, locale);
 			const html = shell
+				.replace("</head>", `${fontPreloads}</head>`)
 				.replace(/<html lang="[^"]*">/, () => `<html lang="${locale}" dir="${page.dir}">`)
 				.replace(/<title>[^<]*<\/title>/, () => `<title>${escapeHtml(page.title)}</title>`)
 				.replace(

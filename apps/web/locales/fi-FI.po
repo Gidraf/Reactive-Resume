@@ -457,6 +457,10 @@ msgstr "{count, plural, one {Sisäänpääsy #} other {#-merkinnät}}"
 msgid "{count, plural, one {Apply # change} other {Apply # changes}}"
 msgstr "{count, plural, one {Tee # muutos} other {Tee # muutosta}}"
 
+#: src/features/templates/gallery.tsx
+msgid "{count} free resume templates. Find your fit."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "{count} selected"
 msgstr "{count} valittu"
@@ -603,6 +607,10 @@ msgstr "{name} siirrettiin pääsarakkeeseen"
 msgid "{name} never prints"
 msgstr "{name} ei koskaan tulosta"
 
+#: src/features/templates/gallery.tsx
+msgid "{name} resume template preview"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "{name} sits in the sidebar"
 msgstr "{name} istuu sivupalkissa"
@@ -673,8 +681,8 @@ msgid "{supported} supported · {partial} partly · {missing} missing"
 msgstr "{supported} tuettua · {partial} osittain · {missing} puuttuu"
 
 #: src/features/homepage/design.tsx
-msgid "{templateCount} templates."
-msgstr "{templateCount} mallia."
+msgid "{templateCount} free resume templates."
+msgstr ""
 
 #: src/features/homepage/prepare.tsx
 msgid "{time} · Video call · 45 min"
@@ -903,9 +911,13 @@ msgid "A font is referenced but not embedded."
 msgstr "Fonttiin viitataan, mutta sitä ei ole upotettu."
 
 #: src/features/homepage/sections.tsx
-#: src/libs/seo.ts
 msgid "A free and open-source resume builder"
 msgstr "Ilmainen ja avoimen lähdekoodin ansioluettelon rakentaja"
+
+#. Hero headline, line 1 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "A free, open-source"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "A full-height gap splits this page into two columns."
@@ -1423,6 +1435,10 @@ msgstr "Osoite"
 msgid "Adds a reminder to Today if you haven't heard back by then."
 msgstr "Lisää muistutuksen Tänään-näkymään, jos et ole saanut vastausta siihen mennessä."
 
+#: src/features/templates/gallery.tsx
+msgid "Adjust fonts, colors, spacing and sections in the resume builder. Export your finished resume to PDF or Word, or share a link. The PDFs above are examples to help you compare designs."
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Ads"
 msgstr "Mainokset"
@@ -1617,10 +1633,6 @@ msgstr "Merkinnällä ei ole päivämääriä"
 msgid "an error"
 msgstr "virhe"
 
-#: src/features/homepage/hero.tsx
-msgid "An open-source resume builder"
-msgstr "Avoimen lähdekoodin ansioluettelon rakentaja"
-
 #: src/components/layout/error-screen.tsx
 msgid "An unexpected error stopped this page from loading. You can try again or head back."
 msgstr "Odottamaton virhe esti sivun latautumisen. Voit yrittää uudelleen tai palata takaisin."
@@ -1629,6 +1641,11 @@ msgstr "Odottamaton virhe esti sivun latautumisen. Voit yrittää uudelleen tai 
 #: src/features/applications/components/detail/contacts.tsx
 msgid "and {0} more"
 msgstr "ja {0} enemmän"
+
+#. Hero headline, line 3 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "and career"
+msgstr ""
 
 #: src/features/homepage/sections.tsx
 msgid "and counting"
@@ -2268,12 +2285,25 @@ msgstr "Muistion päivitys on päällä · {0}"
 msgid "Briefing refresh paused"
 msgstr "Muistion päivitys keskeytetty"
 
+#: src/features/ats-checker/page.tsx
+msgid "Browse free resume templates and sample PDFs"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word."
+msgstr ""
+
+#: src/features/homepage/hero.tsx
+msgid "Build a professional resume, download it as PDF or Word, and manage your job search in one place. Free templates, no ads, no paywall."
+msgstr ""
+
 #: src/features/homepage/ui.tsx
+#: src/features/templates/gallery.tsx
 msgid "Build your resume"
 msgstr "Rakenna ansioluettelosi"
 
 #. Screen-reader dialog title for the command palette in the resume builder
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Builder Command Palette"
 msgstr "Editorin komentopaletti"
 
@@ -2444,7 +2474,6 @@ msgstr "Muuttaa vain osien otsikot ja päivämääräsanat, ei sisältöäsi."
 msgid "Changing it sends a confirmation to the new address. Your username is part of every public link."
 msgstr "Sen muuttaminen lähettää vahvistuksen uuteen osoitteeseen. Käyttäjätunnuksesi on osa jokaista julkista linkkiä."
 
-#: src/features/homepage/check.tsx
 #: src/features/homepage/header.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
@@ -2522,6 +2551,11 @@ msgstr "Tarkista sähköpostisi linkin löytämiseksi salasanan palauttamiseksi.
 #: src/features/auth/pages/register.tsx
 msgid "Check your email for a link to verify your account."
 msgstr "Tarkista sähköpostisi linkin löytämiseksi tilisi vahvistamiseksi."
+
+#: src/features/homepage/check.tsx
+#: src/features/templates/gallery.tsx
+msgid "Check your resume’s ATS readability"
+msgstr ""
 
 #. placeholder {0}: file.name
 #: src/features/ats-checker/checker.tsx
@@ -2732,12 +2766,12 @@ msgstr "Tulossa"
 
 #. Accessible label for command list region inside command palette
 #. Accessible label for the command palette dialog
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette"
 msgstr "Komentopaletti"
 
 #. Accessible label for command palette dialog when browsing a nested command page
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette - {currentPage}"
 msgstr "Komentopaletti - {currentPage}"
 
@@ -2767,6 +2801,10 @@ msgstr "Vertaa yrityskertoja nähdäksesi, mikä parani. Harjoituskysymykset ova
 #: src/features/career/workspace/shell.tsx
 msgid "Compare offers"
 msgstr "Vertaa tarjouksia"
+
+#: src/features/templates/gallery.tsx
+msgid "Compare real resume layouts before you sign up. Every template is free to customize, with PDF and Word downloads and no watermark."
+msgstr ""
 
 #: src/features/career/offers.tsx
 msgid "Compared in their original currency and pay period. Comparing doesn't share anything with the coach."
@@ -3567,6 +3605,10 @@ msgstr "Saatekirjeet"
 msgid "Create"
 msgstr "Luo"
 
+#: src/features/templates/gallery.tsx
+msgid "Create a free account, then choose your template in Design. Switch layouts anytime without rewriting your content."
+msgstr ""
+
 #: src/features/auth/pages/register.tsx
 msgid "Create a new account"
 msgstr "Luo uusi tili"
@@ -4113,6 +4155,10 @@ msgstr "Lataa"
 msgid "Download {label}"
 msgstr "Lataa {label}"
 
+#: src/features/templates/gallery.tsx
+msgid "Download {name} sample PDF"
+msgstr ""
+
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "Download application details, contacts, notes, and timeline history as CSV."
 msgstr "Lataa hakemusten tiedot, yhteyshenkilöt, muistiinpanot ja aikajanahistoria CSV-tiedostona."
@@ -4135,6 +4181,10 @@ msgstr "Lataa PDF"
 #: src/features/resume/share/download-tab.tsx
 msgid "Download PDF instead"
 msgstr "Lataa sen sijaan PDF"
+
+#: src/features/templates/gallery.tsx
+msgid "Download sample PDF"
+msgstr ""
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Download them"
@@ -4606,19 +4656,10 @@ msgstr "Jokainen työpaikkailmoituksessa painotettu termi on jo olemassa."
 msgid "Every week"
 msgstr "Joka viikko"
 
-#. Hero headline, line 1 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "Everything"
-msgstr "Kaikki,"
-
 #. placeholder {0}: application.company
 #: src/features/career/workspace/saved.tsx
 msgid "Everything the coach wrote for {0}, newest first."
 msgstr "Kaikki, mitä valmentaja on kirjoittanut yritystä {0} varten, uusin ensin."
-
-#: src/features/homepage/hero.tsx
-msgid "Everything you’ve done, on one page."
-msgstr "Kaikki tekemäsi yhdellä sivulla."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
@@ -5119,6 +5160,14 @@ msgstr "Löydetty eilen"
 msgid "Free ATS resume checker"
 msgstr "Ilmainen ATS ansioluettelon tarkistus"
 
+#: src/libs/seo.ts
+msgid "Free Resume Builder with PDF & Word Downloads"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Free Resume Templates with PDF Examples"
+msgstr ""
+
 #: src/features/resume/editor/design/style-groups.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -5506,6 +5555,10 @@ msgstr "Montako lomapäivää siihen kuuluu?"
 #: src/features/career/schedule-sheet.tsx
 msgid "How often"
 msgstr "Kuinka usein"
+
+#: src/features/templates/gallery.tsx
+msgid "How to choose a template"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 msgid "How to show the file"
@@ -6583,6 +6636,10 @@ msgstr "Ladataan kokonaissummaa"
 msgid "Loading workspace…"
 msgstr "Ladataan työtilaa…"
 
+#: src/features/command-palette/index.tsx
+msgid "Loading…"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
@@ -6667,6 +6724,10 @@ msgstr "Tee siitä tarkempi"
 msgid "Make it shorter"
 msgstr "Tee siitä lyhyempi"
 
+#: src/features/templates/gallery.tsx
+msgid "Make it yours, then take it with you."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "Muuta yksityiseksi"
@@ -6702,6 +6763,11 @@ msgstr "Palvelimen hallinnoima"
 #: src/features/settings/ai/providers.tsx
 msgid "Managed by your server"
 msgstr "Palvelimesi hallinnoima"
+
+#. Hero headline, line 4 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "manager."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Many bullets start with the same phrase."
@@ -7273,7 +7339,7 @@ msgid "No change needed. It's already at {stage}."
 msgstr "Muutosta ei tarvita. Se on jo vaiheessa {stage}."
 
 #. Empty-state message when no command palette results match the search query
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "No commands match that search."
 msgstr "Mikään komento ei vastaa hakua."
 
@@ -7730,11 +7796,6 @@ msgstr "Toimistopäiviä ei mainittu"
 msgid "Offline · saved on this device"
 msgstr "Offline · tallennettu tälle laitteelle"
 
-#. Hero headline, line 3 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "on one"
-msgstr "yhdellä"
-
 #: src/features/resume/share/link-tab.tsx
 msgid "On. Anyone with the link can view. It isn't listed or indexed by search engines."
 msgstr "Päällä. Kaikki linkin saaneet voivat katsella. Hakukoneet eivät ole luetteloineet tai indeksoineet sitä."
@@ -7752,12 +7813,29 @@ msgid "Once you've sent a few applications, this shows how far they get and how 
 msgstr "Kun olet lähettänyt muutaman työhakemuksen, tämä näyttää, kuinka pitkälle he pääsevät ja kuinka nopeasti ihmiset vastaavat."
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "One column"
 msgstr "Yksi sarake"
+
+#: src/features/templates/gallery.tsx
+msgid "One column or two?"
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with a photo beside the header and clear section headings. A simple top-to-bottom layout for your experience."
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with labeled section rows and subtle dividers. A compact layout for experience, education and supporting details."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "one format"
 msgstr "yksi muoto"
+
+#: src/features/templates/gallery.tsx
+msgid "One-column templates give hiring software a simple top-to-bottom reading order. Two-column templates put supporting details in a sidebar and leave more room for visual hierarchy. Choose for your content, then check the exported PDF."
+msgstr ""
 
 #: src/features/auth/pages/consent.tsx
 msgid "Only allow applications you trust. This application will be able to:"
@@ -8053,11 +8131,6 @@ msgstr "Sivun lukeminen ei päättynyt."
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "Page view"
 msgstr "Sivunäkymä"
-
-#. Hero headline, line 4 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "page."
-msgstr "sivulla."
 
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Paper"
@@ -8509,6 +8582,10 @@ msgstr "Paina <0>{RETURN_KEY}</0> lisätäksesi tai tallentaaksesi nykyisen avai
 msgid "Press <0>Enter</0> to open"
 msgstr "Paina <0>Enter</0> avataksesi"
 
+#: src/features/templates/gallery.tsx
+msgid "Preview {name} sample PDF"
+msgstr ""
+
 #. placeholder {0}: templates[previewTemplate].name
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -8768,10 +8845,6 @@ msgstr "Reactive Resume – Siirry etusivulle"
 msgid "Reactive Resume {__APP_VERSION__} · MIT"
 msgstr "Reactive Resume {__APP_VERSION__} · MIT"
 
-#: src/features/homepage/hero.tsx
-msgid "Reactive Resume is a free, open-source resume builder. Write it, design it, check it, tailor it for every job and walk into the interview prepared."
-msgstr "Reactive Resume on ilmainen, avoimen lähdekoodin ansioluettelotyökalu. Kirjoita, muotoile, tarkista, räätälöi jokaiseen työpaikkaan ja astu haastatteluun valmistautuneena."
-
 #: src/features/homepage/sections.tsx
 msgid "Reactive Resume is open source under the MIT License. Amruth Pillai and a community of contributors keep it running, and donations pay for hosting and development. There’s no paid tier."
 msgstr "Reactive Resume on avointa lähdekoodia MIT-lisenssillä. Amruth Pillai ja avustajien yhteisö pitävät sen käynnissä, ja lahjoitukset kattavat ylläpidon ja kehityksen kulut. Maksullista versiota ei ole."
@@ -8854,6 +8927,10 @@ msgstr "Lue, kirjoita ja poista"
 #: src/features/ats-checker/messages.ts
 msgid "Readability"
 msgstr "Luettavuus"
+
+#: src/features/templates/gallery.tsx
+msgid "Readability does not guarantee an interview or a particular ATS result."
+msgstr ""
 
 #. placeholder {0}: report.score
 #: src/features/ats-checker/checker.tsx
@@ -9370,6 +9447,11 @@ msgstr "ansioluettelo + kirje"
 msgid "Resume attached"
 msgstr "Ansioluettelo liitetty"
 
+#. Hero headline, line 2 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "resume builder"
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Resume builder"
 msgstr "Ansioluetteloeditori"
@@ -9871,7 +9953,7 @@ msgid "Search applications"
 msgstr "Hae työhakemuksia"
 
 #. Accessible label for command palette search input
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search commands"
 msgstr "Hakukomennot"
 
@@ -9934,7 +10016,7 @@ msgid "Search..."
 msgstr "Etsi..."
 
 #. Placeholder in command palette input on nested pages
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search…"
 msgstr "Hae…"
 
@@ -10421,10 +10503,6 @@ msgstr "Yksipalstainen, magentavärisellä vasemmalla reunakorostuksella; tiivis
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators."
 msgstr "Yksipalstainen, pelkistetty yläotsake ja runsaasti tyhjää tilaa; selkeä ja moderni suunnittelijoille tai sisällöntuottajille."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Single-column with a sidebar and clean grid layout; versatile for any professional or technical role."
-msgstr "Yksipalstainen, sivupalkilla ja selkeällä ruudukkoasettelulla; monipuolinen kaikkiin ammatillisiin tai teknisiin rooleihin."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with an inline three-column entry header (position · organization · period); compact and ATS-friendly, well-suited for Asian resume conventions (CN/JP/KR)."
@@ -12011,8 +12089,13 @@ msgid "Turn this schedule on"
 msgstr "Ota tämä ajastus käyttöön"
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "Two columns"
 msgstr "Kaksi saraketta"
+
+#: src/dialogs/resume/template/data.ts
+msgid "Two columns beneath a colored header band. Keep experience in the main column and supporting details in the sidebar."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "Two date formats found"
@@ -12045,14 +12128,6 @@ msgstr "Kaksipalstainen, pehmeällä otsakekorostuksella ja pyöreällä profiil
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with accent colors and clean typography; balanced choice for business analysts or operations roles."
 msgstr "Kaksipalstainen, korostusväreillä ja selkeällä typografialla; tasapainoinen valinta business-analyytikoille tai operatiivisiin rooleihin."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, clean and professional with subtle section dividers; suits corporate, finance, or consulting positions."
-msgstr "Kaksipalstainen, selkeä ja ammattimainen, hienovaraisilla osiojakajilla; sopii yritys-, rahoitus- tai konsultointitehtäviin."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, minimal and text-dense with no decorative elements; perfect for traditional industries or ATS-heavy applications."
-msgstr "Kaksipalstainen, pelkistetty ja tekstitiivis ilman koriste-elementtejä; täydellinen perinteisille aloille tai järjestelmien automaattisesti käsittelemiin hakemuksiin."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles."
@@ -12096,7 +12171,7 @@ msgstr "Vahvista kirjoittamalla <0>{CONFIRMATION}</0>"
 
 #. Placeholder in command palette input on root page
 #. Screen-reader dialog description instructing users how to use the command palette
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Type a command or search…"
 msgstr "Kirjoita komento tai hae…"
 
@@ -13005,6 +13080,10 @@ msgstr "Kirjoita, mitä teit."
 msgid "Write your answer, or draft one from your Knowledge."
 msgstr "Kirjoita vastauksesi tai luonnostele se tietopankistasi."
 
+#: src/features/homepage/write.tsx
+msgid "Write your professional resume"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 #: src/features/resume/editor/check/check-panel.tsx
 #: src/features/resume/editor/check/issues.ts
@@ -13140,11 +13219,6 @@ msgstr "Olet ajan tasalla"
 #: src/features/auth/components/guest-banner.tsx
 msgid "You're using a guest account"
 msgstr "Käytät vierastiliä"
-
-#. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "you’ve done,"
-msgstr "mitä olet tehnyt,"
 
 #: src/features/auth/pages/forgot-password.tsx
 #: src/features/auth/pages/register.tsx
@@ -13314,6 +13388,10 @@ msgstr "Nimesi muuttui ansioluettelossa. Myös kirje päivitetty."
 #: src/features/resume/editor/check/issues.ts
 msgid "Your name is missing"
 msgstr "Nimesi puuttuu"
+
+#: src/features/homepage/hero.tsx
+msgid "Your next chapter starts here"
+msgstr ""
 
 #: src/features/career/workspace/saved.tsx
 msgid "your notes"

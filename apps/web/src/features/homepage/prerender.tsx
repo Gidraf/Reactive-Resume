@@ -17,9 +17,10 @@ import { renderToString } from "react-dom/server";
 import { isRTL, localeSchema } from "@reactive-resume/utils/locale";
 import { Homepage } from "./page";
 import { AtsCheckerPage } from "@/features/ats-checker/page";
+import { TemplateGallery } from "@/features/templates/gallery";
 import { ThemeProvider } from "@/features/theme/provider";
 import { getLocaleMessages } from "@/libs/locale";
-import { getAtsCheckerMeta, getHomepageMeta } from "@/libs/seo";
+import { getAtsCheckerMeta, getHomepageMeta, getTemplatesMeta } from "@/libs/seo";
 import { Header } from "@/routes/_home/-sections/header";
 
 export const locales = localeSchema.options;
@@ -29,6 +30,16 @@ const iconContextValue: IconProps = { size: 16, weight: "regular" };
 
 const pages = {
 	home: { path: "/", meta: getHomepageMeta, render: () => <Homepage /> },
+	"resume-templates": {
+		path: "/resume-templates",
+		meta: getTemplatesMeta,
+		render: () => (
+			<>
+				<Header />
+				<TemplateGallery />
+			</>
+		),
+	},
 	// What the /_home layout renders around the checker for a signed-out visitor (routes/_home/route.tsx).
 	"ats-checker": {
 		path: "/ats-checker",

@@ -132,10 +132,22 @@ export function Hero() {
 	}, []);
 
 	const headline = [
-		t({ message: "Everything", comment: "Hero headline, line 1 of 4: “Everything / you’ve done, / on one / page.”" }),
-		t({ message: "you’ve done,", comment: "Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”" }),
-		t({ message: "on one", comment: "Hero headline, line 3 of 4: “Everything / you’ve done, / on one / page.”" }),
-		t({ message: "page.", comment: "Hero headline, line 4 of 4: “Everything / you’ve done, / on one / page.”" }),
+		t({
+			message: "A free, open-source",
+			comment: "Hero headline, line 1 of 4: A free, open-source / resume builder / and career / manager.",
+		}),
+		t({
+			message: "resume builder",
+			comment: "Hero headline, line 2 of 4: A free, open-source / resume builder / and career / manager.",
+		}),
+		t({
+			message: "and career",
+			comment: "Hero headline, line 3 of 4: A free, open-source / resume builder / and career / manager.",
+		}),
+		t({
+			message: "manager.",
+			comment: "Hero headline, line 4 of 4: A free, open-source / resume builder / and career / manager.",
+		}),
 	] as const;
 
 	return (
@@ -148,7 +160,7 @@ export function Hero() {
 			className="relative h-[170vh] motion-reduce:h-svh min-[900px]:h-[220vh]"
 		>
 			{/* --pt is the page's centre. Below 900px it sits under the stacked headline (128px + three 10vw lines). */}
-			<div className="min-[900px]:short:[--pw:min(24vw,40vh)] sticky top-0 h-svh overflow-hidden [--e2:clamp(0,(var(--p)-.16)/.6,1)] [--e:clamp(0,(var(--p)-.03)/.5,1)] [--pt:calc(144px+30vw+var(--pw)*.647)] [--pw:min(46vw,30vh)] motion-reduce:[--ld:1] min-[900px]:[--pt:50%] min-[900px]:[--pw:min(24vw,46vh)]">
+			<div className="min-[900px]:short:[--pw:min(24vw,40vh)] sticky top-0 h-svh overflow-clip [--e2:clamp(0,(var(--p)-.16)/.6,1)] [--e:clamp(0,(var(--p)-.03)/.5,1)] [--pt:calc(144px+30vw+var(--pw)*.647)] [--pw:min(46vw,30vh)] motion-reduce:[--ld:1] min-[900px]:[--pt:50%] min-[900px]:[--pw:min(24vw,46vh)]">
 				<svg aria-hidden="true" width="0" height="0" className="absolute">
 					<filter id="landing-pencil" x="-5%" y="-5%" width="110%" height="110%">
 						<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves={2} seed={4} />
@@ -159,7 +171,7 @@ export function Hero() {
 				{/* Construction guides, drawn in pencil around where the page will land. */}
 				<div
 					aria-hidden="true"
-					className="text-graphite pointer-events-none absolute inset-0 [filter:url(#landing-pencil)]"
+					className="text-graphite pointer-events-none absolute inset-0 min-[900px]:[filter:url(#landing-pencil)]"
 				>
 					<span className="absolute top-[7vh] bottom-[7vh] left-[calc(50%-var(--pw)/2)] w-px [transform:scaleY(var(--ld,0))] bg-current [transition:transform_1.6s_var(--ease)_.2s]" />
 					<span className="absolute top-[7vh] bottom-[7vh] left-[calc(50%+var(--pw)/2)] w-px [transform:scaleY(var(--ld,0))] bg-current [transition:transform_1.6s_var(--ease)_.35s]" />
@@ -190,12 +202,12 @@ export function Hero() {
 				/>
 
 				<p className={cn(labelClass, "absolute inset-x-(--gutter) top-[92px] z-2 text-ink-3")}>
-					{t`An open-source resume builder`}
+					{t`Your next chapter starts here`}
 				</p>
 
 				<div
 					aria-hidden="true"
-					className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_0,transparent_120px,#000_200px,#000_calc(100%-250px),transparent_calc(100%-170px))] opacity-78"
+					className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_0,transparent_120px,#000_200px,#000_calc(100%-250px),transparent_calc(100%-170px))] opacity-78 max-[900px]:[mask-image:linear-gradient(to_bottom,transparent_0,transparent_260px,#000_330px,#000_calc(100%-250px),transparent_calc(100%-170px))]"
 				>
 					{getFragments().map(({ text, at: [x, y, tx, ty, r, s, z], className }) => (
 						<span
@@ -212,14 +224,21 @@ export function Hero() {
 					<Sheet />
 				</div>
 
-				<h1 id="hero-title" className="sr-only">
-					{t`Everything you’ve done, on one page.`}
+				<h1
+					id="hero-title"
+					className="absolute inset-x-(--gutter) top-32 font-display text-[8vw] leading-[1.05] font-light text-ink min-[900px]:sr-only"
+				>
+					{headline[0]} <br className="min-[900px]:hidden" />
+					{headline[1]} <br className="min-[900px]:hidden" />
+					<em className="text-accent-text">
+						{headline[2]} {headline[3]}
+					</em>
 				</h1>
 
 				{/* The headline, drawn as two halves either side of the page (below 900px, stacked above it). */}
 				<div
 					aria-hidden="true"
-					className="hero-headline-start absolute end-[calc(50%+var(--pw)/2+2.6vw)] top-1/2 hidden text-end text-[4.4vw] leading-none whitespace-nowrap text-ink min-[900px]:block"
+					className="hero-headline-start absolute end-[calc(50%+var(--pw)/2+2.6vw)] top-1/2 hidden text-end text-[3vw] leading-none whitespace-nowrap text-ink min-[900px]:block"
 				>
 					<span className="font-anybody block font-light tracking-[-.025em] [font-stretch:calc(112%-var(--e)*12%)]">
 						{headline[0]}
@@ -230,25 +249,15 @@ export function Hero() {
 				</div>
 				<div
 					aria-hidden="true"
-					className="absolute start-[calc(50%+var(--pw)/2+2.6vw)] top-1/2 hidden [transform:translate(calc(var(--dir)*(1-var(--e))*6vw),-50%)] text-[4.4vw] leading-none whitespace-nowrap opacity-[clamp(0,(var(--e)-.5)*3,1)] [transition:transform_.45s_var(--ease)] min-[900px]:block"
+					className="absolute start-[calc(50%+var(--pw)/2+2.6vw)] top-1/2 hidden [transform:translate(calc(var(--dir)*(1-var(--e))*6vw),-50%)] text-[3.6vw] leading-none whitespace-nowrap opacity-[clamp(0,(var(--e)-.5)*3,1)] [transition:transform_.45s_var(--ease)] min-[900px]:block"
 				>
 					<span className="block font-display tracking-[-.02em] text-accent-text italic">{headline[2]}</span>
 					<span className="font-anybody block tracking-[-.025em] text-ink">{headline[3]}</span>
 				</div>
-				<div
-					aria-hidden="true"
-					className="absolute inset-x-(--gutter) top-32 text-[10vw] leading-none text-ink min-[900px]:hidden"
-				>
-					<span className="font-anybody block font-light [font-stretch:calc(110%-var(--e)*10%)]">{headline[0]}</span>
-					<span className="font-anybody block font-stretch-[96%]">{headline[1]}</span>
-					<span className="block font-display text-accent-text italic opacity-[clamp(0,(var(--e)-.4)*3,1)]">
-						{headline[2]} {headline[3]}
-					</span>
-				</div>
 
 				<div className="absolute inset-x-(--gutter) bottom-[clamp(20px,4vh,40px)] z-2 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
 					<p className="max-w-full font-display text-base leading-[1.45] text-pretty text-ink-2 min-[900px]:max-w-[min(25em,calc(50vw-var(--pw)/2-5vw))] min-[900px]:text-[clamp(17px,1.3vw,20px)]">
-						{t`Reactive Resume is a free, open-source resume builder. Write it, design it, check it, tailor it for every job and walk into the interview prepared.`}
+						{t`Build a professional resume, download it as PDF or Word, and manage your job search in one place. Free templates, no ads, no paywall.`}
 					</p>
 					<CtaLink size="hero" />
 				</div>

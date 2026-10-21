@@ -457,6 +457,10 @@ msgstr "{count, plural, one {Mục nhập #} other {Các mục #}}"
 msgid "{count, plural, one {Apply # change} other {Apply # changes}}"
 msgstr "{count, plural, other {Áp dụng # thay đổi}}"
 
+#: src/features/templates/gallery.tsx
+msgid "{count} free resume templates. Find your fit."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "{count} selected"
 msgstr "Đã chọn {count}"
@@ -603,6 +607,10 @@ msgstr "{name} đã chuyển sang cột chính"
 msgid "{name} never prints"
 msgstr "{name} không bao giờ in"
 
+#: src/features/templates/gallery.tsx
+msgid "{name} resume template preview"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "{name} sits in the sidebar"
 msgstr "{name} nằm ở thanh bên"
@@ -673,8 +681,8 @@ msgid "{supported} supported · {partial} partly · {missing} missing"
 msgstr "{supported} có bằng chứng · {partial} một phần · {missing} còn thiếu"
 
 #: src/features/homepage/design.tsx
-msgid "{templateCount} templates."
-msgstr "{templateCount} mẫu."
+msgid "{templateCount} free resume templates."
+msgstr ""
 
 #: src/features/homepage/prepare.tsx
 msgid "{time} · Video call · 45 min"
@@ -903,9 +911,13 @@ msgid "A font is referenced but not embedded."
 msgstr "Có một font được tham chiếu nhưng không được nhúng."
 
 #: src/features/homepage/sections.tsx
-#: src/libs/seo.ts
 msgid "A free and open-source resume builder"
 msgstr "Trình xây dựng sơ yếu lý lịch mã nguồn mở và miễn phí"
+
+#. Hero headline, line 1 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "A free, open-source"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "A full-height gap splits this page into two columns."
@@ -1423,6 +1435,10 @@ msgstr "Địa chỉ"
 msgid "Adds a reminder to Today if you haven't heard back by then."
 msgstr "Thêm lời nhắc vào Hôm nay nếu đến lúc đó bạn vẫn chưa nhận được phản hồi."
 
+#: src/features/templates/gallery.tsx
+msgid "Adjust fonts, colors, spacing and sections in the resume builder. Export your finished resume to PDF or Word, or share a link. The PDFs above are examples to help you compare designs."
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Ads"
 msgstr "Quảng cáo"
@@ -1617,10 +1633,6 @@ msgstr "Một mục không có ngày tháng"
 msgid "an error"
 msgstr "một lỗi"
 
-#: src/features/homepage/hero.tsx
-msgid "An open-source resume builder"
-msgstr "Trình xây dựng sơ yếu lý lịch nguồn mở"
-
 #: src/components/layout/error-screen.tsx
 msgid "An unexpected error stopped this page from loading. You can try again or head back."
 msgstr "Đã xảy ra lỗi không mong muốn khiến trang này không thể tải được. Bạn có thể thử lại hoặc quay lại trang trước."
@@ -1629,6 +1641,11 @@ msgstr "Đã xảy ra lỗi không mong muốn khiến trang này không thể t
 #: src/features/applications/components/detail/contacts.tsx
 msgid "and {0} more"
 msgstr "và {0} hơn thế nữa"
+
+#. Hero headline, line 3 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "and career"
+msgstr ""
 
 #: src/features/homepage/sections.tsx
 msgid "and counting"
@@ -2268,12 +2285,25 @@ msgstr "Đang bật làm mới bản tóm tắt · {0}"
 msgid "Briefing refresh paused"
 msgstr "Đã tạm dừng làm mới bản tóm tắt"
 
+#: src/features/ats-checker/page.tsx
+msgid "Browse free resume templates and sample PDFs"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word."
+msgstr ""
+
+#: src/features/homepage/hero.tsx
+msgid "Build a professional resume, download it as PDF or Word, and manage your job search in one place. Free templates, no ads, no paywall."
+msgstr ""
+
 #: src/features/homepage/ui.tsx
+#: src/features/templates/gallery.tsx
 msgid "Build your resume"
 msgstr "Xây dựng sơ yếu lý lịch của bạn"
 
 #. Screen-reader dialog title for the command palette in the resume builder
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Builder Command Palette"
 msgstr "Bảng lệnh Builder"
 
@@ -2444,7 +2474,6 @@ msgstr "Chỉ thay đổi tiêu đề của phần và từ ngày tháng chứ k
 msgid "Changing it sends a confirmation to the new address. Your username is part of every public link."
 msgstr "Thay đổi nó sẽ gửi xác nhận đến địa chỉ mới. Tên người dùng của bạn là một phần của mọi liên kết công khai."
 
-#: src/features/homepage/check.tsx
 #: src/features/homepage/header.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
@@ -2522,6 +2551,11 @@ msgstr "Hãy kiểm tra email của bạn để lấy đường link đặt lạ
 #: src/features/auth/pages/register.tsx
 msgid "Check your email for a link to verify your account."
 msgstr "Hãy kiểm tra email của bạn để lấy liên kết xác minh tài khoản."
+
+#: src/features/homepage/check.tsx
+#: src/features/templates/gallery.tsx
+msgid "Check your resume’s ATS readability"
+msgstr ""
 
 #. placeholder {0}: file.name
 #: src/features/ats-checker/checker.tsx
@@ -2732,12 +2766,12 @@ msgstr "Sắp tới"
 
 #. Accessible label for command list region inside command palette
 #. Accessible label for the command palette dialog
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette"
 msgstr "Bảng lệnh"
 
 #. Accessible label for command palette dialog when browsing a nested command page
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette - {currentPage}"
 msgstr "Bảng lệnh - {currentPage}"
 
@@ -2767,6 +2801,10 @@ msgstr "So sánh các lần thử để thấy điều gì đã tiến bộ. Câ
 #: src/features/career/workspace/shell.tsx
 msgid "Compare offers"
 msgstr "So sánh các lời đề nghị"
+
+#: src/features/templates/gallery.tsx
+msgid "Compare real resume layouts before you sign up. Every template is free to customize, with PDF and Word downloads and no watermark."
+msgstr ""
 
 #: src/features/career/offers.tsx
 msgid "Compared in their original currency and pay period. Comparing doesn't share anything with the coach."
@@ -3567,6 +3605,10 @@ msgstr "Thư xin việc"
 msgid "Create"
 msgstr "Tạo"
 
+#: src/features/templates/gallery.tsx
+msgid "Create a free account, then choose your template in Design. Switch layouts anytime without rewriting your content."
+msgstr ""
+
 #: src/features/auth/pages/register.tsx
 msgid "Create a new account"
 msgstr "Tạo tài khoản mới"
@@ -4113,6 +4155,10 @@ msgstr "Tải về"
 msgid "Download {label}"
 msgstr "Tải xuống {label}"
 
+#: src/features/templates/gallery.tsx
+msgid "Download {name} sample PDF"
+msgstr ""
+
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "Download application details, contacts, notes, and timeline history as CSV."
 msgstr "Tải xuống chi tiết hồ sơ ứng tuyển, danh bạ, ghi chú và lịch sử dòng thời gian dưới dạng CSV."
@@ -4135,6 +4181,10 @@ msgstr "Tải xuống PDF"
 #: src/features/resume/share/download-tab.tsx
 msgid "Download PDF instead"
 msgstr "Thay vào đó hãy tải xuống PDF"
+
+#: src/features/templates/gallery.tsx
+msgid "Download sample PDF"
+msgstr ""
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Download them"
@@ -4606,19 +4656,10 @@ msgstr "Mọi từ khóa mà tin tuyển dụng nhấn mạnh đều đã có s�
 msgid "Every week"
 msgstr "Hằng tuần"
 
-#. Hero headline, line 1 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "Everything"
-msgstr "Tất cả"
-
 #. placeholder {0}: application.company
 #: src/features/career/workspace/saved.tsx
 msgid "Everything the coach wrote for {0}, newest first."
 msgstr "Mọi thứ cố vấn đã viết cho {0}, mới nhất trước."
-
-#: src/features/homepage/hero.tsx
-msgid "Everything you’ve done, on one page."
-msgstr "Mọi thứ bạn đã làm, trên một trang."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
@@ -5119,6 +5160,14 @@ msgstr "Tìm thấy hôm qua"
 msgid "Free ATS resume checker"
 msgstr "Trình kiểm tra sơ yếu lý lịch ATS miễn phí"
 
+#: src/libs/seo.ts
+msgid "Free Resume Builder with PDF & Word Downloads"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Free Resume Templates with PDF Examples"
+msgstr ""
+
 #: src/features/resume/editor/design/style-groups.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -5506,6 +5555,10 @@ msgstr "Có bao nhiêu ngày nghỉ phép?"
 #: src/features/career/schedule-sheet.tsx
 msgid "How often"
 msgstr "Tần suất"
+
+#: src/features/templates/gallery.tsx
+msgid "How to choose a template"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 msgid "How to show the file"
@@ -6583,6 +6636,10 @@ msgstr "Đang tải tổng số"
 msgid "Loading workspace…"
 msgstr "Đang tải không gian làm việc…"
 
+#: src/features/command-palette/index.tsx
+msgid "Loading…"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
@@ -6667,6 +6724,10 @@ msgstr "Làm cho nó cụ thể hơn"
 msgid "Make it shorter"
 msgstr "Làm cho nó ngắn hơn"
 
+#: src/features/templates/gallery.tsx
+msgid "Make it yours, then take it with you."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "Đặt riêng tư"
@@ -6702,6 +6763,11 @@ msgstr "Được quản lý bởi máy chủ"
 #: src/features/settings/ai/providers.tsx
 msgid "Managed by your server"
 msgstr "Được quản lý bởi máy chủ của bạn"
+
+#. Hero headline, line 4 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "manager."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Many bullets start with the same phrase."
@@ -7273,7 +7339,7 @@ msgid "No change needed. It's already at {stage}."
 msgstr "Không cần thay đổi. Hồ sơ đã ở {stage}."
 
 #. Empty-state message when no command palette results match the search query
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "No commands match that search."
 msgstr "Không có lệnh nào khớp với tìm kiếm đó."
 
@@ -7730,11 +7796,6 @@ msgstr "Chưa nêu số ngày lên văn phòng"
 msgid "Offline · saved on this device"
 msgstr "Ngoại tuyến · đã lưu trên thiết bị này"
 
-#. Hero headline, line 3 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "on one"
-msgstr "trên một"
-
 #: src/features/resume/share/link-tab.tsx
 msgid "On. Anyone with the link can view. It isn't listed or indexed by search engines."
 msgstr "TRÊN. Bất kỳ ai có liên kết đều có thể xem. Nó không được liệt kê hoặc lập chỉ mục bởi các công cụ tìm kiếm."
@@ -7752,12 +7813,29 @@ msgid "Once you've sent a few applications, this shows how far they get and how 
 msgstr "Sau khi bạn đã gửi một số đơn xin việc, điều này sẽ cho thấy mức độ gửi đơn xin việc và tốc độ phản hồi của mọi người."
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "One column"
 msgstr "Một cột"
+
+#: src/features/templates/gallery.tsx
+msgid "One column or two?"
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with a photo beside the header and clear section headings. A simple top-to-bottom layout for your experience."
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with labeled section rows and subtle dividers. A compact layout for experience, education and supporting details."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "one format"
 msgstr "một định dạng"
+
+#: src/features/templates/gallery.tsx
+msgid "One-column templates give hiring software a simple top-to-bottom reading order. Two-column templates put supporting details in a sidebar and leave more room for visual hierarchy. Choose for your content, then check the exported PDF."
+msgstr ""
 
 #: src/features/auth/pages/consent.tsx
 msgid "Only allow applications you trust. This application will be able to:"
@@ -8053,11 +8131,6 @@ msgstr "Việc đọc trang chưa kết thúc."
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "Page view"
 msgstr "Lượt xem trang"
-
-#. Hero headline, line 4 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "page."
-msgstr "trang."
 
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Paper"
@@ -8509,6 +8582,10 @@ msgstr "Nhấn <0>{RETURN_KEY}</0> để thêm hoặc lưu từ khóa hiện t�
 msgid "Press <0>Enter</0> to open"
 msgstr "Nhấn <0>phím Enter</0> để mở"
 
+#: src/features/templates/gallery.tsx
+msgid "Preview {name} sample PDF"
+msgstr ""
+
 #. placeholder {0}: templates[previewTemplate].name
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -8768,10 +8845,6 @@ msgstr "Reactive Resume - Về trang chủ"
 msgid "Reactive Resume {__APP_VERSION__} · MIT"
 msgstr "Reactive Resume {__APP_VERSION__} · MIT"
 
-#: src/features/homepage/hero.tsx
-msgid "Reactive Resume is a free, open-source resume builder. Write it, design it, check it, tailor it for every job and walk into the interview prepared."
-msgstr "Reactive Resume là trình tạo sơ yếu lý lịch miễn phí, mã nguồn mở. Viết, thiết kế, kiểm tra, điều chỉnh cho từng công việc và bước vào phỏng vấn với sự chuẩn bị kỹ càng."
-
 #: src/features/homepage/sections.tsx
 msgid "Reactive Resume is open source under the MIT License. Amruth Pillai and a community of contributors keep it running, and donations pay for hosting and development. There’s no paid tier."
 msgstr "Reactive Resume là mã nguồn mở theo Giấy phép MIT. Amruth Pillai và cộng đồng người đóng góp duy trì dự án, còn tiền quyên góp chi trả cho lưu trữ và phát triển. Không có gói trả phí."
@@ -8854,6 +8927,10 @@ msgstr "Đọc, viết và xóa"
 #: src/features/ats-checker/messages.ts
 msgid "Readability"
 msgstr "Khả năng đọc"
+
+#: src/features/templates/gallery.tsx
+msgid "Readability does not guarantee an interview or a particular ATS result."
+msgstr ""
 
 #. placeholder {0}: report.score
 #: src/features/ats-checker/checker.tsx
@@ -9370,6 +9447,11 @@ msgstr "sơ yếu lý lịch + thư"
 msgid "Resume attached"
 msgstr "Đã đính kèm sơ yếu lý lịch"
 
+#. Hero headline, line 2 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "resume builder"
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Resume builder"
 msgstr "Trình tạo sơ yếu lý lịch"
@@ -9871,7 +9953,7 @@ msgid "Search applications"
 msgstr "Tìm kiếm đơn xin việc"
 
 #. Accessible label for command palette search input
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search commands"
 msgstr "Lệnh tìm kiếm"
 
@@ -9934,7 +10016,7 @@ msgid "Search..."
 msgstr "Tìm kiếm..."
 
 #. Placeholder in command palette input on nested pages
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search…"
 msgstr "Tìm kiếm…"
 
@@ -10421,10 +10503,6 @@ msgstr "Một cột với viền trái màu tím hồng nổi bật; gọn gàng
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators."
 msgstr "Một cột với đầu trang tối giản và nhiều khoảng trắng; sạch sẽ, hiện đại cho các nhà thiết kế hoặc nhà sáng tạo nội dung."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Single-column with a sidebar and clean grid layout; versatile for any professional or technical role."
-msgstr "Một cột với thanh bên và lưới bố cục sạch sẽ; linh hoạt cho mọi vai trò chuyên nghiệp hoặc kỹ thuật."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with an inline three-column entry header (position · organization · period); compact and ATS-friendly, well-suited for Asian resume conventions (CN/JP/KR)."
@@ -12011,8 +12089,13 @@ msgid "Turn this schedule on"
 msgstr "Bật lịch trình này"
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "Two columns"
 msgstr "Hai cột"
+
+#: src/dialogs/resume/template/data.ts
+msgid "Two columns beneath a colored header band. Keep experience in the main column and supporting details in the sidebar."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "Two date formats found"
@@ -12045,14 +12128,6 @@ msgstr "Hai cột với điểm nhấn đầu trang nhẹ nhàng và ảnh đạ
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with accent colors and clean typography; balanced choice for business analysts or operations roles."
 msgstr "Hai cột với màu nhấn và kiểu chữ sạch sẽ; lựa chọn cân bằng cho nhà phân tích kinh doanh hoặc vận hành."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, clean and professional with subtle section dividers; suits corporate, finance, or consulting positions."
-msgstr "Hai cột, sạch sẽ và chuyên nghiệp với ngăn cách nội dung nhẹ nhàng; phù hợp với lĩnh vực doanh nghiệp, tài chính hoặc tư vấn."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, minimal and text-dense with no decorative elements; perfect for traditional industries or ATS-heavy applications."
-msgstr "Hai cột, tối giản và nhiều chữ không có yếu tố trang trí; hoàn hảo cho các ngành truyền thống hoặc ứng tuyển yêu cầu ATS."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles."
@@ -12096,7 +12171,7 @@ msgstr "Nhập <0>{CONFIRMATION}</0> để xác nhận"
 
 #. Placeholder in command palette input on root page
 #. Screen-reader dialog description instructing users how to use the command palette
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Type a command or search…"
 msgstr "Nhập lệnh hoặc tìm kiếm…"
 
@@ -13005,6 +13080,10 @@ msgstr "Viết điều bạn đã làm."
 msgid "Write your answer, or draft one from your Knowledge."
 msgstr "Viết câu trả lời, hoặc soạn nháp từ Kiến thức của bạn."
 
+#: src/features/homepage/write.tsx
+msgid "Write your professional resume"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 #: src/features/resume/editor/check/check-panel.tsx
 #: src/features/resume/editor/check/issues.ts
@@ -13140,11 +13219,6 @@ msgstr "Bạn đã xem hết"
 #: src/features/auth/components/guest-banner.tsx
 msgid "You're using a guest account"
 msgstr "Bạn đang dùng tài khoản khách"
-
-#. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "you’ve done,"
-msgstr "những gì bạn đã làm,"
 
 #: src/features/auth/pages/forgot-password.tsx
 #: src/features/auth/pages/register.tsx
@@ -13314,6 +13388,10 @@ msgstr "Tên của bạn đã thay đổi trong sơ yếu lý lịch. Bức thư
 #: src/features/resume/editor/check/issues.ts
 msgid "Your name is missing"
 msgstr "Tên của bạn bị thiếu"
+
+#: src/features/homepage/hero.tsx
+msgid "Your next chapter starts here"
+msgstr ""
 
 #: src/features/career/workspace/saved.tsx
 msgid "your notes"

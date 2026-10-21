@@ -457,6 +457,10 @@ msgstr "{count, plural, one {Vnos #} other {Vnosi #}}"
 msgid "{count, plural, one {Apply # change} other {Apply # changes}}"
 msgstr "{count, plural, one {Uveljavi # spremembo} two {Uveljavi # spremembi} few {Uveljavi # spremembe} other {Uveljavi # sprememb}}"
 
+#: src/features/templates/gallery.tsx
+msgid "{count} free resume templates. Find your fit."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "{count} selected"
 msgstr "Izbrano: {count}"
@@ -603,6 +607,10 @@ msgstr "{name} premaknjen v glavni stolpec"
 msgid "{name} never prints"
 msgstr "{name} se nikoli ne natisne"
 
+#: src/features/templates/gallery.tsx
+msgid "{name} resume template preview"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "{name} sits in the sidebar"
 msgstr "{name} je v stranski vrstici"
@@ -673,8 +681,8 @@ msgid "{supported} supported · {partial} partly · {missing} missing"
 msgstr "Podprto: {supported} · delno: {partial} · manjka: {missing}"
 
 #: src/features/homepage/design.tsx
-msgid "{templateCount} templates."
-msgstr "{templateCount} predloge."
+msgid "{templateCount} free resume templates."
+msgstr ""
 
 #: src/features/homepage/prepare.tsx
 msgid "{time} · Video call · 45 min"
@@ -903,9 +911,13 @@ msgid "A font is referenced but not embedded."
 msgstr "Pisava je navedena, vendar ni vdelana."
 
 #: src/features/homepage/sections.tsx
-#: src/libs/seo.ts
 msgid "A free and open-source resume builder"
 msgstr "Brezplačen in odprtokoden graditelj življenjepisov"
+
+#. Hero headline, line 1 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "A free, open-source"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "A full-height gap splits this page into two columns."
@@ -1423,6 +1435,10 @@ msgstr "Naslov"
 msgid "Adds a reminder to Today if you haven't heard back by then."
 msgstr "Če se do takrat ne oglasijo, doda opomnik v Danes."
 
+#: src/features/templates/gallery.tsx
+msgid "Adjust fonts, colors, spacing and sections in the resume builder. Export your finished resume to PDF or Word, or share a link. The PDFs above are examples to help you compare designs."
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Ads"
 msgstr "Oglasi"
@@ -1617,10 +1633,6 @@ msgstr "Vnos nima datumov"
 msgid "an error"
 msgstr "napaka"
 
-#: src/features/homepage/hero.tsx
-msgid "An open-source resume builder"
-msgstr "Odprtokodni ustvarjalec življenjepisov"
-
 #: src/components/layout/error-screen.tsx
 msgid "An unexpected error stopped this page from loading. You can try again or head back."
 msgstr "Nepričakovana napaka je preprečila nalaganje te strani. Lahko poskusite znova ali se vrnete nazaj."
@@ -1629,6 +1641,11 @@ msgstr "Nepričakovana napaka je preprečila nalaganje te strani. Lahko poskusit
 #: src/features/applications/components/detail/contacts.tsx
 msgid "and {0} more"
 msgstr "in {0} več"
+
+#. Hero headline, line 3 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "and career"
+msgstr ""
 
 #: src/features/homepage/sections.tsx
 msgid "and counting"
@@ -2268,12 +2285,25 @@ msgstr "Osveževanje povzetka je vklopljeno · {0}"
 msgid "Briefing refresh paused"
 msgstr "Osveževanje povzetka je zaustavljeno"
 
+#: src/features/ats-checker/page.tsx
+msgid "Browse free resume templates and sample PDFs"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word."
+msgstr ""
+
+#: src/features/homepage/hero.tsx
+msgid "Build a professional resume, download it as PDF or Word, and manage your job search in one place. Free templates, no ads, no paywall."
+msgstr ""
+
 #: src/features/homepage/ui.tsx
+#: src/features/templates/gallery.tsx
 msgid "Build your resume"
 msgstr "Sestavite svoj življenjepis"
 
 #. Screen-reader dialog title for the command palette in the resume builder
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Builder Command Palette"
 msgstr "Paleta ukazov graditelja"
 
@@ -2444,7 +2474,6 @@ msgstr "Spremeni samo naslove razdelkov in datumske besede, ne pa tudi vaše vse
 msgid "Changing it sends a confirmation to the new address. Your username is part of every public link."
 msgstr "Če ga spremenite, se na novi naslov pošlje potrditev. Vaše uporabniško ime je del vsake javne povezave."
 
-#: src/features/homepage/check.tsx
 #: src/features/homepage/header.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
@@ -2522,6 +2551,11 @@ msgstr "Preverite svoj e-poštni naslov za povezavo za ponastavitev gesla."
 #: src/features/auth/pages/register.tsx
 msgid "Check your email for a link to verify your account."
 msgstr "Preverite svoj e-poštni naslov za povezavo za potrditev računa."
+
+#: src/features/homepage/check.tsx
+#: src/features/templates/gallery.tsx
+msgid "Check your resume’s ATS readability"
+msgstr ""
 
 #. placeholder {0}: file.name
 #: src/features/ats-checker/checker.tsx
@@ -2732,12 +2766,12 @@ msgstr "Prihajajoče"
 
 #. Accessible label for command list region inside command palette
 #. Accessible label for the command palette dialog
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette"
 msgstr "Paleta ukazov"
 
 #. Accessible label for command palette dialog when browsing a nested command page
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette - {currentPage}"
 msgstr "Paleta ukazov - {currentPage}"
 
@@ -2767,6 +2801,10 @@ msgstr "Primerjajte poskuse in poglejte, kaj se je izboljšalo. Vprašanja za va
 #: src/features/career/workspace/shell.tsx
 msgid "Compare offers"
 msgstr "Primerjaj ponudbe"
+
+#: src/features/templates/gallery.tsx
+msgid "Compare real resume layouts before you sign up. Every template is free to customize, with PDF and Word downloads and no watermark."
+msgstr ""
 
 #: src/features/career/offers.tsx
 msgid "Compared in their original currency and pay period. Comparing doesn't share anything with the coach."
@@ -3567,6 +3605,10 @@ msgstr "Spremna pisma"
 msgid "Create"
 msgstr "Ustvari"
 
+#: src/features/templates/gallery.tsx
+msgid "Create a free account, then choose your template in Design. Switch layouts anytime without rewriting your content."
+msgstr ""
+
 #: src/features/auth/pages/register.tsx
 msgid "Create a new account"
 msgstr "Ustvari nov račun"
@@ -4113,6 +4155,10 @@ msgstr "Prenesi"
 msgid "Download {label}"
 msgstr "Prenesite {label}"
 
+#: src/features/templates/gallery.tsx
+msgid "Download {name} sample PDF"
+msgstr ""
+
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "Download application details, contacts, notes, and timeline history as CSV."
 msgstr "Prenesite podrobnosti prijav, stike, opombe in zgodovino časovnice kot CSV."
@@ -4135,6 +4181,10 @@ msgstr "Prenesi PDF"
 #: src/features/resume/share/download-tab.tsx
 msgid "Download PDF instead"
 msgstr "Namesto tega prenesite PDF"
+
+#: src/features/templates/gallery.tsx
+msgid "Download sample PDF"
+msgstr ""
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Download them"
@@ -4606,19 +4656,10 @@ msgstr "Vsak izraz, ki ga poudarja oglas, je že tam."
 msgid "Every week"
 msgstr "Vsak teden"
 
-#. Hero headline, line 1 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "Everything"
-msgstr "Vse,"
-
 #. placeholder {0}: application.company
 #: src/features/career/workspace/saved.tsx
 msgid "Everything the coach wrote for {0}, newest first."
 msgstr "Vse, kar je svetovalec napisal za podjetje {0}, najnovejše najprej."
-
-#: src/features/homepage/hero.tsx
-msgid "Everything you’ve done, on one page."
-msgstr "Vse, kar ste naredili, na eni strani."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
@@ -5119,6 +5160,14 @@ msgstr "Najdeno včeraj"
 msgid "Free ATS resume checker"
 msgstr "Brezplačen pregledovalnik življenjepisov ATS"
 
+#: src/libs/seo.ts
+msgid "Free Resume Builder with PDF & Word Downloads"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Free Resume Templates with PDF Examples"
+msgstr ""
+
 #: src/features/resume/editor/design/style-groups.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -5506,6 +5555,10 @@ msgstr "Koliko dni dopusta pripada?"
 #: src/features/career/schedule-sheet.tsx
 msgid "How often"
 msgstr "Kako pogosto"
+
+#: src/features/templates/gallery.tsx
+msgid "How to choose a template"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 msgid "How to show the file"
@@ -6583,6 +6636,10 @@ msgstr "Nalaganje vsote"
 msgid "Loading workspace…"
 msgstr "Nalaganje delovnega prostora…"
 
+#: src/features/command-palette/index.tsx
+msgid "Loading…"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
@@ -6667,6 +6724,10 @@ msgstr "Naj bo bolj natančno"
 msgid "Make it shorter"
 msgstr "Naj bo krajši"
 
+#: src/features/templates/gallery.tsx
+msgid "Make it yours, then take it with you."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "Nastavi kot zasebno"
@@ -6702,6 +6763,11 @@ msgstr "Upravlja strežnik"
 #: src/features/settings/ai/providers.tsx
 msgid "Managed by your server"
 msgstr "Upravlja ga vaš strežnik"
+
+#. Hero headline, line 4 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "manager."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Many bullets start with the same phrase."
@@ -7273,7 +7339,7 @@ msgid "No change needed. It's already at {stage}."
 msgstr "Sprememba ni potrebna. Že je na stopnji {stage}."
 
 #. Empty-state message when no command palette results match the search query
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "No commands match that search."
 msgstr "Nobenega ukaza ni, ki bi ustrezal temu iskanju."
 
@@ -7730,11 +7796,6 @@ msgstr "Dnevi v pisarni niso navedeni"
 msgid "Offline · saved on this device"
 msgstr "Brez povezave · shranjeno v tej napravi"
 
-#. Hero headline, line 3 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "on one"
-msgstr "na eni"
-
 #: src/features/resume/share/link-tab.tsx
 msgid "On. Anyone with the link can view. It isn't listed or indexed by search engines."
 msgstr "Vklopljeno. Vsakdo s povezavo si lahko ogleda. Iskalniki ga ne navajajo ali indeksirajo."
@@ -7752,12 +7813,29 @@ msgid "Once you've sent a few applications, this shows how far they get and how 
 msgstr "Ko pošljete nekaj prošenj za zaposlitev, to pokaže, kako daleč pridejo in kako hitro ljudje odgovorijo."
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "One column"
 msgstr "En stolpec"
+
+#: src/features/templates/gallery.tsx
+msgid "One column or two?"
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with a photo beside the header and clear section headings. A simple top-to-bottom layout for your experience."
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with labeled section rows and subtle dividers. A compact layout for experience, education and supporting details."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "one format"
 msgstr "en format"
+
+#: src/features/templates/gallery.tsx
+msgid "One-column templates give hiring software a simple top-to-bottom reading order. Two-column templates put supporting details in a sidebar and leave more room for visual hierarchy. Choose for your content, then check the exported PDF."
+msgstr ""
 
 #: src/features/auth/pages/consent.tsx
 msgid "Only allow applications you trust. This application will be able to:"
@@ -8053,11 +8131,6 @@ msgstr "Branje strani ni končano."
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "Page view"
 msgstr "Pogled strani"
-
-#. Hero headline, line 4 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "page."
-msgstr "strani."
 
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Paper"
@@ -8509,6 +8582,10 @@ msgstr "Pritisnite <0>{RETURN_KEY}</0>, da dodate ali shranite trenutno ključno
 msgid "Press <0>Enter</0> to open"
 msgstr "Pritisnite <0>Enter</0>, da odprete"
 
+#: src/features/templates/gallery.tsx
+msgid "Preview {name} sample PDF"
+msgstr ""
+
 #. placeholder {0}: templates[previewTemplate].name
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -8768,10 +8845,6 @@ msgstr "Reactive Resume - Pojdi na domačo stran"
 msgid "Reactive Resume {__APP_VERSION__} · MIT"
 msgstr "Reactive Resume {__APP_VERSION__} · MIT"
 
-#: src/features/homepage/hero.tsx
-msgid "Reactive Resume is a free, open-source resume builder. Write it, design it, check it, tailor it for every job and walk into the interview prepared."
-msgstr "Reactive Resume je brezplačen odprtokodni ustvarjalec življenjepisov. Napišite ga, oblikujte, preverite, prilagodite vsakemu delovnemu mestu in na intervju pridite pripravljeni."
-
 #: src/features/homepage/sections.tsx
 msgid "Reactive Resume is open source under the MIT License. Amruth Pillai and a community of contributors keep it running, and donations pay for hosting and development. There’s no paid tier."
 msgstr "Reactive Resume je odprtokoden pod licenco MIT. Amruth Pillai in skupnost sodelavcev skrbijo za njegovo delovanje, donacije pa krijejo gostovanje in razvoj. Plačljive različice ni."
@@ -8854,6 +8927,10 @@ msgstr "Beri, piši in briši"
 #: src/features/ats-checker/messages.ts
 msgid "Readability"
 msgstr "Berljivost"
+
+#: src/features/templates/gallery.tsx
+msgid "Readability does not guarantee an interview or a particular ATS result."
+msgstr ""
 
 #. placeholder {0}: report.score
 #: src/features/ats-checker/checker.tsx
@@ -9370,6 +9447,11 @@ msgstr "življenjepis + pismo"
 msgid "Resume attached"
 msgstr "Priložen življenjepis"
 
+#. Hero headline, line 2 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "resume builder"
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Resume builder"
 msgstr "ustvarjalec življenjepisov"
@@ -9871,7 +9953,7 @@ msgid "Search applications"
 msgstr "Iskanje prošenj za delo"
 
 #. Accessible label for command palette search input
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search commands"
 msgstr "Ukazi za iskanje"
 
@@ -9934,7 +10016,7 @@ msgid "Search..."
 msgstr "Iskanje ..."
 
 #. Placeholder in command palette input on nested pages
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search…"
 msgstr "Iskanje…"
 
@@ -10421,10 +10503,6 @@ msgstr "Enojen stolpec z magenta obrobo na levi; kompaktno in učinkovito za za�
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators."
 msgstr "Enojen stolpec z minimalno zgornjo glavo in veliko praznega prostora; čisto in moderno za oblikovalce ali ustvarjalce vsebin."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Single-column with a sidebar and clean grid layout; versatile for any professional or technical role."
-msgstr "Enojen stolpec s stransko vrstico in čistim mrežnim prikazom; vsestransko za vsako strokovno ali tehnično vlogo."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with an inline three-column entry header (position · organization · period); compact and ATS-friendly, well-suited for Asian resume conventions (CN/JP/KR)."
@@ -12011,8 +12089,13 @@ msgid "Turn this schedule on"
 msgstr "Vklopi ta urnik"
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "Two columns"
 msgstr "Dva stolpca"
+
+#: src/dialogs/resume/template/data.ts
+msgid "Two columns beneath a colored header band. Keep experience in the main column and supporting details in the sidebar."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "Two date formats found"
@@ -12045,14 +12128,6 @@ msgstr "Dvojni stolpec z nežnim poudarkom v glavi in krožno profilno sliko; id
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with accent colors and clean typography; balanced choice for business analysts or operations roles."
 msgstr "Dvojni stolpec s poudarjenimi barvami in čisto tipografijo; uravnotežena izbira za poslovne analitike ali operativne vloge."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, clean and professional with subtle section dividers; suits corporate, finance, or consulting positions."
-msgstr "Dvojni stolpec, čist in profesionalen z nežnimi razdelki; primeren za korporativne, finančne ali svetovalne položaje."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, minimal and text-dense with no decorative elements; perfect for traditional industries or ATS-heavy applications."
-msgstr "Dvojni stolpec, minimalistično in z gostim besedilom brez dekorativnih elementov; popolno za tradicionalne panoge ali prijave, kjer je pomembna berljivost za računalniški sistem."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles."
@@ -12096,7 +12171,7 @@ msgstr "Za potrditev vnesite <0>{CONFIRMATION}</0>"
 
 #. Placeholder in command palette input on root page
 #. Screen-reader dialog description instructing users how to use the command palette
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Type a command or search…"
 msgstr "Vnesite ukaz ali poiščite…"
 
@@ -13005,6 +13080,10 @@ msgstr "Napišite, kaj ste naredili."
 msgid "Write your answer, or draft one from your Knowledge."
 msgstr "Napišite odgovor ali pripravite osnutek iz svojega Znanja."
 
+#: src/features/homepage/write.tsx
+msgid "Write your professional resume"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 #: src/features/resume/editor/check/check-panel.tsx
 #: src/features/resume/editor/check/issues.ts
@@ -13140,11 +13219,6 @@ msgstr "Na tekočem ste"
 #: src/features/auth/components/guest-banner.tsx
 msgid "You're using a guest account"
 msgstr "Uporabljate račun gosta"
-
-#. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "you’ve done,"
-msgstr "kar ste dosegli,"
 
 #: src/features/auth/pages/forgot-password.tsx
 #: src/features/auth/pages/register.tsx
@@ -13314,6 +13388,10 @@ msgstr "Vaše ime se je spremenilo v življenjepisu. Tudi pismo je posodobljeno.
 #: src/features/resume/editor/check/issues.ts
 msgid "Your name is missing"
 msgstr "Vaše ime manjka"
+
+#: src/features/homepage/hero.tsx
+msgid "Your next chapter starts here"
+msgstr ""
 
 #: src/features/career/workspace/saved.tsx
 msgid "your notes"

@@ -83,7 +83,7 @@ export function Check() {
 	const { i18n } = useLingui();
 	const progress = useLanding((state) => state.checkProgress);
 	const sectionRef = useRef<HTMLElement>(null);
-	const check = t`Check`;
+	const check = t`Check your resume’s ATS readability`;
 	const score = Math.round(58 + 36 * progress);
 
 	const items = [
@@ -120,10 +120,10 @@ export function Check() {
 			aria-labelledby="check-title"
 			className="relative h-[245vh] motion-reduce:h-svh min-[900px]:h-[295vh]"
 		>
-			<div className="sticky top-0 h-svh overflow-hidden [--chk:var(--sp)] [--dw:calc(clamp(0,(var(--sp)-.42)*20,1)*(1-clamp(0,(var(--sp)-.7)*20,1)))] [--lo:clamp(0,(var(--p)-.04)*10,1)] [--pw:min(62vw,40vh)] [--sp:clamp(0,(var(--p)-.06)/.8,1)] [--sv:clamp(0,var(--p)/.24,1)] min-[900px]:[--pw:min(28vw,58vh)]">
+			<div className="sticky top-0 h-svh overflow-clip [--chk:var(--sp)] [--dw:calc(clamp(0,(var(--sp)-.42)*20,1)*(1-clamp(0,(var(--sp)-.7)*20,1)))] [--lo:clamp(0,(var(--p)-.04)*10,1)] [--pw:min(62vw,40vh)] [--sp:clamp(0,(var(--p)-.06)/.8,1)] [--sv:clamp(0,var(--p)/.24,1)] min-[900px]:[--pw:min(28vw,58vh)]">
 				<h2
 					id="check-title"
-					className="absolute start-(--gutter) top-[10vh] text-[16vw] leading-[.82] font-normal whitespace-nowrap text-ink min-[900px]:top-[11vh] min-[900px]:text-[clamp(72px,9vw,160px)]"
+					className="absolute start-(--gutter) top-[10vh] max-w-[90vw] text-[9vw] leading-[1.05] font-normal text-balance text-ink min-[900px]:top-[11vh] min-[900px]:max-w-[45vw] min-[900px]:text-[clamp(40px,4vw,72px)]"
 				>
 					<span className="font-anybody block font-light tracking-[-.03em] [clip-path:inset(calc(var(--sv)*120%-20%)_0_-20%_0)]">
 						{check}
@@ -140,7 +140,7 @@ export function Check() {
 					/>
 				</h2>
 
-				<div className="absolute inset-x-(--gutter) top-[calc(10vh+16vw)] flex flex-col justify-between gap-6 min-[900px]:end-auto min-[900px]:top-[calc(11vh+clamp(72px,9vw,160px)*.95+4vh)] min-[900px]:bottom-[clamp(20px,5vh,44px)] min-[900px]:w-[min(34em,36vw)]">
+				<div className="absolute inset-x-(--gutter) top-[calc(10vh+24vw)] flex flex-col justify-between gap-6 min-[900px]:end-auto min-[900px]:top-[calc(11vh+clamp(72px,9vw,160px)*.95+4vh)] min-[900px]:bottom-[clamp(20px,5vh,44px)] min-[900px]:w-[min(34em,36vw)]">
 					<div className="flex flex-col gap-3.5">
 						<span className={cn(labelClass, "text-ink-3")}>{t`ATS readability`}</span>
 						<p className="flex items-baseline gap-2.5">

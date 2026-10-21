@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { i18n } from "@lingui/core";
 import { t } from "@lingui/core/macro";
+import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { templateSchema } from "@reactive-resume/schema/templates";
 import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
@@ -68,7 +69,7 @@ export function Design() {
 			aria-labelledby="design-title"
 			className="relative h-[320vh] motion-reduce:h-svh min-[900px]:h-[360vh]"
 		>
-			<div className="sticky top-0 h-svh overflow-hidden [--dpt:52%] [--pw:min(66vw,42vh)] [--w1:clamp(0,(var(--p)-.1)/.1,1)] [--w2:clamp(0,(var(--p)-.26)/.1,1)] [--w3:clamp(0,(var(--p)-.42)/.1,1)] [--w4:clamp(0,(var(--p)-.58)/.1,1)] [--z:clamp(0,(var(--p)-.76)/.16,1)] min-[900px]:[--dpt:57%] min-[900px]:[--pw:min(24vw,44vh)]">
+			<div className="sticky top-0 h-svh overflow-clip [--dpt:52%] [--pw:min(66vw,42vh)] [--w1:clamp(0,(var(--p)-.1)/.1,1)] [--w2:clamp(0,(var(--p)-.26)/.1,1)] [--w3:clamp(0,(var(--p)-.42)/.1,1)] [--w4:clamp(0,(var(--p)-.58)/.1,1)] [--z:clamp(0,(var(--p)-.76)/.16,1)] min-[900px]:[--dpt:57%] min-[900px]:[--pw:min(24vw,44vh)]">
 				<Doodle
 					name="curve"
 					wipe="clamp(0, (var(--p) - .03) / .2, 1)"
@@ -76,9 +77,9 @@ export function Design() {
 					style={{ "--doodle-fade": "calc(1 - var(--z))" } as CSSProperties}
 				/>
 
-				<h2
-					id="design-title"
-					className="absolute inset-x-0 top-[11vh] h-[1.05em] [transform:translateY(calc(var(--z)*-10vh))] text-[14vw] font-normal text-ink opacity-[calc(1-var(--z))] will-change-[transform,opacity] min-[900px]:top-[9vh] min-[900px]:text-[clamp(64px,7.5vw,140px)]"
+				<div
+					aria-hidden="true"
+					className="absolute inset-x-0 top-[23vh] h-[1.05em] [transform:translateY(calc(var(--z)*-10vh))] text-[7vw] font-normal text-ink opacity-[calc(1-var(--z))] will-change-[transform,opacity] min-[900px]:top-[22vh] min-[900px]:text-[clamp(32px,3.5vw,64px)]"
 				>
 					<span className="absolute inset-0 text-center font-display leading-none tracking-[-.03em] opacity-[calc(1-clamp(0,(var(--w1)-.35)*3.4,1))]">
 						{design}
@@ -104,7 +105,7 @@ export function Design() {
 						data-text={`${design}.`}
 						className="font-anybody absolute inset-0 text-center leading-none font-light tracking-[-.03em] uppercase font-stretch-[90%] opacity-[clamp(0,(var(--w4)-.35)*3.4,1)] before:content-[attr(data-text)]"
 					/>
-				</h2>
+				</div>
 
 				<div
 					aria-hidden="true"
@@ -210,10 +211,17 @@ export function Design() {
 					{t`Pick from ${templateCount} templates, then set the type, color and spacing. The words stay put, so try as many looks as you like.`}
 				</SceneCaption>
 
-				<p className="pointer-events-none absolute inset-x-(--gutter) bottom-[8vh] [transform:translateY(calc((1-var(--z))*30px))] text-center text-[8vw] leading-none text-balance opacity-(--z) will-change-[transform,opacity] min-[900px]:bottom-[5vh] min-[900px]:text-[clamp(36px,4vw,72px)]">
-					<span className="font-anybody font-light tracking-[-.02em] text-ink">{t`${templateCount} templates.`}</span>{" "}
-					<span className="font-display tracking-[-.02em] text-accent-text italic">{t`Make any of them yours.`}</span>
-				</p>
+				<h2
+					id="design-title"
+					className="absolute inset-x-(--gutter) bottom-[8vh] [transform:translateY(calc((1-var(--z))*30px))] text-center text-[8vw] leading-none font-normal text-balance opacity-(--z) will-change-[transform,opacity] min-[900px]:bottom-[5vh] min-[900px]:text-[clamp(36px,4vw,72px)]"
+				>
+					<Link to="/resume-templates" inert={!zoomed}>
+						<span className="font-anybody font-light tracking-[-.02em] text-ink">
+							{t`${templateCount} free resume templates.`}
+						</span>{" "}
+						<span className="font-display tracking-[-.02em] text-accent-text italic">{t`Make any of them yours.`}</span>
+					</Link>
+				</h2>
 			</div>
 		</section>
 	);

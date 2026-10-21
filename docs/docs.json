@@ -301,14 +301,18 @@
 	"navbar": {
 		"links": [
 			{
+				"label": "Resume templates",
+				"href": "https://rxresu.me/resume-templates"
+			},
+			{
 				"label": "Support",
 				"href": "https://github.com/reactive-resume/reactive-resume/issues"
 			}
 		],
 		"primary": {
 			"type": "button",
-			"label": "Get Started",
-			"href": "https://rxresu.me"
+			"label": "Build your resume",
+			"href": "https://rxresu.me/auth/register"
 		}
 	},
 	"contextual": {

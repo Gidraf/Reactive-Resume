@@ -93,13 +93,13 @@ describe("web app fallback classification", () => {
 		expect(await unknown.text()).toContain('<div id="app">en-US</div>');
 	});
 
-	describe("the ATS checker page", () => {
+	describe.each(["ats-checker", "resume-templates"])("the %s page", (path) => {
 		const shell = `<html><head><title>Reactive Resume — A free and open-source resume builder</title><meta name="description" content="Marketing copy."></head><body></body></html>`;
 
 		it("serves an indexable shell rather than a 404", async () => {
 			vi.mocked(fs.readFile).mockResolvedValue(shell);
 
-			const response = await handleWebApp(new Request("https://example.com/ats-checker"));
+			const response = await handleWebApp(new Request(`https://example.com/${path}`));
 
 			expect(response.status).toBe(200);
 			expect(response.headers.get("Content-Type")).toBe("text/html; charset=UTF-8");
@@ -108,17 +108,17 @@ describe("web app fallback classification", () => {
 
 		it("serves the prerendered page in the requested locale, with its own title on the social cards", async () => {
 			vi.mocked(fs.readFile).mockImplementation((path) => {
-				const match = String(path).match(/dist-prerender\/ats-checker\/(.+)\.html$/);
+				const match = String(path).match(/dist-prerender\/(?:ats-checker|resume-templates)\/(.+)\.html$/);
 				if (!match) return Promise.resolve(shell);
 				return Promise.resolve(
 					`<html><head><title>ATS-Prüfung &amp; mehr</title><meta name="description" content="Lesbar?"></head><body><div id="app">${match[1]}</div></body></html>`,
 				);
 			});
 
-			const html = await (await handleWebApp(new Request("https://example.com/ats-checker?locale=de-DE"))).text();
+			const html = await (await handleWebApp(new Request(`https://example.com/${path}?locale=de-DE`))).text();
 
 			expect(html).toContain('<div id="app">de-DE</div>');
-			expect(html).toContain('<link rel="canonical" href="https://rxresu.me/ats-checker?locale=de-DE">');
+			expect(html).toContain(`<link rel="canonical" href="https://rxresu.me/${path}?locale=de-DE">`);
 			expect(html).toContain('<meta property="og:title" content="ATS-Prüfung &amp; mehr">');
 			expect(html).toContain('<meta property="og:locale" content="de_DE">');
 		});

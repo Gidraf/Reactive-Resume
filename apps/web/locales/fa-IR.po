@@ -457,6 +457,10 @@ msgstr "{count, plural, one {ورودی #} other {ورودی های #}}"
 msgid "{count, plural, one {Apply # change} other {Apply # changes}}"
 msgstr "{count, plural, one {اعمال # تغییر} other {اعمال # تغییر}}"
 
+#: src/features/templates/gallery.tsx
+msgid "{count} free resume templates. Find your fit."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "{count} selected"
 msgstr "{count} انتخاب شد"
@@ -603,6 +607,10 @@ msgstr "{name} به ستون اصلی منتقل شد"
 msgid "{name} never prints"
 msgstr "{name} هرگز چاپ نمی کند"
 
+#: src/features/templates/gallery.tsx
+msgid "{name} resume template preview"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "{name} sits in the sidebar"
 msgstr "{name} در نوار کناری قرار دارد"
@@ -673,8 +681,8 @@ msgid "{supported} supported · {partial} partly · {missing} missing"
 msgstr "{supported} مستند · {partial} تا حدی · {missing} بدون شاهد"
 
 #: src/features/homepage/design.tsx
-msgid "{templateCount} templates."
-msgstr "{templateCount} قالب."
+msgid "{templateCount} free resume templates."
+msgstr ""
 
 #: src/features/homepage/prepare.tsx
 msgid "{time} · Video call · 45 min"
@@ -903,9 +911,13 @@ msgid "A font is referenced but not embedded."
 msgstr "یک فونت ارجاع داده شده اما جاسازی نشده است."
 
 #: src/features/homepage/sections.tsx
-#: src/libs/seo.ts
 msgid "A free and open-source resume builder"
 msgstr "یک سازنده رزومه رایگان و منبع باز"
+
+#. Hero headline, line 1 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "A free, open-source"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "A full-height gap splits this page into two columns."
@@ -1423,6 +1435,10 @@ msgstr "آدرس"
 msgid "Adds a reminder to Today if you haven't heard back by then."
 msgstr "اگر تا آن زمان پاسخی نگرفتید، یک یادآور به «امروز» اضافه می‌کند."
 
+#: src/features/templates/gallery.tsx
+msgid "Adjust fonts, colors, spacing and sections in the resume builder. Export your finished resume to PDF or Word, or share a link. The PDFs above are examples to help you compare designs."
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Ads"
 msgstr "تبلیغات"
@@ -1617,10 +1633,6 @@ msgstr "یک ورودی تاریخ ندارد"
 msgid "an error"
 msgstr "یک خطا"
 
-#: src/features/homepage/hero.tsx
-msgid "An open-source resume builder"
-msgstr "یک سازنده رزومه منبع باز"
-
 #: src/components/layout/error-screen.tsx
 msgid "An unexpected error stopped this page from loading. You can try again or head back."
 msgstr "یک خطای غیرمنتظره مانع از بارگیری این صفحه شد. می‌توانید دوباره امتحان کنید یا به عقب برگردید."
@@ -1629,6 +1641,11 @@ msgstr "یک خطای غیرمنتظره مانع از بارگیری این ص�
 #: src/features/applications/components/detail/contacts.tsx
 msgid "and {0} more"
 msgstr "و {0} بیشتر"
+
+#. Hero headline, line 3 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "and career"
+msgstr ""
 
 #: src/features/homepage/sections.tsx
 msgid "and counting"
@@ -2268,12 +2285,25 @@ msgstr "به‌روزرسانی گزارش توجیهی روشن است · {0}"
 msgid "Briefing refresh paused"
 msgstr "به‌روزرسانی گزارش توجیهی متوقف است"
 
+#: src/features/ats-checker/page.tsx
+msgid "Browse free resume templates and sample PDFs"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word."
+msgstr ""
+
+#: src/features/homepage/hero.tsx
+msgid "Build a professional resume, download it as PDF or Word, and manage your job search in one place. Free templates, no ads, no paywall."
+msgstr ""
+
 #: src/features/homepage/ui.tsx
+#: src/features/templates/gallery.tsx
 msgid "Build your resume"
 msgstr "رزومه خود را بسازید"
 
 #. Screen-reader dialog title for the command palette in the resume builder
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Builder Command Palette"
 msgstr "پالت فرمان سازنده"
 
@@ -2444,7 +2474,6 @@ msgstr "فقط عنوان بخش و کلمات تاریخ را تغییر می �
 msgid "Changing it sends a confirmation to the new address. Your username is part of every public link."
 msgstr "با تغییر آن یک تایید به آدرس جدید ارسال می شود. نام کاربری شما بخشی از هر پیوند عمومی است."
 
-#: src/features/homepage/check.tsx
 #: src/features/homepage/header.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
@@ -2522,6 +2551,11 @@ msgstr "ایمیل خود را برای لینکی جهت تنظیم مجدد گ
 #: src/features/auth/pages/register.tsx
 msgid "Check your email for a link to verify your account."
 msgstr "ایمیل خود را برای لینکی جهت تأیید حسابتان بررسی کنید."
+
+#: src/features/homepage/check.tsx
+#: src/features/templates/gallery.tsx
+msgid "Check your resume’s ATS readability"
+msgstr ""
 
 #. placeholder {0}: file.name
 #: src/features/ats-checker/checker.tsx
@@ -2732,12 +2766,12 @@ msgstr "پیش رو"
 
 #. Accessible label for command list region inside command palette
 #. Accessible label for the command palette dialog
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette"
 msgstr "پالت فرمان"
 
 #. Accessible label for command palette dialog when browsing a nested command page
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Command Palette - {currentPage}"
 msgstr "پالت فرمان {currentPage}"
 
@@ -2767,6 +2801,10 @@ msgstr "تلاش‌ها را مقایسه کنید تا ببینید چه چیز
 #: src/features/career/workspace/shell.tsx
 msgid "Compare offers"
 msgstr "مقایسهٔ پیشنهادها"
+
+#: src/features/templates/gallery.tsx
+msgid "Compare real resume layouts before you sign up. Every template is free to customize, with PDF and Word downloads and no watermark."
+msgstr ""
 
 #: src/features/career/offers.tsx
 msgid "Compared in their original currency and pay period. Comparing doesn't share anything with the coach."
@@ -3567,6 +3605,10 @@ msgstr "نامه‌های پوششی"
 msgid "Create"
 msgstr "ایجاد"
 
+#: src/features/templates/gallery.tsx
+msgid "Create a free account, then choose your template in Design. Switch layouts anytime without rewriting your content."
+msgstr ""
+
 #: src/features/auth/pages/register.tsx
 msgid "Create a new account"
 msgstr "ایجاد یک حساب جدید"
@@ -4113,6 +4155,10 @@ msgstr "دانلود"
 msgid "Download {label}"
 msgstr "دانلود {label}"
 
+#: src/features/templates/gallery.tsx
+msgid "Download {name} sample PDF"
+msgstr ""
+
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "Download application details, contacts, notes, and timeline history as CSV."
 msgstr "جزئیات درخواست‌ها، مخاطبین، یادداشت‌ها و تاریخچهٔ جدول زمانی را به‌صورت CSV دانلود کنید."
@@ -4135,6 +4181,10 @@ msgstr "دانلود PDF"
 #: src/features/resume/share/download-tab.tsx
 msgid "Download PDF instead"
 msgstr "در عوض PDF را دانلود کنید"
+
+#: src/features/templates/gallery.tsx
+msgid "Download sample PDF"
+msgstr ""
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Download them"
@@ -4606,19 +4656,10 @@ msgstr "هر ترمی که آگهی شغلی بر آن تاکید دارد، و�
 msgid "Every week"
 msgstr "هر هفته"
 
-#. Hero headline, line 1 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "Everything"
-msgstr "همهٔ"
-
 #. placeholder {0}: application.company
 #: src/features/career/workspace/saved.tsx
 msgid "Everything the coach wrote for {0}, newest first."
 msgstr "هر آنچه مربی برای {0} نوشته است، از جدیدترین."
-
-#: src/features/homepage/hero.tsx
-msgid "Everything you’ve done, on one page."
-msgstr "هر کاری که انجام داده اید، در یک صفحه."
 
 #: src/features/homepage/sections.tsx
 msgid "Exchange resume feedback, ask questions, and help shape Reactive Resume with the community."
@@ -5119,6 +5160,14 @@ msgstr "دیروز پیدا شد"
 msgid "Free ATS resume checker"
 msgstr "بررسی رایگان رزومه ATS"
 
+#: src/libs/seo.ts
+msgid "Free Resume Builder with PDF & Word Downloads"
+msgstr ""
+
+#: src/libs/seo.ts
+msgid "Free Resume Templates with PDF Examples"
+msgstr ""
+
 #: src/features/resume/editor/design/style-groups.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -5506,6 +5555,10 @@ msgstr "چند روز مرخصی شامل آن می‌شود؟"
 #: src/features/career/schedule-sheet.tsx
 msgid "How often"
 msgstr "تناوب"
+
+#: src/features/templates/gallery.tsx
+msgid "How to choose a template"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 msgid "How to show the file"
@@ -6583,6 +6636,10 @@ msgstr "در حال بارگیری کل"
 msgid "Loading workspace…"
 msgstr "در حال بارگیری فضای کاری…"
 
+#: src/features/command-palette/index.tsx
+msgid "Loading…"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
@@ -6667,6 +6724,10 @@ msgstr "آن را مشخص تر کنید"
 msgid "Make it shorter"
 msgstr "کوتاه ترش کن"
 
+#: src/features/templates/gallery.tsx
+msgid "Make it yours, then take it with you."
+msgstr ""
+
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "خصوصی کردن"
@@ -6702,6 +6763,11 @@ msgstr "توسط سرور مدیریت می شود"
 #: src/features/settings/ai/providers.tsx
 msgid "Managed by your server"
 msgstr "توسط سرور شما مدیریت می شود"
+
+#. Hero headline, line 4 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "manager."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Many bullets start with the same phrase."
@@ -7273,7 +7339,7 @@ msgid "No change needed. It's already at {stage}."
 msgstr "نیازی به تغییر نیست. از قبل در {stage} است."
 
 #. Empty-state message when no command palette results match the search query
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "No commands match that search."
 msgstr "هیچ دستوری با این جستجو مطابقت ندارد."
 
@@ -7730,11 +7796,6 @@ msgstr "روزهای حضور در دفتر مشخص نشده"
 msgid "Offline · saved on this device"
 msgstr "آفلاین · در این دستگاه ذخیره شده است"
 
-#. Hero headline, line 3 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "on one"
-msgstr "در یک"
-
 #: src/features/resume/share/link-tab.tsx
 msgid "On. Anyone with the link can view. It isn't listed or indexed by search engines."
 msgstr "روشن هر کسی که پیوند را داشته باشد می تواند مشاهده کند. توسط موتورهای جستجو لیست یا نمایه نشده است."
@@ -7752,12 +7813,29 @@ msgid "Once you've sent a few applications, this shows how far they get and how 
 msgstr "هنگامی که چند درخواست شغلی ارسال کردید، این نشان می‌دهد که آنها چقدر پیشرفت می‌کنند و مردم چقدر سریع پاسخ می‌دهند."
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "One column"
 msgstr "یک ستون"
+
+#: src/features/templates/gallery.tsx
+msgid "One column or two?"
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with a photo beside the header and clear section headings. A simple top-to-bottom layout for your experience."
+msgstr ""
+
+#: src/dialogs/resume/template/data.ts
+msgid "One column with labeled section rows and subtle dividers. A compact layout for experience, education and supporting details."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "one format"
 msgstr "یک فرمت"
+
+#: src/features/templates/gallery.tsx
+msgid "One-column templates give hiring software a simple top-to-bottom reading order. Two-column templates put supporting details in a sidebar and leave more room for visual hierarchy. Choose for your content, then check the exported PDF."
+msgstr ""
 
 #: src/features/auth/pages/consent.tsx
 msgid "Only allow applications you trust. This application will be able to:"
@@ -8053,11 +8131,6 @@ msgstr "خواندن صفحه تمام نشد."
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "Page view"
 msgstr "نمای صفحه"
-
-#. Hero headline, line 4 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "page."
-msgstr "صفحه."
 
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Paper"
@@ -8509,6 +8582,10 @@ msgstr "برای افزودن یا ذخیرهٔ کلیدواژهٔ فعلی، <0
 msgid "Press <0>Enter</0> to open"
 msgstr "برای باز کردن <0>Enter را</0> فشار دهید"
 
+#: src/features/templates/gallery.tsx
+msgid "Preview {name} sample PDF"
+msgstr ""
+
 #. placeholder {0}: templates[previewTemplate].name
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
@@ -8768,10 +8845,6 @@ msgstr "Reactive Resume - رفتن به صفحهٔ اصلی"
 msgid "Reactive Resume {__APP_VERSION__} · MIT"
 msgstr "Reactive Resume {__APP_VERSION__} · MIT"
 
-#: src/features/homepage/hero.tsx
-msgid "Reactive Resume is a free, open-source resume builder. Write it, design it, check it, tailor it for every job and walk into the interview prepared."
-msgstr "Reactive Resume یک رزومه‌ساز رایگان و متن‌باز است. آن را بنویسید، طراحی کنید، بررسی کنید، برای هر شغل تطبیق دهید و آماده به مصاحبه بروید."
-
 #: src/features/homepage/sections.tsx
 msgid "Reactive Resume is open source under the MIT License. Amruth Pillai and a community of contributors keep it running, and donations pay for hosting and development. There’s no paid tier."
 msgstr "Reactive Resume متن‌باز و تحت مجوز MIT است. Amruth Pillai و جامعه‌ای از مشارکت‌کنندگان آن را سرپا نگه می‌دارند و کمک‌های مالی هزینهٔ میزبانی و توسعه را می‌پردازند. هیچ نسخهٔ پولی وجود ندارد."
@@ -8854,6 +8927,10 @@ msgstr "بخوانید، بنویسید و حذف کنید"
 #: src/features/ats-checker/messages.ts
 msgid "Readability"
 msgstr "خوانایی"
+
+#: src/features/templates/gallery.tsx
+msgid "Readability does not guarantee an interview or a particular ATS result."
+msgstr ""
 
 #. placeholder {0}: report.score
 #: src/features/ats-checker/checker.tsx
@@ -9370,6 +9447,11 @@ msgstr "رزومه + نامه"
 msgid "Resume attached"
 msgstr "رزومه پیوست شده است"
 
+#. Hero headline, line 2 of 4: A free, open-source / resume builder / and career / manager.
+#: src/features/homepage/hero.tsx
+msgid "resume builder"
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Resume builder"
 msgstr "سازنده رزومه"
@@ -9871,7 +9953,7 @@ msgid "Search applications"
 msgstr "جستجوی درخواست های شغلی"
 
 #. Accessible label for command palette search input
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search commands"
 msgstr "دستورهای جستجو"
 
@@ -9934,7 +10016,7 @@ msgid "Search..."
 msgstr "جستجو..."
 
 #. Placeholder in command palette input on nested pages
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Search…"
 msgstr "جستجو…"
 
@@ -10421,10 +10503,6 @@ msgstr "تک‌ستونه با حاشیهٔ چپ سرخابی؛ فشرده و ک
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators."
 msgstr "تک‌ستونه با سربرگ بالایی مینیمال و فضای خالی زیاد؛ تمیز و مدرن برای طراحان یا تولیدکنندگان محتوا."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Single-column with a sidebar and clean grid layout; versatile for any professional or technical role."
-msgstr "تک‌ستونه با نوار کناری و چیدمان شبکه‌ای تمیز؛ چندمنظوره برای هر نقش حرفه‌ای یا فنی."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with an inline three-column entry header (position · organization · period); compact and ATS-friendly, well-suited for Asian resume conventions (CN/JP/KR)."
@@ -12011,8 +12089,13 @@ msgid "Turn this schedule on"
 msgstr "روشن کردن این زمان‌بندی"
 
 #: src/features/resume/editor/design/template-group.tsx
+#: src/features/templates/gallery.tsx
 msgid "Two columns"
 msgstr "دو ستون"
+
+#: src/dialogs/resume/template/data.ts
+msgid "Two columns beneath a colored header band. Keep experience in the main column and supporting details in the sidebar."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "Two date formats found"
@@ -12045,14 +12128,6 @@ msgstr "دوستونه با تأکید نرم در سربرگ و عکس پروف
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with accent colors and clean typography; balanced choice for business analysts or operations roles."
 msgstr "دوستونه با رنگ‌های تأکیدی و تایپوگرافی تمیز؛ انتخابی متعادل برای تحلیل‌گران کسب‌وکار یا نقش‌های عملیات."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, clean and professional with subtle section dividers; suits corporate, finance, or consulting positions."
-msgstr "دوستونه، تمیز و حرفه‌ای با جداکننده‌های بخش ظریف؛ مناسب موقعیت‌های شرکتی، مالی یا مشاوره‌ای."
-
-#: src/dialogs/resume/template/data.ts
-msgid "Two-column, minimal and text-dense with no decorative elements; perfect for traditional industries or ATS-heavy applications."
-msgstr "دوستونه، مینیمال و متراکم از متن بدون عناصر تزئینی؛ مناسب صنایع سنتی یا درخواست‌هایی با وابستگی زیاد به ATS."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles."
@@ -12096,7 +12171,7 @@ msgstr "برای تایید <0>{CONFIRMATION}</0> را تایپ کنید"
 
 #. Placeholder in command palette input on root page
 #. Screen-reader dialog description instructing users how to use the command palette
-#: src/features/command-palette/index.tsx
+#: src/features/command-palette/content.tsx
 msgid "Type a command or search…"
 msgstr "یک دستور تایپ کنید یا… را جستجو کنید"
 
@@ -13005,6 +13080,10 @@ msgstr "بنویسید چه کاری انجام دادید."
 msgid "Write your answer, or draft one from your Knowledge."
 msgstr "پاسخ خود را بنویسید یا از دانسته‌هایتان پیش‌نویسی بسازید."
 
+#: src/features/homepage/write.tsx
+msgid "Write your professional resume"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 #: src/features/resume/editor/check/check-panel.tsx
 #: src/features/resume/editor/check/issues.ts
@@ -13140,11 +13219,6 @@ msgstr "همه‌چیز به‌روز است"
 #: src/features/auth/components/guest-banner.tsx
 msgid "You're using a guest account"
 msgstr "شما از حساب مهمان استفاده می‌کنید"
-
-#. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
-#: src/features/homepage/hero.tsx
-msgid "you’ve done,"
-msgstr "آنچه انجام داده‌اید،"
 
 #: src/features/auth/pages/forgot-password.tsx
 #: src/features/auth/pages/register.tsx
@@ -13314,6 +13388,10 @@ msgstr "نام شما در رزومه تغییر کرد. نامه هم به رو
 #: src/features/resume/editor/check/issues.ts
 msgid "Your name is missing"
 msgstr "نام شما گم شده است"
+
+#: src/features/homepage/hero.tsx
+msgid "Your next chapter starts here"
+msgstr ""
 
 #: src/features/career/workspace/saved.tsx
 msgid "your notes"
