@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { expect, it } from "vitest";
+import { expect, it } from "vite-plus/test";
 
 const workflow = readFileSync(new URL("../.github/workflows/docker-build.yml", import.meta.url), "utf8");
 const commit = "a".repeat(40);

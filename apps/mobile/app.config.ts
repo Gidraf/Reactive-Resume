@@ -7,7 +7,7 @@ const microphonePermission = "Reactive Resume records your answers when you prac
 const config: ExpoConfig = {
 	name: "Reactive Resume",
 	slug: "reactive-resume",
-	platforms: ["ios", "android"],
+	platforms: process.env.EXPO_MOBILE_WEB_PREVIEW === "1" ? ["ios", "android", "web"] : ["ios", "android"],
 	scheme: "me.rxresu",
 	owner: "reactive-resume",
 	version: "1.0.0",

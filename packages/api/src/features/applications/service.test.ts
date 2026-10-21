@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 // Mock the DB layer; the logic under test is the activity-timeline bookkeeping, not SQL.
 const dbMock = vi.hoisted(() => ({

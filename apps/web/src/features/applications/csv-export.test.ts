@@ -1,5 +1,5 @@
 import type { Application } from "./types";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 import { exportApplicationsCsv, mapCsvToApplications, parseCsv, selectApplicationsForExport } from "./csv";
 
 const application: Application = {

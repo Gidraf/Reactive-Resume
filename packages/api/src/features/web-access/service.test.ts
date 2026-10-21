@@ -4,7 +4,7 @@ import { lookup as socketLookup } from "node:dns";
 import { lookup } from "node:dns/promises";
 import { EventEmitter } from "node:events";
 import { createServer } from "node:http";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { searchJobPostings } from "../applications/posting";
 import { probeWebAccess, readPage, searchWeb } from "./service";
 

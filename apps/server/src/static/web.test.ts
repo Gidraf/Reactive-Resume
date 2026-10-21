@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const mocks = vi.hoisted(() => ({
 	env: { APP_URL: "https://rxresu.me", ROOT_RESUME_ID: undefined as string | undefined },

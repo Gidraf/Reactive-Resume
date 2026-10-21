@@ -16,7 +16,7 @@
 		"rust"
 	],
 	"scripts": {
-		"typecheck": "tsgo --noEmit",
+		"typecheck": "tsrs --noEmit",
 		"build:native": "bash rust/build.sh"
 	},
 	"peerDependencies": {
@@ -29,6 +29,6 @@
 	"devDependencies": {
 		"@formepdf/core": "0.28.0",
 		"@reactive-resume/config": "workspace:*",
-		"@typescript/native-preview": "catalog:"
+		"tsrs": "catalog:"
 	}
 }

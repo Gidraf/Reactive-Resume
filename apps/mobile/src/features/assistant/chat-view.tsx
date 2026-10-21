@@ -10,7 +10,7 @@ import type { IconName } from "@/ui";
 import type { Proposal } from "@reactive-resume/resume/proposals";
 import type { UIMessage } from "ai";
 import type { ReactNode } from "react";
-import type { ScrollViewInstance } from "react-native";
+import { LegendList } from "@legendapp/list/react-native";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { ORPCError } from "@orpc/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -245,8 +245,6 @@ function Conversation(props: ConversationProps) {
 	const queryClient = useQueryClient();
 	const [statuses, setStatuses] = useState<ReadonlyMap<string, EditStatus>>(new Map());
 	const [stopped, setStopped] = useState(false);
-	const scroller = useRef<ScrollViewInstance>(null);
-	const nearBottom = useRef(true);
 
 	const refresh = () => {
 		refreshThreads(queryClient);
@@ -469,30 +467,28 @@ function Conversation(props: ConversationProps) {
 
 	return (
 		<KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-			<ScrollView
-				ref={scroller}
+			<LegendList
+				data={messages}
+				keyExtractor={(message) => message.id}
+				extraData={{ streaming, readOnly, handlers, fresh }}
+				initialScrollAtEnd
+				maintainScrollAtEnd={{ animated: false }}
+				maintainVisibleContentPosition
+				maintainScrollAtEndThreshold={0.2}
+				recycleItems={false}
 				alwaysBounceVertical
 				refreshControl={
 					props.onRefresh ? <RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} /> : undefined
 				}
 				style={{ flex: 1 }}
 				accessibilityLabel={t`Conversation`}
-				contentContainerStyle={{ padding: space.s4, gap: space.s4 }}
+				contentContainerStyle={{ padding: space.s4 }}
+				ItemSeparatorComponent={() => <View style={{ height: space.s4 }} />}
 				keyboardDismissMode="interactive"
-				scrollEventThrottle={100}
-				onScroll={({ nativeEvent }) => {
-					const { contentOffset, contentSize, layoutMeasurement } = nativeEvent;
-					nearBottom.current = contentSize.height - contentOffset.y - layoutMeasurement.height < 120;
-				}}
-				// Follows the reply while it streams, unless the user scrolled up to read.
-				onContentSizeChange={() => {
-					if (nearBottom.current) scroller.current?.scrollToEnd({ animated: false });
-				}}
-			>
-				{messages.length === 0 && !streaming ? <Empty render={props.empty} send={(text) => void send(text)} /> : null}
-				{messages.map((message, index) => (
+				keyboardShouldPersistTaps="handled"
+				ListEmptyComponent={!streaming ? <Empty render={props.empty} send={(text) => void send(text)} /> : null}
+				renderItem={({ item: message, index }) => (
 					<MessageView
-						key={message.id}
 						message={message}
 						streaming={streaming && index === messages.length - 1}
 						readOnly={readOnly}
@@ -507,65 +503,73 @@ function Conversation(props: ConversationProps) {
 										})
 						}
 					/>
-				))}
-
-				{status === "submitted" ? (
-					<View style={{ flexDirection: "row", alignItems: "center", gap: space.s2 }}>
-						<ActivityIndicator size="small" />
-						<Text variant="callout" color="ink3">
-							<Trans>Thinking…</Trans>
-						</Text>
-					</View>
-				) : null}
-
-				{stopped && !streaming && !proposedInLast ? (
-					<View style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: space.s2 }}>
-						<Icon name="stop-circle" size={18} color={colors.ink3} />
-						<Text variant="callout" color="ink2">
-							{document ? <Trans>Stopped. No edits were proposed.</Trans> : <Trans>Stopped</Trans>}
-						</Text>
-						<Button variant="link" label={t`Continue`} disabled={readOnly} onPress={() => send(t`Continue`)} />
-					</View>
-				) : null}
-
-				{error && !streaming ? (
-					<View
-						accessibilityRole="alert"
-						style={{ gap: space.s2, padding: space.s3, borderRadius: radius.rXl, backgroundColor: colors.dangerSoft }}
-					>
-						<View style={{ flexDirection: "row", gap: space.s2 }}>
-							<Icon name="warning-circle" size={18} color={colors.dangerText} />
-							<Text variant="callout" color="dangerText" style={{ flex: 1 }}>
-								<Trans>
-									{props.connection} returned “{errorText(error, t`an error`)}”. Your message is kept.
-								</Trans>
-							</Text>
-						</View>
-						{continuationBlocked ? (
-							<Text variant="callout" color="dangerText">
-								<Trans>Context is left out, so reply with a new message instead.</Trans>
-							</Text>
+				)}
+				ListFooterComponent={
+					<View style={{ gap: space.s4, paddingTop: space.s4 }}>
+						{status === "submitted" ? (
+							<View style={{ flexDirection: "row", alignItems: "center", gap: space.s2 }}>
+								<ActivityIndicator size="small" />
+								<Text variant="callout" color="ink3">
+									<Trans>Thinking…</Trans>
+								</Text>
+							</View>
 						) : null}
-						<View style={{ flexDirection: "row", gap: space.s2 }}>
-							<Button
-								size="sm"
-								variant="secondary"
-								icon="arrow-clockwise"
-								label={t`Retry`}
-								disabled={readOnly || continuationBlocked}
-								onPress={retry}
-							/>
-							{props.onSwitchModel ? (
-								<Button size="sm" variant="ghost" label={t`Switch model`} onPress={props.onSwitchModel} />
-							) : null}
-						</View>
-					</View>
-				) : null}
 
-				{!streaming && messages.length > 0 ? (
-					<Button variant="ghost" size="sm" icon="copy" label={t`Copy transcript`} onPress={copyTranscript} />
-				) : null}
-			</ScrollView>
+						{stopped && !streaming && !proposedInLast ? (
+							<View style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: space.s2 }}>
+								<Icon name="stop-circle" size={18} color={colors.ink3} />
+								<Text variant="callout" color="ink2">
+									{document ? <Trans>Stopped. No edits were proposed.</Trans> : <Trans>Stopped</Trans>}
+								</Text>
+								<Button variant="link" label={t`Continue`} disabled={readOnly} onPress={() => send(t`Continue`)} />
+							</View>
+						) : null}
+
+						{error && !streaming ? (
+							<View
+								accessibilityRole="alert"
+								style={{
+									gap: space.s2,
+									padding: space.s3,
+									borderRadius: radius.rXl,
+									backgroundColor: colors.dangerSoft,
+								}}
+							>
+								<View style={{ flexDirection: "row", gap: space.s2 }}>
+									<Icon name="warning-circle" size={18} color={colors.dangerText} />
+									<Text variant="callout" color="dangerText" style={{ flex: 1 }}>
+										<Trans>
+											{props.connection} returned “{errorText(error, t`an error`)}”. Your message is kept.
+										</Trans>
+									</Text>
+								</View>
+								{continuationBlocked ? (
+									<Text variant="callout" color="dangerText">
+										<Trans>Context is left out, so reply with a new message instead.</Trans>
+									</Text>
+								) : null}
+								<View style={{ flexDirection: "row", gap: space.s2 }}>
+									<Button
+										size="sm"
+										variant="secondary"
+										icon="arrow-clockwise"
+										label={t`Retry`}
+										disabled={readOnly || continuationBlocked}
+										onPress={retry}
+									/>
+									{props.onSwitchModel ? (
+										<Button size="sm" variant="ghost" label={t`Switch model`} onPress={props.onSwitchModel} />
+									) : null}
+								</View>
+							</View>
+						) : null}
+
+						{!streaming && messages.length > 0 ? (
+							<Button variant="ghost" size="sm" icon="copy" label={t`Copy transcript`} onPress={copyTranscript} />
+						) : null}
+					</View>
+				}
+			/>
 
 			<Composer
 				{...props}

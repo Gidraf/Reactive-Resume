@@ -1,7 +1,7 @@
 import type { CloudflareBindings } from "./index";
 import type { ExecutionContext, ScheduledController } from "@cloudflare/workers-types";
 import type { CoordinationService } from "@reactive-resume/db/coordination";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { getPool } from "@reactive-resume/db/client";
 import worker from "./index";
 

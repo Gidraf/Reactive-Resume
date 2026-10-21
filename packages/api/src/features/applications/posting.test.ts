@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vite-plus/test";
 import { readPage, searchWeb } from "../web-access/service";
 import { fetchJobPosting, htmlToText, readJobPosting, readOpenPosting, searchJobPostings } from "./posting";
 

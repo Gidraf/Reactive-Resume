@@ -326,8 +326,8 @@ const { ListRow } = load("ui/layout.tsx", componentFixtures);
 const { Segmented } = load("ui/fields.tsx", {
 	...componentFixtures,
 	"./layout": { ListRow },
-	"./overlays": { InSheetContext: {}, Sheet: "Sheet" },
-	"@gorhom/bottom-sheet": { BottomSheetTextInput: "TextInput" },
+	"./overlays": { Sheet: "Sheet" },
+	"./switch": { Switch: "Switch" },
 });
 const { BarItem } = load("shell/app-tabs.tsx", { "react-native-reanimated": animation });
 const { KnowledgeScreen } = load("features/career/knowledge.tsx", {
@@ -342,6 +342,7 @@ const { KnowledgeScreen } = load("features/career/knowledge.tsx", {
 native.FlatList = "FlatList";
 const documentQuery = { data: [], isError: false, refetch() {} };
 const { DocumentsLibrary } = load("features/documents/library.tsx", {
+	"@legendapp/list/reanimated": { AnimatedLegendList: "FlatList" },
 	"./document-sheets": { DocumentSheets: "DocumentSheets" },
 	"./filter": load("features/documents/filter.ts"),
 	"./new-documents": {},

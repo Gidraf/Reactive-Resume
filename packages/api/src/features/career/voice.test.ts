@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { ORPCError, createRouterClient } from "@orpc/server";
 import { transcribe } from "ai";
 import { careerVoiceRouter } from "./voice";

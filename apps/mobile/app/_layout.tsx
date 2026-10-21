@@ -1,7 +1,7 @@
 import type { DefaultTheme } from "expo-router";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { I18nProvider } from "@lingui/react";
 import { useLingui } from "@lingui/react/macro";
+import { TrueSheetProvider } from "@lodev09/react-native-true-sheet";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack, ThemeProvider } from "expo-router";
@@ -100,11 +100,11 @@ export default function RootLayout() {
 					<KeyboardProvider>
 						<QueryClientProvider client={queryClient}>
 							<I18nProvider i18n={i18n}>
-								<BottomSheetModalProvider>
+								<TrueSheetProvider>
 									<RootStack />
 									<SessionGate />
 									<Toaster />
-								</BottomSheetModalProvider>
+								</TrueSheetProvider>
 							</I18nProvider>
 						</QueryClientProvider>
 					</KeyboardProvider>

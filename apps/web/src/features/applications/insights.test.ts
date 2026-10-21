@@ -1,5 +1,5 @@
 import type { StageCount } from "./insights";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 import { computeInsights, computeOutcomes, computeTimeline } from "./insights";
 
 describe("computeOutcomes", () => {

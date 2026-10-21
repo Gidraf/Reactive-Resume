@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { call } from "@orpc/server";
 import { APICallError, generateText, RetryError } from "ai";
 import { z } from "zod";

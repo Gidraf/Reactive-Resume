@@ -1,5 +1,5 @@
 import type { Application } from "./types";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 import { getNextStep } from "./next-step";
 
 const NOW = new Date("2026-09-28T12:00:00Z");

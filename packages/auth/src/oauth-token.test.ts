@@ -1,4 +1,4 @@
-import { beforeEach, expect, it, vi } from "vitest";
+import { beforeEach, expect, it, vi } from "vite-plus/test";
 import { exportJWK, generateKeyPair, SignJWT } from "jose";
 import * as schema from "@reactive-resume/db/schema";
 

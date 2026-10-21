@@ -110,13 +110,19 @@ Use `pnpm dev:web` to start only Vite. API calls still need a server running.
 
 ## Everyday commands
 
+[Vite+](https://viteplus.dev/) supplies the project-local `vp` CLI for Vite builds/dev servers, Vitest tests, Oxlint, and Oxfmt. Run it with `pnpm exec vp`; no global install is needed. Turbo still schedules workspace tasks and checks package boundaries, while tsdown packages the server and DeepSeek plugin. Root `vite.config.ts` owns lint and formatting settings; package `vitest.config.ts` files retain isolated test configuration.
+
+Keep the pinned `vite-plus` catalog version and `vite` override together. The `vitest` override and `@vitest/coverage-v8` must match Vite+'s bundled Vitest version (`pnpm exec vp toolchain vitest`). The Vite Plus extension pack uses the same tools and root config as scripts and hooks.
+
+Typechecks use [tsrs](https://github.com/oxc-project/tsrs), an experimental Rust port of TypeScript. The pinned release supports macOS arm64 and Linux x64/arm64 (GNU/musl); Windows and Intel macOS binaries are not published. Existing `tsconfig.json` strictness settings and `--noEmit` remain in force. TypeScript stays installed for tools that consume its API and for editors; this migration does not switch editor language servers.
+
 | Command                          | What it does                                                                                                           |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `pnpm dev`                       | Start the web app, server, and email preview                                                                           |
 | `pnpm dev:web`                   | Start only the web app                                                                                                 |
 | `pnpm build`                     | Build the web app and server for production (regenerates PDF translations first)                                       |
 | `NODE_ENV=production pnpm start` | Run the built server on `PORT`. It reads exported variables or the root `.env`, not `.env.local`.                      |
-| `pnpm typecheck`                 | Type-check every workspace with `tsgo`                                                                                 |
+| `pnpm typecheck`                 | Type-check every workspace with `tsrs`                                                                                 |
 | `pnpm test`                      | Run the Vitest suites of every workspace                                                                               |
 | `pnpm test:e2e`                  | Run the Playwright browser tests (see [Browser tests](#browser-tests))                                                 |
 | `pnpm lint`                      | Check code with Oxlint; errors and warnings fail the command                                                           |
@@ -135,8 +141,8 @@ Prefer package-scoped commands while you work. Package names come from each `pac
 ```bash
 pnpm --filter web typecheck
 pnpm --filter @reactive-resume/pdf test
-pnpm exec oxlint --deny-warnings apps/web/src/features/resume
-pnpm exec oxfmt --check apps/web/src/features/resume
+pnpm exec vp lint --deny-warnings apps/web/src/features/resume
+pnpm exec vp fmt --check apps/web/src/features/resume
 ```
 
 ## Work with the database
@@ -164,7 +170,7 @@ To change the schema:
 
 ### Unit and integration tests
 
-Tests use [Vitest](https://vitest.dev/) and sit next to the code they cover as `*.test.ts(x)` or `*.spec.ts(x)`. Most packages run in Node; `packages/ui` uses `happy-dom`.
+Tests run through `vp test` using [Vitest](https://vitest.dev/) and sit next to the code they cover as `*.test.ts(x)` or `*.spec.ts(x)`. Import test APIs from `vite-plus/test`. Most packages run in Node; `packages/ui` uses `happy-dom`.
 
 PDF export text tests require Poppler's `pdftotext` to read logical Unicode text, including `/ActualText` spans for shaped scripts and emoji. Install it with `brew install poppler` on macOS or `sudo apt-get install poppler-utils` on Debian/Ubuntu. CI installs it before running the unit suites.
 
@@ -176,7 +182,7 @@ pnpm --filter @reactive-resume/pdf test
 pnpm --filter @reactive-resume/pdf test src/templates/shared/filtering.test.ts
 
 # One test by name
-pnpm --filter @reactive-resume/pdf exec vitest run src/templates/shared/filtering.test.ts -t "filterItems"
+pnpm --filter @reactive-resume/pdf exec vp test run src/templates/shared/filtering.test.ts -t "filterItems"
 
 # Coverage (V8, written to the package's coverage/ folder)
 pnpm --filter @reactive-resume/pdf test:coverage
@@ -232,11 +238,11 @@ Then run `pnpm lingui:extract`. It updates the catalogs in `apps/web/locales/*.p
 
 ## Code style
 
-- TypeScript is strict, including `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess`. Packages type-check with `tsgo --noEmit`.
+- TypeScript is strict, including `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess`. Packages type-check with `tsrs --noEmit`.
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) checks code, including native React Compiler and accessibility rules. [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) formats with tabs, double quotes, and 120-column lines. It sorts imports into type, Node, test, external, workspace, and local groups, and sorts Tailwind classes in `clsx`, `cva`, and `cn`. Side-effect imports retain their order. Install the recommended Oxc editor extension for fixes and formatting on save.
-- Configure lint rules in `.oxlintrc.json` and formatting in `.oxfmtrc.json`. Generated files and byte-sensitive CSS fixtures stay excluded. Async test doubles are exempt from `require-await`; source functions still require it. The Playwright fixture adapter is exempt from `rules-of-hooks` because its `use` callback belongs to Playwright. CSS declarations are formatted, but Oxlint does not lint them.
-- [`@shadcn/lint`](https://github.com/shadcn-ui/lint) is registered with Oxlint. Design-system rules are opt-in; add your chosen rules in `.oxlintrc.json`, scoped to `apps/web` and `packages/ui`. Existing `components.json` files identify the shared component exports and Tailwind theme. See its [rules](https://github.com/shadcn-ui/lint#rules) and [configuration examples](https://github.com/shadcn-ui/lint/blob/main/docs/design-systems.md).
-- Coding agents should run `pnpm exec oxlint --fix <changed paths>`, then `pnpm exec oxfmt <changed paths>`, and finish with `pnpm lint:agent` and `pnpm format:check`. Follow the [Oxc coding-agent workflow](https://oxc.rs/docs/guide/usage/coding-agents.html); fix findings and give any necessary inline suppression a rule-specific explanation.
+- Configure lint rules in the root `vite.config.ts` lint block and formatting in its `fmt` block. Generated files and byte-sensitive CSS fixtures stay excluded. Async test doubles are exempt from `require-await`; source functions still require it. The Playwright fixture adapter is exempt from `rules-of-hooks` because its `use` callback belongs to Playwright. CSS declarations are formatted, but Oxlint does not lint them.
+- [`@shadcn/lint`](https://github.com/shadcn-ui/lint) is registered with Oxlint. Design-system rules are opt-in; add your chosen rules in the root `vite.config.ts` lint block, scoped to `apps/web` and `packages/ui`. Existing `components.json` files identify the shared component exports and Tailwind theme. See its [rules](https://github.com/shadcn-ui/lint#rules) and [configuration examples](https://github.com/shadcn-ui/lint/blob/main/docs/design-systems.md).
+- Coding agents should run `pnpm exec vp lint --fix <changed paths>`, then `pnpm exec vp fmt <changed paths>`, and finish with `pnpm lint:agent` and `pnpm format:check`. Follow the [Oxc coding-agent workflow](https://oxc.rs/docs/guide/usage/coding-agents.html); fix findings and give any necessary inline suppression a rule-specific explanation.
 - React components with explicit props use a named props type, such as `type FooProps = {...}` with `function Foo(props: FooProps)`.
 
 ## Commits and pull requests

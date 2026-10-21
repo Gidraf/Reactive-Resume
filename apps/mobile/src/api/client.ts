@@ -4,7 +4,7 @@ import type { Credentials } from "@/auth/session";
 // built-in fetch does not.
 import type { InferRouterInputs, InferRouterOutputs, RouterClient } from "@orpc/server";
 // The server router is a type-only peer dependency, so the runtime:server deny rule for app:mobile still holds;
-// apps/mobile/.oxlintrc.json rejects value imports from it.
+// the mobile override in the root vite.config.ts rejects value imports from it.
 // @boundaries-ignore type-only import of the server router
 import type router from "@reactive-resume/api/routers";
 import { createORPCClient, onError } from "@orpc/client";

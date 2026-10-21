@@ -56,6 +56,17 @@ updates compatible with the installed native modules, including the Forme Rust s
 and reviewed prebuilt checksum. JavaScript-only changes can use OTA; native dependencies,
 permissions, SDK upgrades, and native Forme changes still require fresh store binaries.
 
+The mobile UI now uses Legend List for documents and conversations, Expo UI for native
+switches, and TrueSheet for shared sheets. Expo UI and TrueSheet require fresh iOS and
+Android binaries; this integration cannot reach existing binaries through OTA alone.
+Before release, verify keyboard avoidance, nested sheets, dirty-form dismissal, pending
+saves, screen readers, reduced motion, and long-list scrolling on both platforms.
+
+For local visual review, `pnpm --filter mobile preview:web` opens the development UI
+gallery with the app's shared primitives, light/dark themes, and a 300-item list. This
+gallery excludes native PDF and authenticated routes. Browser checks supplement native
+device QA; Expo UI switches use the web preview implementation in the browser.
+
 One-time activation:
 
 1. Create an Expo access token with access to the `reactive-resume` project and save it as

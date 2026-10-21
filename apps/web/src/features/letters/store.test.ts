@@ -1,5 +1,5 @@
 import type { CoverLetter } from "@reactive-resume/schema/cover-letter/data";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { ORPCError } from "@orpc/client";
 import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";

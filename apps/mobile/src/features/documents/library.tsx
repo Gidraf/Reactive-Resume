@@ -1,6 +1,7 @@
 import type { DocumentSheet } from "./document-sheets";
 import type { DocumentSort, DocumentSummary, DocumentTypeFilter } from "./filter";
-import type { FlatListProps } from "react-native";
+import type { LegendListProps } from "@legendapp/list/react-native";
+import { AnimatedLegendList } from "@legendapp/list/reanimated";
 import { plural } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
@@ -181,7 +182,7 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 	const [sheet, setSheet] = useState<DocumentSheet | null>(null);
 	const [purge, setPurge] = useState<DocumentSummary[] | null>(null);
 	const [visible, setVisible] = useState<string[]>([]);
-	const onViewableItemsChanged = useCallback<NonNullable<FlatListProps<DocumentSummary>["onViewableItemsChanged"]>>(
+	const onViewableItemsChanged = useCallback<NonNullable<LegendListProps<DocumentSummary>["onViewableItemsChanged"]>>(
 		({ viewableItems }) => {
 			setVisible(viewableItems.filter((token) => token.isViewable).map((token) => token.key));
 		},
@@ -415,7 +416,7 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 			onLayout={(event) => setWidth(event.nativeEvent.layout.width - space.s4 * 2)}
 		>
 			<Stack.Screen options={{ title: trashed ? t`Trash` : t`Documents`, headerShown: false }} />
-			<Animated.FlatList
+			<AnimatedLegendList
 				key={columns}
 				data={session.status === "signed-in" ? filtered : []}
 				ListHeaderComponent={header}
@@ -427,8 +428,9 @@ export function DocumentsLibrary({ trashed = false }: DocumentsLibraryProps) {
 				refreshControl={<RefreshControl {...pull} tintColor={colors.accent} colors={[colors.accent]} />}
 				style={{ flex: 1 }}
 				keyboardShouldPersistTaps="handled"
-				contentContainerStyle={{ gap: space.s3, paddingBottom: space.s4 }}
-				columnWrapperStyle={columns > 1 ? { gap: space.s3 } : undefined}
+				contentContainerStyle={{ paddingBottom: space.s4 }}
+				ItemSeparatorComponent={() => <View style={{ height: space.s3 }} />}
+				{...(columns > 1 ? { columnWrapperStyle: { gap: space.s3 } } : {})}
 				// Reanimated's item layout animation supports one column only.
 				{...(columns === 1 ? { itemLayoutAnimation: listLayout } : {})}
 				renderItem={({ item, index }) => (

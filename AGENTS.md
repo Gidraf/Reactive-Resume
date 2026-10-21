@@ -75,6 +75,10 @@ Set `AUTH_SECRET` to a generated secret (`openssl rand -hex 32`). If using saved
 
 ## Development workflow
 
+Vite+ (`vp`) runs Vite, Vitest, Oxlint, and Oxfmt through project-local binaries; no global install is required. Keep `vite-plus`, its `vite` override, and the bundled Vitest/coverage versions aligned in `pnpm-workspace.yaml` and `package.json`. Root `vite.config.ts` owns lint and formatting settings; package `vitest.config.ts` files retain isolated test configuration. Turbo owns workspace orchestration and boundaries; tsdown owns server/plugin packaging.
+
+Package typechecks use the pinned experimental `tsrs --noEmit`. Published binaries currently support macOS arm64 and Linux x64/arm64 (GNU/musl), not Windows or Intel macOS. TypeScript remains installed for library APIs and editor support.
+
 ```sh
 pnpm dev
 pnpm dev:web
@@ -167,10 +171,10 @@ Prefer package-scoped checks for the files changed. Package names come from thei
 pnpm --filter web typecheck
 pnpm --filter @reactive-resume/pdf test
 pnpm --filter @reactive-resume/pdf test src/templates/shared/filtering.test.ts
-pnpm --filter @reactive-resume/pdf exec vitest run src/templates/shared/filtering.test.ts -t "filterItems"
+pnpm --filter @reactive-resume/pdf exec vp test run src/templates/shared/filtering.test.ts -t "filterItems"
 pnpm --filter @reactive-resume/pdf test:coverage
-pnpm exec oxlint --deny-warnings apps/web/src/features/resume
-pnpm exec oxfmt --check apps/web/src/features/resume
+pnpm exec vp lint --deny-warnings apps/web/src/features/resume
+pnpm exec vp fmt --check apps/web/src/features/resume
 pnpm exec turbo boundaries
 ```
 
@@ -199,17 +203,17 @@ pnpm test:e2e:ui
 
 ## Code style
 
-- TypeScript is strict, including `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`, and unused-symbol checks; packages typecheck with `tsgo --noEmit`.
+- TypeScript is strict, including `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`, and unused-symbol checks; packages typecheck with `tsrs --noEmit`.
 - Oxlint checks code with its native React Compiler and accessibility rules. Oxfmt uses tabs, double quotes, 120-column lines, separated type import groups, and sorted Tailwind classes in `clsx`, `cva`, and `cn`. Use existing file naming and feature-local conventions.
 - **`pnpm check` modifies files**: it regenerates PDF translations, applies safe Oxlint fixes, runs Oxfmt, then fails on remaining lint errors or warnings. Review the diff; use `pnpm lint` and `pnpm format:check` for non-mutating checks.
 - Lefthook's pre-commit hook checks conflict markers, applies safe Oxlint fixes, runs Oxfmt, then checks staged files with warnings denied and stages the fixes. The commit-message hook enforces Conventional Commits (`fix:`, `feat:`, `docs:`, etc.).
 
 ## Linting and formatting for coding agents
 
-- After code changes, run `pnpm exec oxlint --fix <changed paths>`, then `pnpm exec oxfmt <changed paths>`. Safe lint fixes run before formatting and import/Tailwind sorting. Keep side-effect import order intact.
-- Before finishing, run `pnpm lint:agent` (`oxlint --deny-warnings --format=agent`) and `pnpm format:check`. Fix diagnostics and recheck; do not disable rules merely to make a check pass. Any necessary inline suppression must name its rule and explain why.
-- Lint rules live in `.oxlintrc.json`; formatting and import groups live in `.oxfmtrc.json`. Generated route trees, build outputs, migrations, OpenAPI JSON, generated schema references, and byte-sensitive PDF CSS fixtures are excluded where appropriate.
-- `@shadcn/lint` is registered as a JS plugin. Its design-system rules are opt-in: configure them in `.oxlintrc.json` after choosing the policy. It discovers the shared UI exports and Tailwind theme through `apps/web/components.json` and `packages/ui/components.json`. See [available rules](https://github.com/shadcn-ui/lint#rules). Keep UI-specific policies scoped to the web app and UI package.
+- After code changes, run `pnpm exec vp lint --fix <changed paths>`, then `pnpm exec vp fmt <changed paths>`. Safe lint fixes run before formatting and import/Tailwind sorting. Keep side-effect import order intact.
+- Before finishing, run `pnpm lint:agent` (`vp lint --deny-warnings --format=agent`) and `pnpm format:check`. Fix diagnostics and recheck; do not disable rules merely to make a check pass. Any necessary inline suppression must name its rule and explain why.
+- Lint rules live in `vite.config.ts` under `lint`; formatting and import groups live under `fmt`. Generated route trees, build outputs, migrations, OpenAPI JSON, generated schema references, and byte-sensitive PDF CSS fixtures are excluded where appropriate.
+- `@shadcn/lint` is registered as a JS plugin. Its design-system rules are opt-in: configure them in the root `vite.config.ts` lint block after choosing the policy. It discovers the shared UI exports and Tailwind theme through `apps/web/components.json` and `packages/ui/components.json`. See [available rules](https://github.com/shadcn-ui/lint#rules). Keep UI-specific policies scoped to the web app and UI package.
 - Async test doubles may return a Promise without awaiting; the test override permits this. Playwright fixture callbacks named `use` are not React hooks, so `rules-of-hooks` is disabled only in the fixture adapter. Path references in declaration shims remain supported. CSS is formatted by Oxfmt; Oxlint checks JavaScript/TypeScript rather than CSS declarations.
 - Editor setup is checked in under `.vscode/`: install the recommended Oxc extension for lint fixes and formatting on save. This workflow follows the [Oxc coding-agent guide](https://oxc.rs/docs/guide/usage/coding-agents.html). Restart Codex sessions after changing these instructions.
 

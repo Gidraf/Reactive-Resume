@@ -1,4 +1,4 @@
-import type { ProxyOptions } from "vite";
+import type { ProxyOptions } from "vite-plus";
 import { readFileSync } from "node:fs";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -8,7 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig } from "vite-plus";
 
 const rootPackageJsonPath = new URL("../../package.json", import.meta.url);
 const rootPackageJson = JSON.parse(readFileSync(rootPackageJsonPath, "utf-8")) as { version: string | undefined };
@@ -87,7 +87,7 @@ export default defineConfig({
 		__APP_VERSION__: appVersion,
 	},
 
-	// `vite build` builds the app, then the marketing pages' server entry, then prerenders the pages with it.
+	// `vp build` builds the app, then the marketing pages' server entry, then prerenders the pages with it.
 	builder: {
 		buildApp: async (builder) => {
 			const { client, ssr } = builder.environments;
