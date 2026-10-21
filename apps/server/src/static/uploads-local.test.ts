@@ -42,3 +42,30 @@ it.each(["uploads/user-1/pictures/private", "uploads/../agent/thread-1/private",
 		expect(await storage.read(key)).toBeNull();
 	},
 );
+
+it("migrates guest upload pictures so they are accessible via the new user URL and removed from the old URL", async () => {
+	const { migrateUserStorage } = await import("@reactive-resume/api/features/storage");
+	const guestKey = "uploads/guest-user/pictures/avatar.png";
+	const pngData = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+	await storage.write({ key: guestKey, data: pngData, contentType: "image/png" });
+
+	const beforeResponse = await handleUpload(new Request(`${envMock.APP_URL}/api/${guestKey}`));
+	expect(beforeResponse.status).toBe(200);
+
+	await migrateUserStorage("guest-user", "registered-user");
+
+	const oldResponse = await handleUpload(new Request(`${envMock.APP_URL}/api/${guestKey}`));
+	expect(oldResponse.status).toBe(404);
+
+	const newKey = "uploads/registered-user/pictures/avatar.png";
+	const newResponse = await handleUpload(new Request(`${envMock.APP_URL}/api/${newKey}`));
+	expect(newResponse.status).toBe(200);
+	expect(new Uint8Array(await newResponse.arrayBuffer())).toEqual(pngData);
+});
+
+it("lists single file key when prefix points directly to an existing file", async () => {
+	const key = "uploads/test-user/pictures/avatar.png";
+	await storage.write({ key, data: new Uint8Array([1, 2, 3]), contentType: "image/png" });
+	const results = await storage.list(key);
+	expect(results).toEqual([key]);
+});

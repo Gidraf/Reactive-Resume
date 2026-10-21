@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
-import { dirname, extname, join } from "node:path";
+import { dirname, extname, join, relative } from "node:path";
 import {
 	DeleteObjectCommand,
 	GetObjectCommand,
@@ -124,15 +124,33 @@ class LocalStorageService implements StorageService {
 
 	async list(prefix: string): Promise<string[]> {
 		const fullPath = this.resolvePath(prefix);
+		const normalizedPrefix = prefix.replace(/\\/g, "/").replace(/\/+$/, "");
 
 		try {
-			const files = await fs.readdir(fullPath, { recursive: true });
+			const entries = await fs.readdir(fullPath, { recursive: true, withFileTypes: true });
 
-			return files.map((file) => join(prefix, file));
+			return entries
+				.filter((entry) => entry.isFile())
+				.map((entry) => {
+					const parent = entry.parentPath ?? (entry as { path?: string }).path ?? fullPath;
+					const relativePath = relative(fullPath, join(parent, entry.name)).replaceAll("\\", "/");
+					return normalizedPrefix ? `${normalizedPrefix}/${relativePath}` : relativePath;
+				});
 		} catch (error: unknown) {
-			// If directory doesn't exist, return empty array
-			if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
-				return [];
+			if (error && typeof error === "object" && "code" in error) {
+				if (error.code === "ENOENT") {
+					return [];
+				}
+				if (error.code === "ENOTDIR") {
+					try {
+						const stats = await fs.stat(fullPath);
+						if (stats.isFile()) {
+							return [normalizedPrefix || prefix.replace(/\\/g, "/")];
+						}
+					} catch {
+						return [];
+					}
+				}
 			}
 
 			throw error;
@@ -357,4 +375,44 @@ export async function uploadFile(input: UploadFileInput): Promise<UploadFileResu
 	const key = buildFileKey(input.userId, input.contentType);
 	await getStorageService().write({ key, data: input.data, contentType: input.contentType });
 	return { key, url: buildPublicUrl(key) };
+}
+
+export async function migrateUserStorage(fromUserId: string, toUserId: string): Promise<void> {
+	if (fromUserId === toUserId) return;
+
+	const storageService = getStorageService();
+	const fromPrefix = `uploads/${fromUserId}/`;
+	const toPrefix = `uploads/${toUserId}/`;
+
+	const keys = await storageService.list(fromPrefix);
+	const keysToMigrate = keys.filter((key) => key.startsWith(fromPrefix));
+
+	const copiedKeys: string[] = [];
+	for (const key of keysToMigrate) {
+		const targetKey = `${toPrefix}${key.slice(fromPrefix.length)}`;
+		const file = await storageService.read(key);
+		if (file) {
+			await storageService.write({
+				key: targetKey,
+				data: file.data,
+				contentType: file.contentType ?? inferContentType(key),
+			});
+			copiedKeys.push(key);
+		}
+	}
+
+	if (copiedKeys.length > 0) {
+		const deleteResults = await Promise.allSettled(copiedKeys.map((key) => storageService.delete(key)));
+		for (const result of deleteResults) {
+			if (result.status === "rejected") {
+				console.warn("Failed to delete migrated storage key:", result.reason);
+			}
+		}
+
+		try {
+			await storageService.delete(fromPrefix);
+		} catch (error) {
+			console.warn("Failed to clean up storage prefix %s:", fromPrefix, error);
+		}
+	}
 }
