@@ -147,7 +147,11 @@ type WithoutEndpointMetadata<TPlugin> = TPlugin extends { endpoints: infer TEndp
 		}
 	: TPlugin;
 
-export type AccountLinkHook = (params: { fromUserId: string; toUserId: string }) => Promise<void>;
+/** Prepare external resources before the transaction; optional cleanup runs only after commit. */
+export type AccountLinkHook = (params: {
+	fromUserId: string;
+	toUserId: string;
+}) => Promise<(() => Promise<void>) | void>;
 
 const accountLinkHooks = new Set<AccountLinkHook>();
 
@@ -170,6 +174,12 @@ export async function linkAnonymousAccount({
 	toUserId: string;
 }): Promise<void> {
 	if (fromUserId === toUserId) return;
+
+	const cleanups: (() => Promise<void>)[] = [];
+	for (const hook of accountLinkHooks) {
+		const cleanup = await hook({ fromUserId, toUserId });
+		if (cleanup) cleanups.push(cleanup);
+	}
 
 	await db.transaction(async (tx) => {
 		const rewriteUploadsJson = (column: unknown) =>
@@ -236,8 +246,13 @@ export async function linkAnonymousAccount({
 			.where(eq(schema.resumeSlugRedirect.userId, fromUserId));
 	});
 
-	for (const hook of accountLinkHooks) {
-		await hook({ fromUserId, toUserId });
+	const results = await Promise.allSettled(
+		cleanups.map(async (cleanup) => {
+			await cleanup();
+		}),
+	);
+	for (const result of results) {
+		if (result.status === "rejected") console.warn("Failed to clean up linked account resources:", result.reason);
 	}
 }
 
