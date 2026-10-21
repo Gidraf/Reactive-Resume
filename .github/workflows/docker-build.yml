@@ -13,6 +13,8 @@ on:
     tags:
       - "v*"
 
+permissions: {}
+
 concurrency:
   # Preserve builds for every pushed commit, even when newer commits arrive.
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.sha }}
