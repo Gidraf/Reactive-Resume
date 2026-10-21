@@ -1235,7 +1235,7 @@ msgstr "Minden címke"
 
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
-msgstr ""
+msgstr "Minden jelentkezésed le van zárva"
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1489,7 +1489,7 @@ msgstr "Alkalmazva. A jelentkezés frissült."
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Applies to this device only."
-msgstr ""
+msgstr "Csak erre az eszközre vonatkozik."
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -1564,7 +1564,7 @@ msgstr "Kérdezd a coachot"
 
 #: src/features/share/download.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "Kérdezd a közösséget. Közzététel előtt távolítsd el a személyes adatokat."
 
 #: src/features/ai/error.ts
 msgid "Ask your server administrator to enable credential encryption or configure a shared connection."
@@ -3427,7 +3427,7 @@ msgstr "Ne oszd meg"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Donate on Open Collective"
-msgstr ""
+msgstr "Adományozás az Open Collective-en"
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -4188,7 +4188,7 @@ msgstr "Kapj új pozíciókat itt minden reggel"
 
 #: src/features/share/download.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Visszajelzés kérése az önéletrajzodra a Discordon"
 
 #: src/features/letters/write.tsx
 msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
@@ -4229,7 +4229,7 @@ msgstr "Rács nézet"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Haptic feedback"
-msgstr ""
+msgstr "Haptikus visszajelzés"
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4745,7 +4745,7 @@ msgstr "Állások"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Join the Discord"
-msgstr ""
+msgstr "Csatlakozz a Discordhoz"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -6399,7 +6399,7 @@ msgstr "Munkatér megnyitása"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Open-source licences"
-msgstr ""
+msgstr "Nyílt forráskódú licencek"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7610,7 +7610,7 @@ msgstr "önéletrajz részletei"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Resume feedback, product help, and community ideas."
-msgstr ""
+msgstr "Önéletrajz-visszajelzés, segítség a termékhez és közösségi ötletek."
 
 #: src/features/application-detail/sections.tsx
 msgid "Resume file"
@@ -8426,7 +8426,7 @@ msgstr "Lezárt jelentkezések megjelenítése"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications to see your past job searches."
-msgstr ""
+msgstr "A korábbi álláskereséseid megtekintéséhez jelenítsd meg a lezárt jelentkezéseket."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -9143,7 +9143,7 @@ msgstr "Feltételek az álláshirdetésből"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Terms of service"
-msgstr ""
+msgstr "Felhasználási feltételek"
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"
@@ -9730,7 +9730,7 @@ msgstr "Ez a mentett verzió már nem érhető el."
 
 #: app/_layout.tsx
 msgid "This screen stopped working. Try again, or restart the app."
-msgstr ""
+msgstr "Ez a képernyő leállt. Próbáld újra, vagy indítsd újra az alkalmazást."
 
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."

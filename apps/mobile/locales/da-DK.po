@@ -1235,7 +1235,7 @@ msgstr "Alle tags"
 
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
-msgstr ""
+msgstr "Alle dine ansøgninger er lukket"
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1489,7 +1489,7 @@ msgstr "Gennemført. Ansøgningen er opdateret."
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Applies to this device only."
-msgstr ""
+msgstr "Gælder kun denne enhed."
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -1564,7 +1564,7 @@ msgstr "Spørg coachen"
 
 #: src/features/share/download.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "Spørg fællesskabet. Fjern personlige oplysninger, før du poster."
 
 #: src/features/ai/error.ts
 msgid "Ask your server administrator to enable credential encryption or configure a shared connection."
@@ -3427,7 +3427,7 @@ msgstr "Del ikke"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Donate on Open Collective"
-msgstr ""
+msgstr "Donér via Open Collective"
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -4188,7 +4188,7 @@ msgstr "Få nye stillinger her hver morgen"
 
 #: src/features/share/download.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Få feedback på dit CV på Discord"
 
 #: src/features/letters/write.tsx
 msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
@@ -4229,7 +4229,7 @@ msgstr "Gittervisning"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Haptic feedback"
-msgstr ""
+msgstr "Haptisk feedback"
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4745,7 +4745,7 @@ msgstr "Job"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Join the Discord"
-msgstr ""
+msgstr "Bliv en del af Discord"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -6399,7 +6399,7 @@ msgstr "Åbn arbejdsområde"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Open-source licences"
-msgstr ""
+msgstr "Open source-licenser"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7610,7 +7610,7 @@ msgstr "cv detaljer"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Resume feedback, product help, and community ideas."
-msgstr ""
+msgstr "CV-feedback, hjælp til produktet og idéer fra fællesskabet."
 
 #: src/features/application-detail/sections.tsx
 msgid "Resume file"
@@ -8426,7 +8426,7 @@ msgstr "Vis lukkede jobansøgninger"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications to see your past job searches."
-msgstr ""
+msgstr "Vis lukkede ansøgninger for at se dine tidligere jobsøgninger."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -9143,7 +9143,7 @@ msgstr "Udtryk fra jobopslaget"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Terms of service"
-msgstr ""
+msgstr "Servicevilkår"
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"
@@ -9730,7 +9730,7 @@ msgstr "Denne gemte version er ikke længere tilgængelig."
 
 #: app/_layout.tsx
 msgid "This screen stopped working. Try again, or restart the app."
-msgstr ""
+msgstr "Denne skærm holdt op med at virke. Prøv igen, eller genstart appen."
 
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."

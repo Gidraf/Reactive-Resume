@@ -1235,7 +1235,7 @@ msgstr "सबै ट्यागहरू"
 
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
-msgstr ""
+msgstr "तपाईंका सबै आवेदनहरू बन्द छन्"
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1489,7 +1489,7 @@ msgstr "लागू गरियो। आवेदन अद्यावधि
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Applies to this device only."
-msgstr ""
+msgstr "यो उपकरणमा मात्र लागू हुन्छ।"
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -1564,7 +1564,7 @@ msgstr "कोचलाई सोध्नुहोस्"
 
 #: src/features/share/download.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "समुदायलाई सोध्नुहोस्। पोस्ट गर्नुअघि व्यक्तिगत विवरणहरू हटाउनुहोस्।"
 
 #: src/features/ai/error.ts
 msgid "Ask your server administrator to enable credential encryption or configure a shared connection."
@@ -3427,7 +3427,7 @@ msgstr "साझेदारी नगर्नुहोस्"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Donate on Open Collective"
-msgstr ""
+msgstr "Open Collective मा दान गर्नुहोस्"
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -4188,7 +4188,7 @@ msgstr "हरेक बिहान यहाँ नयाँ भूमिक�
 
 #: src/features/share/download.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Discord मा बायोडाटाबारे प्रतिक्रिया पाउनुहोस्"
 
 #: src/features/letters/write.tsx
 msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
@@ -4229,7 +4229,7 @@ msgstr "ग्रिड दृश्य"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Haptic feedback"
-msgstr ""
+msgstr "ह्याप्टिक प्रतिक्रिया"
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4745,7 +4745,7 @@ msgstr "जागिरहरू"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Join the Discord"
-msgstr ""
+msgstr "Discord मा सामेल हुनुहोस्"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -6399,7 +6399,7 @@ msgstr "कार्यक्षेत्र खोल्नुहोस्"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Open-source licences"
-msgstr ""
+msgstr "खुला स्रोत इजाजतपत्रहरू"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7610,7 +7610,7 @@ msgstr "पुन: सुरु विवरण"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Resume feedback, product help, and community ideas."
-msgstr ""
+msgstr "बायोडाटा प्रतिक्रिया, उत्पादन सहायता र समुदायका विचारहरू।"
 
 #: src/features/application-detail/sections.tsx
 msgid "Resume file"
@@ -8426,7 +8426,7 @@ msgstr "बन्द आवेदनहरू देखाउनुहोस्"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications to see your past job searches."
-msgstr ""
+msgstr "तपाईंका विगतका जागिर खोजीहरू हेर्न बन्द आवेदनहरू देखाउनुहोस्।"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -9143,7 +9143,7 @@ msgstr "जागिर पोस्टिङबाट सर्तहरू"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Terms of service"
-msgstr ""
+msgstr "सेवाका सर्तहरू"
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"
@@ -9730,7 +9730,7 @@ msgstr "यो सुरक्षित संस्करण अब उपल�
 
 #: app/_layout.tsx
 msgid "This screen stopped working. Try again, or restart the app."
-msgstr ""
+msgstr "यो स्क्रिनले काम गर्न छोड्यो। फेरि प्रयास गर्नुहोस्, वा एप पुन: सुरु गर्नुहोस्।"
 
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."

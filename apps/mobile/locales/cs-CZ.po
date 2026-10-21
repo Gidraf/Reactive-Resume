@@ -1235,7 +1235,7 @@ msgstr "Všechny značky"
 
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
-msgstr ""
+msgstr "Všechny vaše žádosti jsou uzavřené"
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1489,7 +1489,7 @@ msgstr "Použito. Žádost je aktualizována."
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Applies to this device only."
-msgstr ""
+msgstr "Platí pouze pro toto zařízení."
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -1564,7 +1564,7 @@ msgstr "Zeptat se kouče"
 
 #: src/features/share/download.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "Zeptejte se komunity. Před zveřejněním odstraňte osobní údaje."
 
 #: src/features/ai/error.ts
 msgid "Ask your server administrator to enable credential encryption or configure a shared connection."
@@ -3427,7 +3427,7 @@ msgstr "Nesdílejte"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Donate on Open Collective"
-msgstr ""
+msgstr "Přispět přes Open Collective"
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -4188,7 +4188,7 @@ msgstr "Dostávejte sem nové pozice každé ráno"
 
 #: src/features/share/download.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Získejte zpětnou vazbu na životopis na Discordu"
 
 #: src/features/letters/write.tsx
 msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
@@ -4229,7 +4229,7 @@ msgstr "Zobrazení mřížky"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Haptic feedback"
-msgstr ""
+msgstr "Haptická odezva"
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4745,7 +4745,7 @@ msgstr "Pracovní místa"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Join the Discord"
-msgstr ""
+msgstr "Připojit se na Discord"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -6399,7 +6399,7 @@ msgstr "Otevřít pracovní prostor"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Open-source licences"
-msgstr ""
+msgstr "Licence open source softwaru"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7610,7 +7610,7 @@ msgstr "detaily životopisu"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Resume feedback, product help, and community ideas."
-msgstr ""
+msgstr "Zpětná vazba na životopisy, pomoc s produktem a nápady komunity."
 
 #: src/features/application-detail/sections.tsx
 msgid "Resume file"
@@ -8426,7 +8426,7 @@ msgstr "Zobrazit uzavřené žádosti o zaměstnání"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications to see your past job searches."
-msgstr ""
+msgstr "Zobrazte uzavřené žádosti a podívejte se na svá dřívější hledání práce."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -9143,7 +9143,7 @@ msgstr "Výrazy z inzerátu"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Terms of service"
-msgstr ""
+msgstr "Podmínky služby"
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"
@@ -9730,7 +9730,7 @@ msgstr "Tato uložená verze už není k dispozici."
 
 #: app/_layout.tsx
 msgid "This screen stopped working. Try again, or restart the app."
-msgstr ""
+msgstr "Tato obrazovka přestala fungovat. Zkuste to znovu nebo aplikaci restartujte."
 
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."

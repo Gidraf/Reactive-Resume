@@ -1235,7 +1235,7 @@ msgstr "Kaikki tunnisteet"
 
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
-msgstr ""
+msgstr "Kaikki hakemuksesi on suljettu"
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1489,7 +1489,7 @@ msgstr "Tehty. Hakemus on päivitetty."
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Applies to this device only."
-msgstr ""
+msgstr "Koskee vain tätä laitetta."
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -1564,7 +1564,7 @@ msgstr "Kysy valmentajalta"
 
 #: src/features/share/download.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "Kysy yhteisöltä. Poista henkilötiedot ennen julkaisemista."
 
 #: src/features/ai/error.ts
 msgid "Ask your server administrator to enable credential encryption or configure a shared connection."
@@ -3427,7 +3427,7 @@ msgstr "Älä jaa"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Donate on Open Collective"
-msgstr ""
+msgstr "Lahjoita Open Collectivessa"
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -4188,7 +4188,7 @@ msgstr "Saat uusia työpaikkoja tänne joka aamu"
 
 #: src/features/share/download.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Pyydä palautetta ansioluettelosta Discordissa"
 
 #: src/features/letters/write.tsx
 msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
@@ -4229,7 +4229,7 @@ msgstr "Ruudukkonäkymä"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Haptic feedback"
-msgstr ""
+msgstr "Haptinen palaute"
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4745,7 +4745,7 @@ msgstr "Työpaikat"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Join the Discord"
-msgstr ""
+msgstr "Liity Discordiin"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -6399,7 +6399,7 @@ msgstr "Avaa työtila"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Open-source licences"
-msgstr ""
+msgstr "Avoimen lähdekoodin lisenssit"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7610,7 +7610,7 @@ msgstr "ansioluettelon tiedot"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Resume feedback, product help, and community ideas."
-msgstr ""
+msgstr "Palautetta ansioluettelosta, apua tuotteen käyttöön ja yhteisön ideoita."
 
 #: src/features/application-detail/sections.tsx
 msgid "Resume file"
@@ -8426,7 +8426,7 @@ msgstr "Näytä suljetut työhakemukset"
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications to see your past job searches."
-msgstr ""
+msgstr "Näytä suljetut hakemukset nähdäksesi aiemmat työnhakusi."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -9143,7 +9143,7 @@ msgstr "Työpaikkailmoituksen ehdot"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Terms of service"
-msgstr ""
+msgstr "Käyttöehdot"
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"
@@ -9730,7 +9730,7 @@ msgstr "Tämä tallennettu versio ei ole enää saatavilla."
 
 #: app/_layout.tsx
 msgid "This screen stopped working. Try again, or restart the app."
-msgstr ""
+msgstr "Tämä näkymä lakkasi toimimasta. Yritä uudelleen tai käynnistä sovellus uudelleen."
 
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."

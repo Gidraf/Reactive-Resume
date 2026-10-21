@@ -1235,7 +1235,7 @@ msgstr "ស្លាកទាំងអស់។"
 
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
-msgstr ""
+msgstr "ពាក្យសុំទាំងអស់របស់អ្នកត្រូវបានបិទ"
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1489,7 +1489,7 @@ msgstr "បានអនុវត្ត។ ពាក្យសុំត្រូ�
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Applies to this device only."
-msgstr ""
+msgstr "អនុវត្តចំពោះតែឧបករណ៍នេះប៉ុណ្ណោះ។"
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -1564,7 +1564,7 @@ msgstr "សួរគ្រូបង្វឹក"
 
 #: src/features/share/download.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "សួរសហគមន៍។ លុបព័ត៌មានផ្ទាល់ខ្លួនចេញមុនពេលបង្ហោះ។"
 
 #: src/features/ai/error.ts
 msgid "Ask your server administrator to enable credential encryption or configure a shared connection."
@@ -3427,7 +3427,7 @@ msgstr "កុំចែករំលែក"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Donate on Open Collective"
-msgstr ""
+msgstr "បរិច្ចាគនៅលើ Open Collective"
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -4188,7 +4188,7 @@ msgstr "ទទួលតួនាទីថ្មីៗនៅទីនេះរៀ
 
 #: src/features/share/download.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "ទទួលមតិកែលម្អលើប្រវត្តិរូបនៅលើ Discord"
 
 #: src/features/letters/write.tsx
 msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
@@ -4229,7 +4229,7 @@ msgstr "ទិដ្ឋភាពក្រឡាចត្រង្គ"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Haptic feedback"
-msgstr ""
+msgstr "ការឆ្លើយតបដោយការញ័រ"
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4745,7 +4745,7 @@ msgstr "ការងារ"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Join the Discord"
-msgstr ""
+msgstr "ចូលរួម Discord"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -6399,7 +6399,7 @@ msgstr "បើកផ្ទៃការងារ"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Open-source licences"
-msgstr ""
+msgstr "អាជ្ញាបណ្ណប្រភពកូដចំហ"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7610,7 +7610,7 @@ msgstr "ប្រវត្តិរូបសង្ខេប"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Resume feedback, product help, and community ideas."
-msgstr ""
+msgstr "មតិកែលម្អលើប្រវត្តិរូប ជំនួយផលិតផល និងគំនិតពីសហគមន៍។"
 
 #: src/features/application-detail/sections.tsx
 msgid "Resume file"
@@ -8426,7 +8426,7 @@ msgstr "បង្ហាញពាក្យសុំការងារដែលប
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications to see your past job searches."
-msgstr ""
+msgstr "បង្ហាញពាក្យសុំដែលបានបិទ ដើម្បីមើលការស្វែងរកការងារពីមុនរបស់អ្នក។"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -9143,7 +9143,7 @@ msgstr "លក្ខខណ្ឌពីការប្រកាសការងា
 
 #: app/(tabs)/settings/index.tsx
 msgid "Terms of service"
-msgstr ""
+msgstr "លក្ខខណ្ឌនៃសេវាកម្ម"
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"
@@ -9730,7 +9730,7 @@ msgstr "កំណែដែលបានរក្សាទុកនេះលែង
 
 #: app/_layout.tsx
 msgid "This screen stopped working. Try again, or restart the app."
-msgstr ""
+msgstr "អេក្រង់នេះបានឈប់ដំណើរការ។ ព្យាយាមម្តងទៀត ឬចាប់ផ្តើមកម្មវិធីឡើងវិញ។"
 
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."

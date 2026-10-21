@@ -1235,7 +1235,7 @@ msgstr "அனைத்து குறிச்சொற்களும்"
 
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
-msgstr ""
+msgstr "உங்கள் அனைத்து விண்ணப்பங்களும் மூடப்பட்டுள்ளன"
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1489,7 +1489,7 @@ msgstr "பயன்படுத்தப்பட்டது. விண்ண�
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Applies to this device only."
-msgstr ""
+msgstr "இந்தச் சாதனத்திற்கு மட்டுமே பொருந்தும்."
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -1564,7 +1564,7 @@ msgstr "ஆலோசகரிடம் கேள்"
 
 #: src/features/share/download.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "சமூகத்திடம் கேளுங்கள். இடுகையிடும் முன் தனிப்பட்ட விவரங்களை நீக்கவும்."
 
 #: src/features/ai/error.ts
 msgid "Ask your server administrator to enable credential encryption or configure a shared connection."
@@ -3427,7 +3427,7 @@ msgstr "பகிர வேண்டாம்"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Donate on Open Collective"
-msgstr ""
+msgstr "Open Collective-இல் நன்கொடை அளியுங்கள்"
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -4188,7 +4188,7 @@ msgstr "ஒவ்வொரு காலையும் புதிய பதவ
 
 #: src/features/share/download.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Discord-இல் ரெஸ்யூம் கருத்தைப் பெறுங்கள்"
 
 #: src/features/letters/write.tsx
 msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
@@ -4229,7 +4229,7 @@ msgstr "கிரிட் காட்சி"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Haptic feedback"
-msgstr ""
+msgstr "ஹாப்டிக் கருத்து"
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4745,7 +4745,7 @@ msgstr "வேலைகள்"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Join the Discord"
-msgstr ""
+msgstr "Discord-இல் சேருங்கள்"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -6399,7 +6399,7 @@ msgstr "பணியிடத்தைத் திற"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Open-source licences"
-msgstr ""
+msgstr "திறந்த மூல உரிமங்கள்"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7610,7 +7610,7 @@ msgstr "ரெஸ்யூம் விவரங்கள்"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Resume feedback, product help, and community ideas."
-msgstr ""
+msgstr "ரெஸ்யூம் கருத்து, தயாரிப்பு உதவி மற்றும் சமூக யோசனைகள்."
 
 #: src/features/application-detail/sections.tsx
 msgid "Resume file"
@@ -8426,7 +8426,7 @@ msgstr "மூடப்பட்ட வேலை விண்ணப்பங்�
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications to see your past job searches."
-msgstr ""
+msgstr "உங்கள் முந்தைய வேலைத் தேடல்களைப் பார்க்க மூடப்பட்ட விண்ணப்பங்களைக் காட்டவும்."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -9143,7 +9143,7 @@ msgstr "வேலை இடுகையின் விதிமுறைகள�
 
 #: app/(tabs)/settings/index.tsx
 msgid "Terms of service"
-msgstr ""
+msgstr "சேவை விதிமுறைகள்"
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"
@@ -9730,7 +9730,7 @@ msgstr "இந்தச் சேமித்த பதிப்பு இனி
 
 #: app/_layout.tsx
 msgid "This screen stopped working. Try again, or restart the app."
-msgstr ""
+msgstr "இந்தத் திரை செயல்படுவதை நிறுத்திவிட்டது. மீண்டும் முயற்சிக்கவும் அல்லது ஆப்பை மறுதொடக்கம் செய்யவும்."
 
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."

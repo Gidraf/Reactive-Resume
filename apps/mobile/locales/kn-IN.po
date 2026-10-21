@@ -1235,7 +1235,7 @@ msgstr "ಎಲ್ಲಾ ಟ್ಯಾಗ್‌ಗಳು"
 
 #: src/features/applications/list-screen.tsx
 msgid "All your applications are closed"
-msgstr ""
+msgstr "ನಿಮ್ಮ ಎಲ್ಲಾ ಅರ್ಜಿಗಳು ಮುಚ್ಚಲಾಗಿವೆ"
 
 #: src/features/settings/profile.tsx
 msgid "Allow camera access in your device settings to take a photo."
@@ -1489,7 +1489,7 @@ msgstr "ಅನ್ವಯಿಸಲಾಗಿದೆ. ಅರ್ಜಿಯನ್ನು 
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Applies to this device only."
-msgstr ""
+msgstr "ಈ ಸಾಧನಕ್ಕೆ ಮಾತ್ರ ಅನ್ವಯಿಸುತ್ತದೆ."
 
 #: src/features/workspace/parts.tsx
 #: src/shell/workspace-chrome.tsx
@@ -1564,7 +1564,7 @@ msgstr "ಕೋಚ್ ಅನ್ನು ಕೇಳಿ"
 
 #: src/features/share/download.tsx
 msgid "Ask the community. Remove personal details before posting."
-msgstr ""
+msgstr "ಸಮುದಾಯವನ್ನು ಕೇಳಿ. ಪೋಸ್ಟ್ ಮಾಡುವ ಮೊದಲು ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ತೆಗೆದುಹಾಕಿ."
 
 #: src/features/ai/error.ts
 msgid "Ask your server administrator to enable credential encryption or configure a shared connection."
@@ -3427,7 +3427,7 @@ msgstr "ಹಂಚಿಕೊಳ್ಳಬೇಡಿ"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Donate on Open Collective"
-msgstr ""
+msgstr "Open Collective ನಲ್ಲಿ ದೇಣಿಗೆ ನೀಡಿ"
 
 #: src/features/applications/list-screen.tsx
 #: src/features/career/today.tsx
@@ -4188,7 +4188,7 @@ msgstr "ಪ್ರತಿದಿನ ಬೆಳಿಗ್ಗೆ ಇಲ್ಲಿ ಹೊ
 
 #: src/features/share/download.tsx
 msgid "Get resume feedback on Discord"
-msgstr ""
+msgstr "Discord ನಲ್ಲಿ ರೆಸ್ಯೂಮೆ ಪ್ರತಿಕ್ರಿಯೆ ಪಡೆಯಿರಿ"
 
 #: src/features/letters/write.tsx
 msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
@@ -4229,7 +4229,7 @@ msgstr "ಗ್ರಿಡ್ ನೋಟ"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Haptic feedback"
-msgstr ""
+msgstr "ಹ್ಯಾಪ್ಟಿಕ್ ಪ್ರತಿಕ್ರಿಯೆ"
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/check/score.tsx
@@ -4745,7 +4745,7 @@ msgstr "ಉದ್ಯೋಗಗಳು"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Join the Discord"
-msgstr ""
+msgstr "Discord ಗೆ ಸೇರಿ"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -6399,7 +6399,7 @@ msgstr "ಕಾರ್ಯಕ್ಷೇತ್ರವನ್ನು ತೆರೆಯಿ�
 
 #: app/(tabs)/settings/index.tsx
 msgid "Open-source licences"
-msgstr ""
+msgstr "ಓಪನ್-ಸೋರ್ಸ್ ಪರವಾನಗಿಗಳು"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -7610,7 +7610,7 @@ msgstr "ರೆಸ್ಯೂಮೆ ವಿವರಗಳು"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Resume feedback, product help, and community ideas."
-msgstr ""
+msgstr "ರೆಸ್ಯೂಮೆ ಪ್ರತಿಕ್ರಿಯೆ, ಉತ್ಪನ್ನ ಸಹಾಯ ಮತ್ತು ಸಮುದಾಯದ ಆಲೋಚನೆಗಳು."
 
 #: src/features/application-detail/sections.tsx
 msgid "Resume file"
@@ -8426,7 +8426,7 @@ msgstr "ಮುಚ್ಚಿದ ಅರ್ಜಿಗಳನ್ನು ತೋರಿಸ�
 
 #: src/features/applications/list-screen.tsx
 msgid "Show closed applications to see your past job searches."
-msgstr ""
+msgstr "ನಿಮ್ಮ ಹಿಂದಿನ ಉದ್ಯೋಗ ಹುಡುಕಾಟಗಳನ್ನು ನೋಡಲು ಮುಚ್ಚಿದ ಅರ್ಜಿಗಳನ್ನು ತೋರಿಸಿ."
 
 #: src/features/applications/add-sheet.tsx
 msgid "Show details"
@@ -9143,7 +9143,7 @@ msgstr "ಉದ್ಯೋಗ ಪೋಸ್ಟ್‌ನಿಂದ ನಿಯಮಗಳ�
 
 #: app/(tabs)/settings/index.tsx
 msgid "Terms of service"
-msgstr ""
+msgstr "ಸೇವಾ ನಿಯಮಗಳು"
 
 #: src/features/ai/provider-list.tsx
 msgid "Test"
@@ -9730,7 +9730,7 @@ msgstr "ಈ ಉಳಿಸಿದ ಆವೃತ್ತಿ ಇನ್ನು ಲಭ್�
 
 #: app/_layout.tsx
 msgid "This screen stopped working. Try again, or restart the app."
-msgstr ""
+msgstr "ಈ ಪರದೆ ಕಾರ್ಯನಿರ್ವಹಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ಆ್ಯಪ್ ಅನ್ನು ಮರುಪ್ರಾರಂಭಿಸಿ."
 
 #: src/auth/messages.ts
 msgid "This server is too old for the app. Ask your administrator to update it."
