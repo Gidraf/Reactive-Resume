@@ -281,7 +281,6 @@ export function ResumePage({ id, draft, focused, previewData }: ResumePageProps)
 					color="ink3"
 					accessibilityLiveRegion="polite"
 				>{t`Page ${currentPage} of ${result?.pageCount ?? 1}`}</Text>
-				{preview.rendering && result ? <ActivityIndicator color={colors.accent} /> : null}
 			</View>
 		</View>
 	);

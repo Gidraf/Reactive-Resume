@@ -4,6 +4,7 @@
 	"type": "module",
 	"private": true,
 	"exports": {
+		"./icons": "./src/forme/phosphor-icons.json",
 		"./browser": "./src/browser.tsx",
 		"./document": "./src/document.tsx",
 		"./native": "./src/native.tsx",

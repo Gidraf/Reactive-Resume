@@ -42,19 +42,29 @@ export type SheetProps = {
 	headerEnd?: ReactNode;
 	/** Pads the content with `s4`. Defaults to true; full-width rows pass false. */
 	padded?: boolean | undefined;
+	/** Lists that own scrolling pass false to avoid nesting inside a ScrollView. */
+	scroll?: boolean | undefined;
 };
 
 type SheetHeaderProps = Pick<SheetProps, "title" | "headerStart" | "headerEnd">;
 
 function SheetHeader({ title, headerStart, headerEnd }: SheetHeaderProps) {
 	const { size, space } = useTheme();
-	if (!title && !headerStart && !headerEnd) return null;
+	if (!headerStart && !headerEnd) return null;
 
 	// Equal side slots keep the title centred.
 	const slot = { flex: 1, flexDirection: "row", alignItems: "center" } as const;
 
 	return (
-		<View style={{ flexDirection: "row", alignItems: "center", minHeight: size.topBar, paddingHorizontal: space.s2 }}>
+		<View
+			style={{
+				flexDirection: "row",
+				alignItems: "center",
+				minHeight: size.topBar,
+				paddingHorizontal: space.s2,
+				paddingTop: space.s6,
+			}}
+		>
 			<View style={slot}>{headerStart}</View>
 			{title ? (
 				<Text accessibilityRole="header" variant="title" align="center" style={{ flexShrink: 1, maxWidth: "60%" }}>
@@ -77,6 +87,7 @@ export function Sheet({
 	headerStart,
 	headerEnd,
 	padded = true,
+	scroll = true,
 	dismissible = true,
 }: SheetProps) {
 	const { t } = useLingui();
@@ -156,7 +167,9 @@ export function Sheet({
 			accessibilityOptions={title ? { paneTitle: title } : {}}
 			scrollable
 			insetAdjustment="never"
-			header={<SheetHeader title={title} headerStart={headerStart} headerEnd={headerEnd} />}
+			{...(headerStart || headerEnd
+				? { header: <SheetHeader title={title} headerStart={headerStart} headerEnd={headerEnd} /> }
+				: {})}
 			{...(footer
 				? {
 						footer: (
@@ -178,21 +191,36 @@ export function Sheet({
 				: {})}
 			footerOptions={{ keyboardOffset: -insets.bottom }}
 		>
-			<ScrollView
-				nestedScrollEnabled
-				accessibilityViewIsModal
-				onAccessibilityEscape={dismissible ? onClose : undefined}
-				keyboardShouldPersistTaps="handled"
-				keyboardDismissMode="interactive"
-				contentContainerStyle={{
-					gap: space.s3,
-					paddingTop: space.s2,
-					paddingHorizontal: padded ? space.s4 : 0,
-					paddingBottom: footer ? footerHeight + space.s4 : insets.bottom + space.s4,
-				}}
-			>
-				{children}
-			</ScrollView>
+			{scroll ? (
+				<ScrollView
+					nestedScrollEnabled
+					accessibilityViewIsModal
+					onAccessibilityEscape={dismissible ? onClose : undefined}
+					keyboardShouldPersistTaps="handled"
+					keyboardDismissMode="interactive"
+					contentContainerStyle={{
+						gap: space.s3,
+						paddingTop: headerStart || headerEnd ? space.s2 : space.s6,
+						paddingHorizontal: padded ? space.s4 : 0,
+						paddingBottom: footer ? footerHeight + space.s4 : insets.bottom + space.s4,
+					}}
+				>
+					{children}
+				</ScrollView>
+			) : (
+				<View
+					accessibilityViewIsModal
+					onAccessibilityEscape={dismissible ? onClose : undefined}
+					style={{
+						flex: 1,
+						paddingTop: space.s6,
+						paddingHorizontal: padded ? space.s4 : 0,
+						paddingBottom: insets.bottom + space.s4,
+					}}
+				>
+					{children}
+				</View>
+			)}
 		</TrueSheet>
 	);
 }

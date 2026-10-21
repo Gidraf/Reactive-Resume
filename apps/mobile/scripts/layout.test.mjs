@@ -323,7 +323,7 @@ const componentFixtures = {
 	"react-native-reanimated": animation,
 };
 const { CollectionHeader } = load("components/collection-header.tsx");
-const { ListRow } = load("ui/layout.tsx", componentFixtures);
+const { ListRow, EmptyState } = load("ui/layout.tsx", componentFixtures);
 const { Segmented } = load("ui/fields.tsx", {
 	...componentFixtures,
 	"./layout": { ListRow },
@@ -490,3 +490,72 @@ assert.equal(scrolled.at(-1), 40, "Changing route must reveal the selected tab a
 console.log(
 	"PASS safe areas, measured Screen viewport, Duo rail navigation/targets, tablet sidebar, responsive editor modes, history split, measured PDF pages, large-text chrome/rows/navigation, workspace selection and overflow",
 );
+
+// Long empty-state headings need bounded width before Android measures wrapped text.
+for (const title of ["All your applications are closed", "Your job search starts here"]) {
+	const empty = render(EmptyState, { title });
+	const heading = nodes(empty).find((node) => node.props.accessibilityRole === "header");
+	assert.equal(heading.props.children[0], title);
+	assert.equal(heading.props.style.alignSelf, "stretch");
+	assert.equal(heading.props.numberOfLines, undefined);
+}
+
+// Browse every printable glyph, search beyond the old 60-result cap, select and clear.
+const iconPaths = JSON.parse(
+	readFileSync(new URL("../../../packages/pdf/src/forme/phosphor-icons.json", import.meta.url)),
+);
+const resumeIcons = load("../../../packages/schema/src/icons.ts").icons;
+const { IconPickerSheet } = load("features/write/pickers.tsx", {
+	"react-native-svg": { SvgXml: "SvgXml" },
+	"@reactive-resume/pdf/icons": { default: iconPaths, __esModule: true },
+	"@reactive-resume/schema/icons": { icons: resumeIcons },
+	"@/ui": { ...ui, Sheet: "Sheet", TextField: "TextField", ListRow: "ListRow" },
+});
+hooks.length = 0;
+const selections = [];
+const pickerProps = { open: true, value: "github-logo", onClose() {}, onChange: (name) => selections.push(name) };
+const pickerList = (props = pickerProps) =>
+	nodes(render(IconPickerSheet, props)).find((node) => node.type === "FlatList");
+let picker = pickerList();
+assert.deepEqual(new Set(picker.props.data), new Set(["", ...Object.keys(iconPaths)]));
+assert.ok(picker.props.data.length > 1500);
+for (const name of picker.props.data) {
+	const cell = picker.props.renderItem({ item: name });
+	assert.equal(cell.props.accessibilityLabel, name || "None");
+	assert.equal(cell.props.accessibilityState.checked, name === pickerProps.value);
+	assert.equal(
+		nodes(cell).some((node) => node.type === "Text"),
+		false,
+		"Grid cells must show glyphs without names",
+	);
+	if (name)
+		assert.ok(
+			nodes(cell)
+				.find((node) => node.type === "SvgXml")
+				.props.xml.includes(iconPaths[name]),
+		);
+}
+for (const width of [240, 480, 320]) {
+	picker.props.onLayout({ nativeEvent: { layout: { width } } });
+	picker = pickerList();
+	const cellWidth = width / picker.props.numColumns;
+	assert.ok(cellWidth >= theme.size.hit, "Grid preserves minimum touch target on narrow screens");
+}
+picker.props.renderItem({ item: "github-logo" }).props.onPress();
+picker.props.renderItem({ item: "" }).props.onPress();
+assert.deepEqual(selections, ["github-logo", ""]);
+const search = (query) => {
+	const tree = render(IconPickerSheet, pickerProps);
+	nodes(tree)
+		.find((node) => node.type === "TextField")
+		.props.onChangeText(query);
+	return pickerList();
+};
+picker = search(" Arrow ");
+assert.ok(picker.props.data.length > 60, "Search must not truncate large result sets");
+assert.ok(picker.props.data.every((name) => !name || name.includes("arrow")));
+picker = search("no-such-icon");
+assert.deepEqual(picker.props.data, [""]);
+assert.ok(picker.props.ListFooterComponent);
+assert.deepEqual(pickerList({ ...pickerProps, open: false }).props.data, []);
+console.log("PASS wrapped empty-state titles and complete accessible searchable icon grid");

@@ -304,7 +304,7 @@ export function EmptyState({ icon, title, message, action, secondaryAction }: Em
 					<Icon name={icon} size={size.icon.bar + space.s2} color={colors.ink2} />
 				</View>
 			) : null}
-			<Text accessibilityRole="header" variant="heading" align="center">
+			<Text accessibilityRole="header" variant="heading" align="center" style={{ alignSelf: "stretch" }}>
 				{title}
 			</Text>
 			{message ? (

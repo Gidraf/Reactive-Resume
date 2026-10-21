@@ -2,7 +2,7 @@ import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import { plural } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react/macro";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, PixelRatio, View } from "react-native";
+import { PixelRatio, View } from "react-native";
 import { coverLetterTextToHtml } from "@reactive-resume/resume/cover-letter";
 import { LETTER_RENDER_OPTIONS, letterPageData, useLetterWords } from "./compose";
 import { useLetterDrafting } from "./drafting";
@@ -122,7 +122,6 @@ export function LetterPages({ data, zoomBar = true }: { data: ResumeData | null;
 					<Text variant="caption" color="ink3">
 						{plural(result?.pageCount ?? 1, { one: "# page", other: "# pages" })}
 					</Text>
-					{preview.rendering && result ? <ActivityIndicator color={colors.accent} /> : null}
 				</View>
 			) : null}
 		</View>
