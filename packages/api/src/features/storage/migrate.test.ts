@@ -123,4 +123,19 @@ describe("migrateUserStorage", () => {
 		expect(consoleWarn).toHaveBeenCalled();
 		consoleWarn.mockRestore();
 	});
+
+	it("does not delete prefix and throws when some files cannot be read", async () => {
+		const guestKey1 = "uploads/guest-1/pictures/photo1.png";
+		const guestKey2 = "uploads/guest-1/pictures/photo2.png";
+		mocks.list.mockResolvedValue([guestKey1, guestKey2]);
+		mocks.read.mockImplementation(async (key: string) => {
+			if (key === guestKey1) return { data: new Uint8Array([1]), size: 1, contentType: "image/png" };
+			return null;
+		});
+		mocks.write.mockResolvedValue(undefined);
+		mocks.delete.mockResolvedValue(true);
+
+		await expect(migrateUserStorage("guest-1", "user-2")).rejects.toThrow();
+		expect(mocks.delete).not.toHaveBeenCalledWith("uploads/guest-1/");
+	});
 });

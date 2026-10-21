@@ -388,6 +388,7 @@ export async function migrateUserStorage(fromUserId: string, toUserId: string): 
 	const keysToMigrate = keys.filter((key) => key.startsWith(fromPrefix));
 
 	const copiedKeys: string[] = [];
+	const unreadKeys: string[] = [];
 	for (const key of keysToMigrate) {
 		const targetKey = `${toPrefix}${key.slice(fromPrefix.length)}`;
 		const file = await storageService.read(key);
@@ -398,6 +399,8 @@ export async function migrateUserStorage(fromUserId: string, toUserId: string): 
 				contentType: file.contentType ?? inferContentType(key),
 			});
 			copiedKeys.push(key);
+		} else {
+			unreadKeys.push(key);
 		}
 	}
 
@@ -409,10 +412,16 @@ export async function migrateUserStorage(fromUserId: string, toUserId: string): 
 			}
 		}
 
-		try {
-			await storageService.delete(fromPrefix);
-		} catch (error) {
-			console.warn("Failed to clean up storage prefix %s:", fromPrefix, error);
+		if (unreadKeys.length === 0) {
+			try {
+				await storageService.delete(fromPrefix);
+			} catch (error) {
+				console.warn("Failed to clean up storage prefix %s:", fromPrefix, error);
+			}
 		}
+	}
+
+	if (unreadKeys.length > 0) {
+		throw new Error(`Could not read ${unreadKeys.length} storage key(s) under ${fromPrefix}; source files were kept.`);
 	}
 }
