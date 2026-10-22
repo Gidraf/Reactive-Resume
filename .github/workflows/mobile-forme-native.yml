@@ -1,4 +1,4 @@
-name: Mobile Forme Native
+name: Build Forme Binaries
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
     env:
       CARGO_BUILD_JOBS: "4"
     steps:
-      - uses: actions/checkout@v7
+      - uses: useblacksmith/checkout@v1
         with:
           persist-credentials: false
       - uses: actions/setup-node@v7
