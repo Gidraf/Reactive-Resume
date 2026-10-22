@@ -94,8 +94,9 @@ paths are manual, and signing is limited to `main`.
    `fingerprint.json`, available source maps, and iOS symbols. Raw build logs are not
    uploaded because toolchains can include environment values in them. Download the
    fingerprint and keep it with the store release record before the 14-day Actions
-   retention expires. Binaries stay in workflow artifacts; no GitHub Release assets
-   or public sideload distribution are created.
+   retention expires. Store binaries stay in workflow artifacts. Separately, each main
+   push builds Android APKs for public sideloading through the same Fastlane build
+   lane; see [nightly downloads](./mobile-release-handoff.md#nightly-android-downloads).
 4. Dispatch with **upload** enabled when ready. Upload jobs start only after every
    selected platform built successfully, then pass the `mobile-store` environment gate.
    They publish the exact signed artifacts from that run. Android creates a **completed
@@ -118,7 +119,8 @@ Apple resources. Renew certificates/profiles before expiry and update Actions se
 ## OTA compatibility and observability
 
 The update URL, EAS project and fingerprint policy remain unchanged. The production
-channel is explicitly embedded through `updates.requestHeaders`; setting a channel in
+channel is explicitly embedded through `updates.requestHeaders`; nightly APK builds
+select `preview` with `MOBILE_UPDATE_CHANNEL`. Setting a channel in
 `eas.json` alone does not configure a build produced outside EAS Build. Build numbers
 are excluded from Expo's normalized config fingerprint. Native project output and
 generated Forme binaries remain excluded through `fingerprint.config.js`; reviewed
