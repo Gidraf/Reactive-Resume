@@ -4,9 +4,9 @@ require "tmpdir"
 class AndroidBuildContract
   attr_reader :gradle_options, :keystore_path
 
-  def initialize
+  def initialize(fastfile = File.join(__dir__, "fastlane/Fastfile"))
     @lanes = {}
-    instance_eval(File.read(File.join(__dir__, "fastlane/Fastfile")), File.join(__dir__, "fastlane/Fastfile"))
+    instance_eval(File.read(fastfile), fastfile)
   end
 
   def desc(_description); end
@@ -60,7 +60,15 @@ Dir.mktmpdir do |directory|
     "ANDROID_KEY_ALIAS" => "fixture-alias",
     "ANDROID_KEY_PASSWORD" => "fixture-key"
   )
-  contract = AndroidBuildContract.new
+  fastfile = File.join(directory, "tooling/mobile/fastlane/Fastfile")
+  FileUtils.mkdir_p(File.dirname(fastfile))
+  FileUtils.cp(File.join(__dir__, "fastlane/Fastfile"), fastfile)
+  %w[mapping native-debug-symbols].each do |kind|
+    path = File.join(directory, "apps/mobile/android/app/build/outputs", kind, "release")
+    FileUtils.mkdir_p(path)
+    File.write(File.join(path, "fixture"), kind)
+  end
+  contract = AndroidBuildContract.new(fastfile)
   [nil, "arm64-v8a", "armeabi-v7a", "x86_64"].each do |abi|
     contract.build(abi ? { abi: abi } : {})
     options = contract.gradle_options
@@ -72,6 +80,9 @@ Dir.mktmpdir do |directory|
     expected = abi ? "signed APK" : "signed AAB"
     raise "Wrong artifact" unless File.read(File.join(directory, "mobile-release", name)) == expected
   end
+  %w[mapping native-debug-symbols].each do |kind|
+    raise "Missing #{kind} archive" unless File.read(File.join(directory, "mobile-release", kind, "fixture")) == kind
+  end
   begin
     contract.build(abi: "invalid")
     raise "Invalid ABI accepted"
@@ -80,4 +91,4 @@ Dir.mktmpdir do |directory|
   end
 end
 
-puts "Android build contract passed: store AAB, three nightly APK ABIs, signing cleanup, invalid ABI rejection."
+puts "Android build contract passed: store AAB, three manual APK ABIs, debug evidence, signing cleanup, invalid ABI rejection."

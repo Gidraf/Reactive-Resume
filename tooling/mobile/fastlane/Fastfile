@@ -14,7 +14,7 @@ def secret_file(directory, name, value, base64: false)
 end
 
 platform :android do
-  desc "Build a signed production App Bundle, or a nightly APK for the requested ABI"
+  desc "Build a signed production App Bundle, or a manual APK for the requested ABI"
   lane :build do |options|
     abi = options[:abi]
     UI.user_error!("Unsupported Android ABI") if abi && !%w[arm64-v8a armeabi-v7a x86_64].include?(abi)
@@ -37,6 +37,10 @@ platform :android do
       FileUtils.cp(source, File.join(OUTPUT, name))
       maps = File.join(MOBILE, "android/app/build/generated/sourcemaps/react/release")
       FileUtils.cp_r(maps, File.join(OUTPUT, "sourcemaps")) if Dir.exist?(maps)
+      %w[mapping native-debug-symbols].each do |kind|
+        source = File.join(MOBILE, "android/app/build/outputs", kind, "release")
+        FileUtils.cp_r(source, File.join(OUTPUT, kind)) if Dir.exist?(source)
+      end
     end
   end
 
@@ -111,6 +115,8 @@ platform :ios do
               provisioningProfiles: { "me.rxresu" => profile_data.fetch("UUID") }
             }
           )
+          symbols = File.join(ENV.fetch("RUNNER_TEMP"), "ReactiveResume.xcarchive/dSYMs")
+          FileUtils.cp_r(symbols, File.join(OUTPUT, "dSYMs")) if Dir.exist?(symbols)
         ensure
           FileUtils.rm_f(installed)
         end
