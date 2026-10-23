@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "Toegang"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "Toegang tot jou rekening deur die API, insluitend die lees, verandering en uitvee van jou dokumente en werksaansoeke."
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "Skep rekening"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "Skep en verander jou dokumente en werksaansoeke."
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "Lees die selfgasheergids"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "Lees jou dokumente en werksaansoeke."
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "Lees jou e-posadres."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "Lees jou profielinligting."
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "Die resensie kon nie voltooi nie. Probeer weer."
 msgid "The same line repeats on every page."
 msgstr "Dieselfde reël herhaal op elke bladsy."
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "Die gestoorde verskaffersleutel kan nie gedekripteer word nie. Voer die sleutel weer in in Instellings → KI en ontwikkelaar."
@@ -12766,6 +12778,10 @@ msgstr "Ons lees die bladsy en stoor die posplasing vir Check, die assistent en 
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "Ons het 'n bevestigingskakel na {email} gestuur. Maak dit oop om die verandering te voltooi."
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx

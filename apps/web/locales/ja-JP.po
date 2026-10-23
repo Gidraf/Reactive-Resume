@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "アクセス"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "API を通じてアカウントにアクセスし、ドキュメントや求人応募の読み取り、変更、削除を行います。"
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "アカウントを作成"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "書類や応募書類を作成、変更します。"
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "セルフホスティング ガイドを読む"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "書類や応募書類を読んでください。"
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "メールアドレスを読み取ります。"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "プロフィール情報を読み取ります。"
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "レビューを完了できませんでした。もう一度やり直し
 msgid "The same line repeats on every page."
 msgstr "同じ行がすべてのページに繰り返し表示されています。"
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "保存されたプロバイダー キーは復号化できません。 「設定」→「AIと開発者」にキーを再度入力します。"
@@ -12766,6 +12778,10 @@ msgstr "私たちはページを読み、Check、アシスタント、および�
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "確認リンクを {email} に送信しました。それを開いて変更を完了します。"
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx

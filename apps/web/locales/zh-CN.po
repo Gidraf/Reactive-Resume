@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "访问权限"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "通过 API 访问您的账户，包括读取、修改和删除您的文档及求职申请。"
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "创建账户"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "创建和修改您的文档及求职申请。"
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "阅读自托管指南"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "读取您的文档及求职申请。"
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "读取你的电子邮箱地址。"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "读取你的个人资料信息。"
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "审核无法完成。再试一次。"
 msgid "The same line repeats on every page."
 msgstr "同一行文字在每一页都重复出现。"
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "保存的提供商密钥无法解密。在“设置”→“AI 和开发者”中再次输入密钥。"
@@ -12766,6 +12778,10 @@ msgstr "我们会读取该页面并保存职位发布，供检查、助理和您
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "我们向 {email} 发送了确认链接。打开它以完成更改。"
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx

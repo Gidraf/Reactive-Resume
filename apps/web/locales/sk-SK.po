@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "Prístup"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "Získajte prístup k svojmu účtu cez API, vrátane čítania, zmeny a odstraňovania vašich dokumentov a žiadostí o prácu."
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "Vytvoriť účet"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "Vytvárajte a upravujte svoje dokumenty a žiadosti o prácu."
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "Prečítajte si sprievodcu vlastným hosťovaním"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "Prečítajte si svoje dokumenty a žiadosti o zamestnanie."
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "Prečítajte si svoju e-mailovú adresu."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "Prečítajte si informácie o svojom profile."
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "Recenzia sa nedala dokončiť. Skúste to znova."
 msgid "The same line repeats on every page."
 msgstr "Ten istý riadok sa opakuje na každej strane."
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "Uložený kľúč poskytovateľa nie je možné dešifrovať. Zadajte kľúč znova v časti Nastavenia → AI a vývojár."
@@ -12766,6 +12778,10 @@ msgstr "Prečítame si stránku a uložíme pracovnú ponuku pre kontrolu, asist
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "Poslali sme potvrdzujúci odkaz na {email}. Otvorte ho a dokončite zmenu."
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx

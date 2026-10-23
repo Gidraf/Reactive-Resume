@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "Acesso"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "Aceda à sua conta através do API, incluindo a leitura, alteração e eliminação dos seus documentos e formulários de emprego."
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "Criar conta"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "Crie e altere os seus documentos e formulários de emprego."
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "Leia o guia de auto-hospedagem"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "Leia os seus documentos e formulários de emprego."
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "Ler o seu endereço de email."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "Ler as informações do seu perfil."
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "A revisão não pôde terminar. Tente novamente."
 msgid "The same line repeats on every page."
 msgstr "A mesma linha repete-se em todas as páginas."
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "A chave do fornecedor guardada não pode ser desencriptada. Introduza a chave novamente em Definições → IA e programador."
@@ -12766,6 +12778,10 @@ msgstr "Lemos a página e guardamos o anúncio de emprego para o Check, o assist
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "Enviamos um link de confirmação para {email}. Abra-o para finalizar a alteração."
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx

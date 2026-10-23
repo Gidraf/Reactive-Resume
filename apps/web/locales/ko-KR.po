@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "액세스"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "문서 및 입사 지원서 읽기, 변경 및 삭제를 포함하여 API를 통해 계정에 액세스하세요."
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "계정 만들기"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "문서와 입사 지원서를 작성하고 변경하세요."
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "셀프 호스팅 가이드 읽기"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "문서와 입사 지원서를 읽어보세요."
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "이메일 주소를 읽습니다."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "프로필 정보를 읽습니다."
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "검토가 완료되지 못했습니다. 다시 시도해 보세요."
 msgid "The same line repeats on every page."
 msgstr "같은 줄이 모든 페이지에 반복됩니다."
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "저장된 공급자 키는 해독할 수 없습니다. 설정 → AI 및 개발자에서 키를 다시 입력하세요."
@@ -12766,6 +12778,10 @@ msgstr "우리는 페이지를 읽고 수표, 조수 및 귀하의 편지에 대
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "{email}로 확인 링크를 보냈습니다. 이를 열어 변경을 완료합니다."
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx

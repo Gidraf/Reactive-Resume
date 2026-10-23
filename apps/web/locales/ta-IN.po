@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "அணுகல்"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "API மூலம் உங்கள் கணக்கை அணுகவும், இதில் உங்கள் ஆவணங்கள் மற்றும் வேலை விண்ணப்பங்களைப் படித்தல், மாற்றுதல் மற்றும் நீக்குதல் ஆகியவை அடங்கும்."
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "கணக்கை உருவாக்கவும்"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "உங்கள் ஆவணங்கள் மற்றும் வேலை விண்ணப்பங்களை உருவாக்கி மாற்றவும்."
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "சுய ஹோஸ்டிங் வழிகாட்டியைப் படிக்கவும்"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "உங்கள் ஆவணங்கள் மற்றும் வேலை விண்ணப்பங்களைப் படிக்கவும்."
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "உங்கள் மின்னஞ்சல் முகவரியைப் படியுங்கள்."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "உங்கள் சுயவிவரத் தகவலைப் படியுங்கள்."
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "மதிப்பாய்வை முடிக்க முடிய�
 msgid "The same line repeats on every page."
 msgstr "ஒரே வரி ஒவ்வொரு பக்கத்திலும் மீண்டும் வருகிறது."
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "சேமித்த வழங்குநர் விசையை மறைகுறியாக்க முடியாது. அமைப்புகள் → AI & டெவலப்பர் என்பதில் மீண்டும் விசையை உள்ளிடவும்."
@@ -12766,6 +12778,10 @@ msgstr "நாங்கள் பக்கத்தைப் படித்த�
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "{email} க்கு உறுதிப்படுத்தல் இணைப்பை அனுப்பியுள்ளோம். மாற்றத்தை முடிக்க அதைத் திறக்கவும்."
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx

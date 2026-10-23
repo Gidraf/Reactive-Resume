@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "Giriş"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "Sənədlərinizi və iş müraciətlərinizi oxumaq, dəyişdirmək və silmək daxil olmaqla, API vasitəsilə hesabınıza daxil olun."
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "Hesab yarat"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "Sənədlərinizi və iş müraciətlərinizi yaradın və dəyişdirin."
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "Öz-özünə hostinq təlimatını oxuyun"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "Sənədlərinizi və iş müraciətlərinizi oxuyun."
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "E-poçt ünvanınızı oxuyun."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "Profil məlumatlarınızı oxuyun."
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "Nəzərdən keçirməni bitirmək mümkün olmadı. Yenidən cəhd edin.
 msgid "The same line repeats on every page."
 msgstr "Eyni sətir hər səhifədə təkrarlanır."
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "Yadda saxlanmış provayder açarı deşifrə edilə bilməz. Açarı yenidən Parametrlər → AI və tərtibatçıya daxil edin."
@@ -12766,6 +12778,10 @@ msgstr "Biz səhifəni oxuyuruq və iş elanını Check, assistent və sizin mə
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "{email}-a təsdiqləmə linki göndərdik. Dəyişikliyi başa çatdırmaq üçün onu açın."
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx

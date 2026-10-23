@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "Qasja"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "Qasuni në llogarinë tuaj përmes API, duke përfshirë leximin, ndryshimin dhe fshirjen e dokumenteve dhe aplikimeve tuaja për punë."
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "Krijo llogari"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "Krijoni dhe ndryshoni dokumentet dhe aplikimet tuaja për punë."
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "Lexoni udhëzuesin e vetë-pritjes"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "Lexoni dokumentet tuaja dhe aplikimet për punë."
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "Lexoni adresën tuaj të emailit."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "Lexoni informacionin e profilit tuaj."
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "Rishikimi nuk mund të përfundonte. Provo sërish."
 msgid "The same line repeats on every page."
 msgstr "I njëjti rresht përsëritet në çdo faqe."
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "Çelësi i ruajtur i ofruesit nuk mund të deshifrohet. Fusni përsëri çelësin te Cilësimet → AI dhe zhvilluesi."
@@ -12766,6 +12778,10 @@ msgstr "Ne lexojmë faqen dhe ruajmë postimin e punës për Check, asistentin d
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "Ne dërguam një lidhje konfirmimi te {email}. Hapeni për të përfunduar ndryshimin."
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx

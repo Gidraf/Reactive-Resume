@@ -1042,6 +1042,10 @@ msgid "Access"
 msgstr "অ্যাক্সেস"
 
 #: src/features/auth/pages/consent.tsx
+msgid "Access is sent to"
+msgstr ""
+
+#: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
 msgstr "API এর মাধ্যমে আপনার অ্যাকাউন্ট অ্যাক্সেস করুন, আপনার নথি এবং চাকরির আবেদনগুলি পড়া, পরিবর্তন করা এবং মুছে ফেলা সহ।"
 
@@ -3638,8 +3642,8 @@ msgid "Create account"
 msgstr "অ্যাকাউন্ট তৈরি করুন"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Create and change your documents and job applications."
-msgstr "আপনার নথি এবং চাকরির আবেদনগুলি তৈরি করুন এবং পরিবর্তন করুন।"
+msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -8929,16 +8933,16 @@ msgid "Read the self-hosting guide"
 msgstr "স্ব-হোস্টিং গাইড পড়ুন"
 
 #: src/features/auth/pages/consent.tsx
-msgid "Read your documents and job applications."
-msgstr "আপনার নথি এবং চাকরির আবেদন পড়ুন।"
-
-#: src/features/auth/pages/consent.tsx
 msgid "Read your email address."
 msgstr "আপনার ইমেইল ঠিকানা পড়ুন।"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your profile information."
 msgstr "আপনার প্রোফাইলের তথ্য পড়ুন।"
+
+#: src/features/auth/pages/consent.tsx
+msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -11616,6 +11620,14 @@ msgstr "পর্যালোচনা শেষ করতে পারেনি
 msgid "The same line repeats on every page."
 msgstr "একই লাইন প্রতিটি পৃষ্ঠায় পুনরাবৃত্তি হয়।"
 
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "The saved key isn't sent to a new base URL. Enter it again."
+msgstr ""
+
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
 msgstr "সংরক্ষিত প্রদানকারী কী ডিক্রিপ্ট করা যাবে না। সেটিংস → AI এবং বিকাশকারীতে আবার কী লিখুন।"
@@ -12766,6 +12778,10 @@ msgstr "আমরা পৃষ্ঠাটি পড়ি এবং চেক, 
 #: src/features/settings/account/profile.tsx
 msgid "We sent a confirmation link to {email}. Open it to finish the change."
 msgstr "আমরা {email} এ একটি নিশ্চিতকরণ লিঙ্ক পাঠিয়েছি। পরিবর্তনটি শেষ করতে এটি খুলুন।"
+
+#: src/features/settings/account/profile.tsx
+msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
+msgstr ""
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx
