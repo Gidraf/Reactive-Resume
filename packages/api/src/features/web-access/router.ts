@@ -68,7 +68,8 @@ export const webAccessRouter = {
 				webAccessService.resolve(context.user.id),
 				searchScope(context.user.id, context.reqHeaders.get("x-client-timezone") ?? undefined),
 			]);
-			if (!connection)
+			// The server's SearXNG can be tested without a connection; reading then reports the built-in reader only.
+			if (!webAccessService.canSearch(connection !== null))
 				throw new ORPCError("PRECONDITION_FAILED", { message: "No external web connection is configured." });
 			try {
 				return await probeWebAccess(connection, {
