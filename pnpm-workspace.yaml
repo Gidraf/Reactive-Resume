@@ -11,6 +11,7 @@ catalog:
   "@better-auth/oauth-provider": "1.7.12"
   "@better-auth/passkey": "1.7.12"
   "@cloudflare/workers-types": ^5.20261022.1
+  "@formatjs/intl-displaynames": ^7.3.15
   "@orpc/client": ^1.16.1
   "@orpc/server": ^1.16.1
   "@types/node": ^26.6.5

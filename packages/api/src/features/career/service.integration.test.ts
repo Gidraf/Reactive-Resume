@@ -60,6 +60,19 @@ function resumeData(headline: string) {
 	return data;
 }
 
+describe("mergeCareerProfile", () => {
+	it("carries stored search regions only when the input leaves the key out", async () => {
+		const { mergeCareerProfile } = await import("./service");
+		const stored = careerProfileDataSchema.parse({ searchRegions: ["AU"] });
+		const missing = careerProfileDataSchema.parse({ priorities: "x" });
+
+		expect(mergeCareerProfile(stored, missing)).toEqual({ ...missing, searchRegions: ["AU"] });
+		expect(mergeCareerProfile(stored, { ...missing, searchRegions: [] }).searchRegions).toEqual([]);
+		expect(mergeCareerProfile(stored, { ...missing, searchRegions: null }).searchRegions).toBeNull();
+		expect(mergeCareerProfile(stored, { ...missing, searchRegions: ["DE", "FR"] }).searchRegions).toEqual(["DE", "FR"]);
+	}, 30_000);
+});
+
 // Real PostgreSQL, opt-in only. Every table and FK comes from shipped migrations in a unique schema.
 describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", () => {
 	let service: typeof import("./service").careerService;
@@ -608,6 +621,56 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			checklist: [1],
 			message: "Thanks for applying.",
 		});
+	});
+
+	it("adopts the device country on the first search without a Preferences visit", async () => {
+		const { searchScope } = await import("../web-access/regions");
+		await service.saveProfile("alice", careerProfileDataSchema.parse({ priorities: "Autonomy" }));
+		expect(await searchScope("alice", "Australia/Melbourne")).toEqual({ regions: ["AU"], locations: [] });
+		expect(await service.profile("alice")).toMatchObject({ priorities: "Autonomy", searchRegions: ["AU"] });
+		expect((await service.profile("bob")).searchRegions).toBeUndefined();
+		await searchScope("alice", "Europe/Berlin");
+		expect((await service.profile("alice")).searchRegions).toEqual(["AU"]);
+	});
+
+	it.each([null, [], ["DE"]])(
+		"keeps explicit search regions %j when the device country differs",
+		async (searchRegions) => {
+			const { searchScope } = await import("../web-access/regions");
+			await service.saveProfile("alice", careerProfileDataSchema.parse({ searchRegions }));
+			expect((await searchScope("alice", "Australia/Melbourne")).regions).toEqual(searchRegions ?? []);
+			expect((await service.profile("alice")).searchRegions).toEqual(searchRegions);
+		},
+	);
+
+	it("uses the account country before the device and ignores unknown device time zones", async () => {
+		const { searchScope } = await import("../web-access/regions");
+		await getDb().update(tables.user).set({ timezone: "Europe/Berlin" }).where(eq(tables.user.id, "alice"));
+		expect((await searchScope("alice", "Australia/Melbourne")).regions).toEqual(["DE"]);
+		expect((await service.profile("alice")).searchRegions).toBeUndefined();
+		expect((await searchScope("bob", "Not/AZone")).regions).toEqual([]);
+		expect((await service.profile("bob")).searchRegions).toBeUndefined();
+	});
+
+	it("keeps a concurrent explicit preference save when initializing the device country", async () => {
+		const { searchScope } = await import("../web-access/regions");
+		await Promise.all([
+			searchScope("alice", "Australia/Melbourne"),
+			service.saveProfile("alice", careerProfileDataSchema.parse({ priorities: "Autonomy", searchRegions: ["DE"] })),
+		]);
+		expect(await service.profile("alice")).toMatchObject({ priorities: "Autonomy", searchRegions: ["DE"] });
+	});
+
+	it("keeps stored search regions when a save from an older client leaves the key out", async () => {
+		await service.saveProfile("alice", careerProfileDataSchema.parse({ searchRegions: ["AU"] }));
+		const older = careerProfileDataSchema.parse({ priorities: "x" });
+		delete older.searchRegions;
+
+		expect(await service.saveProfile("alice", older)).toMatchObject({ priorities: "x", searchRegions: ["AU"] });
+		expect(await service.profile("alice")).toMatchObject({ priorities: "x", searchRegions: ["AU"] });
+
+		await service.saveProfile("alice", careerProfileDataSchema.parse({ searchRegions: null }));
+		expect((await service.profile("alice")).searchRegions).toBeNull();
 	});
 
 	it("exports source metadata and owned coaching records without credentials, then cascades account deletion", async () => {
