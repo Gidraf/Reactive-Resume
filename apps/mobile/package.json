@@ -15,7 +15,7 @@
 		"lingui:extract": "lingui extract --clean && node scripts/seed-locales.mjs"
 	},
 	"dependencies": {
-		"@ai-sdk/react": "^4.0.153",
+		"@ai-sdk/react": "^4.0.156",
 		"@expo/ui": "catalog:",
 		"@formatjs/intl-displaynames": "catalog:",
 		"@formatjs/intl-locale": "^5.3.12",
