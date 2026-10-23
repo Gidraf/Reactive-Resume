@@ -2,7 +2,7 @@
  * Canonical tool metadata (title, description, inputSchema, annotations) declared once.
  * Consumed by both `registerTools` (raw Zod) and `buildMcpServerCard` (toJsonSchemaCompat).
  */
-import type { ToolAnnotations } from "@modelcontextprotocol/sdk/types.js";
+import type { BehaviorAnnotations } from "./annotations";
 import z from "zod";
 import { resumePatchOperationsSchema } from "@reactive-resume/ai/tools/resume-tool-contracts";
 import { applicationDto } from "@reactive-resume/api/dto/application";
@@ -17,11 +17,20 @@ import {
 } from "@reactive-resume/schema/applications/data";
 import { coverLetterDocumentSchema } from "@reactive-resume/schema/cover-letter/data";
 import { templateSchema } from "@reactive-resume/schema/templates";
+import { READ_IDEMPOTENT, WRITE_DESTRUCTIVE_EXTERNAL, WRITE_NON_IDEMPOTENT, WRITE_DESTRUCTIVE } from "./annotations";
 import { toWireObjectSchema, toWireSchema } from "./contracts";
 import { MCP_TOOL_NAME as T } from "./mcp-tool-names";
 
 // Contracts remain derived from the allowlisted API procedures in parity.ts.
 export const PARITY_TOOL_DESCRIPTIONS: Record<string, string> = {
+	"documents.list":
+		"List owned resumes and cover letters, optionally from Trash. Listing Trash also permanently purges documents older than 30 days and their owned files.",
+	"aiProviders.list":
+		"List saved AI providers with redacted credentials. When AI is server-managed, synchronize the account's managed provider record with server configuration. Does not contact an AI provider.",
+	"aiProviders.test":
+		"Test the saved provider/model connection server-side, then replace its saved test status and timestamp and enable or disable the connection based on the result.",
+	"agent.threads.get":
+		"Read an owned conversation, messages and attachments. If its active run is stale, clear the dead run claim and settle its streaming message state before returning. Does not start generation or call an AI provider.",
 	"agent.threads.start":
 		"Start a document, application, or general career conversation using a tested saved AI provider. For scope=document, choose exactly one resumeId or coverLetterId. For scope=application, provide applicationId. For scope=career, omit document and application IDs.",
 	"career.profile":
@@ -49,7 +58,7 @@ export const PARITY_TOOL_DESCRIPTIONS: Record<string, string> = {
 	"career.workspace":
 		"Read an application's workspace: form answers, the submit checklist, questions to ask, evidence added from Fit, ticked plan rows and the pasted employer message.",
 	"coverLetters.draft":
-		"Write a draft of a cover letter's body with the user's AI provider, from the letter's linked resume and its application's job posting, using only facts from them. Returns the draft text as chunks in `events` to join in order; `truncated` is true past 500,000 characters. Nothing is saved: write the draft into the letter with `update_cover_letter`. Use variant `shorter` or `personal` with `previous` to revise an earlier draft.",
+		"Write a draft of a cover letter's body with the user's AI provider, from the letter's linked resume and its application's job posting, using only facts from them. Returns the draft text as chunks in `events` to join in order; `truncated` is true past 500,000 characters. No letter content is saved; server-managed AI can synchronize its account provider record. Write the draft into the letter with `update_cover_letter`. Use variant `shorter` or `personal` with `previous` to revise an earlier draft.",
 	"career.saveWorkspace":
 		"Save parts of an application's workspace. Each key given replaces that whole key; keys left out keep their values.",
 	"career.trackOpportunity":
@@ -63,37 +72,6 @@ export const PARITY_TOOL_DESCRIPTIONS: Record<string, string> = {
 	"career.dismissOpportunity": "Dismiss an owned discovered opportunity from the review queue.",
 	"career.notifications": "Read the user's career notifications and their read status.",
 	"career.markNotificationRead": "Mark an owned career notification as read.",
-};
-
-const READ_IDEMPOTENT: ToolAnnotations = {
-	readOnlyHint: true,
-	destructiveHint: false,
-	idempotentHint: true,
-	openWorldHint: false,
-};
-const READ_NON_IDEMPOTENT: ToolAnnotations = {
-	readOnlyHint: true,
-	destructiveHint: false,
-	idempotentHint: false,
-	openWorldHint: false,
-};
-const WRITE_NON_IDEMPOTENT: ToolAnnotations = {
-	readOnlyHint: false,
-	destructiveHint: false,
-	idempotentHint: false,
-	openWorldHint: false,
-};
-const WRITE_DESTRUCTIVE: ToolAnnotations = {
-	readOnlyHint: false,
-	destructiveHint: true,
-	idempotentHint: false,
-	openWorldHint: false,
-};
-const WRITE_IDEMPOTENT: ToolAnnotations = {
-	readOnlyHint: false,
-	destructiveHint: false,
-	idempotentHint: true,
-	openWorldHint: false,
 };
 
 // ponytail: shared schema fragment; exported so server-card can re-use without re-importing
@@ -316,7 +294,7 @@ const BASE_TOOL_META = {
 			contentType: z.literal("application/pdf"),
 		}),
 		inputSchema: wireInput(z.strictObject({ id: resumeIdSchema })),
-		annotations: READ_NON_IDEMPOTENT,
+		annotations: READ_IDEMPOTENT,
 	},
 	[T.createResume]: {
 		title: "Create Resume",
@@ -485,14 +463,14 @@ const BASE_TOOL_META = {
 		].join("\n"),
 		outputSchema: messageOutput,
 		inputSchema: wireInput(z.strictObject({ id: resumeIdSchema })),
-		annotations: WRITE_IDEMPOTENT,
+		annotations: WRITE_DESTRUCTIVE,
 	},
 	[T.unlockResume]: {
 		title: "Unlock Resume",
 		description: "Unlock a previously locked resume, re-enabling edits, patches, and deletion.",
 		outputSchema: messageOutput,
 		inputSchema: wireInput(z.strictObject({ id: resumeIdSchema })),
-		annotations: WRITE_IDEMPOTENT,
+		annotations: WRITE_DESTRUCTIVE,
 	},
 	[T.getResumeStatistics]: {
 		title: "Get Resume Statistics",
@@ -634,7 +612,7 @@ const BASE_TOOL_META = {
 		].join("\n"),
 		outputSchema: messageOutput,
 		inputSchema: wireInput(z.strictObject({ id: coverLetterIdSchema, expectedRevision: expectedRevisionSchema })),
-		annotations: { ...WRITE_DESTRUCTIVE, openWorldHint: true },
+		annotations: WRITE_DESTRUCTIVE,
 	},
 	[T.exportCoverLetter]: {
 		title: "Export Cover Letter",
@@ -797,7 +775,7 @@ const BASE_TOOL_META = {
 			"Permanently delete one job application and its owned uploaded documents that no remaining application references, removing those authenticated file URLs.",
 		outputSchema: messageOutput,
 		inputSchema: wireInput(z.strictObject({ id: applicationIdSchema })),
-		annotations: { ...WRITE_DESTRUCTIVE, openWorldHint: true },
+		annotations: WRITE_DESTRUCTIVE,
 	},
 	[T.bulkUpdateApplications]: {
 		title: "Bulk Update Applications",
@@ -819,7 +797,7 @@ const BASE_TOOL_META = {
 			"Permanently delete multiple applications and their owned uploaded documents that no remaining application references, removing those authenticated file URLs.",
 		outputSchema: toWireObjectSchema(applicationDto.bulkDelete.output),
 		inputSchema: wireInput(z.strictObject({ ids: z.array(z.string()).min(1) })),
-		annotations: { ...WRITE_DESTRUCTIVE, openWorldHint: true },
+		annotations: WRITE_DESTRUCTIVE,
 	},
 	[T.importApplications]: {
 		title: "Import Applications",
@@ -852,7 +830,7 @@ const BASE_TOOL_META = {
 					"Supply exactly one of dataBase64 or storagePath.",
 				),
 		),
-		annotations: { ...WRITE_NON_IDEMPOTENT, destructiveHint: true, openWorldHint: true },
+		annotations: WRITE_DESTRUCTIVE,
 	},
 	[T.removeApplicationDocument]: {
 		title: "Remove Application Document",
@@ -860,15 +838,15 @@ const BASE_TOOL_META = {
 			"Clear a resume or cover-letter attachment and delete its owned uploaded file if no other application references it, removing access through its authenticated file URL.",
 		outputSchema: toWireObjectSchema(applicationDto.removeDocument.output),
 		inputSchema: wireInput(z.strictObject({ id: applicationIdSchema, kind: applicationDocumentKindSchema })),
-		annotations: { ...WRITE_DESTRUCTIVE, openWorldHint: true },
+		annotations: WRITE_DESTRUCTIVE,
 	},
 	[T.autofillApplicationFromJob]: {
 		title: "Autofill Application From Job",
 		description:
-			"Send a pasted job posting to your configured AI provider to extract company, role, location, and salary. Requires an enabled, tested default AI provider. Returns suggestions without saving an application or fetching a job URL.",
+			"Send a pasted job posting to your configured AI provider to extract company, role, location, and salary. Requires an enabled, tested default AI provider. Returns suggestions without saving an application or fetching a job URL. Server-managed AI can synchronize its account provider record.",
 		outputSchema: z.object({ company: z.string(), role: z.string(), location: z.string(), salary: z.string() }),
 		inputSchema: wireInput(z.strictObject({ jobDescription: z.string().trim().min(1).max(20_000) })),
-		annotations: { ...READ_NON_IDEMPOTENT, openWorldHint: true },
+		annotations: WRITE_DESTRUCTIVE_EXTERNAL,
 	},
 	[T.scoreApplicationMatch]: {
 		title: "Score Application Match",
@@ -913,7 +891,9 @@ const applicationDateFields = {
 };
 // Shared DTOs keep fields, validation and limits aligned with API contracts.
 // Directories show annotations.title as the tool's name, so every tool repeats its title there.
-function withAnnotationTitles<T extends Record<string, { title: string; annotations: ToolAnnotations }>>(meta: T): T {
+function withAnnotationTitles<T extends Record<string, { title: string; annotations: BehaviorAnnotations }>>(
+	meta: T,
+): T {
 	return Object.fromEntries(
 		Object.entries(meta).map(([name, tool]) => [
 			name,

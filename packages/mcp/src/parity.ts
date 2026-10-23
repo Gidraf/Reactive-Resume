@@ -1,5 +1,5 @@
+import type { BehaviorAnnotations } from "./annotations";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type { ToolAnnotations } from "@modelcontextprotocol/sdk/types.js";
 import type { AnyProcedure, InferRouterInitialContext, RouterClient } from "@orpc/server";
 import type { RequestAuthentication } from "@reactive-resume/api/context";
 import { call, ORPCError } from "@orpc/server";
@@ -8,6 +8,15 @@ import { requiredPermission } from "@reactive-resume/api/context";
 import { restAliases } from "@reactive-resume/api/rest";
 import router from "@reactive-resume/api/routers";
 import { env } from "@reactive-resume/env/server";
+import {
+	READ_EXTERNAL,
+	READ_IDEMPOTENT,
+	WRITE_DESTRUCTIVE,
+	WRITE_DESTRUCTIVE_EXTERNAL,
+	WRITE_EXTERNAL,
+	WRITE_IDEMPOTENT,
+	WRITE_NON_IDEMPOTENT,
+} from "./annotations";
 import { fileInputSchema, toWireObjectSchema, wireJsonSchema } from "./contracts";
 import { readMcpFile } from "./files";
 import { json, withErrorHandling } from "./results";
@@ -116,39 +125,101 @@ function parityToolName(path: string): string {
 }
 
 const streamingPaths = new Set(["coverLetters.draft", "agent.messages.send", "agent.messages.resume"]);
-const readOnlyPosts = new Set([
-	"ai.parsePdf",
-	"ai.parseDocx",
-	"ai.atsReview",
-	"ai.improve",
-	"applications.ai.searchPostings",
-	"applications.ai.parsePosting",
-	"rest.checkResume",
-	"rest.checkPdf",
-	"rest.matchResume",
-	"coverLetters.draft",
-	"webAccess.test",
-]);
 const exportPaths = new Set(["rest.documentExports.resume", "rest.documentExports.letter"]);
-const destructiveWrites = new Set([
-	"career.saveProfile",
-	"career.saveStory",
-	"career.saveSchedule",
-	"career.saveWorkspace",
-	"career.applyReply",
-	"agent.messages.stop",
-]);
-// Changes what a public resume link or uploaded file URL shows, or sends content to the user's AI provider.
-const openWorldPaths = new Set([
-	"resume.update",
-	"resume.restoreVersion",
-	"resume.removePassword",
-	"rest.fileUpload",
-	"coverLetters.draft",
-	"career.saveSchedule",
-	"agent.messages.send",
-	"statistics.github.getStarCount",
-]);
+
+// Behavior is explicit: HTTP methods and names miss cleanup, publication and provider calls.
+// Per-tool justifications: .agents/docs/mcp-tool-annotations.md.
+const PARITY_ANNOTATIONS = {
+	"resume.listVersions": READ_IDEMPOTENT,
+	"resume.getVersion": READ_IDEMPOTENT,
+	"resume.createVersion": WRITE_NON_IDEMPOTENT,
+	"resume.renameVersion": WRITE_DESTRUCTIVE,
+	"resume.deleteVersion": WRITE_DESTRUCTIVE,
+	"resume.restoreVersion": WRITE_DESTRUCTIVE_EXTERNAL,
+	"resume.removePassword": WRITE_DESTRUCTIVE_EXTERNAL,
+	"resume.getBySlug": WRITE_EXTERNAL,
+	"resume.checkSlug": READ_IDEMPOTENT,
+	"resume.update": WRITE_DESTRUCTIVE_EXTERNAL,
+	"resume.statistics.getDailyById": READ_IDEMPOTENT,
+	"resume.statistics.recordDownload": WRITE_NON_IDEMPOTENT,
+	"coverLetters.listVersions": READ_IDEMPOTENT,
+	"coverLetters.getVersion": READ_IDEMPOTENT,
+	"coverLetters.createVersion": WRITE_NON_IDEMPOTENT,
+	"coverLetters.renameVersion": WRITE_DESTRUCTIVE,
+	"coverLetters.deleteVersion": WRITE_DESTRUCTIVE,
+	"coverLetters.restoreVersion": WRITE_DESTRUCTIVE,
+	"coverLetters.draft": WRITE_DESTRUCTIVE_EXTERNAL,
+	"documents.list": WRITE_DESTRUCTIVE,
+	"documents.counts": READ_IDEMPOTENT,
+	"documents.rename": WRITE_DESTRUCTIVE,
+	"documents.setTags": WRITE_DESTRUCTIVE,
+	"documents.setLocked": WRITE_DESTRUCTIVE,
+	"documents.linkApplication": WRITE_DESTRUCTIVE,
+	"documents.trash": WRITE_DESTRUCTIVE_EXTERNAL,
+	"documents.restore": WRITE_DESTRUCTIVE_EXTERNAL,
+	"documents.purge": WRITE_DESTRUCTIVE,
+	"documents.purgeExpired": WRITE_DESTRUCTIVE,
+	"documents.copyForJob": WRITE_DESTRUCTIVE,
+	"applications.ai.searchPostings": WRITE_DESTRUCTIVE_EXTERNAL,
+	"applications.ai.parsePosting": WRITE_DESTRUCTIVE_EXTERNAL,
+	"ai.parsePdf": WRITE_DESTRUCTIVE_EXTERNAL,
+	"ai.parseDocx": WRITE_DESTRUCTIVE_EXTERNAL,
+	"ai.atsReview": WRITE_DESTRUCTIVE_EXTERNAL,
+	"ai.improve": WRITE_DESTRUCTIVE_EXTERNAL,
+	"aiProviders.list": WRITE_DESTRUCTIVE,
+	"aiProviders.delete": WRITE_DESTRUCTIVE,
+	"aiProviders.test": WRITE_DESTRUCTIVE_EXTERNAL,
+	"aiProviders.setDefault": WRITE_DESTRUCTIVE,
+	"webAccess.status": READ_IDEMPOTENT,
+	"webAccess.delete": WRITE_DESTRUCTIVE,
+	"webAccess.test": WRITE_DESTRUCTIVE_EXTERNAL,
+	"agent.threads.list": READ_IDEMPOTENT,
+	"agent.threads.start": WRITE_DESTRUCTIVE,
+	"agent.threads.get": WRITE_DESTRUCTIVE,
+	"agent.threads.update": WRITE_DESTRUCTIVE,
+	"agent.threads.delete": WRITE_DESTRUCTIVE,
+	"agent.messages.send": WRITE_DESTRUCTIVE_EXTERNAL,
+	"agent.messages.stop": WRITE_DESTRUCTIVE,
+	"agent.messages.resume": READ_IDEMPOTENT,
+	"agent.messages.setEditStatus": WRITE_DESTRUCTIVE,
+	"agent.attachments.create": WRITE_NON_IDEMPOTENT,
+	"agent.attachments.delete": WRITE_DESTRUCTIVE,
+	"career.profile": READ_IDEMPOTENT,
+	"career.saveProfile": WRITE_DESTRUCTIVE,
+	"career.facts": READ_IDEMPOTENT,
+	"career.saveFact": WRITE_NON_IDEMPOTENT,
+	"career.updateFact": WRITE_DESTRUCTIVE,
+	"career.forgetFact": WRITE_DESTRUCTIVE,
+	"career.stories": READ_IDEMPOTENT,
+	"career.saveStory": WRITE_DESTRUCTIVE,
+	"career.deleteStory": WRITE_DESTRUCTIVE,
+	"career.savedItems": READ_IDEMPOTENT,
+	"career.deleteSavedItem": WRITE_DESTRUCTIVE,
+	"career.applyReply": WRITE_DESTRUCTIVE,
+	"career.workspace": READ_IDEMPOTENT,
+	"career.saveWorkspace": WRITE_DESTRUCTIVE,
+	"career.schedules": READ_IDEMPOTENT,
+	"career.saveSchedule": WRITE_DESTRUCTIVE_EXTERNAL,
+	"career.deleteSchedule": WRITE_DESTRUCTIVE,
+	"career.opportunities": READ_IDEMPOTENT,
+	"career.dismissOpportunity": WRITE_DESTRUCTIVE,
+	"career.trackOpportunity": WRITE_IDEMPOTENT,
+	"career.notifications": READ_IDEMPOTENT,
+	"career.markNotificationRead": WRITE_DESTRUCTIVE,
+	"auth.providers.list": READ_IDEMPOTENT,
+	"auth.exportData": READ_IDEMPOTENT,
+	"flags.get": READ_IDEMPOTENT,
+	"statistics.getTotals": READ_IDEMPOTENT,
+	"statistics.github.getStarCount": READ_EXTERNAL,
+	"storage.deleteFile": WRITE_DESTRUCTIVE_EXTERNAL,
+	"rest.documentExports.resume": READ_IDEMPOTENT,
+	"rest.documentExports.letter": READ_IDEMPOTENT,
+	"rest.checkResume": READ_IDEMPOTENT,
+	"rest.checkPdf": READ_IDEMPOTENT,
+	"rest.matchResume": READ_IDEMPOTENT,
+	"rest.importResumeFile": WRITE_NON_IDEMPOTENT,
+	"rest.fileUpload": WRITE_EXTERNAL,
+} satisfies Record<keyof typeof PARITY_PROCEDURES, BehaviorAnnotations>;
 
 /** These workflows require browser interaction so secrets and security ceremonies stay with the user. */
 const BROWSER_HANDOFFS = {
@@ -191,14 +262,14 @@ const RESUME_PASSWORD_HANDOFFS = {
 	},
 };
 
-const handoffAnnotations = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
+const handoffAnnotations = READ_IDEMPOTENT;
 const handoffOutputSchema = z.object({ url: z.url(), action: z.string(), requiresBrowser: z.literal(true) });
 type HandoffToolMeta = {
 	title: string;
 	description: string;
 	inputSchema: z.ZodObject;
 	outputSchema: typeof handoffOutputSchema;
-	annotations: ToolAnnotations;
+	annotations: BehaviorAnnotations;
 };
 // Directories show annotations.title as the tool's name, so every tool repeats its title there.
 const handoffMeta = (path: string, description: string, inputSchema: z.ZodObject): HandoffToolMeta => {
@@ -304,14 +375,12 @@ export const PARITY_TOOL_META: Record<
 	Pick<ReturnType<typeof parityToolContract>, "inputSchema" | "outputSchema"> & {
 		title: string;
 		description: string;
-		annotations: ToolAnnotations;
+		annotations: BehaviorAnnotations;
 	}
 > = {
 	...Object.fromEntries(
 		Object.entries(PARITY_PROCEDURES).map(([path, procedure]) => {
 			const route = procedure["~orpc"].route;
-			const readOnly =
-				(route.method === "GET" || readOnlyPosts.has(path)) && !["resume.getBySlug", "aiProviders.list"].includes(path);
 			const contract = parityToolContract(path, procedure);
 			const title = route.summary ?? path;
 			return [
@@ -323,15 +392,7 @@ export const PARITY_TOOL_META: Record<
 					outputSchema: contract.outputSchema,
 					annotations: {
 						title,
-						readOnlyHint: readOnly,
-						destructiveHint:
-							!readOnly &&
-							(route.method === "DELETE" ||
-								destructiveWrites.has(path) ||
-								/update|delete|purge|remove|restore|password|trash|set/i.test(path)),
-						idempotentHint: readOnly && !/draft|parse|test|search|improve|review/i.test(path),
-						openWorldHint:
-							openWorldPaths.has(path) || /ai|webAccess|storage|attachments|Exports|importResumeFile/i.test(path),
+						...PARITY_ANNOTATIONS[path as keyof typeof PARITY_ANNOTATIONS],
 					},
 				},
 			];

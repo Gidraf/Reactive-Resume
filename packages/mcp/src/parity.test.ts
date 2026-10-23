@@ -71,9 +71,11 @@ it("hands account deletion to browser settings without invoking the API", async 
 it("discovers API-derived contracts and exchanges native files and dates through the SDK", async () => {
 	const { tools } = await client.listTools();
 	const cardTools = new Map(buildMcpServerCard("1.0.0").tools.map((tool) => [tool.name, tool]));
+	expect(tools.map((tool) => tool.name).sort()).toEqual([...cardTools.keys()].sort());
 	for (const tool of tools) {
 		expect(tool.inputSchema, tool.name).toEqual(cardTools.get(tool.name)?.inputSchema);
 		expect(tool.outputSchema, tool.name).toEqual(cardTools.get(tool.name)?.outputSchema);
+		expect(tool.annotations, tool.name).toEqual(cardTools.get(tool.name)?.annotations);
 	}
 	expect(tools.find((tool) => tool.name === "api_resume_list_versions")?.outputSchema).toBeDefined();
 	expect(tools.find((tool) => tool.name === "update_resume")?.inputSchema.properties?.data).toBeDefined();
