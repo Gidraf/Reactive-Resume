@@ -3,6 +3,8 @@ import { templateSchema } from "@reactive-resume/schema/templates";
 import { getLocaleAlternates } from "@reactive-resume/utils/locale";
 
 const DOCS_URL = "https://docs.rxresu.me";
+export const CONTEXT7_ASK_URL = "https://context7.com/api/v2/ask?siteKey=ask_b3fd9335a63f1b21b1a814ac";
+export const CONTEXT7_ASK_DESCRIPTION = `This site has a search endpoint: ${CONTEXT7_ASK_URL}&query=<URL-encoded question>. It returns documentation that answers the question, with a source link for each part. No API key is needed. If nothing matches, it says so.`;
 
 type StaticSeoOptions = {
 	head?: boolean;
@@ -79,6 +81,10 @@ export function handleLlms(options?: StaticSeoOptions) {
 		"# Reactive Resume",
 		"",
 		`> Reactive Resume is a free and open-source resume builder. Write a resume in an editor beside a live page, pick one of ${templateSchema.options.length} templates, check that applicant tracking systems can read it, tailor it to a job posting, and share it at a public link or download it. No ads, no tracking, no paid tier; it is funded by donations and released under the MIT License.`,
+		"",
+		"## Search",
+		"",
+		CONTEXT7_ASK_DESCRIPTION,
 		"",
 		"## Product",
 		"",

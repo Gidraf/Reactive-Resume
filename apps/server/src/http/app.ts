@@ -151,7 +151,7 @@ export function createApp(options: AppOptions = {}) {
 
 	// Must precede the static middleware: serveStatic resolves "/" to dist/index.html and would
 	// return it verbatim, skipping the OpenGraph/Twitter/canonical/JSON-LD injection in handleWebApp.
-	app.on(["GET", "HEAD"], "/", (c) => handleWebApp(c.req.raw, options.readWebFile));
+	app.on(["GET", "HEAD"], ["/", "/index.html"], (c) => handleWebApp(c.req.raw, options.readWebFile));
 	if (options.serveStatic !== false && serveWebDistStatic) app.use("/*", serveWebDistStatic);
 	app.on(["GET", "HEAD"], "/*", (c) => handleWebApp(c.req.raw, options.readWebFile));
 

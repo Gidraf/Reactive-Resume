@@ -7,6 +7,7 @@ import { serveStatic } from "@hono/node-server/serve-static";
 import { env } from "@reactive-resume/env/server";
 import { templateSchema } from "@reactive-resume/schema/templates";
 import { defaultLocale, getLocaleAlternates, isLocale, localizedUrl } from "@reactive-resume/utils/locale";
+import { CONTEXT7_ASK_DESCRIPTION, CONTEXT7_ASK_URL } from "./seo";
 
 function resolveWebDistPath() {
 	const candidates = [
@@ -101,6 +102,7 @@ function contentSecurityPolicy(html = "") {
 }
 
 const BASE_SECURITY_HEADERS = {
+	Link: `<${CONTEXT7_ASK_URL}>; rel="search"; type="text/plain"; title="Search rxresu.me"`,
 	"X-Frame-Options": "DENY",
 	"X-Content-Type-Options": "nosniff",
 	"Referrer-Policy": "strict-origin-when-cross-origin",
@@ -112,7 +114,12 @@ const BASE_SECURITY_HEADERS = {
  * any resume-derived markup goes in, so text that slipped past escaping could never allow itself.
  */
 function htmlResponse(html: string, headers: Record<string, string>, template = html) {
-	return new Response(html, { headers: { ...headers, "Content-Security-Policy": contentSecurityPolicy(template) } });
+	const verification = new URL(CONTEXT7_ASK_URL).searchParams.get("siteKey") ?? "";
+	const note = `<blockquote data-context7-ask="true" aria-hidden="true" class="sr-only"><h2>Search</h2><p>Page index: https://rxresu.me/llms.txt.</p><p>${escapeAttribute(CONTEXT7_ASK_DESCRIPTION)}</p></blockquote>`;
+	const body = html
+		.replace("</head>", () => `<meta name="context7-site-verification" content="${verification}"></head>`)
+		.replace(/<body\b[^>]*>/i, (tag) => `${tag}${note}`);
+	return new Response(body, { headers: { ...headers, "Content-Security-Policy": contentSecurityPolicy(template) } });
 }
 
 const githubUrl = "https://github.com/reactive-resume/reactive-resume";
@@ -421,7 +428,8 @@ export type ReadWebFile = (path: string) => Promise<string>;
 
 export async function handleWebApp(request: Request, readFile: ReadWebFile = (path) => fs.readFile(path, "utf-8")) {
 	const isHead = request.method === "HEAD";
-	const pathname = new URL(request.url).pathname;
+	const requestedPath = new URL(request.url).pathname;
+	const pathname = requestedPath === "/index.html" ? "/" : requestedPath;
 
 	if (!isNoindexShellPath(pathname) && isAssetPath(pathname)) {
 		return new Response(isHead ? null : "Not Found", { status: 404 });

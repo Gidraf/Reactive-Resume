@@ -40,6 +40,29 @@ describe("web app fallback classification", () => {
 		mocks.getPublicResumeSocialMeta.mockResolvedValue(null);
 	});
 
+	it.each(["/", "/?locale=de-DE", "/ats-checker", "/resume-templates", "/dashboard", "/alice/resume", "/index.html"])(
+		"advertises Context7 Ask in server-rendered %s and its HEAD response",
+		async (path) => {
+			vi.mocked(fs.readFile).mockResolvedValue('<html><head></head><body><div id="app"></div></body></html>');
+			const response = await handleWebApp(new Request(`https://rxresu.me${path}`));
+			const html = await response.text();
+			expect(html).toContain('<meta name="context7-site-verification" content="ask_b3fd9335a63f1b21b1a814ac"></head>');
+			expect(html).toContain('<body><blockquote data-context7-ask="true" aria-hidden="true" class="sr-only">');
+			expect(html).toContain("<h2>Search</h2><p>Page index: https://rxresu.me/llms.txt.</p>");
+			expect(html).toContain(
+				"https://context7.com/api/v2/ask?siteKey=ask_b3fd9335a63f1b21b1a814ac&amp;query=&lt;URL-encoded question&gt;",
+			);
+			expect(html).toContain('</blockquote><div id="app"></div>');
+			expect(html).not.toContain("Add .md");
+			const link =
+				'<https://context7.com/api/v2/ask?siteKey=ask_b3fd9335a63f1b21b1a814ac>; rel="search"; type="text/plain"; title="Search rxresu.me"';
+			expect(response.headers.get("Link")).toBe(link);
+			const head = await handleWebApp(new Request(`https://rxresu.me${path}`, { method: "HEAD" }));
+			expect(head.headers.get("Link")).toBe(link);
+			expect(await head.text()).toBe("");
+		},
+	);
+
 	it("injects canonical metadata and structured data into tracking-parameter root requests only", async () => {
 		vi.mocked(fs.readFile).mockResolvedValue(`
 			<!doctype html>

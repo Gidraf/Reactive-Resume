@@ -2,7 +2,18 @@ import { describe, expect, it, vi } from "vite-plus/test";
 
 vi.mock("@reactive-resume/env/server", () => ({ env: { APP_URL: "https://rxresu.me/" } }));
 
-const { handleSitemap } = await import("./seo");
+const { handleSitemap, handleLlms } = await import("./seo");
+
+it("publishes Context7 Ask after the llms title and summary", async () => {
+	const text = await handleLlms().text();
+	expect(text).toMatch(
+		/^# Reactive Resume\n\n> [^\n]+\n\n## Search\n\nThis site has a search endpoint: https:\/\/context7.com\/api\/v2\/ask\?siteKey=ask_b3fd9335a63f1b21b1a814ac&query=<URL-encoded question>\./,
+	);
+	expect(text).toContain(
+		"It returns documentation that answers the question, with a source link for each part. No API key is needed. If nothing matches, it says so.\n\n## Product",
+	);
+	expect(await handleLlms({ head: true }).text()).toBe("");
+});
 
 describe("localized sitemap", () => {
 	it("gives every localized public page its own entry with reciprocal alternates", async () => {
