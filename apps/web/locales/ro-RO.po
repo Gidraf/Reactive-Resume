@@ -1043,7 +1043,7 @@ msgstr "Acces"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Access is sent to"
-msgstr ""
+msgstr "Accesul este acordat"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
@@ -1112,7 +1112,7 @@ msgstr "Adăugați „{0}”"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Add a country"
-msgstr ""
+msgstr "Adăugați o țară"
 
 #: src/features/career/knowledge/facts.tsx
 msgid "Add a fact, for example “I mentored two associate PMs in 2025”"
@@ -1718,7 +1718,7 @@ msgstr "Orice de reținut despre această meserie"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Anywhere"
-msgstr ""
+msgstr "Oriunde"
 
 #: src/features/assistant/provider-setup.tsx
 #: src/features/settings/ai/providers.tsx
@@ -3569,7 +3569,7 @@ msgstr "Se numără separat de scorul de analiză. Acoperirea nu prezice nimic."
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Countries"
-msgstr ""
+msgstr "Țări"
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Counts every application that reached each stage, including ones now closed."
@@ -3643,7 +3643,7 @@ msgstr "Creează cont"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
-msgstr ""
+msgstr "Această aplicație vă poate crea și edita documentele și cererile de angajare. Poate citi conținutul complet al fiecărui document sau cerere de angajare pe care o editează. De asemenea, vă poate schimba profilul și numele de utilizator."
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -5242,7 +5242,7 @@ msgstr "Din CV-ul dvs."
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "From your time zone"
-msgstr ""
+msgstr "Pe baza fusului dvs. orar"
 
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Full name"
@@ -7385,7 +7385,7 @@ msgstr "Nicio corecție"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "No country matches."
-msgstr ""
+msgstr "Nu au fost găsite țări."
 
 #: src/features/ats-checker/messages.ts
 msgid "No dates were found."
@@ -8942,7 +8942,7 @@ msgstr "Să citească informațiile din profilul tău."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
-msgstr ""
+msgstr "Citiți toate datele din contul dvs., inclusiv un export complet de date: profilul dvs. și adresa de e-mail, documente, cereri de angajare, date despre carieră și conversații de coaching."
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -9240,7 +9240,7 @@ msgstr "Eliminați {chip}"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Remove {country}"
-msgstr ""
+msgstr "Eliminați {country}"
 
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "Remove {value}"
@@ -9987,7 +9987,7 @@ msgstr "Comenzi de căutare"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Search countries"
-msgstr ""
+msgstr "Căutați țări"
 
 #: src/features/documents/documents-page.tsx
 msgid "Search covers titles, tags and linked applications."
@@ -10041,11 +10041,11 @@ msgstr "Căutați fusuri orare"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search was tested with your server's search, and reading with {connectedProvider}."
-msgstr ""
+msgstr "Căutarea a fost testată cu căutarea serverului dvs. și citirea cu {connectedProvider}."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search was tested with your server's search. Links are read with the built-in reader."
-msgstr ""
+msgstr "Căutarea a fost testată cu căutarea serverului dvs. Link-urile sunt citite cu cititorul încorporat."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search works"
@@ -10070,11 +10070,11 @@ msgstr "Caută și citește pagini cu {connectedProvider}, indiferent de furnizo
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Searches with your server's search and reads links with the built-in reader, whichever AI provider you use."
-msgstr ""
+msgstr "Caută cu căutarea serverului dvs. și citește link-uri cu cititorul încorporat, indiferent de furnizorul de AI pe care îl utilizați."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Searches with your server's search and reads pages with {connectedProvider}, whichever AI provider you use."
-msgstr ""
+msgstr "Caută cu căutarea serverului dvs. și citește pagini cu {connectedProvider}, indiferent de furnizorul de AI pe care îl utilizați."
 
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Searching job postings…"
@@ -11272,7 +11272,7 @@ msgstr "Testați conexiunea"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Test search"
-msgstr ""
+msgstr "Testați funcția de căutare"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Tested with {connectedProvider}. Only this service was tested."
@@ -11289,11 +11289,11 @@ msgstr "Se testează conexiunea..."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Testing your server's search, and reading with {connectedProvider}…"
-msgstr ""
+msgstr "Testarea serviciului de căutare pe serverul dvs. și citirea paginii web cu {connectedProvider}..."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Testing your server's search…"
-msgstr ""
+msgstr "Se testează serviciul de căutare pe serverul dvs...."
 
 #: src/features/settings/ai/providers.tsx
 msgid "Testing…"
@@ -11622,11 +11622,11 @@ msgstr "Același rând se repetă pe fiecare pagină."
 
 #: src/features/settings/ai/providers.tsx
 msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
-msgstr ""
+msgstr "Cheia salvată nu este trimisă la o nouă adresă URL de bază. Introduceți cheia din nou dacă acest server necesită o cheie."
 
 #: src/features/settings/ai/providers.tsx
 msgid "The saved key isn't sent to a new base URL. Enter it again."
-msgstr ""
+msgstr "Cheia salvată nu este trimisă la o nouă adresă URL de bază. Introduceți din nou cheia."
 
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
@@ -12499,7 +12499,7 @@ msgstr "Folosiți litere mici, cifre și liniuțe simple."
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Use my time zone"
-msgstr ""
+msgstr "Folosește-mi fusul orar"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Use one column"
@@ -12781,7 +12781,7 @@ msgstr "Am trimis un link de confirmare către {email}. Deschideți-l pentru a f
 
 #: src/features/settings/account/profile.tsx
 msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
-msgstr ""
+msgstr "Am trimis un link către {currentEmail} pentru a aproba modificarea. Apoi confirmați {email} folosind mesajul trimis la adresa de e-mail respectivă."
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx
@@ -12811,7 +12811,7 @@ msgstr "Căutarea pe web a eșuat: {0}"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Web searches look for work here, up to three countries."
-msgstr ""
+msgstr "Căutările pe web caută locuri de muncă în aceste țări. Alegeți până la trei țări."
 
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Website"
@@ -12999,7 +12999,7 @@ msgstr "Unde lucrați"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Where you're looking for work"
-msgstr ""
+msgstr "Unde îți cauți de lucru"
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Where your applications went"
@@ -13556,7 +13556,7 @@ msgstr "Fontul selectat nu poate afișa unele caractere. Apar ca “?”. În De
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Your server provides search for Applications and the assistant. Connect a service to read pages the built-in reader can't."
-msgstr ""
+msgstr "Serverul dvs. oferă căutare pe web în secțiunea Candidaturi și pentru asistent. Conectați un serviciu pentru a citi pagini web pe care cititorul încorporat nu le poate citi."
 
 #: src/features/career/coach.tsx
 msgid "your stories"

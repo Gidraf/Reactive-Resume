@@ -1043,7 +1043,7 @@ msgstr "መዳረሻ"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Access is sent to"
-msgstr ""
+msgstr "መዳረሻ ተሰጥቷል።"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
@@ -1112,7 +1112,7 @@ msgstr "\"{0}\" አክል"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Add a country"
-msgstr ""
+msgstr "ሀገር ጨምር"
 
 #: src/features/career/knowledge/facts.tsx
 msgid "Add a fact, for example “I mentored two associate PMs in 2025”"
@@ -1718,7 +1718,7 @@ msgstr "ስለዚህ ሥራ ለማስታወስ ማንኛውንም ነገር"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Anywhere"
-msgstr ""
+msgstr "የትም ቦታ"
 
 #: src/features/assistant/provider-setup.tsx
 #: src/features/settings/ai/providers.tsx
@@ -3569,7 +3569,7 @@ msgstr "ከንባብ ነጥቡ ተለይቶ ይቆጠራል። ሽፋን ምን�
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Countries"
-msgstr ""
+msgstr "አገሮች"
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Counts every application that reached each stage, including ones now closed."
@@ -3643,7 +3643,7 @@ msgstr "መለያ ፍጠር"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
-msgstr ""
+msgstr "ይህ መተግበሪያ የእርስዎን ሰነዶች እና የስራ ማመልከቻዎች መፍጠር እና ማርትዕ ይችላል። የሚያስተካክለው የእያንዳንዱን ሰነድ ወይም የስራ መተግበሪያ ሙሉ ይዘቶችን ማንበብ ይችላል። እንዲሁም የእርስዎን መገለጫ እና የተጠቃሚ ስም ሊለውጥ ይችላል።"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -5242,7 +5242,7 @@ msgstr "ከሥራ ልምድ ማስረጃዎ"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "From your time zone"
-msgstr ""
+msgstr "በጊዜ ሰቅዎ ላይ በመመስረት"
 
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Full name"
@@ -7385,7 +7385,7 @@ msgstr "ምንም እርማቶች የሉም"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "No country matches."
-msgstr ""
+msgstr "ምንም አገሮች አልተገኙም።"
 
 #: src/features/ats-checker/messages.ts
 msgid "No dates were found."
@@ -8942,7 +8942,7 @@ msgstr "የመገለጫ መረጃዎን ያንብቡ።"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
-msgstr ""
+msgstr "የተሟላ የውሂብ ወደ ውጭ መላክን ጨምሮ ሁሉንም መረጃዎች በመለያዎ ውስጥ ያንብቡ፡ የመገለጫዎ እና የኢሜል አድራሻዎ፣ ሰነዶችዎ፣ የስራ ማመልከቻዎችዎ፣ የስራ መረጃዎ እና የአሰልጣኞች ውይይቶች።"
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -9240,7 +9240,7 @@ msgstr "{chip} አስወግድ"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Remove {country}"
-msgstr ""
+msgstr "አስወግድ {country}"
 
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "Remove {value}"
@@ -9987,7 +9987,7 @@ msgstr "ትእዛዞችን ፈልግ"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Search countries"
-msgstr ""
+msgstr "አገሮችን ይፈልጉ"
 
 #: src/features/documents/documents-page.tsx
 msgid "Search covers titles, tags and linked applications."
@@ -10041,11 +10041,11 @@ msgstr "የሰዓት ሰቆችን ፈልግ"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search was tested with your server's search, and reading with {connectedProvider}."
-msgstr ""
+msgstr "ፍለጋ በአገልጋይህ ፍለጋ እና በ{connectedProvider} ማንበብ ተሞክሯል።"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search was tested with your server's search. Links are read with the built-in reader."
-msgstr ""
+msgstr "ፍለጋ በአገልጋይህ ፍለጋ ተፈትኗል። አገናኞች ከአብሮገነብ አንባቢ ጋር ይነበባሉ።"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search works"
@@ -10070,11 +10070,11 @@ msgstr "በ{connectedProvider} ገጾችን ይፈልጉ እና ያነባል፣ 
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Searches with your server's search and reads links with the built-in reader, whichever AI provider you use."
-msgstr ""
+msgstr "በአገልጋይዎ ፍለጋ ይፈልጉ እና አብሮ ከተሰራው አንባቢ ጋር አገናኞችን ያነባል፣ የትኛውንም የ AI አቅራቢ ይጠቀሙ።"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Searches with your server's search and reads pages with {connectedProvider}, whichever AI provider you use."
-msgstr ""
+msgstr "በአገልጋይዎ ፍለጋ ይፈልጉ እና ገጾችን በ{connectedProvider} ያነባል፣ የትኛውንም የ AI አቅራቢ ይጠቀሙ።"
 
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Searching job postings…"
@@ -11272,7 +11272,7 @@ msgstr "ግንኙነትን ይሞክሩ"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Test search"
-msgstr ""
+msgstr "የፍለጋ ተግባሩን ይሞክሩ"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Tested with {connectedProvider}. Only this service was tested."
@@ -11289,11 +11289,11 @@ msgstr "ግንኙነቱን በመሞከር ላይ…"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Testing your server's search, and reading with {connectedProvider}…"
-msgstr ""
+msgstr "የፍለጋ አገልግሎቱን በአገልጋይህ እና በድረ-ገጽ ንባብ ከ{connectedProvider} ጋር በመሞከር ላይ…"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Testing your server's search…"
-msgstr ""
+msgstr "የፍለጋ አገልግሎቱን በአገልጋይዎ ላይ በመሞከር ላይ…"
 
 #: src/features/settings/ai/providers.tsx
 msgid "Testing…"
@@ -11622,11 +11622,11 @@ msgstr "ተመሳሳይ መስመር በእያንዳንዱ ገጽ ላይ ይደ�
 
 #: src/features/settings/ai/providers.tsx
 msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
-msgstr ""
+msgstr "የተቀመጠው ቁልፍ ወደ አዲስ የመሠረት ዩአርኤል አይላክም። ይህ አገልጋይ ቁልፍ የሚፈልግ ከሆነ ቁልፉን እንደገና ያስገቡ።"
 
 #: src/features/settings/ai/providers.tsx
 msgid "The saved key isn't sent to a new base URL. Enter it again."
-msgstr ""
+msgstr "የተቀመጠው ቁልፍ ወደ አዲስ የመሠረት ዩአርኤል አይላክም። ቁልፉን እንደገና ያስገቡ።"
 
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
@@ -12499,7 +12499,7 @@ msgstr "ትንሽ ሆሄያትን፣ ቁጥሮችን እና ነጠላ ሰረዞ�
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Use my time zone"
-msgstr ""
+msgstr "የጊዜ ሰቅዬን ተጠቀም"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Use one column"
@@ -12781,7 +12781,7 @@ msgstr "የማረጋገጫ አገናኝ ወደ {email} ልከናል። ለውጡ
 
 #: src/features/settings/account/profile.tsx
 msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
-msgstr ""
+msgstr "ለውጡን ለማጽደቅ ወደ {currentEmail} አገናኝ ልከናል። ከዚያ ወደ ኢሜል አድራሻ የተላከውን መልእክት በመጠቀም {email}ን ያረጋግጡ።"
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx
@@ -12811,7 +12811,7 @@ msgstr "የድር ፍለጋ አልተሳካም፡ {0}"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Web searches look for work here, up to three countries."
-msgstr ""
+msgstr "የድር ፍለጋዎች በእነዚህ አገሮች ውስጥ ሥራዎችን ይፈልጋሉ። እስከ ሦስት አገሮችን ይምረጡ።"
 
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Website"
@@ -12999,7 +12999,7 @@ msgstr "የሥራ ቦታ"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Where you're looking for work"
-msgstr ""
+msgstr "ሥራ የምትፈልጉበት ቦታ"
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Where your applications went"
@@ -13556,7 +13556,7 @@ msgstr "የመረጡት ፊደል አንዳንድ ቁምፊዎችን ማሳየ�
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Your server provides search for Applications and the assistant. Connect a service to read pages the built-in reader can't."
-msgstr ""
+msgstr "አገልጋይዎ በማመልከቻዎች ክፍል እና በረዳት ውስጥ የድር ፍለጋን ያቀርባል። አብሮገነብ አንባቢ ማንበብ የማይችላቸውን ድረ-ገጾች ለማንበብ አገልግሎትን ያገናኙ።"
 
 #: src/features/career/coach.tsx
 msgid "your stories"

@@ -1043,7 +1043,7 @@ msgstr "Πρόσβαση"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Access is sent to"
-msgstr ""
+msgstr "Η πρόσβαση παρέχεται σε"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Access your account through the API, including reading, changing and deleting your documents and job applications."
@@ -1112,7 +1112,7 @@ msgstr "Προσθήκη \"{0}\""
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Add a country"
-msgstr ""
+msgstr "Προσθέστε μια χώρα"
 
 #: src/features/career/knowledge/facts.tsx
 msgid "Add a fact, for example “I mentored two associate PMs in 2025”"
@@ -1718,7 +1718,7 @@ msgstr "Οτιδήποτε να θυμάστε για αυτή τη δουλει
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Anywhere"
-msgstr ""
+msgstr "Οπουδήποτε"
 
 #: src/features/assistant/provider-setup.tsx
 #: src/features/settings/ai/providers.tsx
@@ -3569,7 +3569,7 @@ msgstr "Μετριέται ξεχωριστά από τη βαθμολογία �
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Countries"
-msgstr ""
+msgstr "χωρών"
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Counts every application that reached each stage, including ones now closed."
@@ -3643,7 +3643,7 @@ msgstr "Δημιουργία λογαριασμού"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications, seeing each one it changes in full, and change your profile and username."
-msgstr ""
+msgstr "Αυτή η εφαρμογή μπορεί να δημιουργήσει και να επεξεργαστεί τα έγγραφα και τις αιτήσεις εργασίας σας. Μπορεί να διαβάσει το πλήρες περιεχόμενο κάθε εγγράφου ή εφαρμογής εργασίας που επεξεργάζεται. Μπορεί επίσης να αλλάξει το προφίλ και το όνομα χρήστη σας."
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Create and open"
@@ -5242,7 +5242,7 @@ msgstr "Από το βιογραφικό σας"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "From your time zone"
-msgstr ""
+msgstr "Με βάση τη ζώνη ώρας σας"
 
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Full name"
@@ -7385,7 +7385,7 @@ msgstr "Χωρίς διορθώσεις"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "No country matches."
-msgstr ""
+msgstr "Δεν βρέθηκαν χώρες."
 
 #: src/features/ats-checker/messages.ts
 msgid "No dates were found."
@@ -8942,7 +8942,7 @@ msgstr "Διαβάστε τις πληροφορίες του προφίλ σα�
 
 #: src/features/auth/pages/consent.tsx
 msgid "Read your whole account, including a full data export: your profile and email, documents, job applications, career data and coaching conversations."
-msgstr ""
+msgstr "Διαβάστε όλα τα δεδομένα στον λογαριασμό σας, συμπεριλαμβανομένης μιας πλήρους εξαγωγής δεδομένων: το προφίλ και τη διεύθυνση email σας, έγγραφα, αιτήσεις εργασίας, δεδομένα καριέρας και συνομιλίες καθοδήγησης."
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read, write and delete"
@@ -9240,7 +9240,7 @@ msgstr "Αφαιρέστε το {chip}"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Remove {country}"
-msgstr ""
+msgstr "Κατάργηση {country}"
 
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "Remove {value}"
@@ -9987,7 +9987,7 @@ msgstr "Εντολές αναζήτησης"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Search countries"
-msgstr ""
+msgstr "Αναζήτηση χωρών"
 
 #: src/features/documents/documents-page.tsx
 msgid "Search covers titles, tags and linked applications."
@@ -10041,11 +10041,11 @@ msgstr "Αναζήτηση ζωνών ώρας"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search was tested with your server's search, and reading with {connectedProvider}."
-msgstr ""
+msgstr "Η αναζήτηση δοκιμάστηκε με την αναζήτηση του διακομιστή σας και η ανάγνωση με {connectedProvider}."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search was tested with your server's search. Links are read with the built-in reader."
-msgstr ""
+msgstr "Η αναζήτηση δοκιμάστηκε με την αναζήτηση του διακομιστή σας. Οι σύνδεσμοι διαβάζονται με τον ενσωματωμένο αναγνώστη."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search works"
@@ -10070,11 +10070,11 @@ msgstr "Πραγματοποιεί αναζήτηση και ανάγνωση σ
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Searches with your server's search and reads links with the built-in reader, whichever AI provider you use."
-msgstr ""
+msgstr "Πραγματοποιεί αναζήτηση με την αναζήτηση του διακομιστή σας και διαβάζει συνδέσμους με τον ενσωματωμένο αναγνώστη, όποιον πάροχο τεχνητής νοημοσύνης χρησιμοποιείτε."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Searches with your server's search and reads pages with {connectedProvider}, whichever AI provider you use."
-msgstr ""
+msgstr "Πραγματοποιεί αναζήτηση με την αναζήτηση του διακομιστή σας και διαβάζει σελίδες με {connectedProvider}, όποιον πάροχο τεχνητής νοημοσύνης χρησιμοποιείτε."
 
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Searching job postings…"
@@ -11272,7 +11272,7 @@ msgstr "Δοκιμαστική σύνδεση"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Test search"
-msgstr ""
+msgstr "Δοκιμάστε τη λειτουργία αναζήτησης"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Tested with {connectedProvider}. Only this service was tested."
@@ -11289,11 +11289,11 @@ msgstr "Δοκιμή της σύνδεσης…"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Testing your server's search, and reading with {connectedProvider}…"
-msgstr ""
+msgstr "Δοκιμή της υπηρεσίας αναζήτησης στον διακομιστή σας και ανάγνωση ιστοσελίδας με {connectedProvider}…"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Testing your server's search…"
-msgstr ""
+msgstr "Δοκιμή της υπηρεσίας αναζήτησης στον διακομιστή σας…"
 
 #: src/features/settings/ai/providers.tsx
 msgid "Testing…"
@@ -11622,11 +11622,11 @@ msgstr "Η ίδια γραμμή επαναλαμβάνεται σε κάθε σ
 
 #: src/features/settings/ai/providers.tsx
 msgid "The saved key isn't sent to a new base URL. Enter it again if this server needs one."
-msgstr ""
+msgstr "Το αποθηκευμένο κλειδί δεν αποστέλλεται σε νέα διεύθυνση URL βάσης. Εισαγάγετε ξανά το κλειδί εάν αυτός ο διακομιστής απαιτεί κλειδί."
 
 #: src/features/settings/ai/providers.tsx
 msgid "The saved key isn't sent to a new base URL. Enter it again."
-msgstr ""
+msgstr "Το αποθηκευμένο κλειδί δεν αποστέλλεται σε νέα διεύθυνση URL βάσης. Εισάγετε ξανά το κλειδί."
 
 #: src/libs/error-message.ts
 msgid "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer."
@@ -12499,7 +12499,7 @@ msgstr "Χρησιμοποιήστε πεζά γράμματα, αριθμούς
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Use my time zone"
-msgstr ""
+msgstr "Χρήση της ζώνης ώρας μου"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Use one column"
@@ -12781,7 +12781,7 @@ msgstr "Στείλαμε έναν σύνδεσμο επιβεβαίωσης στ
 
 #: src/features/settings/account/profile.tsx
 msgid "We sent a link to {currentEmail} to approve the change. After that, confirm {email} from its own email."
-msgstr ""
+msgstr "Στείλαμε έναν σύνδεσμο στο {currentEmail} για να εγκρίνουμε την αλλαγή. Στη συνέχεια, επιβεβαιώστε το {email} χρησιμοποιώντας το μήνυμα που στάλθηκε σε αυτήν τη διεύθυνση email."
 
 #. placeholder {0}: user.email
 #: src/features/settings/account/profile.tsx
@@ -12811,7 +12811,7 @@ msgstr "Η αναζήτηση στον Ιστό απέτυχε: {0}"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Web searches look for work here, up to three countries."
-msgstr ""
+msgstr "Οι αναζητήσεις στον Ιστό αναζητούν θέσεις εργασίας σε αυτές τις χώρες. Επιλέξτε έως τρεις χώρες."
 
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Website"
@@ -12999,7 +12999,7 @@ msgstr "Πού εργάζεστε"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Where you're looking for work"
-msgstr ""
+msgstr "Εκεί που ψάχνεις για δουλειά"
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Where your applications went"
@@ -13556,7 +13556,7 @@ msgstr "Η γραμματοσειρά που επιλέξατε δεν μπορ�
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Your server provides search for Applications and the assistant. Connect a service to read pages the built-in reader can't."
-msgstr ""
+msgstr "Ο διακομιστής σας παρέχει αναζήτηση Ιστού στην ενότητα Αιτήσεις και για τον βοηθό. Συνδέστε μια υπηρεσία για να διαβάσετε ιστοσελίδες που ο ενσωματωμένος αναγνώστης δεν μπορεί να διαβάσει."
 
 #: src/features/career/coach.tsx
 msgid "your stories"
