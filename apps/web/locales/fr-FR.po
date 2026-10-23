@@ -1621,6 +1621,10 @@ msgstr "Téléchargez également la lettre de motivation {0}"
 msgid "Also email {0}"
 msgstr "Envoyer aussi un e-mail à {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Aussi sur mobile"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Affiche également les icônes sur les compétences, les profils et les intérêts."
@@ -2771,6 +2775,10 @@ msgstr "Colonnes"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Les colonnes peuvent brouiller le texte de la commande qui est lu."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Bientôt disponible"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Obtenir un retour"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "« Obtenir un retour » envoie la question, votre réponse, cette annonce et vos récits à {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Disponible sur"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

@@ -1621,6 +1621,10 @@ msgstr "{0} कव्हर लेटर देखील डाउनलोड �
 msgid "Also email {0}"
 msgstr "{0} वरही ईमेल पाठवा"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "मोबाइलवरही उपलब्ध"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "कौशल्ये, प्रोफाइल आणि स्वारस्यांवर चिन्ह देखील दर्शविते."
@@ -2771,6 +2775,10 @@ msgstr "स्तंभ"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "स्तंभ क्रमाने वाचलेला मजकूर स्क्रॅम्बल करू शकतात."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "लवकरच येत आहे"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "अभिप्राय मिळवा"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "“अभिप्राय मिळवा” प्रश्न, तुमचे उत्तर, ही जॉब पोस्टिंग आणि तुमच्या कथा {providerName} ला पाठवते."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "येथून डाउनलोड करा"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

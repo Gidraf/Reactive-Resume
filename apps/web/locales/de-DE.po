@@ -1621,6 +1621,10 @@ msgstr "Laden Sie auch das Anschreiben {0} herunter"
 msgid "Also email {0}"
 msgstr "Auch per E-Mail an {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Auch auf dem Smartphone"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Zeigt auch die Symbole zu Fähigkeiten, Profilen und Interessen an."
@@ -2771,6 +2775,10 @@ msgstr "Spalten"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Spalten können den eingelesenen Bestelltext verwirren."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Demnächst verfügbar"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Feedback erhalten"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "„Feedback erhalten“ sendet die Frage, Ihre Antwort, diese Stellenanzeige und Ihre Geschichten an {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Jetzt bei"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

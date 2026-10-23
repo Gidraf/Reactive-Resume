@@ -1616,6 +1616,10 @@ msgstr ""
 msgid "Also email {0}"
 msgstr ""
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr ""
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr ""
@@ -2765,6 +2769,10 @@ msgstr ""
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
+msgstr ""
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
 msgstr ""
 
 #: src/features/career/today.tsx
@@ -5276,6 +5284,10 @@ msgstr ""
 
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
+msgstr ""
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
 msgstr ""
 
 #: src/features/career/today.tsx

@@ -1621,6 +1621,10 @@ msgstr "এছাড়াও {0} কভার লেটার ডাউনল�
 msgid "Also email {0}"
 msgstr "{0}-এ ইমেইলও করুন"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "মোবাইলেও উপলব্ধ"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "এছাড়াও দক্ষতা, প্রোফাইল এবং আগ্রহের আইকন দেখায়।"
@@ -2771,6 +2775,10 @@ msgstr "কলামসমূহ"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "কলাম ক্রম টেক্সট পড়া হয় স্ক্র্যাম্বল করতে পারেন."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "শীঘ্রই আসছে"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "মতামত নিন"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "“মতামত নিন” প্রশ্ন, আপনার উত্তর, এই চাকরির বিজ্ঞপ্তি এবং আপনার গল্পগুলো {providerName}-এ পাঠায়।"
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "ডাউনলোড করুন"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

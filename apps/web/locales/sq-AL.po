@@ -1621,6 +1621,10 @@ msgstr "Shkarkoni gjithashtu letrën motivuese {0}"
 msgid "Also email {0}"
 msgstr "Dërgo email edhe te {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Edhe në celular"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Gjithashtu tregon ikonat mbi aftësitë, profilet dhe interesat."
@@ -2771,6 +2775,10 @@ msgstr "Kolonat"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Kolonat mund të përziejnë tekstin në të cilin lexohet."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Së shpejti"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Merr komente"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "“Merr komente” dërgon pyetjen, përgjigjen tuaj, këtë shpallje dhe historitë tuaja te {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Shkarkojeni nga"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

@@ -1621,6 +1621,10 @@ msgstr "Ayrıca {0} kapak mektubunu da indirin"
 msgid "Also email {0}"
 msgstr "{0} adresine de e-posta gönder"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Mobilde de kullanılabilir"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Ayrıca becerilere, profillere ve ilgi alanlarına ilişkin simgeleri de gösterir."
@@ -2771,6 +2775,10 @@ msgstr "Sütunlar"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Sütunlar metnin okunma sırasını karıştırabilir."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Çok yakında"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Geri bildirim al"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "“Geri bildirim al”, soruyu, cevabınızı, bu ilanı ve hikayelerinizi şuraya gönderir: {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Buradan indirin"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

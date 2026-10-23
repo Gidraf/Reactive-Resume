@@ -1621,6 +1621,10 @@ msgstr "همچنین جلد نامه {0} را دانلود کنید"
 msgid "Also email {0}"
 msgstr "به {0} هم ایمیل شود"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "در موبایل هم در دسترس است"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "همچنین نمادهای مربوط به مهارت ها، پروفایل ها و علایق را نشان می دهد."
@@ -2771,6 +2775,10 @@ msgstr "ستون‌ها"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "ستون‌ها می‌توانند متن سفارشی را که در آن خوانده می‌شود، درهم بزنند."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "به‌زودی"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "دریافت بازخورد"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "«دریافت بازخورد» پرسش، پاسخ شما، این آگهی و داستان‌هایتان را به {providerName} می‌فرستد."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "دریافت از"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

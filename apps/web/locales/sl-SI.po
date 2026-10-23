@@ -1621,6 +1621,10 @@ msgstr "Prenesite tudi spremno pismo {0}"
 msgid "Also email {0}"
 msgstr "Pošlji tudi e-pošto na {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Tudi na mobilnih napravah"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Prikazuje tudi ikone veščin, profilov in zanimanj."
@@ -2771,6 +2775,10 @@ msgstr "Stolpci"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Stolpci lahko zamegljujejo besedilo naročila, v katerem se bere."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Kmalu na voljo"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Pridobi povratne informacije"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "»Pridobi povratne informacije« pošlje vprašanje, vaš odgovor, ta oglas in vaše zgodbe. Prejemnik: {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Prenesite iz"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

@@ -1621,6 +1621,10 @@ msgstr "{0} のカバーレターもダウンロードしてください"
 msgid "Also email {0}"
 msgstr "{0}にもメールで送る"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "モバイルでも利用可能"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "スキル、プロフィール、興味に関するアイコンも表示されます。"
@@ -2771,6 +2775,10 @@ msgstr "列"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "列は、テキストが読み取られる順序を乱す可能性があります。"
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "近日公開"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "フィードバックをもらう"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "「フィードバックをもらう」を押すと、質問、あなたの回答、この求人情報、あなたのストーリーが{providerName}に送信されます。"
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "こちらからダウンロード"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

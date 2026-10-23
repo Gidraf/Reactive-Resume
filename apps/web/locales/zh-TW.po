@@ -1621,6 +1621,10 @@ msgstr "另請下載 {0} 求職信"
 msgid "Also email {0}"
 msgstr "同時寄送電子郵件至 {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "行動裝置也能使用"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "也顯示技能、個人資料和興趣的圖示。"
@@ -2771,6 +2775,10 @@ msgstr "欄"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "列可以打亂文字的讀入順序。"
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "即將推出"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "取得回饋"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "「取得回饋」會將問題、您的回答、此職缺公告和您的故事傳送給 {providerName}。"
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "立即下載"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

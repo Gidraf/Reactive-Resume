@@ -1621,6 +1621,10 @@ msgstr "Lataa myös {0} saatekirje"
 msgid "Also email {0}"
 msgstr "Lähetä myös sähköpostiin {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Myös mobiilissa"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Näyttää myös taitojen, profiilien ja kiinnostuksen kohteiden kuvakkeet."
@@ -2771,6 +2775,10 @@ msgstr "Sarakkeet"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Sarakkeet voivat sekoittaa järjestyksen tekstin lukemista."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Tulossa pian"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Pyydä palautetta"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "Pyydä palautetta -toiminto lähettää kysymyksen, vastauksesi, tämän ilmoituksen ja tarinasi palveluun {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Lataa palvelusta"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

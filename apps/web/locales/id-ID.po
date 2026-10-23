@@ -1621,6 +1621,10 @@ msgstr "Download juga surat lamaran {0}"
 msgid "Also email {0}"
 msgstr "Kirim juga email ke {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Juga tersedia di ponsel"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Juga menunjukkan ikon keterampilan, profil, dan minat."
@@ -2771,6 +2775,10 @@ msgstr "Kolom"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Kolom dapat mengacak urutan teks dibaca."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Segera hadir"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Dapatkan masukan"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "Dapatkan masukan mengirim pertanyaan, jawaban Anda, lowongan ini, dan cerita Anda ke {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Dapatkan di"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
+import { AppleLogoIcon, GooglePlayLogoIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { templateSchema } from "@reactive-resume/schema/templates";
@@ -415,6 +416,32 @@ export function Closing() {
 				{t`Start from scratch or import what you have. It takes a few minutes, and you can come back to it anytime.`}
 			</p>
 			<CtaLink size="closing" />
+			<div className="mt-3 flex flex-col items-center gap-3 border-t border-line pt-7">
+				<p className={cn(labelClass, "text-ink-3")}>{t`Also on mobile`}</p>
+				<div className="flex flex-wrap justify-center gap-3">
+					<a
+						href="https://play.google.com/store/apps/details?id=me.rxresu"
+						className="inline-flex min-h-14 items-center gap-3 rounded-xl border border-line-2 bg-raised px-5 py-2.5 text-start font-ui text-ink transition-[background-color,transform] duration-[160ms] ease-out-strong hover:bg-hover motion-safe:active:scale-[.97]"
+					>
+						<GooglePlayLogoIcon aria-hidden="true" size={28} weight="fill" className="shrink-0" />
+						<span className="flex flex-col gap-0.5">
+							<span className="text-xs leading-tight text-ink-2">{t`Get it on`}</span>
+							<span className="text-lg leading-tight font-semibold">Google Play</span>
+						</span>
+					</a>
+					<button
+						type="button"
+						disabled
+						className="inline-flex min-h-14 cursor-not-allowed items-center gap-3 rounded-xl border border-line px-5 py-2.5 text-start font-ui text-ink-3"
+					>
+						<AppleLogoIcon aria-hidden="true" size={28} weight="fill" className="shrink-0" />
+						<span className="flex flex-col gap-0.5">
+							<span className="text-xs leading-tight">{t`Coming soon`}</span>
+							<span className="text-lg leading-tight font-semibold">App Store</span>
+						</span>
+					</button>
+				</div>
+			</div>
 		</section>
 	);
 }

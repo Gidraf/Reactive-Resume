@@ -1621,6 +1621,10 @@ msgstr "Також завантажте супровідний лист {0}"
 msgid "Also email {0}"
 msgstr "Також надіслати на {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Також на мобільних пристроях"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Також показує піктограми навичок, профілів та інтересів."
@@ -2771,6 +2775,10 @@ msgstr "Стовпці"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Стовпці можуть змішувати текст замовлення, який читається."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Незабаром"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Отримати відгук"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "«Отримати відгук» надсилає запитання, вашу відповідь, це оголошення та ваші розповіді через {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Завантажте з"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

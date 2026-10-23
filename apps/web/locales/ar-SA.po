@@ -1621,6 +1621,10 @@ msgstr "قم أيضًا بتنزيل خطاب تعريف {0}"
 msgid "Also email {0}"
 msgstr "أرسل بريدًا إلكترونيًا أيضًا إلى {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "متاح أيضًا على الجوال"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "يعرض أيضًا أيقونات المهارات والملفات الشخصية والاهتمامات."
@@ -2771,6 +2775,10 @@ msgstr "أعمدة"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "يمكن أن تتبارى الأعمدة في نص الطلب الذي تمت قراءته."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "قريبًا"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "احصل على ملاحظات"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "يرسل “احصل على ملاحظات” السؤال وإجابتك وإعلان الوظيفة هذا وقصصك إلى {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "احصل عليه من"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

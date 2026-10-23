@@ -1621,6 +1621,10 @@ msgstr "Ladda också ner {0} följebrevet"
 msgid "Also email {0}"
 msgstr "Mejla även {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Även på mobilen"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Visar även ikonerna för färdigheter, profiler och intressen."
@@ -2771,6 +2775,10 @@ msgstr "Kolumner"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Kolumner kan förvränga ordningsföljden som texten läses in."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Kommer snart"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Få feedback"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "\"Få feedback\" skickar frågan, ditt svar, den här annonsen och dina berättelser till {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Hämta på"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

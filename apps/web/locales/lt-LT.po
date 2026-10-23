@@ -1621,6 +1621,10 @@ msgstr "Taip pat atsisiųskite {0} motyvacinį laišką"
 msgid "Also email {0}"
 msgstr "Taip pat siųsti el. laišką adresu {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "Taip pat mobiliajame telefone"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Taip pat rodomos įgūdžių, profilių ir pomėgių piktogramos."
@@ -2771,6 +2775,10 @@ msgstr "Stulpeliai"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Stulpeliai gali sumaišyti, kad tekstas būtų skaitomas."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Jau greitai"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Gauti atsiliepimą"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "Paspaudus „Gauti atsiliepimą“, {providerName} gaus klausimą, jūsų atsakymą, šį skelbimą ir jūsų istorijas."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Atsisiųskite iš"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

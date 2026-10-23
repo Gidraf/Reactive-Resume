@@ -1621,6 +1621,10 @@ msgstr "እንዲሁም የ {0} የሽፋን ደብዳቤ ያውርዱ"
 msgid "Also email {0}"
 msgstr "ለ{0} ደግሞ ኢሜል ላክ"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "በሞባይልም ይገኛል"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "እንዲሁም በችሎታ፣ መገለጫዎች እና ፍላጎቶች ላይ ያሉትን አዶዎች ያሳያል።"
@@ -2771,6 +2775,10 @@ msgstr "አምዶች"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "ዓምዶች የተነበበውን የትዕዛዝ ጽሑፍ ሊያበላሹ ይችላሉ።"
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "በቅርቡ ይመጣል"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "ግብረ መልስ አግኝ"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "«ግብረ መልስ አግኝ» ጥያቄውን፣ መልስዎን፣ ይህን የሥራ ማስታወቂያ እና ታሪኮችዎን ወደ {providerName} ይልካል።"
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "ያግኙት በ"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

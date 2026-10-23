@@ -1621,6 +1621,10 @@ msgstr "Изтеглете и мотивационното писмо {0}"
 msgid "Also email {0}"
 msgstr "Изпращане и по имейл до {0}"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "И на мобилни устройства"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "Показва също иконите за умения, профили и интереси."
@@ -2771,6 +2775,10 @@ msgstr "Колони"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "Колоните могат да разбъркват текста на поръчката, в който се чете."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "Очаквайте скоро"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "Получаване на обратна връзка"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "„Получаване на обратна връзка“ изпраща въпроса, отговора ви, тази обява и историите ви до {providerName}."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "Изтеглете от"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

@@ -1621,6 +1621,10 @@ msgstr "ดาวน์โหลดจดหมายปะหน้า {0} ด�
 msgid "Also email {0}"
 msgstr "ส่งอีเมลถึง {0} ด้วย"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "ใช้งานบนมือถือได้ด้วย"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "ยังแสดงไอคอนทักษะ โปรไฟล์ และความสนใจอีกด้วย"
@@ -2771,6 +2775,10 @@ msgstr "คอลัมน์"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "คอลัมน์สามารถสลับข้อความลำดับที่อ่านได้"
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "เร็ว ๆ นี้"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "รับคำติชม"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "“รับคำติชม” จะส่งคำถาม คำตอบของคุณ ประกาศงานนี้ และเรื่องราวของคุณไปยัง {providerName}"
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "ดาวน์โหลดได้ที่"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

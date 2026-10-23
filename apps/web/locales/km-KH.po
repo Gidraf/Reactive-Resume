@@ -1621,6 +1621,10 @@ msgstr "ទាញយកលិខិតគម្រប {0} ផងដែរ។"
 msgid "Also email {0}"
 msgstr "ផ្ញើអ៊ីមែលទៅ {0} ផងដែរ"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "ក៏មាននៅលើទូរសព្ទដែរ"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "ក៏បង្ហាញរូបតំណាងលើជំនាញ ទម្រង់ និងចំណាប់អារម្មណ៍ផងដែរ។"
@@ -2771,6 +2775,10 @@ msgstr "ជួរឈរ"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "ជួរឈរអាចបំបែកអត្ថបទលំដាប់ត្រូវបានអាន។"
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "នឹងមកដល់ឆាប់ៗនេះ"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "ទទួលមតិកែលម្អ"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "“ទទួលមតិកែលម្អ” ផ្ញើសំណួរ ចម្លើយរបស់អ្នក ការប្រកាសការងារនេះ និងរឿងរបស់អ្នក ទៅ {providerName}។"
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "ទាញយកពី"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"

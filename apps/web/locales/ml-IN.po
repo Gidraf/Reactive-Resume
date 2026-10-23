@@ -1621,6 +1621,10 @@ msgstr "{0} കവർ ലെറ്ററും ഡൗൺലോഡ് ചെയ�
 msgid "Also email {0}"
 msgstr "{0} എന്ന വിലാസത്തിലേക്കും ഇമെയിൽ അയയ്ക്കുക"
 
+#: src/features/homepage/sections.tsx
+msgid "Also on mobile"
+msgstr "മൊബൈലിലും ലഭ്യമാണ്"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "കഴിവുകൾ, പ്രൊഫൈലുകൾ, താൽപ്പര്യങ്ങൾ എന്നിവയിലെ ഐക്കണുകളും കാണിക്കുന്നു."
@@ -2771,6 +2775,10 @@ msgstr "കോളങ്ങൾ"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "നിരകൾ വായിക്കുന്ന ഓർഡർ ടെക്‌സ്‌റ്റ് സ്‌ക്രാംബിൾ ചെയ്യാൻ കഴിയും."
+
+#: src/features/homepage/sections.tsx
+msgid "Coming soon"
+msgstr "ഉടൻ വരുന്നു"
 
 #: src/features/career/today.tsx
 msgid "Coming up"
@@ -5282,6 +5290,10 @@ msgstr "ഫീഡ്‌ബാക്ക് നേടുക"
 #: src/features/career/workspace/practise.tsx
 msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
 msgstr "“ഫീഡ്‌ബാക്ക് നേടുക” ചോദ്യവും നിങ്ങളുടെ ഉത്തരവും ഈ പോസ്റ്റിംഗും നിങ്ങളുടെ കഥകളും {providerName}-ലേക്ക് അയയ്ക്കുന്നു."
+
+#: src/features/homepage/sections.tsx
+msgid "Get it on"
+msgstr "ഇവിടെ നിന്ന് ഡൗൺലോഡ് ചെയ്യൂ"
 
 #: src/features/career/today.tsx
 msgid "Get new roles here every morning"
