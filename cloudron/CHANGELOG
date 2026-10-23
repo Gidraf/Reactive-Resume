@@ -1,3 +1,13 @@
+[6.0.5]
+* Preserve guest photos and attachments when signing up or linking an account.
+* Add search-country preferences and optional direct SearXNG search.
+* Repair renamed public resume links, PDF text imports and page backgrounds.
+* Improve mobile navigation, sign-in, refresh feedback and PDF zoom controls.
+* Harden authentication, document access, imports and outbound requests.
+* Apply startup migrations for username reservations, Trash cleanup indexes and deleted conversation messages. Back up the database before upgrading; Trash items older than 30 days are now deleted.
+* Reject example secrets in production and require AUTH_SECRET to contain at least 32 characters. Keep valid existing secrets unchanged.
+* Complete web and mobile translations.
+
 [6.0.4]
 * Add the Persian resume template and improve CJK previews on slow connections.
 * Complete web and mobile translations across all supported translation locales.
