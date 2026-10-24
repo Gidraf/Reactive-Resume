@@ -3,7 +3,8 @@ import type { HTMLElement, Node } from "node-html-parser";
 import type { ReactNode } from "react";
 import { NodeType, parse } from "node-html-parser";
 import { createElement, Fragment } from "react";
-import { Text, View } from "./forme/primitives";
+import { Image, Svg, Text, View } from "./forme/primitives";
+import { resolveRichImage, richMediaLength, sanitizeSvgElement } from "./rich-media";
 
 export { Link, Text } from "./forme/primitives";
 
@@ -125,9 +126,29 @@ function annotate(element: HtmlElement, stylesheet: Record<string, Style>) {
 	}
 }
 
+// Elements whose content is never document text: drawn, they'd print code or markup as words.
+const DROPPED_TAGS = new Set([
+	"script",
+	"style",
+	"template",
+	"noscript",
+	"iframe",
+	"object",
+	"embed",
+	"head",
+	"title",
+	"meta",
+	"link",
+	"base",
+	"video",
+	"audio",
+	"canvas",
+]);
+
 const toConverted = (node: Node): Converted | null => {
 	if (node.nodeType === NodeType.TEXT_NODE) return node.text;
-	return node.nodeType === NodeType.ELEMENT_NODE ? (node as HtmlElement) : null;
+	if (node.nodeType !== NodeType.ELEMENT_NODE) return null;
+	return DROPPED_TAGS.has(tagOf(node as HTMLElement)) ? null : (node as HtmlElement);
 };
 
 const isBlockStyle = (style: Style) => style.display === "flex" || (style.display as string) === "block";
@@ -184,9 +205,64 @@ function renderChildren(parent: HtmlElement | undefined, nodes: Node[], options:
 	return rendered.length === 1 ? rendered[0] : rendered;
 }
 
+/** Width and height from an element's styles (inline style last, so it wins), in points. */
+function mediaSizeOf(element: HtmlElement) {
+	let width: number | undefined;
+	let height: number | undefined;
+	for (const style of element.styles) {
+		const ownWidth = typeof style.width === "number" ? style.width : richMediaLength(String(style.width ?? ""));
+		const ownHeight = typeof style.height === "number" ? style.height : richMediaLength(String(style.height ?? ""));
+		if (ownWidth !== undefined) width = ownWidth;
+		if (ownHeight !== undefined) height = ownHeight;
+	}
+	width ??= richMediaLength(element.getAttribute("width"));
+	height ??= richMediaLength(element.getAttribute("height"));
+	return { width, height };
+}
+
+/** Margins, alignment and the like from an element's styles, without the size the media sets itself. */
+const mediaBoxStyles = (element: HtmlElement): Style[] =>
+	element.styles.map((style) => {
+		const { width: _width, height: _height, ...rest } = style;
+		return rest as Style;
+	});
+
+/**
+ * `<svg>` and `<img>`: drawn from sanitized markup or a data URI, never fetched. Each is a block of its own size;
+ * anything that can't be drawn safely is left out.
+ */
+function renderMedia(node: HtmlElement, tag: "svg" | "img", key: number): ReactNode {
+	const size = mediaSizeOf(node);
+	const svg = tag === "svg" ? sanitizeSvgElement(node, size) : null;
+	const media = svg
+		? ({ kind: "svg", ...svg } as const)
+		: tag === "img"
+			? resolveRichImage(node.getAttribute("src"), size)
+			: null;
+	if (!media) return null;
+	const style = mediaBoxStyles(node);
+	if (media.kind === "raster") {
+		const sized: Style = {
+			...(media.width === undefined ? {} : { width: media.width }),
+			...(media.height === undefined ? {} : { height: media.height }),
+		};
+		// Without either size a picture fills its column, as react-pdf drew it.
+		return createElement(Image, { key, src: media.src, style: [...style, sized] });
+	}
+	return createElement(Svg, {
+		key,
+		content: media.content,
+		viewBox: media.viewBox,
+		width: media.width,
+		height: media.height,
+		style: [...style, { flexShrink: 0 }],
+	});
+}
+
 function renderNode(node: Converted, options: RenderOptions, key: number): ReactNode {
 	if (typeof node === "string") return node;
 	const tag = tagOf(node);
+	if ((tag === "svg" || tag === "img") && !Object.hasOwn(options.renderers, tag)) return renderMedia(node, tag, key);
 	const preserve = tag === "pre" || node.getAttribute("data-resume-whitespace") === "preserve";
 	const children = renderChildren(node, node.childNodes, preserve ? { ...options, collapse: false } : options);
 	const renderer = Object.hasOwn(options.renderers, tag) ? options.renderers[tag] : undefined;
