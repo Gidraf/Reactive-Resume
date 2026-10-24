@@ -30,7 +30,9 @@ export type JsonSchema = {
 
 const defaultPaths: DocumentationPaths = {
 	jsonSchemaGuide: fileURLToPath(new URL("../../docs/guides/json-resume-schema.mdx", import.meta.url)),
-	skillSchemaReference: fileURLToPath(new URL("../../skills/resume-builder/references/schema.md", import.meta.url)),
+	skillSchemaReference: fileURLToPath(
+		new URL("../../plugins/reactive-resume/skills/resume-builder/references/schema.md", import.meta.url),
+	),
 };
 
 const markdown = (value: unknown) => String(value).replaceAll("|", "\\|").replaceAll(/\r?\n/g, " ");
@@ -45,8 +47,8 @@ const table = (headers: readonly string[], rows: readonly string[]) =>
 	[`| ${headers.join(" | ")} |`, `| ${headers.map(() => "---").join(" | ")} |`, ...rows].join("\n");
 
 export function replaceGeneratedBlock(source: string, name: string, body: string, path: string): string {
-	const start = `<!-- ${name}:START -->`;
-	const end = `<!-- ${name}:END -->`;
+	const start = `{/* ${name}:START */}`;
+	const end = `{/* ${name}:END */}`;
 	const startMatches = source.split(start).length - 1;
 	const endMatches = source.split(end).length - 1;
 

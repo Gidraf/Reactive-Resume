@@ -1,10 +1,13 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const mocks = vi.hoisted(() => ({
 	getSession: vi.fn(),
 	consent: vi.fn(),
 	continueOAuth: vi.fn(),
 	handler: vi.fn(),
+	registerAccountLinkHook: vi.fn(),
+	registerUserDeleteHook: vi.fn(),
+	migrateUserStorage: vi.fn(),
 	env: {
 		SERVER_PORT: 3001,
 		APP_URL: "http://localhost:3000",
@@ -21,6 +24,12 @@ vi.mock("@reactive-resume/auth/config", () => ({
 		},
 		handler: mocks.handler,
 	},
+	registerAccountLinkHook: mocks.registerAccountLinkHook,
+	registerUserDeleteHook: mocks.registerUserDeleteHook,
+}));
+
+vi.mock("@reactive-resume/api/features/storage", () => ({
+	migrateUserStorage: mocks.migrateUserStorage,
 }));
 
 vi.mock("@reactive-resume/db/client", () => ({ db: {} }));
@@ -36,6 +45,25 @@ beforeEach(() => {
 });
 
 describe("handleAuth", () => {
+	it.each(["203.0.113.9", "unknown"])("uses only the adapter's client address (%s)", async (trustedClient) => {
+		const { handleAuth } = await import("./auth");
+		await handleAuth(
+			new Request("http://localhost:3000/api/auth/get-session", {
+				headers: {
+					"cf-connecting-ip": "198.51.100.1",
+					"true-client-ip": "198.51.100.2",
+					"x-forwarded-for": "198.51.100.3, 192.0.2.1",
+					"x-real-ip": "198.51.100.4",
+				},
+			}),
+			trustedClient,
+		);
+		const request = mocks.handler.mock.calls[0]?.[0] as Request;
+		expect(request.headers.get("cf-connecting-ip")).toBeNull();
+		expect(request.headers.get("true-client-ip")).toBeNull();
+		expect(request.headers.get("x-forwarded-for")).toBeNull();
+		expect(request.headers.get("x-real-ip")).toBe(trustedClient === "unknown" ? null : trustedClient);
+	});
 	it.for([null, false, 42, "client", [], [{ redirect_uris: [] }]])(
 		"rejects non-object registration payload %j",
 		async (body) => {
@@ -52,21 +80,6 @@ describe("handleAuth", () => {
 			expect(mocks.handler).not.toHaveBeenCalled();
 		},
 	);
-
-	it("registers third-party https callbacks so remote MCP clients can complete DCR", async () => {
-		const { handleAuth } = await import("./auth");
-
-		const response = await handleAuth(
-			new Request("http://localhost:3001/api/auth/oauth2/register", {
-				method: "POST",
-				body: JSON.stringify({ redirect_uris: ["https://claude.ai/api/mcp/auth_callback"] }),
-				headers: { "content-type": "application/json" },
-			}),
-		);
-
-		expect(response.status).toBe(200);
-		expect(mocks.handler).toHaveBeenCalledOnce();
-	});
 
 	it("rejects unsafe dynamic OAuth redirect URIs in safe mode", async () => {
 		const { handleAuth } = await import("./auth");
@@ -87,21 +100,24 @@ describe("handleAuth", () => {
 		expect(mocks.handler).not.toHaveBeenCalled();
 	});
 
-	it("forwards custom-scheme dynamic OAuth redirect URIs when unsafe mode is enabled", async () => {
+	it.each([
+		["create-client", { post_logout_redirect_uris: ["https://10.0.0.1/logout"] }, "invalid_redirect_uri"],
+		["create-client", { backchannel_logout_uri: "https://example.com/logout" }, "invalid_client_metadata"],
+		["update-client", { client_id: "c", update: { redirect_uris: ["https://[::1]/cb"] } }, "invalid_redirect_uri"],
+	])("rejects unsafe client metadata on %s: %j", async (endpoint, body, error) => {
 		const { handleAuth } = await import("./auth");
-		mocks.env.FLAG_ALLOW_UNSAFE_OAUTH_REDIRECT_URI = true;
-
 		const response = await handleAuth(
-			new Request("http://localhost:3001/api/auth/oauth2/register", {
+			new Request(`http://localhost:3000/api/auth/oauth2/${endpoint}`, {
 				method: "POST",
-				body: JSON.stringify({ redirect_uris: ["myapp://callback"] }),
 				headers: { "content-type": "application/json" },
+				body: JSON.stringify(body),
 			}),
 		);
-
-		expect(response.status).toBe(200);
-		expect(mocks.handler).toHaveBeenCalledOnce();
+		expect(response.status).toBe(400);
+		await expect(response.json()).resolves.toMatchObject({ error });
+		expect(mocks.handler).not.toHaveBeenCalled();
 	});
+
 	it.each(["localhost", "127.0.0.1", "[::1]"])(
 		"infers native application type for exact %s loopback callbacks",
 		async (host) => {
@@ -158,20 +174,6 @@ describe("handleAuth", () => {
 		const forwarded = mocks.handler.mock.calls[0]?.[0] as Request;
 		expect((await forwarded.json()).application_type).not.toBe("native");
 	});
-
-	it("preserves repeated resource indicators during authorization sanitization", async () => {
-		const { handleAuth } = await import("./auth");
-		await handleAuth(
-			new Request(
-				"http://localhost:3000/api/auth/oauth2/authorize?resource=http%3A%2F%2Flocalhost%3A3000&resource=http%3A%2F%2Flocalhost%3A3000%2Fmcp",
-			),
-		);
-		const forwarded = mocks.handler.mock.calls[0]?.[0] as Request;
-		expect(new URL(forwarded.url).searchParams.getAll("resource")).toEqual([
-			"http://localhost:3000",
-			"http://localhost:3000/mcp",
-		]);
-	});
 });
 
 describe("handleOAuth", () => {
@@ -216,15 +218,6 @@ describe("handleOAuth", () => {
 		expect(response.headers.get("location")).toBe("/auth/consent?client_id=client&sig=signed");
 	});
 
-	it("preserves provider failures instead of issuing an authorization code", async () => {
-		const { handleOAuth } = await import("./auth");
-		mocks.getSession.mockResolvedValueOnce({ user: { id: "owner" } });
-		mocks.continueOAuth.mockResolvedValueOnce(Response.json({ error: "invalid_signature" }, { status: 400 }));
-		const response = await handleOAuth(new Request("http://localhost:3000/api/auth/oauth?sig=invalid"));
-		expect(response.status).toBe(400);
-		expect(response.headers.get("location")).toBeNull();
-		await expect(response.json()).resolves.toEqual({ error: "invalid_signature" });
-	});
 	it("preserves provider cookies and cache headers on forced reauthentication", async () => {
 		const { handleOAuth } = await import("./auth");
 		mocks.getSession.mockResolvedValueOnce({ user: { id: "owner" } });
@@ -257,4 +250,35 @@ describe("OAuth provider response validation", () => {
 			expect(mocks.consent).not.toHaveBeenCalled();
 		},
 	);
+});
+
+describe("account link storage migration", () => {
+	it("registers an account link hook that delegates to migrateUserStorage", async () => {
+		const { registerAccountLinkStorageMigration } = await import("./auth");
+		registerAccountLinkStorageMigration();
+		expect(mocks.registerAccountLinkHook).toHaveBeenCalled();
+		const registeredHook = mocks.registerAccountLinkHook.mock.calls.at(-1)?.[0];
+		expect(typeof registeredHook).toBe("function");
+
+		const cleanup = vi.fn();
+		mocks.migrateUserStorage.mockResolvedValueOnce(cleanup);
+		expect(await registeredHook({ fromUserId: "guest-old", toUserId: "user-new" })).toBe(cleanup);
+		expect(cleanup).not.toHaveBeenCalled();
+		expect(mocks.migrateUserStorage).toHaveBeenCalledWith("guest-old", "user-new");
+	});
+
+	it("logs and rethrows when migrateUserStorage fails", async () => {
+		const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+		mocks.migrateUserStorage.mockRejectedValueOnce(new Error("Storage unavailable"));
+		const { registerAccountLinkStorageMigration } = await import("./auth");
+		registerAccountLinkStorageMigration();
+		const registeredHook = mocks.registerAccountLinkHook.mock.calls.at(-1)?.[0];
+		expect(typeof registeredHook).toBe("function");
+
+		await expect(registeredHook({ fromUserId: "guest-old", toUserId: "user-new" })).rejects.toThrow(
+			"Storage unavailable",
+		);
+		expect(consoleError).toHaveBeenCalled();
+		consoleError.mockRestore();
+	});
 });

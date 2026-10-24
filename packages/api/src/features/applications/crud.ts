@@ -1,6 +1,8 @@
+import z from "zod";
 import { protectedProcedure } from "../../context";
 import { applicationDto } from "../../dto/application";
 import { resumeMutationRateLimit } from "../../middleware/rate-limit";
+import { paginate, paginationShape } from "../../pagination";
 import { applicationService } from "./service";
 
 export const crudRouter = {
@@ -12,18 +14,21 @@ export const crudRouter = {
 			operationId: "listApplications",
 			summary: "List job applications",
 			description:
-				"Returns all job applications belonging to the authenticated user, most recently updated first. Archived applications are excluded unless includeArchived is set. Optionally filter by pipeline stage. Requires authentication.",
+				"Returns all job applications belonging to the authenticated user, most recently updated first. Optionally filter by pipeline stage. Requires authentication.",
 			successDescription: "A list of the user's job applications.",
 		})
 		.input(applicationDto.list.input)
 		.output(applicationDto.list.output)
-		.handler(({ input, context }) =>
-			applicationService.list({
-				userId: context.user.id,
-				...(input.status ? { status: input.status } : {}),
-				...(input.tags ? { tags: input.tags } : {}),
-				includeArchived: input.includeArchived,
-			}),
+		.handler(async ({ input, context }) =>
+			paginate(
+				await applicationService.list({
+					userId: context.user.id,
+					...(input.status ? { status: input.status } : {}),
+					...(input.tags ? { tags: input.tags } : {}),
+				}),
+				input,
+				context.resHeaders,
+			),
 		),
 
 	getById: protectedProcedure
@@ -118,18 +123,7 @@ export const crudRouter = {
 		.input(applicationDto.attachDocument.input)
 		.use(resumeMutationRateLimit)
 		.output(applicationDto.attachDocument.output)
-		.handler(async ({ input, context }) => {
-			const buffer = await input.file.arrayBuffer();
-
-			return applicationService.attachDocument({
-				id: input.id,
-				userId: context.user.id,
-				kind: input.kind,
-				fileName: input.file.name,
-				contentType: input.file.type,
-				data: new Uint8Array(buffer),
-			});
-		}),
+		.handler(({ input, context }) => applicationService.attachDocument({ userId: context.user.id, ...input })),
 
 	removeDocument: protectedProcedure
 		.route({
@@ -171,6 +165,38 @@ export const crudRouter = {
 			}),
 		),
 
+	addInterview: protectedProcedure
+		.route({
+			method: "POST",
+			path: "/applications/{id}/interviews",
+			tags: ["Applications"],
+			operationId: "addApplicationInterview",
+			summary: "Schedule an interview",
+			description:
+				"Adds an interview (screening, technical, behavioral, onsite or other) with a scheduled date-time to the application's activity timeline. Applications can have any number of interviews. Requires authentication.",
+			successDescription: "The updated application.",
+		})
+		.input(applicationDto.addInterview.input)
+		.use(resumeMutationRateLimit)
+		.output(applicationDto.addInterview.output)
+		.handler(({ input, context }) => applicationService.addInterview({ ...input, userId: context.user.id })),
+
+	updateInterview: protectedProcedure
+		.route({
+			method: "PUT",
+			path: "/applications/{id}/interviews/{entryId}",
+			tags: ["Applications"],
+			operationId: "updateApplicationInterview",
+			summary: "Update a scheduled interview",
+			description:
+				"Updates an interview timeline entry (date-time, kind, duration, location, notes). Only provided fields are changed. Delete interviews with the timeline entry delete endpoint. Requires authentication.",
+			successDescription: "The updated application.",
+		})
+		.input(applicationDto.updateInterview.input)
+		.use(resumeMutationRateLimit)
+		.output(applicationDto.updateInterview.output)
+		.handler(({ input, context }) => applicationService.updateInterview({ ...input, userId: context.user.id })),
+
 	updateTimelineEntry: protectedProcedure
 		.route({
 			method: "PUT",
@@ -178,7 +204,8 @@ export const crudRouter = {
 			tags: ["Applications"],
 			operationId: "updateApplicationTimelineEntry",
 			summary: "Update a timeline entry",
-			description: "Updates a timeline entry date, or note text for note entries. Requires authentication.",
+			description:
+				"Updates a stage or note timeline entry date, or note text for note entries. Interview entries are rejected; use updateApplicationInterview. Requires authentication.",
 			successDescription: "The updated application.",
 		})
 		.input(applicationDto.updateTimelineEntry.input)
@@ -273,5 +300,8 @@ export const crudRouter = {
 			successDescription: "Distinct tags.",
 		})
 		.output(applicationDto.tags.output)
-		.handler(({ context }) => applicationService.listTags({ userId: context.user.id })),
+		.input(z.object(paginationShape).default({}))
+		.handler(async ({ context, input }) =>
+			paginate(await applicationService.listTags({ userId: context.user.id }), input, context.resHeaders),
+		),
 };

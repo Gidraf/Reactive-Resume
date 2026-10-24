@@ -1,26 +1,27 @@
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import type { Template } from "@reactive-resume/schema/templates";
-import { describe, expect, it, vi } from "vitest";
-import { pdf } from "@react-pdf/renderer";
+import { describe, expect, it, vi } from "vite-plus/test";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { createElement } from "react";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { ResumeDocument } from "../document";
-
-vi.mock("@react-pdf/renderer", async (importOriginal) => ({
-	...(await importOriginal<typeof import("@react-pdf/renderer")>()),
-}));
+import { pdf, renderToBuffer } from "../forme/testing";
+import { rasterizePdf } from "./test/rasterize-pdf";
 
 type HostNode = {
 	type: string;
+	value?: string;
 	props?: Readonly<Record<string, unknown>>;
 	children?: HostNode[];
 };
 
-const findFirst = (node: HostNode, type: string): HostNode | undefined => {
-	if (node.type === type) return node;
+const nodeText = (node: HostNode): string =>
+	node.value ?? (node.children ?? []).map((child) => nodeText(child)).join("");
+
+const findFirst = (node: HostNode, predicate: (candidate: HostNode) => boolean): HostNode | undefined => {
+	if (predicate(node)) return node;
 	for (const child of node.children ?? []) {
-		const match = findFirst(child, type);
+		const match = findFirst(child, predicate);
 		if (match) return match;
 	}
 };
@@ -32,12 +33,9 @@ const renderHostTree = async (data: ResumeData): Promise<HostNode> => {
 	return instance.container.document as HostNode;
 };
 
-const renderPdf = async (data: ResumeData, template: Template = "onyx"): Promise<Uint8Array> => {
-	const renderer = await vi.importActual<typeof import("@react-pdf/renderer")>("@react-pdf/renderer");
-	const element = createElement(ResumeDocument, { data, template }) as unknown as Parameters<
-		typeof renderer.renderToBuffer
-	>[0];
-	return new Uint8Array(await renderer.renderToBuffer(element));
+const renderPdf = async (data: ResumeData, template: Template): Promise<Uint8Array> => {
+	const element = createElement(ResumeDocument, { data, template }) as unknown as Parameters<typeof renderToBuffer>[0];
+	return new Uint8Array(await renderToBuffer(element));
 };
 
 type PdfTextItem = {
@@ -47,7 +45,6 @@ type PdfTextItem = {
 
 type ParsedPdfPage = {
 	getTextContent: () => Promise<{ items: PdfTextItem[] }>;
-	getViewport: (options: { scale: number }) => { width: number };
 };
 
 type ParsedPdf = {
@@ -56,29 +53,6 @@ type ParsedPdf = {
 };
 
 const parsePdf = (data: Uint8Array): Promise<ParsedPdf> => getDocument({ data }).promise as Promise<ParsedPdf>;
-
-const overflowingFixture = (pageSize: "A4" | "LETTER"): ResumeData => {
-	const data = structuredClone(defaultResumeData);
-	const source = {
-		languageVersion: 1,
-		text: `
-			@version 1;
-			page[page-number="1"] { size: ${pageSize}; }
-			header { -resume-fixed: true; }
-			@media (max-width: 600pt) { section-heading { font-size: 9pt; } }
-		`,
-	};
-	data.picture.hidden = true;
-	data.basics.name = "FIXED HEADER TOKEN";
-	data.summary.title = "Summary";
-	data.summary.content = Array.from(
-		{ length: 180 },
-		(_value, index) => `<p>Overflow line ${index + 1} with enough text to occupy the authored page.</p>`,
-	).join("");
-	data.metadata.layout.pages = [{ fullWidth: true, main: ["summary"], sidebar: [] }];
-	data.metadata.stylesheet = { mode: "semantic", source };
-	return data;
-};
 
 const azurillAuthoredOverflowFixture = () => {
 	const data = structuredClone(defaultResumeData);
@@ -133,7 +107,6 @@ const readPhysicalPages = async (document: ParsedPdf) => {
 		const page = await document.getPage(pageNumber);
 		const content = await page.getTextContent();
 		pages.push({
-			width: page.getViewport({ scale: 1 }).width,
 			items: content.items,
 			text: content.items.map(({ str }) => str).join(" "),
 		});
@@ -142,41 +115,69 @@ const readPhysicalPages = async (document: ParsedPdf) => {
 };
 
 describe("semantic pagination bindings", () => {
-	it("passes resolved authored-page size to the existing Page primitive", async () => {
+	it("passes resolved authored-page size and a fixed header to the existing primitives", async () => {
 		const data = structuredClone(defaultResumeData);
 		const source = {
 			languageVersion: 1,
-			text: '@version 1;\npage[page-number="1"] { size: LETTER; }',
+			text: '@version 1;\npage[page-number="1"] { size: LETTER; }\nheader { -resume-fixed: true; }',
 		};
 		data.picture.hidden = true;
 		data.basics.name = "Ada Lovelace";
 		data.metadata.layout.pages = [{ fullWidth: true, main: [], sidebar: [] }];
 		data.metadata.stylesheet = { mode: "semantic", source };
 
-		const page = findFirst(await renderHostTree(data), "PAGE");
+		const document = await renderHostTree(data);
+		const page = findFirst(document, (node) => node.type === "PAGE");
+		const fixed = findFirst(document, (node) => node.props?.fixed === true);
 
 		expect(page?.props?.size).toBe("LETTER");
+		expect(fixed?.type).toBe("VIEW");
+		expect(fixed && nodeText(fixed)).toContain("Ada Lovelace");
 	});
 
-	it("keeps authored-page selectors and media width stable across wrapped physical pages", async () => {
-		const document = await parsePdf(await renderPdf(overflowingFixture("A4")));
-		const pages = await readPhysicalPages(document);
-		const heading = pages.flatMap(({ items }) => items).find(({ str }) => str === "Summary");
+	it.each([1, 100])(
+		"paints only the selected Azurill page and its overflow with %i paragraphs (#3610)",
+		async (count) => {
+			const data = structuredClone(defaultResumeData);
+			data.picture.hidden = true;
+			data.basics.name = "Ada Lovelace";
+			data.summary.content = Array.from(
+				{ length: count },
+				(_, index) => `<p>Second page paragraph ${index + 1}.</p>`,
+			).join("");
+			data.metadata.typography.body.fontFamily = "Helvetica";
+			data.metadata.typography.heading.fontFamily = "Helvetica";
+			data.metadata.design.colors.background = "#ffffff";
+			data.metadata.design.colors.primary = "#123456";
+			data.metadata.layout.pages = [
+				{ fullWidth: true, main: [], sidebar: [] },
+				{ fullWidth: true, main: ["summary"], sidebar: [] },
+			];
+			data.metadata.stylesheet = {
+				mode: "semantic",
+				source: {
+					languageVersion: 1,
+					text: 'page[page-number="2"] { background-color: var(--resume-primary-color); }',
+				},
+			};
 
-		expect(document.numPages).toBeGreaterThan(1);
-		expect(pages.every(({ width }) => Math.abs(width - 595.28) < 0.1)).toBe(true);
-		expect(pages.filter(({ text }) => text.includes("FIXED HEADER TOKEN"))).toHaveLength(document.numPages);
-		expect(Math.abs((heading?.transform[3] ?? 0) - 9)).toBeLessThan(0.1);
-	});
-
-	it("resolves page size before evaluating media queries", async () => {
-		const document = await parsePdf(await renderPdf(overflowingFixture("LETTER")));
-		const pages = await readPhysicalPages(document);
-		const heading = pages.flatMap(({ items }) => items).find(({ str }) => str === "Summary");
-
-		expect(pages.every(({ width }) => Math.abs(width - 612) < 0.1)).toBe(true);
-		expect(Math.abs((heading?.transform[3] ?? 0) - 9)).toBeGreaterThan(0.1);
-	});
+			const pages = await rasterizePdf(await renderPdf(data, "azurill"));
+			if (count === 1) expect(pages).toHaveLength(2);
+			else expect(pages.length).toBeGreaterThan(2);
+			for (const [index, page] of pages.entries()) {
+				const expected = index === 0 ? [255, 255, 255, 255] : [18, 52, 86, 255];
+				const points = [
+					[2, 2],
+					[page.width - 3, page.height - 3],
+					[page.width / 2, page.height / 2],
+				] as const;
+				for (const [x, y] of points) {
+					const offset = (Math.floor(y) * page.width + Math.floor(x)) * 4;
+					expect(Array.from(page.data.subarray(offset, offset + 4))).toEqual(expected);
+				}
+			}
+		},
+	);
 
 	it("keeps Azurill overflow lossless while preserving a manual full-width authored continuation", async () => {
 		const { data, overflowTokens } = azurillAuthoredOverflowFixture();

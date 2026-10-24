@@ -278,7 +278,7 @@ const RECIPES: Record<
 
 /** Take `count` items, topping up from a pool of distinct extras when short. */
 function fill<T>(base: readonly T[], extras: readonly T[], count: number): T[] {
-	const out = [...base.slice(0, count)];
+	const out = base.slice(0, count);
 	for (const extra of extras) {
 		if (out.length >= count) break;
 		out.push(extra);

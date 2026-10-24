@@ -1,10 +1,10 @@
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { ZodError, z } from "zod";
+import { z } from "zod";
 import { getNetworkIcon } from "@reactive-resume/resume/icons";
 import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { generateId } from "@reactive-resume/utils/string";
-import { formatPeriod, formatSingleDate } from "./date";
+import { toRangeDates, toSingleDates } from "./date";
 import { rethrowAsImportError } from "./error";
 import { arrayToHtmlList, toHtmlDescription } from "./html";
 import { parseLevel } from "./level";
@@ -169,9 +169,10 @@ type JSONResume = z.infer<typeof jsonResumeSchema>;
 
 // ponytail: stateless two-method class → two plain functions
 function convertJSONResume(jsonResume: JSONResume): ResumeData {
-	const result: ResumeData = {
-		...defaultResumeData,
-	};
+	// A shallow spread would leave `sections`/`picture`/etc. as the same object as
+	// defaultResumeData; every `result.sections.x = ...` below would then mutate that shared
+	// singleton and leak into the next unrelated import call. Clone it instead.
+	const result: ResumeData = structuredClone(defaultResumeData);
 
 	// Map basics
 	if (jsonResume.basics) {
@@ -202,7 +203,7 @@ function convertJSONResume(jsonResume: JSONResume): ResumeData {
 	if (jsonResume.basics?.summary) {
 		result.summary = {
 			...defaultResumeData.summary,
-			content: `<p>${jsonResume.basics.summary}</p>`,
+			content: toHtmlDescription(jsonResume.basics.summary),
 			hidden: false,
 		};
 	}
@@ -219,7 +220,8 @@ function convertJSONResume(jsonResume: JSONResume): ResumeData {
 					company: work.name || "",
 					position: work.position || "",
 					location: work.location || "",
-					period: formatPeriod(work.startDate, work.endDate),
+					period: "",
+					dates: toRangeDates(work.startDate, work.endDate),
 					website: createItemWebsite(work.url),
 					roles: [],
 					description: toHtmlDescription(work.summary, work.highlights),
@@ -241,7 +243,8 @@ function convertJSONResume(jsonResume: JSONResume): ResumeData {
 					area: edu.area || "",
 					grade: edu.score || "",
 					location: "",
-					period: formatPeriod(edu.startDate, edu.endDate),
+					period: "",
+					dates: toRangeDates(edu.startDate, edu.endDate),
 					website: createItemWebsite(edu.url),
 					description: edu.courses && edu.courses.length > 0 ? arrayToHtmlList(edu.courses) : "",
 				})),
@@ -258,7 +261,8 @@ function convertJSONResume(jsonResume: JSONResume): ResumeData {
 					id: generateId(),
 					hidden: false,
 					name: project.name || "",
-					period: formatPeriod(project.startDate, project.endDate),
+					period: "",
+					dates: toRangeDates(project.startDate, project.endDate),
 					website: createItemWebsite(project.url),
 					description: toHtmlDescription(project.description, project.highlights),
 				})),
@@ -328,9 +332,10 @@ function convertJSONResume(jsonResume: JSONResume): ResumeData {
 					hidden: false,
 					title: award.title || "",
 					awarder: award.awarder || "",
-					date: formatSingleDate(award.date),
+					date: "",
+					dates: toSingleDates(award.date),
 					website: createItemWebsite(),
-					description: award.summary ? `<p>${award.summary}</p>` : "",
+					description: toHtmlDescription(award.summary),
 				})),
 		};
 	}
@@ -346,7 +351,8 @@ function convertJSONResume(jsonResume: JSONResume): ResumeData {
 					hidden: false,
 					title: cert.name || "",
 					issuer: cert.issuer || "",
-					date: formatSingleDate(cert.date),
+					date: "",
+					dates: toSingleDates(cert.date),
 					website: createItemWebsite(cert.url),
 					description: "",
 				})),
@@ -364,9 +370,10 @@ function convertJSONResume(jsonResume: JSONResume): ResumeData {
 					hidden: false,
 					title: pub.name || "",
 					publisher: pub.publisher || "",
-					date: formatSingleDate(pub.releaseDate),
+					date: "",
+					dates: toSingleDates(pub.releaseDate),
 					website: createItemWebsite(pub.url),
-					description: pub.summary ? `<p>${pub.summary}</p>` : "",
+					description: toHtmlDescription(pub.summary),
 				})),
 		};
 	}
@@ -382,7 +389,8 @@ function convertJSONResume(jsonResume: JSONResume): ResumeData {
 					hidden: false,
 					organization: vol.organization || "",
 					location: "",
-					period: formatPeriod(vol.startDate, vol.endDate),
+					period: "",
+					dates: toRangeDates(vol.startDate, vol.endDate),
 					website: createItemWebsite(vol.url),
 					description: toHtmlDescription(vol.summary, vol.highlights),
 				})),
@@ -402,7 +410,7 @@ function convertJSONResume(jsonResume: JSONResume): ResumeData {
 					position: "",
 					website: createItemWebsite(),
 					phone: "",
-					description: ref.reference ? `<p>${ref.reference}</p>` : "",
+					description: toHtmlDescription(ref.reference),
 				})),
 		};
 	}
@@ -433,7 +441,6 @@ export function parseJSONResume(json: string): ResumeData {
 		const jsonResume = jsonResumeSchema.parse(JSON.parse(json));
 		return convertJSONResume(jsonResume);
 	} catch (error) {
-		if (error instanceof ZodError) rethrowAsImportError(error);
-		throw error;
+		rethrowAsImportError(error);
 	}
 }

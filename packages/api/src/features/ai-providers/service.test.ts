@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const { dbMock, queryMock, queryState } = vi.hoisted(() => {
 	const state = {
@@ -18,9 +18,14 @@ const { dbMock, queryMock, queryState } = vi.hoisted(() => {
 		}),
 		limit: vi.fn(async () => state.rows),
 	};
+	const update = {
+		set: vi.fn(() => update),
+		where: vi.fn(() => update),
+		returning: vi.fn(async () => state.rows),
+	};
 
 	return {
-		dbMock: { select: vi.fn(() => query) },
+		dbMock: { select: vi.fn(() => query), update: vi.fn(() => update) },
 		queryMock: query,
 		queryState: state,
 	};
@@ -44,6 +49,7 @@ vi.mock("@reactive-resume/db/schema", () => ({
 		lastTestedAt: "ai_provider.last_tested_at",
 		lastUsedAt: "ai_provider.last_used_at",
 		enabled: "ai_provider.enabled",
+		isDefault: "ai_provider.is_default",
 		createdAt: "ai_provider.created_at",
 		updatedAt: "ai_provider.updated_at",
 	},
@@ -53,21 +59,20 @@ vi.mock("drizzle-orm", () => ({
 	asc: (value: unknown) => ({ type: "asc", value }),
 	desc: (value: unknown) => ({ type: "desc", value }),
 	eq: (left: unknown, right: unknown) => ({ type: "eq", left, right }),
+	ne: (left: unknown, right: unknown) => ({ type: "ne", left, right }),
 	sql: (strings: TemplateStringsArray, ...values: unknown[]) => ({ type: "sql", strings: [...strings], values }),
 }));
+vi.mock("@reactive-resume/env/server", () => ({ env: {} }));
 vi.mock("../ai/credentials", () => ({
 	assertCredentialEncryptionConfigured: vi.fn(),
 	decryptCredential: vi.fn(() => "decrypted-key"),
 	encryptCredential: vi.fn(),
-	redactEncryptedCredential: vi.fn(() => ({
-		apiKeyFingerprint: "fingerprint",
-		apiKeyPreview: "sk-...test",
-	})),
 }));
 vi.mock("../ai/service", () => ({ testConnection: vi.fn() }));
 vi.mock("../ai/url-policy", () => ({ resolveAiBaseUrl: vi.fn() }));
 
 const { aiProvidersService } = await import("./service");
+const { resolveAiBaseUrl } = await import("../ai/url-policy");
 
 function providerRow(overrides: Record<string, unknown> = {}) {
 	return {
@@ -86,6 +91,7 @@ function providerRow(overrides: Record<string, unknown> = {}) {
 		lastTestedAt: new Date("2026-07-01T00:00:00Z"),
 		lastUsedAt: new Date("2026-07-07T00:00:00Z"),
 		enabled: true,
+		isDefault: false,
 		createdAt: new Date("2026-07-01T00:00:00Z"),
 		updatedAt: new Date("2026-07-01T00:00:00Z"),
 		...overrides,
@@ -100,7 +106,7 @@ describe("aiProvidersService", () => {
 		queryState.orderByArgs = [];
 	});
 
-	it("gets the first enabled and tested provider by creation order", async () => {
+	it("prefers the default enabled and tested provider, then the most recently used, then creation order", async () => {
 		queryState.rows = [providerRow({ id: "first-created" })];
 
 		await expect(aiProvidersService.getDefaultRunnable({ userId: "user-1" })).resolves.toMatchObject({
@@ -114,9 +120,38 @@ describe("aiProvidersService", () => {
 				{ type: "eq", left: "ai_provider.user_id", right: "user-1" },
 				{ type: "eq", left: "ai_provider.enabled", right: true },
 				{ type: "eq", left: "ai_provider.test_status", right: "success" },
+				{ type: "ne", left: "ai_provider.id", right: "server-ai:user-1" },
 			],
 		});
-		expect(queryState.orderByArgs).toEqual([{ type: "asc", value: "ai_provider.created_at" }]);
+		expect(queryState.orderByArgs).toEqual([
+			{ type: "desc", value: "ai_provider.is_default" },
+			{
+				type: "desc",
+				value: {
+					type: "sql",
+					strings: ["coalesce(", ", '1970-01-01T00:00:00.000Z'::timestamptz)"],
+					values: ["ai_provider.last_used_at"],
+				},
+			},
+			{ type: "asc", value: "ai_provider.created_at" },
+		]);
 		expect(queryMock.limit).toHaveBeenCalledWith(1);
+	});
+
+	it("sends a saved key only to the host it was saved for", async () => {
+		queryState.rows = [providerRow()];
+		vi.mocked(resolveAiBaseUrl).mockReturnValue("https://other.example/v1");
+		const owner = { id: "provider-1", userId: "user-1" };
+
+		for (const change of [{ baseURL: "https://other.example/v1" }, { provider: "anthropic" as const }])
+			await expect(aiProvidersService.update({ ...owner, ...change })).rejects.toMatchObject({
+				code: "BAD_REQUEST",
+				message: "Enter the API key again to change the provider or base URL.",
+			});
+		expect(dbMock.update).not.toHaveBeenCalled();
+
+		await expect(
+			aiProvidersService.update({ ...owner, baseURL: "https://other.example/v1", apiKey: "new-key" }),
+		).resolves.toMatchObject({ id: "provider-1" });
 	});
 });

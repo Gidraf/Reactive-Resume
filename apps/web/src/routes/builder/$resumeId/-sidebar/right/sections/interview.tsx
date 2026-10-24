@@ -1,7 +1,6 @@
 import { ChatCircleTextIcon, CircleNotchIcon, WarningCircleIcon } from "@phosphor-icons/react";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@reactive-resume/ui/components/button";
-import { ScrollArea } from "@reactive-resume/ui/components/scroll-area";
 import { Route } from "../../../route";
 import { SectionBase as RightSectionBase } from "../shared/section-base";
 
@@ -13,7 +12,7 @@ import { SectionBase as RightSectionBase } from "../shared/section-base";
 function readCvpapToken(): string | null {
 	if (typeof document === "undefined") return null;
 	const match = document.cookie.match(/(?:^|; )cvpap_token=([^;]*)/);
-	return match ? decodeURIComponent(match[1]) : null;
+	return match?.[1] ? decodeURIComponent(match[1]) : null;
 }
 
 type InterviewQuestion = {
@@ -75,6 +74,7 @@ export function InterviewSectionBuilder() {
 	);
 
 	useEffect(() => {
+		// oxlint-disable-next-line react/set-state-in-effect -- loads from the CVPAP API on mount; the loading flag is part of that fetch.
 		void fetchQuestions();
 	}, [fetchQuestions]);
 
@@ -93,7 +93,7 @@ export function InterviewSectionBuilder() {
 					</p>
 					<Button
 						size="sm"
-						variant="outline"
+						variant="secondary"
 						className="h-6 gap-1 px-2 text-xs"
 						disabled={loading}
 						onClick={() => void fetchQuestions(true)}
@@ -104,26 +104,26 @@ export function InterviewSectionBuilder() {
 				</div>
 
 				{error && (
-					<div className="flex items-center gap-1.5 text-destructive text-xs">
+					<div className="text-destructive flex items-center gap-1.5 text-xs">
 						<WarningCircleIcon className="size-3.5 shrink-0" />
 						{error}
 					</div>
 				)}
 
 				{questions.length > 0 && (
-					<ScrollArea className="max-h-[400px]">
+					<div className="max-h-[400px] overflow-y-auto">
 						<div className="space-y-4 pr-1">
 							{Object.entries(grouped).map(([category, qs]) => (
 								<div key={category} className="space-y-1.5">
-									<h3 className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">{category}</h3>
+									<h3 className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">{category}</h3>
 									<ol className="list-none space-y-2">
 										{qs.map((q, i) => (
-											<li key={i} className="rounded-md border bg-card p-2.5 text-sm leading-snug">
-												<span className="mr-1.5 font-medium text-muted-foreground text-xs">{i + 1}.</span>
+											<li key={i} className="bg-card rounded-md border p-2.5 text-sm leading-snug">
+												<span className="text-muted-foreground mr-1.5 text-xs font-medium">{i + 1}.</span>
 												{q.question}
 												{q.difficulty && (
 													<span
-														className={`ml-2 rounded-full px-1.5 py-0.5 font-medium text-xs ${
+														className={`ml-2 rounded-full px-1.5 py-0.5 text-xs font-medium ${
 															q.difficulty === "hard"
 																? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"
 																: q.difficulty === "medium"
@@ -140,7 +140,7 @@ export function InterviewSectionBuilder() {
 								</div>
 							))}
 						</div>
-					</ScrollArea>
+					</div>
 				)}
 			</div>
 		</RightSectionBase>

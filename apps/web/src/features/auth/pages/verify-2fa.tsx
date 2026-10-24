@@ -1,23 +1,29 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { ArrowLeftIcon, CheckIcon } from "@phosphor-icons/react";
+import { useSelector } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useRouter, useSearch } from "@tanstack/react-router";
 import z from "zod";
 import { Button } from "@reactive-resume/ui/components/button";
-import { FormControl, FormItem, FormMessage } from "@reactive-resume/ui/components/form";
+import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { FormControl, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
+import { Icon } from "@reactive-resume/ui/components/icon";
 import { Input } from "@reactive-resume/ui/components/input";
 import { OTPField } from "@reactive-resume/ui/components/otp-field";
 import { toast } from "@reactive-resume/ui/components/toast";
-import { authClient } from "@/libs/auth/client";
-import { useAppForm } from "@/libs/tanstack-form";
 import { getAuthRedirectOptions, getOAuthSignInOptions, isOAuthRedirect } from "../redirect";
+import { authClient } from "@/libs/auth/client";
+import { sessionQueryKey } from "@/libs/root-context";
+import { useAppForm } from "@/libs/tanstack-form";
 
 const totpSchema = z.object({
 	code: z.string().length(6, "Code must be 6 digits"),
+	trustDevice: z.boolean(),
 });
 
 const backupCodeSchema = z.object({
 	code: z.string().trim(),
+	trustDevice: z.boolean(),
 });
 
 type TwoFactorVerificationPageProps = {
@@ -26,21 +32,24 @@ type TwoFactorVerificationPageProps = {
 
 function TwoFactorVerificationPage({ backupCode = false }: TwoFactorVerificationPageProps) {
 	const router = useRouter();
+	const queryClient = useQueryClient();
 	const { callbackURL, reauthenticate } = useSearch({ from: "/auth" });
 	const navigate = useNavigate();
 
 	const form = useAppForm({
-		defaultValues: { code: "" },
+		defaultValues: { code: "", trustDevice: false },
 		validators: { onSubmit: backupCode ? backupCodeSchema : totpSchema },
 		onSubmit: async ({ value }) => {
 			const toastId = toast.add({
 				type: "loading",
 				description: backupCode ? t`Verifying backup code...` : t`Verifying code...`,
 			});
-			const code = backupCode ? `${value.code.slice(0, 5)}-${value.code.slice(5)}` : value.code;
+			const rawCode = value.code.trim().replaceAll("-", "");
+			const code = backupCode ? `${rawCode.slice(0, 5)}-${rawCode.slice(5)}` : value.code;
+			const options = { code, trustDevice: value.trustDevice, ...getOAuthSignInOptions(callbackURL) };
 			const { data, error } = backupCode
-				? await authClient.twoFactor.verifyBackupCode({ code, ...getOAuthSignInOptions(callbackURL) })
-				: await authClient.twoFactor.verifyTotp({ code, ...getOAuthSignInOptions(callbackURL) });
+				? await authClient.twoFactor.verifyBackupCode(options)
+				: await authClient.twoFactor.verifyTotp(options);
 
 			if (error) {
 				toast.add({
@@ -63,18 +72,21 @@ function TwoFactorVerificationPage({ backupCode = false }: TwoFactorVerification
 
 			toast.close(toastId);
 			if (isOAuthRedirect(data)) return;
+			await queryClient.invalidateQueries({ queryKey: sessionQueryKey });
 			await router.invalidate();
 			void navigate(getAuthRedirectOptions(callbackURL));
 		},
 	});
 
+	const isSubmitting = useSelector(form.store, (state) => state.isSubmitting);
+
 	return (
 		<>
 			<div className="space-y-1 text-center">
-				<h1 className="font-semibold text-2xl tracking-tight">
+				<h1 className="text-2xl font-semibold tracking-tight">
 					{backupCode ? <Trans>Verify with a Backup Code</Trans> : <Trans>Two-Factor Authentication</Trans>}
 				</h1>
-				<div className="text-muted-foreground">
+				<div className="text-ink-3">
 					{backupCode ? (
 						<Trans>Enter one of your saved backup codes to access your account</Trans>
 					) : (
@@ -97,12 +109,15 @@ function TwoFactorVerificationPage({ backupCode = false }: TwoFactorVerification
 							className="justify-self-center"
 							hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}
 						>
+							<FormLabel className="sr-only">
+								{backupCode ? <Trans>Backup code</Trans> : <Trans>Verification code</Trans>}
+							</FormLabel>
 							<FormControl
 								render={
 									backupCode ? (
 										<Input
 											type="text"
-											maxLength={10}
+											maxLength={11}
 											className="max-w-xs"
 											name={field.name}
 											value={field.state.value}
@@ -126,14 +141,27 @@ function TwoFactorVerificationPage({ backupCode = false }: TwoFactorVerification
 					)}
 				</form.Field>
 
+				<form.Field name="trustDevice">
+					{(field) => (
+						<FormItem className="flex items-center gap-2.5 justify-self-center">
+							<FormControl
+								render={<Checkbox name={field.name} checked={field.state.value} onCheckedChange={field.handleChange} />}
+							/>
+							<FormLabel>
+								<Trans>Trust this device for 30 days</Trans>
+							</FormLabel>
+						</FormItem>
+					)}
+				</form.Field>
+
 				<div className="flex gap-x-2">
 					<Button
-						variant="outline"
+						variant="secondary"
 						className="flex-1"
 						nativeButton={false}
 						render={
 							<Link to={backupCode ? "/auth/verify-2fa" : "/auth/login"} search={{ callbackURL, reauthenticate }}>
-								<ArrowLeftIcon />
+								<Icon name="arrow-left" size={16} />
 								{backupCode ? (
 									<Trans comment="Secondary navigation button on backup-code verification screen">Go Back</Trans>
 								) : (
@@ -143,8 +171,8 @@ function TwoFactorVerificationPage({ backupCode = false }: TwoFactorVerification
 						}
 					/>
 
-					<Button type="submit" className="flex-1">
-						<CheckIcon />
+					<Button type="submit" className="flex-1" disabled={isSubmitting}>
+						<Icon name="check" size={16} />
 						{backupCode ? (
 							<Trans comment="Primary action button to submit backup code">Verify</Trans>
 						) : (

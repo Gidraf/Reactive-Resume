@@ -1,17 +1,10 @@
-import type { SampleLength } from "@reactive-resume/schema/resume/sample-lengths";
-import type { RouterInput } from "@/libs/orpc/client";
 import type { DialogProps } from "../store";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { CaretDownIcon, MagicWandIcon, PencilSimpleLineIcon, PlusIcon, TestTubeIcon } from "@phosphor-icons/react";
-import { useStore } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
 import z from "zod";
-import { SAMPLE_LENGTH_LABELS, SAMPLE_LENGTHS } from "@reactive-resume/schema/resume/sample-lengths";
 import { Button } from "@reactive-resume/ui/components/button";
-import { ButtonGroup } from "@reactive-resume/ui/components/button-group";
 import {
 	DialogContent,
 	DialogDescription,
@@ -19,35 +12,22 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@reactive-resume/ui/components/dialog";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
 import { FormControl, FormDescription, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
+import { Icon } from "@reactive-resume/ui/components/icon";
 import { Input } from "@reactive-resume/ui/components/input";
-import {
-	InputGroup,
-	InputGroupAddon,
-	InputGroupInput,
-	InputGroupText,
-} from "@reactive-resume/ui/components/input-group";
 import { toast } from "@reactive-resume/ui/components/toast";
-import { generateId, generateRandomName, slugify } from "@reactive-resume/utils/string";
+import { generateRandomName } from "@reactive-resume/utils/string";
+import { useDialogStore } from "../store";
 import { ChipInput } from "@/components/input/chip-input";
 import { usePatchResume } from "@/features/resume/builder/draft";
 import { useFormBlocker } from "@/hooks/use-form-blocker";
-import { authClient } from "@/libs/auth/client";
 import { getResumeErrorMessage } from "@/libs/error-message";
 import { orpc } from "@/libs/orpc/client";
 import { useAppForm, withForm } from "@/libs/tanstack-form";
-import { useDialogStore } from "../store";
 
 const formSchema = z.object({
 	id: z.string(),
 	name: z.string().min(1).max(64),
-	slug: z.string().min(1).max(64).transform(slugify),
 	tags: z.array(z.string()),
 });
 
@@ -56,144 +36,8 @@ type FormValues = z.infer<typeof formSchema>;
 const defaultValues: FormValues = {
 	id: "",
 	name: "",
-	slug: "",
 	tags: [],
 };
-
-export function CreateResumeDialog(_: DialogProps<"resume.create">) {
-	const navigate = useNavigate();
-	const closeDialog = useDialogStore((state) => state.closeDialog);
-	// Skip the unsaved-changes guard when we close as a result of a successful create.
-	const didCreateRef = useRef(false);
-
-	const { mutate: createResume, isPending } = useMutation(orpc.resume.create.mutationOptions());
-
-	const form = useAppForm({
-		defaultValues: {
-			id: generateId(),
-			name: "",
-			slug: "",
-			tags: [] as string[],
-		},
-		validators: { onSubmit: formSchema },
-		onSubmit: ({ value }) => {
-			const toastId = toast.add({ type: "loading", description: t`Creating your resume...` });
-
-			createResume(value, {
-				onSuccess: (id) => {
-					didCreateRef.current = true;
-					toast.add({ type: "success", description: t`Your resume has been created.`, id: toastId });
-					closeDialog();
-					void navigate({ to: "/builder/$resumeId", params: { resumeId: id } });
-				},
-				onError: (error) => {
-					toast.add({ type: "error", description: getResumeErrorMessage(error), id: toastId });
-				},
-			});
-		},
-	});
-
-	const name = useStore(form.store, (s) => s.values.name);
-
-	useEffect(() => {
-		form.setFieldValue("slug", slugify(name));
-	}, [form, name]);
-
-	useFormBlocker(form, {
-		shouldBlock: () => !didCreateRef.current && form.state.isDirty && !form.state.isSubmitting,
-	});
-
-	const onCreateSampleResume = (sampleLength?: SampleLength) => {
-		const values = form.state.values;
-		const randomName = generateRandomName();
-
-		const data = {
-			name: values.name || randomName,
-			slug: values.slug || slugify(randomName),
-			tags: values.tags,
-			withSampleData: true,
-			...(sampleLength ? { sampleLength } : {}),
-		} satisfies RouterInput["resume"]["create"];
-
-		const toastId = toast.add({ type: "loading", description: t`Creating your resume...` });
-
-		createResume(data, {
-			onSuccess: (id) => {
-				didCreateRef.current = true;
-				toast.add({ type: "success", description: t`Your resume has been created.`, id: toastId });
-				closeDialog();
-				void navigate({ to: "/builder/$resumeId", params: { resumeId: id } });
-			},
-			onError: (error) => {
-				toast.add({ type: "error", description: getResumeErrorMessage(error), id: toastId });
-			},
-		});
-	};
-
-	return (
-		<DialogContent>
-			<DialogHeader>
-				<DialogTitle className="flex items-center gap-x-2">
-					<PlusIcon />
-					<Trans>Create a new resume</Trans>
-				</DialogTitle>
-				<DialogDescription>
-					<Trans>Start building your resume by giving it a name.</Trans>
-				</DialogDescription>
-			</DialogHeader>
-
-			<form
-				className="space-y-4"
-				onSubmit={(event) => {
-					event.preventDefault();
-					event.stopPropagation();
-					void form.handleSubmit();
-				}}
-			>
-				<ResumeForm form={form} />
-
-				<DialogFooter>
-					<ButtonGroup
-						aria-label={t({
-							comment: "Accessible label for create-resume split button group",
-							message: "Create resume with options",
-						})}
-						className="gap-x-px rtl:flex-row-reverse"
-					>
-						<Button type="submit" disabled={isPending}>
-							<Trans>Create</Trans>
-						</Button>
-
-						<DropdownMenu>
-							<DropdownMenuTrigger
-								render={
-									<Button size="icon" disabled={isPending}>
-										<CaretDownIcon />
-									</Button>
-								}
-							/>
-
-							<DropdownMenuContent align="end" className="w-fit">
-								<DropdownMenuItem onClick={() => onCreateSampleResume()}>
-									<TestTubeIcon />
-									<Trans>Create a Sample Resume</Trans>
-								</DropdownMenuItem>
-								{/* Sized samples: show a client what a filled-in CV looks like at
-								    each printed length before they write anything. */}
-								{SAMPLE_LENGTHS.map((length) => (
-									<DropdownMenuItem key={length} onClick={() => onCreateSampleResume(length)}>
-										<TestTubeIcon />
-										<Trans>Sample — {SAMPLE_LENGTH_LABELS[length]}</Trans>
-									</DropdownMenuItem>
-								))}
-							</DropdownMenuContent>
-						</DropdownMenu>
-					</ButtonGroup>
-				</DialogFooter>
-			</form>
-		</DialogContent>
-	);
-}
 
 export function UpdateResumeDialog({ data }: DialogProps<"resume.update">) {
 	const closeDialog = useDialogStore((state) => state.closeDialog);
@@ -206,7 +50,6 @@ export function UpdateResumeDialog({ data }: DialogProps<"resume.update">) {
 		defaultValues: {
 			id: data.id,
 			name: data.name,
-			slug: data.slug,
 			tags: data.tags,
 		},
 		validators: { onSubmit: formSchema },
@@ -236,20 +79,13 @@ export function UpdateResumeDialog({ data }: DialogProps<"resume.update">) {
 		},
 	});
 
-	const name = useStore(form.store, (s) => s.values.name);
-
-	useEffect(() => {
-		if (!name) return;
-		form.setFieldValue("slug", slugify(name));
-	}, [form, name]);
-
 	useFormBlocker(form);
 
 	return (
 		<DialogContent>
 			<DialogHeader>
 				<DialogTitle className="flex items-center gap-x-2">
-					<PencilSimpleLineIcon />
+					<Icon name="pencil-simple" size={16} />
 					<Trans>Update Resume</Trans>
 				</DialogTitle>
 				<DialogDescription>
@@ -287,7 +123,6 @@ export function DuplicateResumeDialog({ data }: DialogProps<"resume.duplicate">)
 		defaultValues: {
 			id: data.id,
 			name: `${data.name} (Copy)`,
-			slug: `${data.slug}-copy`,
 			tags: data.tags,
 		},
 		validators: { onSubmit: formSchema },
@@ -299,7 +134,6 @@ export function DuplicateResumeDialog({ data }: DialogProps<"resume.duplicate">)
 					toast.add({ type: "success", description: t`Your resume has been duplicated.`, id: toastId });
 					closeDialog();
 
-					if (!data.shouldRedirect) return;
 					void navigate({ to: "/builder/$resumeId", params: { resumeId: id } });
 				},
 				onError: (error) => {
@@ -309,20 +143,13 @@ export function DuplicateResumeDialog({ data }: DialogProps<"resume.duplicate">)
 		},
 	});
 
-	const name = useStore(form.store, (s) => s.values.name);
-
-	useEffect(() => {
-		if (!name) return;
-		form.setFieldValue("slug", slugify(name));
-	}, [form, name]);
-
 	useFormBlocker(form);
 
 	return (
 		<DialogContent>
 			<DialogHeader>
 				<DialogTitle className="flex items-center gap-x-2">
-					<PencilSimpleLineIcon />
+					<Icon name="pencil-simple" size={16} />
 					<Trans>Duplicate Resume</Trans>
 				</DialogTitle>
 				<DialogDescription>
@@ -353,10 +180,6 @@ export function DuplicateResumeDialog({ data }: DialogProps<"resume.duplicate">)
 const ResumeForm = withForm({
 	defaultValues,
 	render: function ResumeFormRenderer({ form }) {
-		const { data: session } = authClient.useSession();
-
-		const slugPrefix = `${window.location.origin}/${session?.user.username ?? ""}/`;
-
 		const onGenerateName = () => {
 			form.setFieldValue("name", generateRandomName());
 		};
@@ -373,8 +196,8 @@ const ResumeForm = withForm({
 								<FormControl
 									render={
 										<Input
-											min={1}
-											max={64}
+											minLength={1}
+											maxLength={64}
 											name={field.name}
 											value={field.state.value}
 											onBlur={field.handleBlur}
@@ -383,45 +206,13 @@ const ResumeForm = withForm({
 									}
 								/>
 
-								<Button size="icon" variant="outline" title={t`Generate a random name`} onClick={onGenerateName}>
-									<MagicWandIcon />
+								<Button size="icon" variant="secondary" title={t`Generate a random name`} onClick={onGenerateName}>
+									<Icon name="magic-wand" size={16} />
 								</Button>
 							</div>
 							<FormMessage errors={field.state.meta.errors} />
 							<FormDescription>
 								<Trans>Name the resume after the position you are applying for.</Trans>
-							</FormDescription>
-						</FormItem>
-					)}
-				</form.Field>
-
-				<form.Field name="slug">
-					{(field) => (
-						<FormItem hasError={field.state.meta.isTouched && field.state.meta.errors.length > 0}>
-							<FormLabel>
-								<Trans>Slug</Trans>
-							</FormLabel>
-							<FormControl
-								render={
-									<InputGroup>
-										<InputGroupAddon align="inline-start" className="hidden sm:flex">
-											<InputGroupText>{slugPrefix}</InputGroupText>
-										</InputGroupAddon>
-										<InputGroupInput
-											min={1}
-											max={64}
-											className="ps-0!"
-											name={field.name}
-											value={field.state.value}
-											onBlur={field.handleBlur}
-											onChange={(event) => field.handleChange(event.target.value)}
-										/>
-									</InputGroup>
-								}
-							/>
-							<FormMessage errors={field.state.meta.errors} />
-							<FormDescription>
-								<Trans>This is a URL-friendly name for your resume.</Trans>
 							</FormDescription>
 						</FormItem>
 					)}

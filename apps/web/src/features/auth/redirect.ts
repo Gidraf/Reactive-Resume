@@ -1,6 +1,6 @@
 import z from "zod";
 
-// biome-ignore lint/suspicious/noControlCharactersInRegex: Reject URL parser whitespace and control-character normalization.
+// oxlint-disable-next-line no-control-regex -- Reject URL parser whitespace and control-character normalization.
 const unsafeCallbackCharacters = /[\\\u0000-\u0020\u007f]/;
 
 function safeCallbackURL(value: unknown): string | undefined {
@@ -26,7 +26,8 @@ export const authSearchSchema = z.object({
 export function getAuthRedirectOptions(value: unknown) {
 	const callbackURL = safeCallbackURL(value);
 	// OAuth callbacks are server endpoints; they must run through a document request.
-	return { href: callbackURL ?? "/dashboard", reloadDocument: callbackURL !== undefined, replace: true } as const;
+	const isServerCallback = callbackURL !== undefined && callbackURL.startsWith("/api/");
+	return { href: callbackURL ?? "/dashboard", reloadDocument: isServerCallback, replace: true } as const;
 }
 
 export function getOAuthSignInOptions(callback: unknown) {

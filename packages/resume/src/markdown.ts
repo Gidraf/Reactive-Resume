@@ -1,4 +1,6 @@
 import type { CustomSection, CustomSectionType, ResumeData, SectionType } from "@reactive-resume/schema/resume/data";
+import { toSafeLink } from "@reactive-resume/utils/link";
+import { isCoverLetterOnlyDocument } from "./export-sections";
 
 type Sections = ResumeData["sections"];
 
@@ -8,17 +10,6 @@ type Sections = ResumeData["sections"];
  * localized headings like "Experience". Without one, the stored (usually empty) title is used.
  */
 export type SectionTitleResolver = (sectionId: string) => string | undefined;
-
-function isCoverLetterSection(data: ResumeData, sectionId: string): boolean {
-	const section = data.customSections.find((customSection) => customSection.id === sectionId);
-	return section?.type === "cover-letter" && visibleItems(section).length > 0;
-}
-
-function isCoverLetterOnlyDocument(data: ResumeData): boolean {
-	const sectionIds = data.metadata.layout.pages.flatMap((page) => [...page.main, ...page.sidebar]);
-
-	return sectionIds.length > 0 && sectionIds.every((sectionId) => isCoverLetterSection(data, sectionId));
-}
 
 /**
  * Serializes resume data to Markdown — a compact, readable format well suited for feeding
@@ -80,7 +71,14 @@ function renderHeader(basics: ResumeData["basics"]): string[] {
 
 // --- Shared helpers ---
 
-const link = (label: string, url: string) => (url ? `[${label || url}](${url})` : "");
+// Like the DOCX, ODT and PDF exports, only web, mail and phone links survive; anything else keeps its label as text.
+// The normalized URL has no spaces, and encoded parentheses can't end the Markdown link early.
+const markdownHref = (url: string) => toSafeLink(url)?.replaceAll("(", "%28").replaceAll(")", "%29") ?? null;
+
+const link = (label: string, url: string) => {
+	const href = url ? markdownHref(url) : null;
+	return href ? `[${label || url}](${href})` : label;
+};
 
 const heading = (title: string) => (title ? `## ${title}` : "");
 
@@ -115,15 +113,16 @@ function renderExperience(section: Sections["experience"]): string[] {
 
 	const blocks: string[] = [heading(section.title)];
 	for (const item of items) {
-		if (item.roles.length > 0) {
+		const roles = item.roles.filter((role) => role.position.trim());
+		if (roles.length > 0) {
 			blocks.push(entryHeading(item.company, undefined, item.period), italicLine([item.location]));
-			for (const role of item.roles) {
+			for (const role of roles) {
 				blocks.push(italicLine([role.position, role.period]), htmlToMarkdown(role.description));
 			}
 		} else {
 			blocks.push(entryHeading(item.company, item.position, item.period), italicLine([item.location]));
-			blocks.push(htmlToMarkdown(item.description));
 		}
+		blocks.push(htmlToMarkdown(item.description));
 		blocks.push(link(item.website.label, item.website.url));
 	}
 	return blocks.filter(Boolean);
@@ -314,24 +313,44 @@ const ENTITIES: Record<string, string> = {
 
 /**
  * ponytail: regex converter, not a full HTML parser. The rich-text fields only ever hold the
- * constrained tiptap tag set (p, br, strong/b, em/i, u, s, a, ul/ol/li, headings). If the editor
- * gains nested/table markup, swap this for a real parser.
+ * constrained tiptap tag set (p, br, strong/b, em/i, u, s, a, ul/ol/li, headings). Nested lists are converted innermost first.
+ * If the editor gains tables or arbitrary HTML, swap this for a real parser.
  */
 export function htmlToMarkdown(html: string): string {
 	if (!html) return "";
 
-	return html
-		.replace(/<a[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/gis, (_m, url, inner) => `[${stripTags(inner)}](${url})`)
-		.replace(/<(strong|b)>(.*?)<\/\1>/gis, "**$2**")
-		.replace(/<(em|i)>(.*?)<\/\1>/gis, "_$2_")
-		.replace(/<li[^>]*>(.*?)<\/li>/gis, (_m, inner) => `- ${stripTags(inner).trim()}\n`)
+	// Convert innermost lists first so nested items retain their own numbering and indentation.
+	const list = /<(ul|ol)\b([^<>]*)>((?:(?!<(?:ul|ol)\b).)*?)<\/\1>/gis;
+	let content = html;
+	while (/<(?:ul|ol)\b/i.test(content)) {
+		const next = content.replace(list, (_match, tag: string, attributes: string, inner: string) => {
+			let index = Number(/\bstart=["']?(\d+)/i.exec(attributes)?.[1] ?? 1);
+			const items = inner.replace(/<li\b[^<>]*>((?:(?!<li\b)[\s\S])*?)<\/li>/gi, (_item, body: string) => {
+				const prefix = tag.toLowerCase() === "ol" ? `${index++}. ` : "- ";
+				return `${prefix}${htmlToMarkdown(body).replace(/\n/g, `\n${" ".repeat(prefix.length)}`)}\n`;
+			});
+			return `\n${items}\n`;
+		});
+		if (next === content) break;
+		content = next;
+	}
+	// Each element pattern stops at the next opening of the same tag, so unclosed tags can't make it rescan the rest
+	// of the text (quadratic time on crafted input).
+	return content
+		.replace(/<a\b[^<>]*href="([^"<>]*)"[^<>]*>((?:(?!<a\b)[\s\S])*?)<\/a>/gi, (_m, url: string, inner: string) => {
+			const href = markdownHref(url);
+			return href ? `[${htmlToMarkdown(inner)}](${href})` : htmlToMarkdown(inner);
+		})
+		.replace(/<(strong|b)>((?:(?!<\1>)[\s\S])*?)<\/\1>/gi, "**$2**")
+		.replace(/<(em|i)>((?:(?!<\1>)[\s\S])*?)<\/\1>/gi, "_$2_")
+		.replace(/<(s|strike|del)\b[^<>]*>((?:(?!<\1\b)[\s\S])*?)<\/\1>/gi, "~~$2~~")
+		.replace(/<u\b[^<>]*>((?:(?!<u\b)[\s\S])*?)<\/u>/gi, "<u>$1</u>")
+		.replace(/<li\b[^<>]*>((?:(?!<li\b)[\s\S])*?)<\/li>/gi, (_m, inner) => `- ${htmlToMarkdown(inner).trim()}\n`)
 		.replace(/<br\s*\/?>/gi, "\n")
 		.replace(/<\/(p|div|h[1-6]|ul|ol)>/gi, "\n\n")
-		.replace(/<[^>]+>/g, "")
+		.replace(/<(?!\/?u>)[^<>]+>/g, "")
 		.replace(/&#39;|&nbsp;|&quot;|&amp;|&lt;|&gt;/g, (m) => ENTITIES[m] ?? m)
-		.replace(/[ \t]+\n/g, "\n")
+		.replace(/(?<![ \t])[ \t]+\n/g, "\n")
 		.replace(/\n{3,}/g, "\n\n")
 		.trim();
 }
-
-const stripTags = (html: string) => html.replace(/<[^>]+>/g, "");

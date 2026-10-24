@@ -12,7 +12,6 @@ import {
 import { useParams } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@reactive-resume/ui/components/button";
-import { ScrollArea } from "@reactive-resume/ui/components/scroll-area";
 import { cn } from "@reactive-resume/utils/style";
 import { useRevampStream } from "../-hooks/use-revamp-stream";
 import { SectionCard } from "./section-card";
@@ -156,14 +155,14 @@ export function RevampPage() {
 	const price = verifyMeta.price ?? 200;
 
 	return (
-		<div className="relative flex h-svh flex-col bg-background">
+		<div className="bg-background relative flex h-svh flex-col">
 			{/* Watermark overlay */}
 			{!isPaid && (
 				<div
-					className="pointer-events-none absolute inset-0 z-20 flex select-none items-center justify-center overflow-hidden"
+					className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center overflow-hidden select-none"
 					aria-hidden
 				>
-					<div className="rotate-[-35deg] whitespace-nowrap font-black text-[clamp(3rem,10vw,8rem)] text-muted-foreground/10 tracking-widest">
+					<div className="text-muted-foreground/10 rotate-[-35deg] text-[clamp(3rem,10vw,8rem)] font-black tracking-widest whitespace-nowrap">
 						DRAFT · UNPAID · DRAFT · UNPAID · DRAFT · UNPAID
 					</div>
 				</div>
@@ -171,7 +170,7 @@ export function RevampPage() {
 
 			{/* Payment banner */}
 			{!isPaid && (
-				<div className="z-10 flex items-center justify-between border-yellow-400/40 border-b bg-yellow-50 px-6 py-2 text-sm dark:bg-yellow-900/20">
+				<div className="z-10 flex items-center justify-between border-b border-yellow-400/40 bg-yellow-50 px-6 py-2 text-sm dark:bg-yellow-900/20">
 					<div className="flex items-center gap-2 text-yellow-700 dark:text-yellow-300">
 						<LockSimpleIcon size={16} weight="bold" />
 						<span>
@@ -198,13 +197,13 @@ export function RevampPage() {
 				<div className="flex items-center gap-3">
 					{isPaid && (
 						<>
-							<span className="rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-700 text-xs dark:bg-green-900/30 dark:text-green-300">
+							<span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-300">
 								Paid ✓
 							</span>
 							<a href={`${CVPAP_API}/api/v1/revamp/pdf/${token}`} target="_blank" rel="noopener noreferrer">
 								<Button
 									size="sm"
-									variant="outline"
+									variant="secondary"
 									className="gap-1.5 border-green-400 text-green-700 dark:border-green-600 dark:text-green-400"
 								>
 									<FilePdfIcon size={14} />
@@ -213,7 +212,7 @@ export function RevampPage() {
 							</a>
 						</>
 					)}
-					<div className="flex items-center gap-2 text-muted-foreground text-sm">
+					<div className="text-muted-foreground flex items-center gap-2 text-sm">
 						{overallStatus === "running" && (
 							<>
 								<CircleNotchIcon className="animate-spin" size={14} />
@@ -238,10 +237,10 @@ export function RevampPage() {
 			</header>
 
 			{/* Progress bar */}
-			<div className="h-1 w-full bg-muted">
+			<div className="bg-muted h-1 w-full">
 				<div
 					className={cn(
-						"h-full bg-primary transition-all duration-500",
+						"bg-primary h-full transition-all duration-500",
 						overallStatus === "complete" && "bg-green-500",
 					)}
 					style={{ width: `${progressPct}%` }}
@@ -249,7 +248,7 @@ export function RevampPage() {
 			</div>
 
 			{/* Body */}
-			<ScrollArea className="flex-1">
+			<div className="flex-1 overflow-y-auto">
 				<div className={cn("mx-auto grid max-w-4xl gap-4 p-6 sm:grid-cols-2 lg:grid-cols-3", !isPaid && "blur-[1px]")}>
 					{SECTION_ORDER.map((key) => {
 						const state = sections[key] ?? {
@@ -274,7 +273,7 @@ export function RevampPage() {
 				</div>
 
 				{overallStatus === "complete" && (
-					<div className="mx-auto max-w-4xl px-6 pb-8 text-center text-muted-foreground text-sm">
+					<div className="text-muted-foreground mx-auto max-w-4xl px-6 pb-8 text-center text-sm">
 						{isPaid ? (
 							<span>
 								Your revamped CV is ready!{" "}
@@ -282,7 +281,7 @@ export function RevampPage() {
 									href={`${CVPAP_API}/api/v1/revamp/pdf/${token}`}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="font-medium text-primary underline-offset-4 hover:underline"
+									className="text-primary font-medium underline-offset-4 hover:underline"
 								>
 									Download your clean PDF
 								</a>{" "}
@@ -293,7 +292,7 @@ export function RevampPage() {
 								Revamp complete!{" "}
 								<button
 									type="button"
-									className="font-medium text-primary underline-offset-4 hover:underline"
+									className="text-primary font-medium underline-offset-4 hover:underline"
 									onClick={() => setShowPayModal(true)}
 								>
 									Pay KES {price.toFixed(0)}
@@ -303,18 +302,18 @@ export function RevampPage() {
 						)}
 					</div>
 				)}
-			</ScrollArea>
+			</div>
 
 			{/* Payment modal */}
 			{showPayModal && (
 				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-					<div className="w-full max-w-sm rounded-xl border bg-background p-6 shadow-2xl">
+					<div className="bg-background w-full max-w-sm rounded-xl border p-6 shadow-2xl">
 						<div className="mb-4 flex items-center justify-between">
-							<h2 className="font-semibold text-lg">Pay KES {price.toFixed(0)}</h2>
+							<h2 className="text-lg font-semibold">Pay KES {price.toFixed(0)}</h2>
 							<button
 								type="button"
 								onClick={closeModal}
-								className="rounded-md p-1 text-muted-foreground hover:bg-muted"
+								className="text-muted-foreground hover:bg-muted rounded-md p-1"
 							>
 								<XIcon size={18} />
 							</button>
@@ -322,11 +321,11 @@ export function RevampPage() {
 
 						{payState === "idle" || payState === "error" ? (
 							<>
-								<p className="mb-4 text-muted-foreground text-sm">
+								<p className="text-muted-foreground mb-4 text-sm">
 									We'll send an M-Pesa prompt to your phone. Confirm payment to instantly unlock your watermark-free CV
 									and PDF download.
 								</p>
-								<label htmlFor="mpesa-phone" className="mb-1 block font-medium text-sm">
+								<label htmlFor="mpesa-phone" className="mb-1 block text-sm font-medium">
 									M-Pesa phone number
 								</label>
 								<input
@@ -335,16 +334,16 @@ export function RevampPage() {
 									value={payPhone}
 									onChange={(e) => setPayPhone(e.target.value)}
 									placeholder="e.g. 0712345678"
-									className="mb-4 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+									className="bg-background focus:ring-primary mb-4 w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
 								/>
 								{payError && (
-									<p className="mb-3 flex items-center gap-1.5 text-destructive text-sm">
+									<p className="text-destructive mb-3 flex items-center gap-1.5 text-sm">
 										<WarningCircleIcon size={14} />
 										{payError}
 									</p>
 								)}
 								<div className="flex gap-2">
-									<Button variant="outline" className="flex-1" onClick={closeModal}>
+									<Button variant="secondary" className="flex-1" onClick={closeModal}>
 										Cancel
 									</Button>
 									<Button className="flex-1" onClick={handlePay} disabled={!payPhone.trim()}>
@@ -354,18 +353,18 @@ export function RevampPage() {
 							</>
 						) : payState === "sending" ? (
 							<div className="flex flex-col items-center gap-3 py-4 text-center">
-								<CircleNotchIcon size={32} className="animate-spin text-primary" />
+								<CircleNotchIcon size={32} className="text-primary animate-spin" />
 								<p className="text-sm">Sending M-Pesa prompt…</p>
 							</div>
 						) : payState === "waiting" ? (
 							<div className="flex flex-col items-center gap-3 py-4 text-center">
 								<CircleNotchIcon size={32} className="animate-spin text-yellow-500" />
-								<p className="font-medium text-sm">Check your phone!</p>
+								<p className="text-sm font-medium">Check your phone!</p>
 								<p className="text-muted-foreground text-xs">
 									Enter your M-Pesa PIN to pay KES {price.toFixed(0)}.<br />
 									This page updates automatically once payment is confirmed.
 								</p>
-								<Button variant="outline" size="sm" onClick={closeModal}>
+								<Button variant="secondary" size="sm" onClick={closeModal}>
 									Close
 								</Button>
 							</div>

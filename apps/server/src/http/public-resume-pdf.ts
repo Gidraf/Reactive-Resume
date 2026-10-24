@@ -15,7 +15,7 @@ export async function handlePublicResumePdf(
 	request: Request,
 	username: string,
 	slug: string,
-	trustedClient = "unknown",
+	trustedClient: string,
 ): Promise<Response> {
 	try {
 		const result = await createPublicResumePdf({
@@ -35,6 +35,7 @@ export async function handlePublicResumePdf(
 		});
 	} catch (error) {
 		const status = errorStatus(error);
+		if (status === 500) console.error("Public resume PDF generation failed", error);
 		return noStoreResponse(
 			status === 500 ? "Failed to generate public resume PDF" : "Public resume PDF unavailable",
 			status,

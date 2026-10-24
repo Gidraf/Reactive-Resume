@@ -85,6 +85,10 @@ const scriptFonts: Record<Script, { serif: string; sansSerif: string }> = {
 	// Monochrome outlines (TrueType glyf, not CBDT bitmaps) so react-pdf can
 	// embed them; the serif/sans distinction is meaningless for emoji (#3321).
 	emoji: { serif: "Noto Emoji", sansSerif: "Noto Emoji" },
+	// Basic arrows such as → live in Symbols, not Symbols 2 (#3608).
+	arrows: { serif: "Noto Sans Symbols", sansSerif: "Noto Sans Symbols" },
+	// Text symbols (★, ☆, ●, ■, ◆, ✦, ✓) that aren't emoji (#3581).
+	symbols: { serif: "Noto Sans Symbols 2", sansSerif: "Noto Sans Symbols 2" },
 };
 
 // Covers General Punctuation (U+2000–U+206F) and other symbols missing from
@@ -112,8 +116,8 @@ for (const font of fontList) {
 }
 
 // Compatibility aliases for fonts that v5.0.x resolved via the browser
-// (Arial, Times New Roman, ...) but that aren't registered with
-// @react-pdf/renderer in v5.1+. Targets are metric-compatible web fonts
+// (Arial, Times New Roman, ...) but that the PDF engine doesn't know by
+// name. Targets are metric-compatible web fonts
 // already shipped in webfontlist (#2989).
 const legacyFontAliases: Record<string, string> = {
 	Arial: "Arimo",
@@ -157,6 +161,17 @@ function getPunctuationFallbackFont(category: FontCategory | null) {
 	return getWebFont(family) ? family : null;
 }
 
+// The Noto CJK faces, 10–15 MB per weight file.
+const cjkFontFamilies = new Set(
+	Object.entries(scriptFonts)
+		.filter(([script]) => isCjkScript(script as Script))
+		.flatMap(([, variants]) => [variants.serif, variants.sansSerif]),
+);
+
+export function isCjkFontFamily(family: string) {
+	return cjkFontFamilies.has(family);
+}
+
 export function isStandardPdfFontFamily(family: string) {
 	return standardFontList.some((font) => font.family === family);
 }
@@ -165,6 +180,7 @@ export function getWebFont(family: string) {
 	return webFontMap.get(family);
 }
 
+/** Resolves a catalog font file with weight/style fallbacks. */
 export function getWebFontSource(family: string, weight: FontWeight = "400", italic = false) {
 	const webFont = getWebFont(family);
 	if (!webFont) return null;

@@ -1,6 +1,12 @@
-import type { ApplicationStatus, Contact } from "@reactive-resume/schema/applications/data";
 import type { Application } from "./types";
-import { applicationStatusSchema, contactSchema, STAGES } from "@reactive-resume/schema/applications/data";
+import type { ApplicationStatus, Contact, PostingSource } from "@reactive-resume/schema/applications/data";
+import {
+	applicationStatusSchema,
+	contactSchema,
+	INTERVIEW_KINDS,
+	postingSourceSchema,
+	STAGES,
+} from "@reactive-resume/schema/applications/data";
 
 // Minimal RFC-4180-ish CSV parser: handles quoted fields, escaped quotes (""), commas and
 // newlines inside quotes, and \r\n. Enough for spreadsheet exports; not a full streaming parser.
@@ -62,6 +68,8 @@ type ParsedApplication = {
 	source?: string;
 	notes?: string;
 	sourceUrl?: string;
+	jobDescription?: string;
+	postingSource?: PostingSource;
 	stageEnteredAt?: string;
 	tags?: string[];
 	contacts?: Contact[];
@@ -73,7 +81,12 @@ type CsvApplication = ParsedApplication & {
 	contactType?: string;
 	contactEmail?: string;
 	contactPhone?: string;
+	/** Exports from before the closed stage mark archived applications here. */
+	archived?: string;
 };
+
+/** A column's destination, or null to leave the column out. */
+export type CsvField = keyof CsvApplication;
 
 function dateOnly(value: string) {
 	if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return undefined;
@@ -107,13 +120,48 @@ const HEADER_ALIASES: Record<string, keyof CsvApplication> = {
 	link: "sourceUrl",
 	"job url": "sourceUrl",
 	"job posting": "sourceUrl",
+	"job description": "jobDescription",
+	"posting source": "postingSource",
 	tags: "tags",
 	"contact name": "contactName",
 	"contact role": "contactRole",
 	"contact type": "contactType",
 	"contact email": "contactEmail",
 	"contact phone": "contactPhone",
+	archived: "archived",
 };
+
+/** The fields a column can be matched to, in the order the match list offers them. */
+export const CSV_FIELDS: readonly CsvField[] = [
+	"company",
+	"role",
+	"status",
+	"stageEnteredAt",
+	"location",
+	"salary",
+	"source",
+	"sourceUrl",
+	"jobDescription",
+	"postingSource",
+	"notes",
+	"tags",
+	"contactName",
+	"contactRole",
+	"contactType",
+	"contactEmail",
+	"contactPhone",
+	"archived",
+];
+
+/** Each header's field by name (case and spacing ignored), or null when nothing matches. */
+export const autoMapHeaders = (headers: readonly string[]): (CsvField | null)[] =>
+	headers.map((header) => HEADER_ALIASES[header.trim().toLowerCase()] ?? null);
+
+const csvLine = (cells: readonly string[]) => cells.map((cell) => `"${cell.replaceAll('"', '""')}"`).join(",");
+
+/** Rows back to CSV text (for downloading the rows an import skipped), header first. */
+export const rowsToCsv = (headers: readonly string[], rows: readonly string[][]) =>
+	`${[headers, ...rows].map(csvLine).join("\r\n")}\r\n`;
 
 // Values a spreadsheet would evaluate as a formula: leading =, +, -, @ (and full-width variants),
 // possibly hidden behind whitespace/control characters, or a leading tab/newline.
@@ -147,32 +195,48 @@ function parseTags(value: string) {
 export type CsvMapResult = {
 	rows: ParsedApplication[];
 	skipped: number;
+	/** The source rows left out (no company or role), to download and fix. */
+	skippedRows: string[][];
 	contactsSkipped: number;
+	invalidValues: { row: number; field: "status" | "stageEnteredAt" | "postingSource"; value: string }[];
 	headers: string[];
 	recognized: string[];
 };
 
 // Maps parsed CSV rows to application inputs using the header row. Rows missing company or role
-// are skipped (and counted). Status is coerced to a valid stage or dropped. A contact that fails
+// are skipped (and counted). Invalid stages, dates and metadata require correction before import. A contact that fails
 // validation (bad email, or contact columns with no name) is dropped on its own — the application
 // still imports, since losing the whole row would silently discard company/role/salary/tags too.
-export function mapCsvToApplications(table: string[][]): CsvMapResult {
+export function mapCsvToApplications(table: string[][], mapping?: readonly (CsvField | null)[]): CsvMapResult {
 	const [headerRow, ...dataRows] = table;
-	if (!headerRow) return { rows: [], skipped: 0, contactsSkipped: 0, headers: [], recognized: [] };
+	if (!headerRow)
+		return {
+			rows: [],
+			skipped: 0,
+			skippedRows: [],
+			contactsSkipped: 0,
+			invalidValues: [],
+			headers: [],
+			recognized: [],
+		};
 
 	const headers = headerRow.map((h) => h.trim());
-	const fieldFor = headers.map((h) => HEADER_ALIASES[h.toLowerCase()]);
-	const recognized = [...new Set(fieldFor.filter((f): f is keyof CsvApplication => !!f))];
-	const isReactiveResumeExport = ["Stage History", "Timeline", "Archived", "Created At", "Updated At"].every((header) =>
+	// The confirmed match, else the automatic one.
+	const fieldFor = mapping ?? autoMapHeaders(headers);
+	const recognized = [...new Set(fieldFor.filter((f): f is CsvField => !!f))];
+	// Older exports also carry an Archived column.
+	const isReactiveResumeExport = ["Stage History", "Timeline", "Created At", "Updated At"].every((header) =>
 		headers.includes(header),
 	);
 
 	const rows: ParsedApplication[] = [];
-	let skipped = 0;
+	const skippedRows: string[][] = [];
 	let contactsSkipped = 0;
+	const invalidValues: CsvMapResult["invalidValues"] = [];
 
-	for (const raw of dataRows) {
+	for (const [index, raw] of dataRows.entries()) {
 		const record: Partial<CsvApplication> = {};
+		const invalid: CsvMapResult["invalidValues"] = [];
 		fieldFor.forEach((field, i) => {
 			if (!field) return;
 			const rawValue = raw[i] ?? "";
@@ -180,19 +244,39 @@ export function mapCsvToApplications(table: string[][]): CsvMapResult {
 			if (!value) return;
 			if (field === "tags") record.tags = parseTags(value);
 			else if (field === "status") {
-				const parsed = applicationStatusSchema.safeParse(value.toLowerCase());
+				// Older exports may still say `rejected`, the stage `closed` replaced.
+				const stage = value.toLowerCase();
+				const parsed = applicationStatusSchema.safeParse(stage === "rejected" ? "closed" : stage);
 				if (parsed.success) record.status = parsed.data;
+				else invalid.push({ row: index + 2, field, value });
 			} else if (field === "stageEnteredAt") {
-				record.stageEnteredAt = dateOnly(value);
-			} else record[field] = value as never;
+				const date = dateOnly(value);
+				if (date !== undefined) record.stageEnteredAt = date;
+				else invalid.push({ row: index + 2, field, value });
+			} else if (field === "postingSource") {
+				try {
+					const source = postingSourceSchema.safeParse(JSON.parse(value));
+					if (source.success) record.postingSource = source.data;
+					else invalid.push({ row: index + 2, field, value });
+				} catch {
+					invalid.push({ row: index + 2, field, value });
+				}
+			} else if (field === "jobDescription") record.jobDescription = value.slice(0, 20_000);
+			else record[field] = value as never;
 		});
 
 		if (!record.company || !record.role) {
-			skipped++;
+			skippedRows.push(raw);
+			continue;
+		}
+		if (invalid.length > 0) {
+			invalidValues.push(...invalid);
 			continue;
 		}
 
-		const { contactName, contactRole, contactType, contactEmail, contactPhone, ...application } = record;
+		const { contactName, contactRole, contactType, contactEmail, contactPhone, archived, ...application } = record;
+		// Archived applications from older exports are closed ones.
+		if (archived?.toLowerCase() === "true") application.status = "closed";
 		if (contactName || contactRole || contactType || contactEmail || contactPhone) {
 			const contact = contactSchema.safeParse({
 				name: contactName,
@@ -207,7 +291,7 @@ export function mapCsvToApplications(table: string[][]): CsvMapResult {
 		rows.push(application as ParsedApplication);
 	}
 
-	return { rows, skipped, contactsSkipped, headers, recognized };
+	return { rows, skipped: skippedRows.length, skippedRows, contactsSkipped, invalidValues, headers, recognized };
 }
 
 export type ApplicationExportOptions = {
@@ -245,17 +329,25 @@ export function exportApplicationsCsv(applications: readonly Application[]): str
 		"Salary",
 		"Source",
 		"URL",
+		"Job Description",
+		"Posting Source",
 		"Tags",
 		"Contacts",
 		"Notes",
+		"Closed Reason",
 		"Stage History",
 		"Timeline",
-		"Archived",
 		"Created At",
 		"Updated At",
 	];
 	const dateOnly = (date: Date) => new Date(date).toISOString().slice(0, 10);
 	const stageLabel = (stage: ApplicationStatus) => STAGES.find((item) => item.value === stage)?.label ?? stage;
+	const timelineText = (entry: Application["activity"][number]) => {
+		if (entry.type === "stage") return stageLabel(entry.stage);
+		if (entry.type === "note") return entry.text;
+		const kind = INTERVIEW_KINDS.find((item) => item.value === entry.kind)?.label ?? entry.kind;
+		return `${kind} interview (${new Date(entry.at).toISOString()})`;
+	};
 	const rows = applications.map((application) => {
 		const timeline = [...application.activity].sort((a, b) => new Date(a.at).getTime() - new Date(b.at).getTime());
 		const stages = timeline.filter((entry) => entry.type === "stage");
@@ -270,6 +362,8 @@ export function exportApplicationsCsv(applications: readonly Application[]): str
 			application.salary ?? "",
 			application.source ?? "",
 			application.sourceUrl ?? "",
+			application.jobDescription ?? "",
+			application.postingSource ? JSON.stringify(application.postingSource) : "",
 			application.tags.length > 0 ? JSON.stringify(application.tags) : "",
 			application.contacts
 				.map(({ name, role, type }) => {
@@ -278,11 +372,9 @@ export function exportApplicationsCsv(applications: readonly Application[]): str
 				})
 				.join("\n"),
 			application.notes ?? "",
+			application.closedReason ?? "",
 			stages.map((entry) => `${stageLabel(entry.stage)} (${dateOnly(entry.at)})`).join(" → "),
-			timeline
-				.map((entry) => `${dateOnly(entry.at)}: ${entry.type === "stage" ? stageLabel(entry.stage) : entry.text}`)
-				.join("\n"),
-			String(application.archived),
+			timeline.map((entry) => `${dateOnly(entry.at)}: ${timelineText(entry)}`).join("\n"),
 			new Date(application.createdAt).toISOString(),
 			new Date(application.updatedAt).toISOString(),
 		];

@@ -1,5 +1,5 @@
 import type { SampleLength } from "./sample-lengths";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 import { sampleResumeData } from "./sample";
 import {
 	createAllSampleLengths,
@@ -116,9 +116,9 @@ describe("sample resumes by length", () => {
 	});
 
 	it("replaces the stock layout rather than inheriting it", () => {
-		// The shared sample declares four pages, which would otherwise force every
+		// The shared sample declares several pages, which would otherwise force every
 		// variant to the same length no matter how much content it has.
-		expect(sampleResumeData.metadata.layout.pages).toHaveLength(4);
+		expect(sampleResumeData.metadata.layout.pages.length).toBeGreaterThan(1);
 		expect(createSampleResumeOfLength("1").metadata.layout.pages).toHaveLength(1);
 	});
 

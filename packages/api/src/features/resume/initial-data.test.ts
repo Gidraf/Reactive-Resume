@@ -1,12 +1,14 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { EMPTY_SEMANTIC_CSS_SOURCE } from "@reactive-resume/schema/resume/stylesheet";
 import { createResumeData } from "./initial-data";
 
 describe("createResumeData", () => {
 	it("seeds one canonical empty stylesheet source", () => {
 		expect(createResumeData({}).metadata.stylesheet).toEqual({
 			mode: "semantic",
-			source: { languageVersion: 1, text: "@version 1;\n" },
+			source: { languageVersion: 1, text: EMPTY_SEMANTIC_CSS_SOURCE },
 		});
 	});
 
@@ -23,8 +25,8 @@ describe("createResumeData", () => {
 	});
 
 	it("sizes the sample to the requested printed length", () => {
-		const one = createResumeData({ sampleLength: "1", name: "Amina" });
-		const three = createResumeData({ sampleLength: "3", name: "Amina" });
+		const one = createResumeData({ sampleLength: "1", sampleName: "Amina", name: "Account Holder" });
+		const three = createResumeData({ sampleLength: "3", sampleName: "Amina" });
 
 		// Length is carried by the layout, not by text volume.
 		expect(one.metadata.layout.pages).toHaveLength(1);
@@ -42,13 +44,13 @@ describe("createResumeData", () => {
 
 	it("falls back to the unsized sample when no length is given", () => {
 		const plain = createResumeData({ withSampleData: true });
-		expect(plain.metadata.layout.pages).toHaveLength(4);
+		expect(plain.metadata.layout.pages).toHaveLength(sampleResumeData.metadata.layout.pages.length);
 	});
 
 	it("still seeds the empty stylesheet for a sized sample", () => {
 		expect(createResumeData({ sampleLength: "1.5" }).metadata.stylesheet).toEqual({
 			mode: "semantic",
-			source: { languageVersion: 1, text: "@version 1;\n" },
+			source: { languageVersion: 1, text: EMPTY_SEMANTIC_CSS_SOURCE },
 		});
 	});
 });

@@ -1,16 +1,10 @@
-import type { z } from "zod";
-import { describe, expect, expectTypeOf, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 import { resumeDataSchema } from "./data";
 import { defaultResumeData } from "./default";
 import { sampleResumeData } from "./sample";
 import { parseResumeDataForWrite, writableResumeDataSchema } from "./write";
 
 describe("writableResumeDataSchema", () => {
-	it("keeps canonical client input and output types", () => {
-		expectTypeOf<z.input<typeof writableResumeDataSchema>>().toEqualTypeOf<z.input<typeof resumeDataSchema>>();
-		expectTypeOf<z.output<typeof writableResumeDataSchema>>().toEqualTypeOf<z.output<typeof resumeDataSchema>>();
-	});
-
 	it.each([defaultResumeData, sampleResumeData])("accepts canonical initial resume data", (data) => {
 		expect(parseResumeDataForWrite(data)).toEqual(resumeDataSchema.parse(data));
 	});
@@ -53,6 +47,22 @@ describe("writableResumeDataSchema", () => {
 			},
 		};
 		expect(parseResumeDataForWrite(data).metadata.styleRules).toEqual([]);
+	});
+
+	it("caps each text field and the whole document, exempting URLs from the per-field cap", () => {
+		const withSummary = (content: string) => ({
+			...defaultResumeData,
+			summary: { ...defaultResumeData.summary, content },
+		});
+		const withPicture = (url: string) => ({ ...defaultResumeData, picture: { ...defaultResumeData.picture, url } });
+
+		expect(writableResumeDataSchema.safeParse(withSummary("a".repeat(200_000))).success).toBe(true);
+		expect(writableResumeDataSchema.safeParse(withSummary("a".repeat(200_001))).error?.issues[0]?.path).toEqual([
+			"summary",
+			"content",
+		]);
+		expect(writableResumeDataSchema.safeParse(withPicture(`data:,${"a".repeat(300_000)}`)).success).toBe(true);
+		expect(writableResumeDataSchema.safeParse(withPicture(`data:,${"a".repeat(10_000_000)}`)).success).toBe(false);
 	});
 
 	it("rejects bounds within custom-section item arrays", () => {

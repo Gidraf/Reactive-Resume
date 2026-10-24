@@ -29,6 +29,7 @@ export function RevampHUD() {
 	// Become visible as soon as revamp starts
 	useEffect(() => {
 		if (overallStatus === "running" || overallStatus === "connecting") {
+			// oxlint-disable-next-line react/set-state-in-effect -- the revamp stream is an external system; a new run re-shows a HUD the user dismissed.
 			setVisible(true);
 			setDismissed(false);
 		}
@@ -53,10 +54,10 @@ export function RevampHUD() {
 	return (
 		<div className="pointer-events-none absolute top-3 right-3 z-30 flex w-72 flex-col gap-1.5">
 			{/* Status card */}
-			<div className="pointer-events-auto flex items-start gap-2.5 rounded-xl border bg-background/95 p-3 shadow-lg backdrop-blur-sm">
+			<div className="bg-background/95 pointer-events-auto flex items-start gap-2.5 rounded-xl border p-3 shadow-lg backdrop-blur-sm">
 				<div className="mt-0.5 shrink-0">
 					{overallStatus === "running" || overallStatus === "connecting" ? (
-						<SparkleIcon size={16} className="animate-pulse text-primary" />
+						<SparkleIcon size={16} className="text-primary animate-pulse" />
 					) : overallStatus === "complete" ? (
 						<CheckCircleIcon size={16} className="text-green-500" />
 					) : (
@@ -66,7 +67,7 @@ export function RevampHUD() {
 
 				<div className="min-w-0 flex-1">
 					<div className="flex items-center justify-between gap-2">
-						<p className="truncate font-semibold text-xs">
+						<p className="truncate text-xs font-semibold">
 							{overallStatus === "complete"
 								? "Revamp complete!"
 								: overallStatus === "error"
@@ -77,7 +78,7 @@ export function RevampHUD() {
 						</p>
 						<button
 							type="button"
-							className="shrink-0 text-muted-foreground hover:text-foreground"
+							className="text-muted-foreground hover:text-foreground shrink-0"
 							onClick={() => setDismissed(true)}
 						>
 							<XIcon size={12} />
@@ -85,7 +86,7 @@ export function RevampHUD() {
 					</div>
 
 					{/* Progress bar */}
-					<div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-muted">
+					<div className="bg-muted mt-1.5 h-1 w-full overflow-hidden rounded-full">
 						<div
 							className={cn(
 								"h-full rounded-full transition-all duration-700",
@@ -95,7 +96,7 @@ export function RevampHUD() {
 						/>
 					</div>
 
-					<p className="mt-1 text-[10px] text-muted-foreground">
+					<p className="text-muted-foreground mt-1 text-[10px]">
 						{overallStatus === "complete"
 							? "Your CV is ready — review the design below."
 							: `${doneCount} / ${TOTAL_SECTIONS} sections complete`}
@@ -105,8 +106,8 @@ export function RevampHUD() {
 
 			{/* Thinking text bubble */}
 			{activeState?.thinkingText && (
-				<div className="pointer-events-none max-h-20 overflow-hidden rounded-lg border bg-muted/80 px-3 py-2 backdrop-blur-sm">
-					<div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
+				<div className="bg-muted/80 pointer-events-none max-h-20 overflow-hidden rounded-lg border px-3 py-2 backdrop-blur-sm">
+					<div className="text-muted-foreground flex items-center gap-1.5 text-[10px]">
 						<CircleNotchIcon size={9} className="shrink-0 animate-spin" />
 						<span className="line-clamp-3 font-mono leading-snug">
 							{activeState.thinkingText.split("\n").at(-1) ?? activeState.thinkingText}
@@ -123,7 +124,7 @@ export function RevampHUD() {
 						<span
 							key={key}
 							className={cn(
-								"rounded-full px-1.5 py-0.5 font-medium text-[9px]",
+								"rounded-full px-1.5 py-0.5 text-[9px] font-medium",
 								state?.status === "done"
 									? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
 									: state?.status === "pending"

@@ -3,21 +3,33 @@ import z from "zod";
 import * as schema from "@reactive-resume/db/schema";
 import {
 	aiMetadataSchema,
+	applicationClosedReasonSchema,
 	applicationStatusSchema,
 	applicationTimelineEntrySchema,
 	contactSchema,
+	interviewDetailsSchema,
+	interviewKindSchema,
+	postingSourceSchema,
 } from "@reactive-resume/schema/applications/data";
+import { paginationShape } from "../pagination";
 
 const MAX_APPLICATION_JOB_DESCRIPTION_CHARS = 20_000;
 const MAX_APPLICATION_DOCUMENT_BYTES = 10 * 1024 * 1024;
 
 const applicationDocumentKindSchema = z.enum(["resume", "cover-letter"]);
 const timelineDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must use YYYY-MM-DD format.");
+// Interviews carry a full timestamp (with offset) so the scheduled time survives timezones.
+const interviewAtSchema = z.iso.datetime({ offset: true }).describe("Scheduled start, as an ISO 8601 date-time.");
 
 const applicationDocumentFileSchema = z
 	.file()
 	.max(MAX_APPLICATION_DOCUMENT_BYTES, "File size must be less than 10MB")
 	.mime(["application/pdf"], "Application documents must be PDF files.");
+
+const documentFilesShape = {
+	resumeFile: applicationDocumentFileSchema.optional(),
+	coverLetterFile: applicationDocumentFileSchema.optional(),
+};
 
 const httpUrlSchema = z
 	.string()
@@ -30,12 +42,26 @@ const applicationSchema = createSelectSchema(schema.application, {
 	role: z.string().trim().min(1).describe("The role / job title."),
 	location: z.string().trim().nullable(),
 	salary: z.string().trim().nullable(),
-	status: applicationStatusSchema.describe("The current pipeline stage."),
-	archived: z.boolean(),
+	status: applicationStatusSchema.describe("The current pipeline stage. `closed` ends it, with a reason."),
+	closedReason: applicationClosedReasonSchema
+		.nullable()
+		.describe("Why a closed application ended: accepted, not-selected, withdrew, accepted-other or no-response."),
 	resumeId: z.string().nullable().describe("The linked Reactive Resume, if any."),
+	coverLetterId: z.string().nullable().describe("The linked saved cover letter, if any."),
+	sentResumeVersionId: z
+		.string()
+		.nullable()
+		.describe("The version of the linked resume saved when the application was sent (reached Applied)."),
+	sentCheckScore: z.number().int().nullable().describe("The resume's Check score when it was sent, out of 100."),
+	sentCoverLetterVersionId: z
+		.string()
+		.nullable()
+		.describe("The version of the linked letter saved when the application was sent."),
+	requirements: z.array(z.string()).describe("What the posting asks for, as read when the application was added."),
 	source: z.string().trim().nullable(),
 	sourceUrl: httpUrlSchema.nullable(),
 	jobDescription: z.string().max(MAX_APPLICATION_JOB_DESCRIPTION_CHARS).nullable(),
+	postingSource: postingSourceSchema.nullable(),
 	matchScore: z.number().int().min(0).max(100).nullable(),
 	aiMetadata: aiMetadataSchema.nullable(),
 	notes: z.string().nullable(),
@@ -72,6 +98,7 @@ const editableSchema = applicationSchema.pick({
 	source: true,
 	sourceUrl: true,
 	jobDescription: true,
+	postingSource: true,
 	notes: true,
 	resumeFileUrl: true,
 	resumeFileName: true,
@@ -81,6 +108,8 @@ const editableSchema = applicationSchema.pick({
 	followUpNote: true,
 	contacts: true,
 	resumeId: true,
+	coverLetterId: true,
+	requirements: true,
 	tags: true,
 });
 
@@ -88,6 +117,7 @@ const createInputSchema = editableSchema.partial().extend({
 	company: applicationSchema.shape.company,
 	role: applicationSchema.shape.role,
 	status: applicationStatusSchema.optional(),
+	closedReason: applicationClosedReasonSchema.nullable().optional(),
 	stageEnteredAt: timelineDateSchema.optional(),
 });
 
@@ -95,12 +125,12 @@ export const applicationDto = {
 	list: {
 		input: z
 			.object({
+				...paginationShape,
 				status: applicationStatusSchema.optional(),
 				tags: z.array(z.string()).optional(),
-				includeArchived: z.boolean().optional().default(false),
 			})
 			.optional()
-			.default({ includeArchived: false }),
+			.default({}),
 		output: z.array(applicationSchema.omit({ userId: true })),
 	},
 
@@ -110,7 +140,7 @@ export const applicationDto = {
 	},
 
 	create: {
-		input: createInputSchema,
+		input: createInputSchema.extend(documentFilesShape),
 		output: z.string().describe("The ID of the created application."),
 	},
 
@@ -121,9 +151,16 @@ export const applicationDto = {
 	},
 
 	update: {
-		input: editableSchema
-			.partial()
-			.extend({ id: z.string(), status: applicationStatusSchema.optional(), archived: z.boolean().optional() }),
+		input: editableSchema.partial().extend({
+			...documentFilesShape,
+			id: z.string(),
+			status: applicationStatusSchema.optional(),
+			stageEnteredAt: timelineDateSchema.optional(),
+			closedReason: applicationClosedReasonSchema
+				.nullable()
+				.optional()
+				.describe("Why the application closed; kept when status stays closed, cleared by any other stage."),
+		}),
 		output: applicationSchema.omit({ userId: true }),
 	},
 
@@ -161,6 +198,34 @@ export const applicationDto = {
 		output: applicationSchema.omit({ userId: true }),
 	},
 
+	// Interviews live on the activity timeline (type "interview") so they show up there and on
+	// the calendar view without a separate table. Deleting goes through deleteTimelineEntry.
+	addInterview: {
+		input: interviewDetailsSchema.extend({
+			id: z.string(),
+			at: interviewAtSchema,
+		}),
+		output: applicationSchema.omit({ userId: true }),
+	},
+
+	updateInterview: {
+		// Explicit optional fields (not interviewDetailsSchema.partial()) so the schema defaults
+		// never overwrite stored values on a partial update.
+		input: z.object({
+			id: z.string(),
+			entryId: z.string(),
+			at: interviewAtSchema.optional(),
+			kind: interviewKindSchema.optional(),
+			durationMinutes: interviewDetailsSchema.shape.durationMinutes.unwrap().optional(),
+			location: interviewDetailsSchema.shape.location.unwrap().optional(),
+			notes: interviewDetailsSchema.shape.notes.unwrap().optional(),
+			participants: interviewDetailsSchema.shape.participants.unwrap().optional(),
+			audience: interviewDetailsSchema.shape.audience.unwrap().optional(),
+			timezone: interviewDetailsSchema.shape.timezone.unwrap().optional(),
+		}),
+		output: applicationSchema.omit({ userId: true }),
+	},
+
 	deleteTimelineEntry: {
 		input: z.object({ id: z.string(), entryId: z.string() }),
 		output: applicationSchema.omit({ userId: true }),
@@ -171,12 +236,12 @@ export const applicationDto = {
 		output: z.void(),
 	},
 
-	// Table bulk actions: move stage, archive/unarchive, add tags across a selection.
+	// Table bulk actions: move stage, close, add tags across a selection.
 	bulkUpdate: {
 		input: z.object({
 			ids: z.array(z.string()).min(1).max(200, "Too many items in a single bulk operation"),
 			status: applicationStatusSchema.optional(),
-			archived: z.boolean().optional(),
+			closedReason: applicationClosedReasonSchema.nullable().optional(),
 			addTags: z.array(z.string()).optional(),
 		}),
 		output: z.object({ updated: z.number() }),

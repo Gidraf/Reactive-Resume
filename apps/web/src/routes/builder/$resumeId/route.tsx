@@ -1,24 +1,37 @@
-import type { BuilderLayout } from "./-store/sidebar";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { useMediaQuery } from "usehooks-ts";
+import z from "zod";
+import { EditorShell } from "./-components/editor-shell";
+import { useRevampStream } from "./-hooks/use-revamp-stream";
 import { useBuilderResumeUpdateSubscription, useResumeCleanup, useResumeStore } from "@/features/resume/builder/draft";
+import { EDITOR_MODES } from "@/features/resume/editor/store";
 import { orpc } from "@/libs/orpc/client";
 import { createNoindexFollowMeta } from "@/libs/seo";
-import { DesktopBuilderShell } from "./-components/desktop-builder-shell";
-import { MobileBuilderShell } from "./-components/mobile-builder-shell";
-import { useRevampStream } from "./-hooks/use-revamp-stream";
-import { getBuilderLayout } from "./-store/sidebar";
+
+const searchSchema = z.object({
+	// Write is the default and stays out of the URL.
+	mode: z.enum(EDITOR_MODES).optional().catch(undefined),
+	// Opens History on this version, read-only; Applications' "Open" on what was sent links here.
+	version: z.string().optional().catch(undefined),
+	// Opens the assistant on a conversation ("new" for a fresh one).
+	assistant: z.string().optional().catch(undefined),
+	// Fills the assistant's composer. Never sent without the user pressing Send: anyone can make a link.
+	ask: z.string().max(2_000).optional().catch(undefined),
+	// Prepare for next step keeps the application clicked, even when a base resume serves several jobs.
+	applicationId: z.string().optional().catch(undefined),
+	// The file a resume was just imported from; Write says what came in until it's dismissed.
+	imported: z.string().max(255).optional().catch(undefined),
+	// CVpap: a WhatsApp revamp token; the builder streams that revamp's progress onto the page.
+	revamp: z.string().optional().catch(undefined),
+});
 
 const CVPAP_API = (import.meta.env.VITE_CVPAP_API_URL as string | undefined) ?? "";
 
 export const Route = createFileRoute("/builder/$resumeId")({
 	component: RouteComponent,
-	validateSearch: (search: Record<string, unknown>) => ({
-		revamp: typeof search.revamp === "string" ? search.revamp : undefined,
-	}),
-	beforeLoad: async ({ context, search }) => {
+	validateSearch: searchSchema,
+	beforeLoad: async ({ context, location, search }) => {
 		// WhatsApp users land here via the builder URL but have no RR session.
 		// If the revamp token is valid, redirect them to the dedicated revamp page
 		// so they see live progress without needing an account.
@@ -33,16 +46,15 @@ export const Route = createFileRoute("/builder/$resumeId")({
 				if (e && typeof e === "object" && "to" in e) throw e;
 			}
 		}
-		if (!context.session) throw redirect({ to: "/auth/login", replace: true });
+		if (!context.session) throw redirect({ to: "/auth/login", search: { callbackURL: location.href }, replace: true });
 		return { session: context.session };
 	},
 	loader: async ({ params, context }) => {
-		const [layout, resume] = await Promise.all([
-			getBuilderLayout(),
-			context.queryClient.ensureQueryData(orpc.resume.getById.queryOptions({ input: { id: params.resumeId } })),
-		]);
+		const resume = await context.queryClient.ensureQueryData(
+			orpc.resume.getById.queryOptions({ input: { id: params.resumeId } }),
+		);
 
-		return { layout, name: resume.name };
+		return { name: resume.name };
 	},
 	head: ({ loaderData }) => ({
 		meta: loaderData
@@ -52,10 +64,8 @@ export const Route = createFileRoute("/builder/$resumeId")({
 });
 
 function RouteComponent() {
-	const { layout: initialLayout } = Route.useLoaderData();
-	const { revamp: revampToken } = Route.useSearch();
-
 	const { resumeId } = Route.useParams();
+	const { revamp: revampToken } = Route.useSearch();
 
 	// Mount the revamp SSE stream — no-op when revampToken is undefined
 	useRevampStream(revampToken ?? null);
@@ -92,13 +102,5 @@ function RouteComponent() {
 
 	if (!isInitialized) return null;
 
-	return <BuilderLayoutShell initialLayout={initialLayout} />;
-}
-
-function BuilderLayoutShell({ initialLayout }: { initialLayout: BuilderLayout }) {
-	// Single breakpoint (below `md`) switches between the desktop resizable panels and the mobile tabbed shell.
-	const isMobile = useMediaQuery("(max-width: 767px)", { initializeWithValue: false });
-
-	if (isMobile) return <MobileBuilderShell />;
-	return <DesktopBuilderShell initialLayout={initialLayout} />;
+	return <EditorShell />;
 }

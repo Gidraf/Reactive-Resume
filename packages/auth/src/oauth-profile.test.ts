@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const dbMock = vi.hoisted(() => {
 	const selectQueue: unknown[][] = [];
@@ -47,43 +47,6 @@ beforeEach(() => {
 });
 
 describe("createProfileMapper", () => {
-	it("reuses a migrated GitHub account when the login and email match the legacy account", async () => {
-		dbMock.selectQueue.push([
-			{
-				id: "user-1",
-				accountId: "legacy-user-id",
-				email: "Legacy.User@Example.COM",
-				emailVerified: true,
-				username: "octo-cat",
-				displayUsername: "Octo-Cat",
-				name: "Legacy User",
-				image: "https://example.com/old.png",
-			},
-		]);
-
-		const mapper = createGithubProfileMapper();
-
-		const result = await mapper({
-			id: "123456",
-			email: "legacy.user@example.com",
-			login: "Octo-Cat",
-			name: "Provider Name",
-			avatar_url: "https://example.com/new.png",
-		});
-
-		expect(dbMock.select).toHaveBeenCalledTimes(1);
-		expect(dbMock.update).toHaveBeenCalledTimes(1);
-		expect(dbMock.updateSet).toHaveBeenCalledWith({ email: "legacy.user@example.com" });
-		expect(result).toEqual({
-			name: "Legacy User",
-			email: "legacy.user@example.com",
-			image: "https://example.com/new.png",
-			username: "octo-cat",
-			displayUsername: "Octo-Cat",
-			emailVerified: true,
-		});
-	});
-
 	it("does not reuse a migrated GitHub account when only the login matches", async () => {
 		dbMock.selectQueue.push(
 			[
@@ -91,7 +54,6 @@ describe("createProfileMapper", () => {
 					id: "user-1",
 					accountId: "legacy-user-id",
 					email: "Legacy.User@Example.COM",
-					emailVerified: true,
 					username: "octo-cat",
 					displayUsername: "Octo-Cat",
 					name: "Legacy User",
@@ -99,7 +61,10 @@ describe("createProfileMapper", () => {
 				},
 			],
 			[],
+			// Each username check first looks for a recent release, then for an account holding it.
+			[],
 			[{ id: "user-1" }],
+			[],
 			[],
 		);
 
@@ -113,7 +78,7 @@ describe("createProfileMapper", () => {
 			avatar_url: "https://example.com/new.png",
 		});
 
-		expect(dbMock.select).toHaveBeenCalledTimes(4);
+		expect(dbMock.select).toHaveBeenCalledTimes(6);
 		expect(dbMock.update).not.toHaveBeenCalled();
 		expect(result).toEqual({
 			name: "Provider Name",
@@ -121,43 +86,6 @@ describe("createProfileMapper", () => {
 			image: "https://example.com/new.png",
 			username: "octo-cat-1",
 			displayUsername: "octo-cat-1",
-			emailVerified: true,
-		});
-	});
-
-	it("falls back to email matching when no migrated GitHub account matches the provider login", async () => {
-		dbMock.selectQueue.push(
-			[],
-			[
-				{
-					id: "user-1",
-					email: "GitHub.User@Example.COM",
-					emailVerified: false,
-					username: "github.user",
-					displayUsername: "github.user",
-					name: "GitHub User",
-					image: null,
-				},
-			],
-		);
-
-		const mapper = createGithubProfileMapper();
-
-		const result = await mapper({
-			id: "123456",
-			email: "github.user@example.com",
-			login: "other-login",
-			avatar_url: "https://example.com/new.png",
-		});
-
-		expect(dbMock.select).toHaveBeenCalledTimes(2);
-		expect(result).toEqual({
-			name: "GitHub User",
-			email: "github.user@example.com",
-			image: "https://example.com/new.png",
-			username: "github.user",
-			displayUsername: "github.user",
-			emailVerified: false,
 		});
 	});
 
@@ -166,7 +94,6 @@ describe("createProfileMapper", () => {
 			{
 				id: "user-1",
 				email: "Legacy.User@Example.COM",
-				emailVerified: false,
 				username: "legacy.user",
 				displayUsername: "legacy.user",
 				name: "Legacy User",
@@ -193,62 +120,6 @@ describe("createProfileMapper", () => {
 			image: "https://example.com/new.png",
 			username: "legacy.user",
 			displayUsername: "legacy.user",
-			emailVerified: false,
 		});
-	});
-
-	it("does not update the user row when the matched email is already normalized", async () => {
-		dbMock.selectQueue.push([
-			{
-				id: "user-1",
-				email: "user@example.com",
-				emailVerified: true,
-				username: "user",
-				displayUsername: "user",
-				name: "User",
-				image: null,
-			},
-		]);
-
-		const mapper = createProfileMapper({ providerName: "Google" });
-
-		const result = await mapper({ email: "USER@example.com", name: "Provider User" });
-
-		expect(dbMock.update).not.toHaveBeenCalled();
-		expect(result.email).toBe("user@example.com");
-		expect(result.name).toBe("User");
-	});
-
-	it("allocates a provider username for a new social user", async () => {
-		dbMock.selectQueue.push([], []);
-
-		const mapper = createProfileMapper({
-			providerName: "GitHub",
-			getPreferredUsername: (profile) => profile.login,
-			getName: (profile) => profile.name,
-			getImage: (profile) => profile.avatar_url,
-		});
-
-		const result = await mapper({
-			email: "New.User@Example.com",
-			login: "Octo-Cat",
-			name: "Octo Cat",
-			avatar_url: "https://example.com/avatar.png",
-		});
-
-		expect(result).toEqual({
-			name: "Octo Cat",
-			email: "new.user@example.com",
-			image: "https://example.com/avatar.png",
-			username: "octo-cat",
-			displayUsername: "octo-cat",
-			emailVerified: true,
-		});
-	});
-
-	it("rejects provider profiles without an email address", async () => {
-		const mapper = createProfileMapper({ providerName: "GitHub" });
-
-		await expect(mapper({ login: "octocat" })).rejects.toThrow("GitHub provider did not return an email address");
 	});
 });

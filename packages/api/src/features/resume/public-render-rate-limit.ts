@@ -1,5 +1,5 @@
-import { MemoryRatelimiter } from "@orpc/experimental-ratelimit/memory";
 import { ORPCError } from "@orpc/server";
+import { createRateLimiter } from "../../redis";
 
 type PublicRenderRateLimitInput = {
 	/** Sanitized transport identity supplied by the server adapter, never by request headers. */
@@ -14,15 +14,21 @@ export type PublicRenderRateLimiter = {
 export function createPublicRenderRateLimiter(
 	options: { capacity?: number; refillWindowMs?: number } = {},
 ): PublicRenderRateLimiter {
-	const limiter = new MemoryRatelimiter({
+	const limiter = createRateLimiter("public-render", {
 		maxRequests: options.capacity ?? 6,
+		window: options.refillWindowMs ?? 60_000,
+	});
+	// Each resume has its own budget per visitor; this one bounds a visitor rendering many resumes.
+	const clientLimiter = createRateLimiter("public-render-client", {
+		maxRequests: (options.capacity ?? 6) * 5,
 		window: options.refillWindowMs ?? 60_000,
 	});
 
 	return {
 		async consume(input) {
 			const trustedClient = input.trustedClient.trim() || "unknown";
-			const { success } = await limiter.limit(`${trustedClient}:${input.resumeId}`);
+			const client = await clientLimiter.limit(trustedClient);
+			const { success } = client.success ? await limiter.limit(`${trustedClient}:${input.resumeId}`) : client;
 
 			if (!success) {
 				throw new ORPCError("RATE_LIMIT_EXCEEDED", {

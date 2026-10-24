@@ -90,19 +90,19 @@ export function RevampLoginPage() {
 	}, [token, navigate]);
 
 	return (
-		<div className="flex h-svh flex-col items-center justify-center gap-6 bg-background px-4 text-center">
+		<div className="bg-background flex h-svh flex-col items-center justify-center gap-6 px-4 text-center">
 			{stage === "loading" && (
 				<>
-					<CircleNotchIcon size={40} className="animate-spin text-primary" />
-					<p className="font-medium text-lg">Loading your CV…</p>
+					<CircleNotchIcon size={40} className="text-primary animate-spin" />
+					<p className="text-lg font-medium">Loading your CV…</p>
 					<p className="text-muted-foreground text-sm">Please wait a moment.</p>
 				</>
 			)}
 
 			{stage === "signing-in" && (
 				<>
-					<CircleNotchIcon size={40} className="animate-spin text-primary" />
-					<p className="font-medium text-lg">Signing you in…</p>
+					<CircleNotchIcon size={40} className="text-primary animate-spin" />
+					<p className="text-lg font-medium">Signing you in…</p>
 					<p className="text-muted-foreground text-sm">Setting up your builder access.</p>
 				</>
 			)}
@@ -110,7 +110,7 @@ export function RevampLoginPage() {
 			{stage === "redirecting" && (
 				<>
 					<CheckCircleIcon size={40} className="text-green-500" />
-					<p className="font-medium text-lg">Signed in!</p>
+					<p className="text-lg font-medium">Signed in!</p>
 					<p className="text-muted-foreground text-sm">Opening your CV builder…</p>
 				</>
 			)}
@@ -118,11 +118,11 @@ export function RevampLoginPage() {
 			{stage === "error" && (
 				<>
 					<WarningCircleIcon size={40} className="text-destructive" />
-					<p className="font-medium text-lg">Something went wrong</p>
-					<p className="max-w-xs text-muted-foreground text-sm">{errorMsg}</p>
+					<p className="text-lg font-medium">Something went wrong</p>
+					<p className="text-muted-foreground max-w-xs text-sm">{errorMsg}</p>
 					<button
 						type="button"
-						className="mt-2 rounded-md bg-primary px-4 py-2 text-primary-foreground text-sm hover:bg-primary/90"
+						className="bg-primary text-primary-foreground hover:bg-primary/90 mt-2 rounded-md px-4 py-2 text-sm"
 						onClick={() => {
 							ranRef.current = false;
 							setStage("loading");

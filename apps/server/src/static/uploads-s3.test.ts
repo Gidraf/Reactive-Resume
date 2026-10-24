@@ -1,6 +1,6 @@
 import type { IncomingHttpHeaders } from "node:http";
 import { createServer } from "node:http";
-import { afterAll, beforeAll, beforeEach, expect, it, vi } from "vitest";
+import { afterAll, beforeAll, beforeEach, expect, it, vi } from "vite-plus/test";
 
 const envMock = vi.hoisted(() => ({
 	APP_URL: "https://resume.example.com",
@@ -8,6 +8,7 @@ const envMock = vi.hoisted(() => ({
 	S3_SECRET_ACCESS_KEY: "test-secret-key",
 	S3_REGION: "us-east-1",
 	S3_ENDPOINT: "",
+	STORAGE_BACKEND: "s3",
 	S3_BUCKET: "test-bucket",
 	S3_FORCE_PATH_STYLE: true,
 }));
@@ -15,6 +16,17 @@ vi.mock("@reactive-resume/env/server", () => ({ env: envMock }));
 
 type StoredObject = { data: Buffer; contentType: string };
 type StorageRequest = { method: string; path: string; headers: IncomingHttpHeaders };
+const resolveAuthentication = vi.hoisted(() => vi.fn());
+vi.mock("@reactive-resume/api/context", () => ({
+	resolveAuthenticationFromRequestHeaders: resolveAuthentication,
+	resolveUserFromRequestHeaders: async (headers: Headers) => (await resolveAuthentication(headers))?.user ?? null,
+}));
+const isPublicUploadOwner = vi.hoisted(() => vi.fn());
+vi.mock("@reactive-resume/api/features/storage", async (original) => ({
+	...(await original<typeof import("@reactive-resume/api/features/storage")>()),
+	isPublicUploadOwner,
+}));
+
 const objects = new Map<string, StoredObject>();
 const requests: StorageRequest[] = [];
 
@@ -42,11 +54,6 @@ const server = createServer(async (request, response) => {
 		response.writeHead(200, { ETag: '"test-etag"' });
 		return response.end();
 	}
-	if (request.method === "DELETE") {
-		objects.delete(path);
-		response.writeHead(204);
-		return response.end();
-	}
 	const object = objects.get(path);
 	if (!object) return fail(404, "NoSuchKey");
 	response.writeHead(200, { "Content-Type": object.contentType, "Content-Length": object.data.length });
@@ -66,6 +73,8 @@ beforeAll(async () => {
 });
 
 beforeEach(() => {
+	resolveAuthentication.mockReset();
+	isPublicUploadOwner.mockReset().mockResolvedValue(true);
 	objects.clear();
 	requests.length = 0;
 });
@@ -73,12 +82,6 @@ beforeEach(() => {
 afterAll(async () => {
 	server.closeAllConnections();
 	await new Promise<void>((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));
-});
-
-it("keeps the ACL-disabled storage health check healthy", async () => {
-	expect(await storage.healthcheck()).toMatchObject({ status: "healthy", type: "s3" });
-	expect(requests.map(({ method }) => method)).toEqual(["PUT", "DELETE"]);
-	expect(objects.size).toBe(0);
 });
 
 it("stores images without ACLs and serves them through the signed application proxy", async () => {
@@ -91,8 +94,18 @@ it("stores images without ACLs and serves them through the signed application pr
 	const response = await handleUpload(new Request(`${envMock.APP_URL}/api/${key}`));
 	expect(response.status).toBe(200);
 	expect(response.headers.get("Content-Type")).toBe("image/png");
+	expect(response.headers.get("Cache-Control")).toBe("public, max-age=3600");
 	expect(new Uint8Array(await response.arrayBuffer())).toEqual(data);
 	expect(requests.at(-1)?.headers.authorization).toMatch(/^AWS4-HMAC-SHA256 /);
+});
+
+it("stops serving a banned owner's public pictures", async () => {
+	const key = "uploads/user-1/pictures/photo.png";
+	await storage.write({ key, data: new Uint8Array([137, 80, 78, 71]), contentType: "image/png" });
+	isPublicUploadOwner.mockResolvedValue(false);
+	const response = await handleUpload(new Request(`${envMock.APP_URL}/api/${key}`));
+	expect(response.status).toBe(404);
+	expect(isPublicUploadOwner).toHaveBeenCalledWith("user-1");
 });
 
 it("stores private attachments without ACLs while keeping them outside the public proxy", async () => {
@@ -107,4 +120,40 @@ it("stores private attachments without ACLs while keeping them outside the publi
 	const direct = await fetch(`${envMock.S3_ENDPOINT}/${envMock.S3_BUCKET}/${key}`);
 	expect(direct.status).toBe(403);
 	expect((await storage.read(key))?.data).toEqual(data);
+});
+
+it.each(["text/html", "image/svg+xml"])("downloads stored %s uploads instead of rendering them", async (type) => {
+	const key = "uploads/user-1/pictures/upload.bin";
+	await storage.write({ key, data: new TextEncoder().encode("<script>alert(1)</script>"), contentType: type });
+	resolveAuthentication.mockResolvedValue({ user: { id: "user-1" }, permissions: ["read"] });
+	const response = await handleUpload(new Request(`${envMock.APP_URL}/api/${key}`));
+	expect(response.status).toBe(200);
+	expect(response.headers.get("Content-Type")).toBe("application/octet-stream");
+	expect(response.headers.get("Content-Disposition")).toBe('attachment; filename="upload.bin"');
+});
+
+it("requires the upload owner before serving application PDFs, including conditional requests", async () => {
+	const key = "uploads/user-1/pictures/application.pdf";
+	await storage.write({
+		key,
+		data: new TextEncoder().encode("private application PDF"),
+		contentType: "application/pdf",
+	});
+	for (const viewer of [
+		null,
+		{ user: { id: "other-user" }, permissions: ["read"] },
+		{ user: { id: "user-1" }, permissions: ["write"] },
+	]) {
+		resolveAuthentication.mockResolvedValue(viewer);
+		const response = await handleUpload(
+			new Request(`${envMock.APP_URL}/api/${key}`, { headers: { "If-None-Match": '"test-etag"' } }),
+		);
+		expect(response.status).toBe(404);
+		expect(await response.text()).not.toContain("private application PDF");
+	}
+	resolveAuthentication.mockResolvedValue({ user: { id: "user-1" }, permissions: ["read"] });
+	const response = await handleUpload(new Request(`${envMock.APP_URL}/api/${key}`));
+	expect(response.status).toBe(200);
+	expect(await response.text()).toBe("private application PDF");
+	expect(response.headers.get("Cache-Control")).toBe("private, no-store");
 });

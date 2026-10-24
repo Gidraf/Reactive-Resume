@@ -2,6 +2,8 @@ import { sql } from "drizzle-orm";
 import { withTimeout } from "es-toolkit";
 import { getStorageService } from "@reactive-resume/api/features/storage";
 import { db } from "@reactive-resume/db/client";
+import { getRedis } from "@reactive-resume/db/redis";
+import { env } from "@reactive-resume/env/server";
 import { appVersion } from "../app-version";
 
 const HEALTHCHECK_TIMEOUT_MS = 1_500;
@@ -13,12 +15,12 @@ type CheckResult = {
 	[key: string]: unknown;
 };
 
-// ponytail: es-toolkit withTimeout takes a fn, not a promise — call site passes check (not check())
-async function runCheck(check: () => Promise<object>): Promise<CheckResult> {
+/** Bound each dependency check and retain failure diagnostics for server-side logging. */
+async function runCheck(check: () => Promise<object>, timeoutMs = HEALTHCHECK_TIMEOUT_MS): Promise<CheckResult> {
 	const startedAt = performance.now();
 
 	try {
-		const data = await withTimeout(check, HEALTHCHECK_TIMEOUT_MS);
+		const data = await withTimeout(check, timeoutMs);
 		const latencyMs = Math.round(performance.now() - startedAt);
 		const result = data as { status?: string };
 		if (result.status === "unhealthy") return { ...(data as object), status: "unhealthy", latencyMs };
@@ -32,13 +34,15 @@ async function runCheck(check: () => Promise<object>): Promise<CheckResult> {
 	}
 }
 
-function publicCheck(check: CheckResult, name: "Database" | "Storage"): CheckResult {
+function publicCheck(check: CheckResult, name: "Database" | "Storage" | "Redis"): CheckResult {
 	if (check.status === "healthy") return check;
 	return {
 		status: check.status,
 		latencyMs: check.latencyMs,
 		error: `${name} health check failed.`,
-		...(check.type === "local" || check.type === "s3" ? { type: check.type } : {}),
+		...(check.type === "local" || check.type === "s3" || check.type === "blob" || check.type === "r2"
+			? { type: check.type }
+			: {}),
 	};
 }
 
@@ -50,31 +54,39 @@ async function checkDatabase() {
 
 const checkStorage = () => getStorageService().healthcheck();
 
+/** Report dependency readiness while keeping internal failure details in server logs. */
 export async function handleHealth() {
-	const [database, storage] = await Promise.all([runCheck(checkDatabase), runCheck(checkStorage)]);
-	const status = [database, storage].some((check) => check.status === "unhealthy") ? "unhealthy" : "healthy";
+	const redisClient = getRedis();
+	const [database, storage, redis] = await Promise.all([
+		runCheck(checkDatabase),
+		runCheck(checkStorage, env.STORAGE_HEALTHCHECK_TIMEOUT_MS),
+		redisClient
+			? runCheck(async () => {
+					await redisClient.ping();
+					return { status: "healthy" };
+				})
+			: undefined,
+	]);
+	const status = [database, storage, redis].some((check) => check?.status === "unhealthy") ? "unhealthy" : "healthy";
 
 	const checks = {
 		service: "reactive-resume",
 		version: appVersion,
+		revision: env.APP_REVISION ?? null,
 		status,
 		timestamp: new Date().toISOString(),
 		uptime: `${process.uptime().toFixed(2)}s`,
 		database: publicCheck(database, "Database"),
 		storage: publicCheck(storage, "Storage"),
+		...(redis ? { redis: publicCheck(redis, "Redis") } : {}),
 	};
 
 	if (status === "unhealthy") {
-		console.warn("[Healthcheck]", { route: "/api/health", database, storage });
+		console.warn("[Healthcheck]", { route: "/api/health", database, storage, ...(redis ? { redis } : {}) });
 	}
 
-	const headers = new Headers();
-	const body = JSON.stringify(checks);
-	headers.set("Content-Type", "application/json; charset=UTF-8");
-	headers.set("Content-Length", Buffer.byteLength(body, "utf-8").toString());
-
-	return new Response(body, {
-		headers,
+	return Response.json(checks, {
 		status: checks.status === "unhealthy" ? 503 : 200,
+		headers: { "Cache-Control": "no-store" },
 	});
 }

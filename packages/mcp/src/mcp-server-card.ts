@@ -1,7 +1,6 @@
-import { toJsonSchemaCompat } from "@modelcontextprotocol/sdk/server/zod-json-schema-compat.js";
+import { prepareMcpDiscovery } from "./discovery";
 import { MCP_TOOL_NAME as T } from "./mcp-tool-names";
 import { PROMPT_META } from "./prompts";
-import { TOOL_META } from "./tool-meta";
 
 const RESUME_ID_ARGUMENT = [{ name: "id", description: "Resume ID.", required: true }] as const;
 
@@ -29,14 +28,7 @@ export function buildMcpServerInfo(version: string) {
  * The parameterized resume URI is therefore duplicated here so discovery matches the live template.
  */
 export function buildMcpServerCard(appVersion: string) {
-	// ponytail: derived from TOOL_META; title/description/inputSchema/annotations declared once
-	const tools = Object.entries(TOOL_META).map(([name, { title, description, inputSchema, annotations }]) => ({
-		name,
-		title,
-		description,
-		inputSchema: toJsonSchemaCompat(inputSchema),
-		annotations,
-	}));
+	const tools = prepareMcpDiscovery().tools.map(({ execution: _execution, ...tool }) => tool);
 
 	const prompts = Object.entries(PROMPT_META).map(([name, meta]) => ({
 		name,
@@ -89,7 +81,7 @@ export function buildMcpServerCard(appVersion: string) {
 					type: "string",
 					title: "API key",
 					description:
-						"Optional. Create a key under Account → API Keys. Forwarded as the x-api-key header when not using OAuth.",
+						"Optional. Create a key under Settings → AI & developer → API keys. Forwarded as the x-api-key header when not using OAuth.",
 					"x-from": { header: "x-api-key" },
 				},
 			},
@@ -101,7 +93,7 @@ export function buildMcpServerCard(appVersion: string) {
 		resourceTemplates,
 		authentication: {
 			required: true,
-			schemes: ["oauth2", "bearer"],
+			schemes: ["oauth2", "bearer", "apiKey"],
 		},
 	};
 }

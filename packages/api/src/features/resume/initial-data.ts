@@ -12,12 +12,15 @@ type CreateResumeDataOptions = {
 	// Explicitly `| undefined`: the repo runs exactOptionalPropertyTypes, so an
 	// optional field passed through from a Zod `.optional()` must accept it.
 	sampleLength?: SampleLength | undefined;
+	/** The name a sized sample's persona carries (CVPAP names it after the client it is for). */
+	sampleName?: string | undefined;
+	/** The person the resume is for, printed as its name: the account holder's name, not the document's. */
 	name?: string;
 	locale?: Locale;
 };
 
 function sampleFor(options: CreateResumeDataOptions): ResumeData {
-	if (options.sampleLength) return createSampleResumeOfLength(options.sampleLength, options.name);
+	if (options.sampleLength) return createSampleResumeOfLength(options.sampleLength, options.sampleName);
 	return createSampleResumeData(options.name);
 }
 
@@ -25,6 +28,8 @@ export function createResumeData(options: CreateResumeDataOptions): ResumeData {
 	const useSample = options.withSampleData || Boolean(options.sampleLength);
 	const data = structuredClone(useSample ? sampleFor(options) : defaultResumeData);
 
+	const name = options.name?.trim();
+	if (name && !options.sampleLength) data.basics.name = name;
 	if (options.locale) data.metadata.page.locale = options.locale;
 	data.metadata.stylesheet = {
 		mode: "semantic",

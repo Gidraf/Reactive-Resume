@@ -8,7 +8,7 @@ description: "Terms and conditions for using the hosted Reactive Resume service,
 These Terms of Service (the "Terms") govern your access to and use of **Reactive Resume** (the "Service"). By using the Service, you agree to these Terms.
 
 - **Service Operator**: Amruth Pillai
-- **Contact**: hello@amruthpillai.com
+- **Contact**: amruth@rxresu.me
 - **Service URL**: https://rxresu.me
 - **Effective date**: 2023-01-01
 
@@ -16,15 +16,14 @@ If you do not agree, do not use the Service.
 
 <Note>
   Replace the placeholders above with the correct operator details for your deployment. If you are using the official
-  hosted service at <code>rxresu.me</code>, the project's published support contact is{" "}
-  <code>hello@amruthpillai.com</code>.
+  hosted service at <code>rxresu.me</code>, the project's published support contact is <code>amruth@rxresu.me</code>.
 </Note>
 
 ---
 
 ## The Service
 
-Reactive Resume is a resume builder that allows you to create, store, and share resumes, upload related assets, and export/print resumes (including generating PDFs and screenshots).
+Reactive Resume is a resume builder that allows you to create, store, and share resumes and cover letters, track job applications, upload related assets, and export resumes (including generating PDFs).
 
 ---
 
@@ -71,6 +70,7 @@ If you password-protect a resume, you are responsible for controlling distributi
 You agree not to:
 
 - Use the Service for unlawful, harmful, or abusive activities
+- Share nudity, sexually exploitative material, hate or harassment, threats, or graphic violence unrelated to a legitimate news or professional context
 - Attempt to gain unauthorized access to accounts, systems, or data
 - Upload malware, exploit code, or content designed to disrupt the Service
 - Use automated means to scrape, overload, or interfere with the Service without permission
@@ -78,11 +78,13 @@ You agree not to:
 
 The Service Operator may remove Content or restrict access if needed to enforce these Terms or comply with law.
 
+In the native shared-resume viewer, choose **Report shared resume** to send a private safety report to your selected server's operator. Choose **Block this author** to hide that public username's shared resumes on your device. Contact the Service Operator for urgent safety concerns or removal requests. Operators must review reports and take appropriate action; blocking does not remove content from the website or other devices.
+
 ---
 
 ## Uploads, storage, and delivery
 
-Uploaded files may be stored on the Service Operator's infrastructure and may be served back to you (and, if your resume is public, to others). Depending on configuration, storage may be local filesystem storage or S3-compatible object storage.
+Uploaded files may be stored on the Service Operator's infrastructure and may be served back to you (and, if your resume is public, to others). Depending on configuration, storage may be local filesystem storage, S3-compatible object storage, or Vercel Blob.
 
 You represent that you have the rights necessary to upload and use any files and that doing so does not violate any law or third-party rights.
 
@@ -90,7 +92,7 @@ You represent that you have the rights necessary to upload and use any files and
 
 ## Exports (PDF)
 
-When you request a PDF export, the Service renders the document in your own browser using `@react-pdf/renderer`. Your resume content is processed locally by the JavaScript running on your device; it is not transmitted to a separate rendering service for the purpose of generating the PDF.
+When you download a PDF from the editor, the Service renders the document in your own browser using the Forme PDF engine; your resume content is processed locally on your device. PDFs of public resumes and PDFs requested through the API are rendered by the Service's own server with the same engine. In neither case is your content transmitted to a separate third-party rendering service.
 
 ---
 
@@ -98,9 +100,9 @@ When you request a PDF export, the Service renders the document in your own brow
 
 The Service may integrate with third parties depending on configuration and your choices, including:
 
-- OAuth providers (e.g., Google/GitHub/custom OAuth) for sign-in
-- Storage providers (S3-compatible)
-- AI providers (OpenAI, Google, Anthropic) if you enable AI features and provide your own API key
+- OAuth providers (e.g., Google/GitHub/LinkedIn/custom OAuth) for sign-in
+- Storage providers (S3-compatible or Vercel Blob)
+- AI providers (for example, OpenAI, Anthropic, or Google Gemini) if you enable AI features and provide your own API key
 
 Your use of third-party services may be subject to their own terms and policies. The Service Operator is not responsible for third-party services outside its control.
 
@@ -186,4 +188,4 @@ Conflict of laws principles do not apply.
 Questions about these Terms can be sent to:
 
 - **Service Operator**: Amruth Pillai
-- **Email**: hello@amruthpillai.com
+- **Email**: amruth@rxresu.me

@@ -23,6 +23,8 @@ export const user = pg.pgTable(
 		username: pg.text("username").notNull().unique(),
 		displayUsername: pg.text("display_username").notNull().unique(),
 		twoFactorEnabled: pg.boolean("two_factor_enabled").notNull().default(false),
+		/** Where the user's times are shown (Settings → Preferences); an IANA name. */
+		timezone: pg.text("timezone").notNull().default("UTC"),
 		lastActiveAt: pg.timestamp("last_active_at", { withTimezone: true }),
 		role: pg.text("role").default("user"),
 		banned: pg.boolean("banned").default(false),
@@ -39,6 +41,7 @@ export const user = pg.pgTable(
 		// because accounts predating SSO, and any local admin, have no partner;
 		// Postgres allows many NULLs under a unique constraint.
 		cvpapPartnerId: pg.text("cvpap_partner_id").unique(),
+		isAnonymous: pg.boolean("is_anonymous").notNull().default(false),
 		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: pg
 			.timestamp("updated_at", { withTimezone: true })
@@ -48,6 +51,17 @@ export const user = pg.pgTable(
 	},
 	(t) => [pg.index().on(t.createdAt.asc()), pg.uniqueIndex("user_email_lower_unique_idx").on(lower(t.email))],
 );
+
+/**
+ * Usernames people stopped using (renamed or deleted accounts). Old public links point at them, so for a while only
+ * their previous owner can take one again. A trigger in the migration records them on every rename or deletion.
+ */
+export const releasedUsername = pg.pgTable("released_username", {
+	username: pg.text("username").primaryKey(),
+	/** The account that released it, or null when that account was deleted. */
+	userId: pg.text("user_id"),
+	releasedAt: pg.timestamp("released_at", { withTimezone: true }).notNull().defaultNow(),
+});
 
 export const session = pg.pgTable(
 	"session",
@@ -112,7 +126,11 @@ export const account = pg.pgTable(
 			.defaultNow()
 			.$onUpdate(() => /* @__PURE__ */ new Date()),
 	},
-	(t) => [pg.index().on(t.userId)],
+	// Better Auth finds an account by provider and provider account on every social sign-in (#3593).
+	(t) => [
+		pg.index().on(t.userId),
+		pg.uniqueIndex("account_provider_id_account_id_unique").on(t.providerId, t.accountId),
+	],
 );
 
 export const verification = pg.pgTable(

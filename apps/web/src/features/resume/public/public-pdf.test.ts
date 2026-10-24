@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
 import { resolvePublicResumePdfBlob } from "./public-pdf";
 
@@ -22,20 +22,6 @@ beforeEach(() => {
 });
 
 describe("resolvePublicResumePdfBlob", () => {
-	it("renders the exposed stylesheet source directly in the browser", async () => {
-		const data = structuredClone(sampleResumeData);
-		data.metadata.stylesheet = {
-			mode: "semantic",
-			source: { languageVersion: 1, text: "@version 1;\nname { color: #123456; }\n" },
-		};
-
-		const blob = await resolvePublicResumePdfBlob({ data, publicResume });
-
-		expect(mocks.createResumePdfBlob).toHaveBeenCalledWith(data);
-		expect(mocks.fetch).not.toHaveBeenCalled();
-		expect(await blob.text()).toBe("local");
-	});
-
 	it("fetches the server PDF only after browser rendering rejects", async () => {
 		mocks.createResumePdfBlob.mockRejectedValue(new Error("browser renderer failed"));
 

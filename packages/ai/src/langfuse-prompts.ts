@@ -18,9 +18,10 @@
  */
 
 import {
+	// upstream v6 replaced the resume chat with the assistant; its prompt is the chat fallback now
+	assistantSystemPromptTemplate as chatSystemFallback,
 	// upstream renamed analyzeResumeSystemPrompt -> atsReviewSystemPrompt (v5.3)
 	atsReviewSystemPrompt as analyzeResumeFallback,
-	chatSystemPromptTemplate as chatSystemFallback,
 	docxParserSystemPrompt as docxParserSystemFallback,
 	docxParserUserPrompt as docxParserUserFallback,
 	pdfParserSystemPrompt as pdfParserSystemFallback,

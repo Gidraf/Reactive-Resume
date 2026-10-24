@@ -1,5 +1,7 @@
+import { eventIterator } from "@orpc/server";
 import z from "zod";
 import { protectedProcedure } from "../../context";
+import { resumeUpdatesRateLimit, resumeUpdatesUserRateLimit } from "../../middleware/rate-limit";
 import { subscribeResumeUpdated } from "./events";
 import { resumeService } from "./service";
 
@@ -16,6 +18,19 @@ export const updatesRouter = {
 			successDescription: "A stream of resume update invalidation events.",
 		})
 		.input(z.object({ id: z.string().describe("The unique identifier of the resume.") }))
+		.output(
+			eventIterator(
+				z.object({
+					type: z.literal("resume.updated"),
+					resumeId: z.string(),
+					userId: z.string(),
+					updatedAt: z.string(),
+					mutation: z.enum(["sync", "create", "update", "patch", "lock", "password", "delete"]),
+				}),
+			),
+		)
+		.use(resumeUpdatesUserRateLimit)
+		.use(resumeUpdatesRateLimit)
 		.handler(async function* ({ context, input, signal }) {
 			const resume = await resumeService.getById({ id: input.id, userId: context.user.id });
 

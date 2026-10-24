@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { atsReviewSystemPrompt, atsReviewUserPromptTemplate } from "@reactive-resume/ai/prompts";
+import { dataBlock, inertMarkers } from "./data-block";
 import { generateJson } from "./generate-json";
 import { getModel } from "./service";
 
@@ -8,6 +9,8 @@ const MAX_EXTRACTED_TEXT_CHARS = 50_000;
 /** Matches the cap the applications feature already uses for a pasted posting. */
 const MAX_JOB_DESCRIPTION_CHARS = 20_000;
 const MAX_FINDINGS = 120;
+/** A long resume's bullets and paragraphs. */
+const MAX_PASSAGES = 120;
 
 export const atsReviewInputSchema = z.object({
 	aiProviderId: z.string().optional(),
@@ -23,6 +26,19 @@ export const atsReviewInputSchema = z.object({
 		.max(MAX_FINDINGS)
 		.default([]),
 	jobDescription: z.string().trim().max(MAX_JOB_DESCRIPTION_CHARS).optional(),
+	passages: z
+		.array(
+			z.object({
+				id: z.string().trim().min(1).max(16).describe("The client's id for the passage, echoed back as `passageId`."),
+				where: z.string().max(200).describe("Where the passage sits, e.g. “Experience · Lumen · bullet 2”."),
+				text: z.string().max(1_000),
+			}),
+		)
+		.max(MAX_PASSAGES)
+		.default([])
+		.describe(
+			"Bullets and paragraphs the review may rewrite. A suggestion that rewrites one names it in `passageId`, with the whole new passage in `rewrite`.",
+		),
 });
 
 type AtsReviewInput = z.infer<typeof atsReviewInputSchema>;
@@ -42,6 +58,7 @@ export const atsReviewOutputSchema = z.object({
 		.array(
 			z.object({
 				section: z.string().nullable().catch(null),
+				passageId: z.string().nullable().catch(null),
 				issue: z.string().catch(""),
 				rewrite: z.string().nullable().catch(null),
 				impact: impactSchema,
@@ -86,21 +103,38 @@ function renderFindings(findings: AtsReviewInput["findings"]): string {
 function renderJobDescriptionSection(jobDescription: string | undefined): string {
 	if (!jobDescription) return "";
 
+	return ["", "## Job description", "", dataBlock("JOB_DESCRIPTION", jobDescription)].join("\n");
+}
+
+function renderPassagesSection(passages: AtsReviewInput["passages"]): string {
+	if (passages.length === 0) return "";
+
 	return [
 		"",
-		"## Job description",
+		"## Passages you may rewrite",
 		"",
-		"<<<JOB_DESCRIPTION_START>>>",
-		jobDescription,
-		"<<<JOB_DESCRIPTION_END>>>",
+		"Each line is `[id] where: text`. When a suggestion rewrites one of these, set `passageId` to its id and `rewrite` to the whole new passage.",
+		"",
+		dataBlock(
+			"PASSAGES",
+			passages.map((passage) => `[${passage.id}] ${passage.where}: ${passage.text.replace(/\s+/g, " ")}`).join("\n"),
+		),
 	].join("\n");
 }
 
 function buildUserPrompt(input: AtsReviewServiceInput): string {
-	return atsReviewUserPromptTemplate
-		.replaceAll("{{EXTRACTED_TEXT}}", input.extractedText)
-		.replaceAll("{{FINDINGS}}", renderFindings(input.findings))
-		.replaceAll("{{JOB_DESCRIPTION_SECTION}}", renderJobDescriptionSection(input.jobDescription));
+	// One pass over the template, so text inside the resume that happens to look like a placeholder stays as it is.
+	const sections: Record<string, string> = {
+		EXTRACTED_TEXT: inertMarkers(input.extractedText),
+		FINDINGS: renderFindings(input.findings),
+		JOB_DESCRIPTION_SECTION: renderJobDescriptionSection(input.jobDescription),
+		PASSAGES_SECTION: renderPassagesSection(input.passages ?? []),
+	};
+
+	return atsReviewUserPromptTemplate.replace(
+		/\{\{([A-Z_]+)\}\}/g,
+		(placeholder, name: string) => sections[name] ?? placeholder,
+	);
 }
 
 /** Qualitative review of the writing. Never returns a score — see {@link atsReviewOutputSchema}. */
@@ -109,5 +143,3 @@ export function reviewResumeText(input: AtsReviewServiceInput): Promise<AtsRevie
 
 	return generateJson(model, { system: atsReviewSystemPrompt, prompt: buildUserPrompt(input) }, atsReviewOutputSchema);
 }
-
-export const __testables = { buildUserPrompt, renderFindings };

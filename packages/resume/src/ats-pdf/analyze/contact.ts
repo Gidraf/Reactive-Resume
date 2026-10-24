@@ -1,12 +1,16 @@
 import type { ContactEntities, ExtractedDocument, RawExtraction, TextLine } from "../types";
 
-const EMAIL_PATTERN = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g;
+// Each pattern starts only where its leading run starts (the lookbehinds), so a long run with no
+// match is scanned once rather than once per character.
+const EMAIL_PATTERN = /(?<![\w.+-])[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g;
 /** Same shape without `g`: a stateful `lastIndex` would make `.test()` alternate between calls. */
-const EMAIL_TEST = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/;
+const EMAIL_TEST = /(?<![\w.+-])[\w.+-]+@[\w-]+(?:\.[\w-]+)+/;
 /** Seven to fifteen digits, the ITU range, with the separators people actually type. */
 const PHONE_PATTERN = /(?:\+\d{1,3}[\s.-]?)?(?:\(\d{1,4}\)[\s.-]?)?\d[\d\s.()-]{5,17}\d/g;
 const URL_PATTERN = /(?:https?:\/\/|www\.)[^\s<>"')\]]+/gi;
-const BARE_DOMAIN_PATTERN = /\b(?:[\w-]+\.)+(?:com|org|net|io|dev|me|co|ai|app|xyz|edu|gov)(?:\/[^\s<>"')\]]*)?/gi;
+/** The lookbehind skips starts an earlier start in the same dotted run already covered. */
+const BARE_DOMAIN_PATTERN =
+	/\b(?<!\w-*\.?)(?:[\w-]+\.)+(?:com|org|net|io|dev|me|co|ai|app|xyz|edu|gov)(?:\/[^\s<>"')\]]*)?/gi;
 
 const PROFESSIONAL_HOSTS = ["linkedin.com", "github.com", "gitlab.com", "behance.net", "dribbble.com", "medium.com"];
 
@@ -23,7 +27,7 @@ function digitsIn(value: string): number {
 }
 
 function extractPhones(text: string): string[] {
-	const candidates = text.match(PHONE_PATTERN) ?? [];
+	const candidates = text.split(/\r?\n/).flatMap((line) => line.match(PHONE_PATTERN) ?? []);
 
 	return uniqueStrings(
 		candidates
@@ -31,6 +35,7 @@ function extractPhones(text: string): string[] {
 			.filter((candidate) => {
 				const digits = digitsIn(candidate);
 				if (digits < 7 || digits > 15) return false;
+				if (/^(?:19|20)\d{2}\s*[-–—]?\s*(?:19|20)\d{2}$/.test(candidate)) return false;
 				// A year range or a street number is digits too; a phone number is mostly digits.
 				return digits / candidate.replace(/\s/g, "").length > 0.55;
 			}),
@@ -47,7 +52,7 @@ function hostOf(value: string): string | null {
 }
 
 /** An address whose pieces are all present but interrupted: `ada @ example . com`. */
-const SPACED_EMAIL = /[\w.+-]+\s*@\s*[\w-]+(?:\s*\.\s*[\w-]+)+/g;
+const SPACED_EMAIL = /(?<![\w.+-])[\w.+-]+\s*@\s*[\w-]+(?:\s*\.\s*[\w-]+)+/g;
 
 /**
  * An email that survived layout but not extraction shows up as `name @ example.com` — every
@@ -141,8 +146,14 @@ export function analyzeContact(raw: RawExtraction, document: ExtractedDocument):
 	const locationLine =
 		firstPageLines
 			.slice(0, FIRST_PAGE_CONTACT_LINES)
-			.find((line) => /,\s*[\p{Lu}]/u.test(line.text) && !EMAIL_TEST.test(line.text) && line.text.length < 80)
-			?.text.trim() ?? null;
+			.flatMap((line) => line.text.split(/[·|•]/).map((part) => part.trim()))
+			.find(
+				(candidate) =>
+					/^[\p{L}\p{M} .'-]+,\s*[\p{L}\p{M} .'-]+$/u.test(candidate) &&
+					!candidate.endsWith(".") &&
+					candidate.trim().split(/\s+/).length <= 6,
+			)
+			?.trim() ?? null;
 
 	return {
 		emails,

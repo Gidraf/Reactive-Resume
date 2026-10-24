@@ -70,7 +70,7 @@ function AuthEmailLayout({ preview, heading, intro, details, actionLabel, action
 					/>
 				</Head>
 
-				<Body className="m-0 bg-zinc-950 p-0 font-body text-sm text-zinc-50">
+				<Body className="font-body m-0 bg-zinc-950 p-0 text-sm text-zinc-50">
 					<Preview>{preview}</Preview>
 					<Container className="mx-auto w-full max-w-xl bg-zinc-900 p-6 text-zinc-50">
 						<Section>
@@ -78,7 +78,7 @@ function AuthEmailLayout({ preview, heading, intro, details, actionLabel, action
 						</Section>
 
 						<Section className="mt-6">
-							<Heading className="whitespace-break-spaces font-heading font-medium text-2xl leading-0 tracking-tighter md:text-5xl">
+							<Heading className="font-heading text-2xl leading-0 font-medium tracking-tighter whitespace-break-spaces md:text-5xl">
 								{heading}
 							</Heading>
 
@@ -100,7 +100,7 @@ function AuthEmailLayout({ preview, heading, intro, details, actionLabel, action
 								<Text className="leading-0">
 									If the button does not work, copy and paste this link into your browser:
 								</Text>
-								<Link className="text-zinc-200/60 leading-0 underline underline-offset-2" href={actionUrl}>
+								<Link className="leading-0 text-zinc-200/60 underline underline-offset-2" href={actionUrl}>
 									{actionUrl}
 								</Link>
 							</Section>
@@ -125,7 +125,7 @@ function AuthEmailLayout({ preview, heading, intro, details, actionLabel, action
 								.
 							</Text>
 
-							<Text className="mt-8 font-heading font-medium text-base tracking-tight opacity-80">Reactive Resume</Text>
+							<Text className="font-heading mt-8 text-base font-medium tracking-tight opacity-80">Reactive Resume</Text>
 						</Section>
 					</Container>
 				</Body>
@@ -179,13 +179,13 @@ interface VerifyEmailChangeProps {
 export function VerifyEmailChange({ url, previousEmail, newEmail }: VerifyEmailChangeProps) {
 	return (
 		<AuthEmailLayout
-			preview={`Confirm your new ${appName} email address`}
-			heading="Confirm Email Change"
-			intro={`You asked to change your ${appName} email from ${previousEmail} to ${newEmail}.`}
-			details="The change takes effect once you confirm it here."
-			actionLabel="Verify New Email"
+			preview={`Approve changing your ${appName} email address`}
+			heading="Approve Email Change"
+			intro={`Someone asked to change your ${appName} email from ${previousEmail} to ${newEmail}.`}
+			details={`If you approve, we'll send a link to ${newEmail} to finish the change.`}
+			actionLabel="Approve Change"
 			actionUrl={url}
-			outro="If you did not request this change, ignore this email. The address on the account will not change unless it is confirmed here."
+			outro="If you did not request this change, ignore this email and change your password. The address on the account will not change without your approval."
 		/>
 	);
 }

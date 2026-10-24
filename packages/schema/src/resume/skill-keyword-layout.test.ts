@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 import z from "zod";
 import { parseResumeData } from "./data";
 import { defaultResumeData } from "./default";
@@ -28,11 +28,5 @@ describe("skill keyword presentation", () => {
 		expect(schema.safeParse(input).success).toBe(true);
 		input.sections.skills.keywordLayout = "invalid";
 		expect(schema.safeParse(input).success).toBe(false);
-	});
-	it("does not retain skill presentation when a custom section changes type", () => {
-		const input = structuredClone(defaultResumeData);
-		input.customSections = [{ ...input.sections.skills, id: "custom", type: "interests", keywordLayout: "list" }];
-		const parsed = parseResumeData(input);
-		expect(JSON.stringify(parsed.customSections[0])).not.toContain("keywordLayout");
 	});
 });

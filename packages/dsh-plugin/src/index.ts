@@ -3,11 +3,11 @@
  * @module dsh-plugin-reactive-resume
  */
 
+import type { Config } from "./config";
 import type { Context } from "@deepseek-ai/cordis";
 // Side-effect import: pulls in the `Context.systemPrompt` module augmentation
 // this plugin relies on below. No runtime value is used from this module.
 import type {} from "@deepseek-ai/dsh-system-prompt";
-import type { Config } from "./config";
 import * as mcpClient from "@deepseek-ai/dsh-mcp-client";
 import { buildPatchGuide } from "./prompt";
 
@@ -28,7 +28,7 @@ export const name = "reactive-resume";
  * its own dependency on the tools service, so the bridge still gets what it
  * needs without this plugin waiting on it.
  */
-export const inject = ["systemPrompt"];
+export const inject: string[] = ["systemPrompt"];
 
 /**
  * Connect a Reactive Resume account to the session.

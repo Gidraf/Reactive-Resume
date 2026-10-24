@@ -1,8 +1,13 @@
+import type { Locale } from "@reactive-resume/utils/locale";
+import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { env } from "@reactive-resume/env/server";
+import { templateSchema } from "@reactive-resume/schema/templates";
+import { defaultLocale, getLocaleAlternates, isLocale, localizedUrl } from "@reactive-resume/utils/locale";
+import { CONTEXT7_ASK_DESCRIPTION, CONTEXT7_ASK_URL } from "./seo";
 
 function resolveWebDistPath() {
 	const candidates = [
@@ -19,6 +24,9 @@ function resolveWebDistPath() {
 
 const staticRoot = resolveWebDistPath();
 const indexHtmlPath = `${staticRoot}/index.html`;
+// The marketing pages prerendered per locale by the web build (apps/web/vite.config.ts), as <page>/<locale>.html, kept
+// beside dist/ so they're never served at an address of their own.
+const prerenderRoot = `${staticRoot}-prerender`;
 const noindexShellPrefixes = ["/auth", "/dashboard", "/builder", "/agent", "/templates", "/revamp"];
 /**
  * Marketing pages the SPA owns that search engines should index.
@@ -26,7 +34,7 @@ const noindexShellPrefixes = ["/auth", "/dashboard", "/builder", "/agent", "/tem
  * Without an entry here the fallback below returns 404 for the path in production — the dev Vite
  * server serves the shell for anything, so this failure only ever shows up once deployed.
  */
-const indexableAppPaths = new Set(["/ats-checker"]);
+const indexableAppPaths = new Set(["/ats-checker", "/resume-templates"]);
 const reservedPublicResumeSegments = new Set([
 	"api",
 	"mcp",
@@ -38,6 +46,7 @@ const reservedPublicResumeSegments = new Set([
 	"agent",
 	"templates",
 	"ats-checker",
+	"resume-templates",
 ]);
 
 function isAssetPath(pathname: string): boolean {
@@ -59,148 +68,199 @@ function isPublicResumePath(pathname: string): boolean {
 	return segments.length === 2 && firstSegment !== undefined && !reservedPublicResumeSegments.has(firstSegment);
 }
 
+/**
+ * Scripts run only from the app's own files and the inline scripts of the page served, allowed by hash; `wasm-unsafe-eval`
+ * lets the PDF engine (Forme, WebAssembly) start. Pictures, avatars and fonts can live on any https host (a resume's
+ * picture URL, a sign-in provider's avatar) and the PDF engine fetches them, so images, fonts and connections stay open
+ * to https. Recordings, previews and workers use blob: URLs.
+ */
+function contentSecurityPolicy(html = "") {
+	const inlineScripts = html.matchAll(
+		/<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g,
+	);
+	const hashes = [...inlineScripts].map(
+		([, body]) =>
+			`'sha256-${createHash("sha256")
+				.update(body ?? "")
+				.digest("base64")}'`,
+	);
+	return [
+		"default-src 'self'",
+		["script-src 'self' 'wasm-unsafe-eval'", ...hashes].join(" "),
+		"style-src 'self' 'unsafe-inline'",
+		"img-src 'self' data: blob: https:",
+		"font-src 'self' data: https:",
+		"connect-src 'self' data: blob: https:",
+		"media-src 'self' data: blob:",
+		"worker-src 'self' blob:",
+		"frame-src 'self' blob:",
+		"frame-ancestors 'none'",
+		"base-uri 'self'",
+		// Print and template previews show a PDF from a blob: URL, which Chromium's viewer loads as a plugin.
+		"object-src blob:",
+	].join("; ");
+}
+
 const BASE_SECURITY_HEADERS = {
+	Link: `<${CONTEXT7_ASK_URL}>; rel="search"; type="text/plain"; title="Search rxresu.me"`,
 	"X-Frame-Options": "DENY",
 	"X-Content-Type-Options": "nosniff",
 	"Referrer-Policy": "strict-origin-when-cross-origin",
-	"Content-Security-Policy-Report-Only":
-		"default-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+	"Content-Security-Policy": contentSecurityPolicy(),
 };
 
-const ROOT_TITLE = "Reactive Resume — A free and open-source resume builder";
-// Keep under ~120 characters so Google's mobile SERP snippet is not truncated at 3 lines.
-const ROOT_DESCRIPTION =
-	"Free, open-source resume builder. Create, update, and share your resume, with no ads and no paywall.";
-const ROOT_POSTER_PATH = "/videos/timelapse-v1.webp";
-const ROOT_FAQ_ITEMS = [
-	{
-		question: "Is Reactive Resume really free?",
-		answer:
-			"Yes. Reactive Resume is free to use, with no hidden costs, premium tiers, or subscription fees. It's open source, and it will stay free.",
-	},
-	{
-		question: "How is my data protected?",
-		answer:
-			"Your data is stored securely and never shared with third parties. If you want full control over it, you can self-host Reactive Resume on your own servers.",
-	},
-	{
-		question: "Can I export my resume to PDF?",
-		answer: "Yes. One click exports your resume to PDF, with your formatting and styling intact.",
-	},
-	{
-		question: "Is Reactive Resume available in multiple languages?",
-		answer:
-			"Yes. Pick your language on the settings page, or with the language switcher in the top right corner. If your language is missing, or the existing translation could be better, you can contribute to the translations on Crowdin.",
-	},
-	{
-		question: "What makes Reactive Resume different from other resume builders?",
-		answer:
-			"Reactive Resume is open source, private, and free. It shows no ads, doesn't track what you do, and doesn't lock features behind a paywall.",
-	},
-	{
-		question: "How do I share my resume?",
-		answer: "Share it with a public URL, put a password on that URL, or download the PDF and send it yourself.",
-	},
-] as const;
+/**
+ * An HTML page whose policy allows exactly the inline scripts of its template. Hashes come from the template before
+ * any resume-derived markup goes in, so text that slipped past escaping could never allow itself.
+ */
+function htmlResponse(html: string, headers: Record<string, string>, template = html) {
+	const verification = new URL(CONTEXT7_ASK_URL).searchParams.get("siteKey") ?? "";
+	const note = `<blockquote data-context7-ask="true" aria-hidden="true" class="sr-only"><h2>Search</h2><p>Page index: https://rxresu.me/llms.txt.</p><p>${escapeAttribute(CONTEXT7_ASK_DESCRIPTION)}</p></blockquote>`;
+	const body = html
+		.replace("</head>", () => `<meta name="context7-site-verification" content="${verification}"></head>`)
+		.replace(/<body\b[^>]*>/i, (tag) => `${tag}${note}`);
+	return new Response(body, { headers: { ...headers, "Content-Security-Policy": contentSecurityPolicy(template) } });
+}
 
-function createRootSeoMarkup(canonicalUrl: string) {
-	const origin = new URL(canonicalUrl).origin;
-	const imageUrl = `${origin}/opengraph/banner.jpg`;
-	const structuredData = {
+const githubUrl = "https://github.com/reactive-resume/reactive-resume";
+// The English copy, for a build without prerendered pages; a prerendered page carries its own locale's title and
+// description, and the social cards reuse them.
+const ROOT_TITLE = "Free Resume Builder with PDF &amp; Word Downloads | Reactive Resume";
+const ROOT_DESCRIPTION =
+	"Free, open-source resume builder. Create, update, and share your resume, with PDF and Word downloads, no ads and no paywall.";
+const ATS_CHECKER_TITLE = "Free ATS resume checker — Reactive Resume";
+const ATS_CHECKER_DESCRIPTION =
+	"Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.";
+const TEMPLATES_TITLE = "Free Resume Templates with PDF Examples | Reactive Resume";
+const TEMPLATES_DESCRIPTION =
+	"Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word.";
+
+type StructuredData = Record<string, unknown>;
+
+/** Who makes Reactive Resume, referenced by id from every page's structured data. */
+function organization(origin: string): StructuredData {
+	return {
+		"@type": "Organization",
+		"@id": `${origin}/#organization`,
+		name: "Reactive Resume",
+		url: `${origin}/`,
+		contactPoint: { "@type": "ContactPoint", contactType: "support", email: "amruth@rxresu.me" },
+		logo: { "@type": "ImageObject", url: `${origin}/pwa-512x512.png`, width: 512, height: 512 },
+		sameAs: [
+			githubUrl,
+			"https://www.linkedin.com/company/reactive-resume",
+			"https://opencollective.com/reactive-resume",
+			"https://www.reddit.com/r/reactiveresume",
+			"https://discord.gg/aSyA5ZSxpb",
+			"https://crowdin.com/project/reactive-resume",
+		],
+	};
+}
+
+function homepageStructuredData(origin: string): StructuredData {
+	const rootUrl = `${origin}/`;
+	return {
 		"@context": "https://schema.org",
 		"@graph": [
+			organization(origin),
 			{
 				"@type": "WebSite",
+				"@id": `${origin}/#website`,
 				name: "Reactive Resume",
-				url: canonicalUrl,
+				url: rootUrl,
+				publisher: { "@id": `${origin}/#organization` },
 			},
 			{
 				"@type": ["SoftwareApplication", "WebApplication"],
 				name: "Reactive Resume",
-				url: canonicalUrl,
+				url: rootUrl,
 				description: ROOT_DESCRIPTION,
 				applicationCategory: "BusinessApplication",
 				operatingSystem: "Web",
 				isAccessibleForFree: true,
-				offers: {
-					"@type": "Offer",
-					price: "0",
-					priceCurrency: "USD",
-				},
-				codeRepository: "https://github.com/reactive-resume/reactive-resume",
-			},
-			{
-				"@type": "Project",
-				name: "Reactive Resume",
-				url: canonicalUrl,
-				sameAs: ["https://github.com/reactive-resume/reactive-resume"],
-			},
-			{
-				"@type": "FAQPage",
-				mainEntity: ROOT_FAQ_ITEMS.map((item) => ({
-					"@type": "Question",
-					name: item.question,
-					acceptedAnswer: {
-						"@type": "Answer",
-						text: item.answer,
-					},
-				})),
+				offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+				license: `${githubUrl}/blob/main/LICENSE`,
+				publisher: { "@id": `${origin}/#organization` },
+				featureList: [
+					"Resume editor with a live page preview",
+					`${templateSchema.options.length} templates`,
+					"PDF, Word (DOCX), Markdown and JSON export",
+					"Import from PDF, LinkedIn, JSON Resume and Word",
+					"ATS readability checker",
+					"Public or password-protected sharing links",
+					"Cover letters and a job application tracker",
+					"Optional AI assistant with your own API key",
+					"Self-hosting with Docker",
+				],
 			},
 		],
 	};
+}
+
+function atsCheckerStructuredData(origin: string): StructuredData {
+	return {
+		"@context": "https://schema.org",
+		"@graph": [
+			organization(origin),
+			{
+				"@type": "WebApplication",
+				name: "ATS Checker",
+				url: `${origin}/ats-checker`,
+				description: ATS_CHECKER_DESCRIPTION,
+				applicationCategory: "BusinessApplication",
+				operatingSystem: "Web",
+				isAccessibleForFree: true,
+				offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+				isPartOf: { "@type": "WebSite", "@id": `${origin}/#website`, name: "Reactive Resume", url: `${origin}/` },
+				provider: { "@id": `${origin}/#organization` },
+			},
+		],
+	};
+}
+
+type PageSeoOptions = {
+	/** The page's plain address: the canonical for the default locale, and the base of its hreflang alternates. */
+	canonicalUrl: string;
+	locale: Locale;
+	/** A `?locale=` request is canonical for its own language. */
+	requested: boolean;
+	/** Already HTML-escaped, as the page's own <title> and description are. */
+	title: string;
+	description: string;
+	imageUrl: string;
+	structuredData: StructuredData;
+};
+
+function createPageSeoMarkup(options: PageSeoOptions) {
+	const pageUrl = options.requested ? localizedUrl(options.canonicalUrl, options.locale) : options.canonicalUrl;
+	const alternates = getLocaleAlternates(options.canonicalUrl)
+		.map(({ hreflang, href }) => `<link rel="alternate" hreflang="${hreflang}" href="${escapeAttribute(href)}">`)
+		.join("");
 
 	return `
-		<link rel="canonical" href="${canonicalUrl}">
-		<link rel="preload" href="${ROOT_POSTER_PATH}" as="image" fetchpriority="high">
+		<link rel="canonical" href="${escapeAttribute(pageUrl)}">
+		${alternates}
 		<meta property="og:type" content="website">
 		<meta property="og:site_name" content="Reactive Resume">
-		<meta property="og:title" content="${ROOT_TITLE}">
-		<meta property="og:description" content="${ROOT_DESCRIPTION}">
-		<meta property="og:url" content="${canonicalUrl}">
-		<meta property="og:image" content="${imageUrl}">
+		<meta property="og:locale" content="${options.locale.replace("-", "_")}">
+		<meta property="og:title" content="${options.title}">
+		<meta property="og:description" content="${options.description}">
+		<meta property="og:url" content="${escapeAttribute(pageUrl)}">
+		<meta property="og:image" content="${options.imageUrl}">
 		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:title" content="${ROOT_TITLE}">
-		<meta name="twitter:description" content="${ROOT_DESCRIPTION}">
-		<meta name="twitter:image" content="${imageUrl}">
-		<script id="reactive-resume-structured-data" type="application/ld+json">${JSON.stringify(structuredData)}</script>
+		<meta name="twitter:title" content="${options.title}">
+		<meta name="twitter:description" content="${options.description}">
+		<meta name="twitter:image" content="${options.imageUrl}">
+		<script type="application/ld+json">${JSON.stringify(options.structuredData).replaceAll("<", "\\u003c")}</script>
 	`;
 }
 
-const ATS_CHECKER_TITLE = "ATS Checker - Reactive Resume";
-// Keep under ~120 characters so Google's mobile SERP snippet is not truncated at 3 lines.
-const ATS_CHECKER_DESCRIPTION =
-	"Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.";
-
-function createAtsCheckerSeoMarkup(origin: string) {
-	const canonicalUrl = `${origin}/ats-checker`;
-	const imageUrl = `${origin}/opengraph/ats-checker.png`;
-	const structuredData = {
-		"@context": "https://schema.org",
-		"@type": "WebApplication",
-		name: "ATS Checker",
-		url: canonicalUrl,
-		description: ATS_CHECKER_DESCRIPTION,
-		applicationCategory: "BusinessApplication",
-		operatingSystem: "Web",
-		isAccessibleForFree: true,
-		offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-		isPartOf: { "@type": "WebSite", name: "Reactive Resume", url: `${origin}/` },
+/** The title and description a page was built with, still HTML-escaped. */
+function readPageMeta(html: string, fallback: { title: string; description: string }) {
+	return {
+		title: html.match(/<title>([^<]*)<\/title>/)?.[1] ?? fallback.title,
+		description: html.match(/<meta\s+name="description"\s+content="([^"]*)"/)?.[1] ?? fallback.description,
 	};
-
-	return `
-		<link rel="canonical" href="${canonicalUrl}">
-		<meta property="og:type" content="website">
-		<meta property="og:site_name" content="Reactive Resume">
-		<meta property="og:title" content="${ATS_CHECKER_TITLE}">
-		<meta property="og:description" content="${ATS_CHECKER_DESCRIPTION}">
-		<meta property="og:url" content="${canonicalUrl}">
-		<meta property="og:image" content="${imageUrl}">
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:title" content="${ATS_CHECKER_TITLE}">
-		<meta name="twitter:description" content="${ATS_CHECKER_DESCRIPTION}">
-		<meta name="twitter:image" content="${imageUrl}">
-		<script id="ats-checker-structured-data" type="application/ld+json">${JSON.stringify(structuredData)}</script>
-	`;
 }
 
 // Resume names, headlines, and summaries are user-authored, so they must never reach the served
@@ -223,7 +283,7 @@ async function createPublicResumeSeoMarkup(pathname: string, origin: string) {
 		.catch(() => null);
 	if (!meta) return null;
 
-	const canonicalUrl = `${origin}/${username}/${slug}`;
+	const canonicalUrl = escapeAttribute(`${origin}/${username}/${slug}`);
 	const imageUrl = `${origin}/opengraph/banner.jpg`;
 	const pageTitle = escapeAttribute(`${meta.name} - Reactive Resume`);
 	const title = escapeAttribute(meta.title);
@@ -248,17 +308,23 @@ async function createPublicResumeSeoMarkup(pathname: string, origin: string) {
 	};
 }
 
-export const serveWebDistStatic = serveStatic({
-	root: staticRoot,
-	onFound: (_path, context) => {
-		if (/^\/videos\/.*-v\d+\.(?:mp4|webp)$/.test(context.req.path)) {
-			context.header("Cache-Control", "public, max-age=31536000, immutable");
-		}
-	},
-});
+export const serveWebDistStatic = env.CLOUDFLARE
+	? undefined
+	: serveStatic({
+			root: staticRoot,
+			onFound: (_path, context) => {
+				// Vite fingerprints everything under /assets, so a file there never changes.
+				if (context.req.path.startsWith("/assets/") || /^\/videos\/.*-v\d+\.(?:mp4|webp)$/.test(context.req.path)) {
+					context.header("Cache-Control", "public, max-age=31536000, immutable");
+				}
+				// `/index.html` is the app shell too; it must not be frameable either.
+				if (context.req.path.endsWith(".html"))
+					for (const [name, value] of Object.entries(BASE_SECURITY_HEADERS)) context.header(name, value);
+			},
+		});
 
 function getFallbackResponseHeaders(pathname: string) {
-	if (pathname === "/" && env.ROOT_RESUME_ID?.trim()) {
+	if (pathname === "/" && env.ROOT_RESUME_ID) {
 		return {
 			"Content-Type": "text/html; charset=UTF-8",
 			"X-Robots-Tag": "noindex, follow",
@@ -280,6 +346,18 @@ function getFallbackResponseHeaders(pathname: string) {
 	return null;
 }
 
+/**
+ * A prerendered page's language: a `?locale=` address first (its hreflang alternates), then the visitor's saved
+ * choice, in the order the app reads them (apps/web/src/libs/locale.ts).
+ */
+function getPageLocale(request: Request) {
+	const requested = new URL(request.url).searchParams.get("locale");
+	if (isLocale(requested)) return { locale: requested, requested: true };
+
+	const saved = request.headers.get("cookie")?.match(/(?:^|;\s*)locale=([^;]*)/)?.[1] ?? "";
+	return { locale: isLocale(saved) ? saved : defaultLocale, requested: false };
+}
+
 function notFoundResponse(options: { head?: boolean; noindex?: boolean } = {}) {
 	const headers = new Headers({ "Content-Type": "text/plain; charset=UTF-8" });
 	if (options.noindex) headers.set("X-Robots-Tag", "noindex, nofollow");
@@ -290,10 +368,68 @@ function notFoundResponse(options: { head?: boolean; noindex?: boolean } = {}) {
 	});
 }
 
+const withMeta = (html: string, meta: { title: string; description: string }) =>
+	html
+		.replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>`)
+		.replace(/<meta\s+name="description"[^>]*>/, `<meta name="description" content="${meta.description}">`);
+
+/** The indexable pages the web build prerenders, by path. */
+const prerenderedPages: Record<
+	string,
+	{
+		name: string;
+		meta: { title: string; description: string };
+		image: string;
+		structuredData: (origin: string) => StructuredData;
+		/** The page when the build has no prerendered copy: the app shell, titled for the page. */
+		fallback: (shell: string) => string;
+	}
+> = {
+	"/": {
+		name: "home",
+		meta: { title: ROOT_TITLE, description: ROOT_DESCRIPTION },
+		image: "/opengraph/banner.jpg",
+		structuredData: homepageStructuredData,
+		fallback: (shell) => withMeta(shell, { title: ROOT_TITLE, description: ROOT_DESCRIPTION }),
+	},
+	"/ats-checker": {
+		name: "ats-checker",
+		meta: { title: ATS_CHECKER_TITLE, description: ATS_CHECKER_DESCRIPTION },
+		image: "/opengraph/ats-checker.png",
+		structuredData: atsCheckerStructuredData,
+		fallback: (shell) => withMeta(shell, { title: ATS_CHECKER_TITLE, description: ATS_CHECKER_DESCRIPTION }),
+	},
+	"/resume-templates": {
+		name: "resume-templates",
+		meta: { title: TEMPLATES_TITLE, description: TEMPLATES_DESCRIPTION },
+		image: "/opengraph/banner.jpg",
+		structuredData: (origin) => ({
+			"@context": "https://schema.org",
+			"@type": "CollectionPage",
+			name: "Free resume templates",
+			url: `${origin}/resume-templates`,
+			description: TEMPLATES_DESCRIPTION,
+			mainEntity: {
+				"@type": "ItemList",
+				itemListElement: templateSchema.options.map((template, index) => ({
+					"@type": "ListItem",
+					position: index + 1,
+					name: template.charAt(0).toUpperCase() + template.slice(1),
+					url: `${origin}/resume-templates#${template}`,
+				})),
+			},
+		}),
+		fallback: (shell) => withMeta(shell, { title: TEMPLATES_TITLE, description: TEMPLATES_DESCRIPTION }),
+	},
+};
+
 // ponytail: GET and HEAD share the same routing logic; method determines body presence
-export async function handleWebApp(request: Request) {
+export type ReadWebFile = (path: string) => Promise<string>;
+
+export async function handleWebApp(request: Request, readFile: ReadWebFile = (path) => fs.readFile(path, "utf-8")) {
 	const isHead = request.method === "HEAD";
-	const pathname = new URL(request.url).pathname;
+	const requestedPath = new URL(request.url).pathname;
+	const pathname = requestedPath === "/index.html" ? "/" : requestedPath;
 
 	if (!isNoindexShellPath(pathname) && isAssetPath(pathname)) {
 		return new Response(isHead ? null : "Not Found", { status: 404 });
@@ -304,44 +440,67 @@ export async function handleWebApp(request: Request) {
 
 	if (isHead) return new Response(null, { status: 200, headers });
 
-	const html = await fs.readFile(indexHtmlPath, "utf-8");
-	const canonicalUrl = new URL("/", env.APP_URL).toString();
+	const html = await readFile(indexHtmlPath);
 
-	if (pathname === "/" && env.ROOT_RESUME_ID?.trim()) {
+	if (pathname === "/" && env.ROOT_RESUME_ID) {
+		const canonicalUrl = new URL("/", env.APP_URL).toString();
 		// Root configuration never discloses a target in the HTML shell. The public API
 		// gates data and browser metadata; shell requests must not count extra views.
 		const shell = html
 			.replace(/<title>[^<]*<\/title>/, "<title>Reactive Resume</title>")
 			.replace(/<meta\s+name="description"[^>]*>/, '<meta name="description" content="">');
 		const markup = `<link rel="canonical" href="${escapeAttribute(canonicalUrl)}" data-root-resume-shell><meta name="robots" content="noindex, follow" data-root-resume-shell>`;
-		return new Response(shell.replace("</head>", `${markup}</head>`), { headers });
+		return htmlResponse(
+			shell.replace("</head>", () => `${markup}</head>`),
+			headers,
+			html,
+		);
 	}
 
-	if (pathname === "/") {
-		return new Response(html.replace("</head>", `${createRootSeoMarkup(canonicalUrl)}</head>`), { headers });
-	}
-
-	if (pathname === "/ats-checker") {
+	const prerendered = prerenderedPages[pathname];
+	if (prerendered) {
+		const { locale, requested } = getPageLocale(request);
 		const origin = new URL(env.APP_URL).origin;
-		const withTitle = html
-			.replace(/<title>[^<]*<\/title>/, `<title>${ATS_CHECKER_TITLE}</title>`)
-			.replace(/<meta\s+name="description"[^>]*>/, `<meta name="description" content="${ATS_CHECKER_DESCRIPTION}">`);
+		// Without a prerendered page (a build that skipped it), the app renders the page in the browser.
+		const page = await readFile(`${prerenderRoot}/${prerendered.name}/${locale}.html`).catch(() =>
+			prerendered.fallback(html),
+		);
+		const markup = createPageSeoMarkup({
+			canonicalUrl: new URL(pathname, env.APP_URL).toString(),
+			locale,
+			requested,
+			...readPageMeta(page, prerendered.meta),
+			imageUrl: `${origin}${prerendered.image}`,
+			structuredData: prerendered.structuredData(origin),
+		});
 
-		return new Response(withTitle.replace("</head>", `${createAtsCheckerSeoMarkup(origin)}</head>`), { headers });
+		// The saved locale changes what this address shows, so caches have to key on the cookie.
+		return htmlResponse(
+			page.replace("</head>", () => `${markup}</head>`),
+			{ ...headers, Vary: "Cookie" },
+			page,
+		);
 	}
 
 	if (isPublicResumePath(pathname)) {
 		const resumeSeo = await createPublicResumeSeoMarkup(pathname, new URL(env.APP_URL).origin);
 		if (resumeSeo) {
 			// The shell's generic title/description are replaced so shares and previews show the resume,
-			// not the marketing copy baked into index.html.
+			// not the marketing copy baked into index.html. Function replacers keep `$&`, `$'` etc. in user text literal.
 			const withTitle = html
-				.replace(/<title>[^<]*<\/title>/, `<title>${resumeSeo.pageTitle}</title>`)
-				.replace(/<meta\s+name="description"[^>]*>/, `<meta name="description" content="${resumeSeo.description}">`);
+				.replace(/<title>[^<]*<\/title>/, () => `<title>${resumeSeo.pageTitle}</title>`)
+				.replace(
+					/<meta\s+name="description"[^>]*>/,
+					() => `<meta name="description" content="${resumeSeo.description}">`,
+				);
 
-			return new Response(withTitle.replace("</head>", `${resumeSeo.markup}</head>`), { headers });
+			return htmlResponse(
+				withTitle.replace("</head>", () => `${resumeSeo.markup}</head>`),
+				headers,
+				html,
+			);
 		}
 	}
 
-	return new Response(html, { headers });
+	return htmlResponse(html, headers);
 }

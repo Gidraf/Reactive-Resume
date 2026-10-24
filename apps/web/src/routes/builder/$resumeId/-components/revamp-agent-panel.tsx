@@ -14,11 +14,10 @@ import {
 } from "@phosphor-icons/react";
 import { useCallback, useRef, useState } from "react";
 import { Button } from "@reactive-resume/ui/components/button";
-import { ScrollArea } from "@reactive-resume/ui/components/scroll-area";
 import { cn } from "@reactive-resume/utils/style";
-import { useUpdateResumeData } from "@/features/resume/builder/draft";
 import { useRevampStore } from "../-store/revamp";
 import { applyRevampResult } from "../-utils/revamp-apply";
+import { useUpdateResumeData } from "@/features/resume/builder/draft";
 
 const CVPAP_API = (import.meta.env.VITE_CVPAP_API_URL as string | undefined) ?? "";
 
@@ -99,7 +98,7 @@ function SectionRow({ sectionKey, token, expanded, onToggle }: SectionRowProps) 
 	const statusIcon = () => {
 		switch (status) {
 			case "working":
-				return <CircleNotchIcon className="size-3.5 shrink-0 animate-spin text-primary" />;
+				return <CircleNotchIcon className="text-primary size-3.5 shrink-0 animate-spin" />;
 			case "thinking":
 				return <CircleNotchIcon className="size-3.5 shrink-0 animate-spin text-amber-500" />;
 			case "pending":
@@ -107,11 +106,11 @@ function SectionRow({ sectionKey, token, expanded, onToggle }: SectionRowProps) 
 			case "done":
 				return <CheckCircleIcon className="size-3.5 shrink-0 text-green-500" />;
 			case "rejected":
-				return <ProhibitIcon className="size-3.5 shrink-0 text-muted-foreground" />;
+				return <ProhibitIcon className="text-muted-foreground size-3.5 shrink-0" />;
 			case "error":
-				return <XCircleIcon className="size-3.5 shrink-0 text-destructive" />;
+				return <XCircleIcon className="text-destructive size-3.5 shrink-0" />;
 			default:
-				return <div className="size-3.5 shrink-0 rounded-full border-2 border-muted-foreground/30" />;
+				return <div className="border-muted-foreground/30 size-3.5 shrink-0 rounded-full border-2" />;
 		}
 	};
 
@@ -155,12 +154,12 @@ function SectionRow({ sectionKey, token, expanded, onToggle }: SectionRowProps) 
 			{/* Header row */}
 			<button type="button" className="flex w-full items-center gap-2 p-2.5 text-left text-sm" onClick={onToggle}>
 				{statusIcon()}
-				<span className={cn("flex-1 font-medium leading-none", isRejected && "text-muted-foreground line-through")}>
+				<span className={cn("flex-1 leading-none font-medium", isRejected && "text-muted-foreground line-through")}>
 					{label}
 				</span>
 				<span
 					className={cn(
-						"shrink-0 rounded-full px-1.5 py-0.5 font-medium text-[10px]",
+						"shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-medium",
 						isActive && "bg-primary/15 text-primary",
 						isPending && "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
 						isDone && "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
@@ -173,17 +172,17 @@ function SectionRow({ sectionKey, token, expanded, onToggle }: SectionRowProps) 
 				</span>
 				{isDone || isRejected || status === "idle" ? (
 					expanded ? (
-						<CaretDownIcon className="size-3 shrink-0 text-muted-foreground" />
+						<CaretDownIcon className="text-muted-foreground size-3 shrink-0" />
 					) : (
-						<CaretRightIcon className="size-3 shrink-0 text-muted-foreground" />
+						<CaretRightIcon className="text-muted-foreground size-3 shrink-0" />
 					)
 				) : null}
 			</button>
 
 			{/* Live thinking — always visible when active */}
 			{isActive && state?.thinkingText && (
-				<div className="border-primary/20 border-t bg-background/50 px-3 py-2">
-					<p className="line-clamp-3 font-mono text-[10px] text-muted-foreground leading-relaxed">
+				<div className="border-primary/20 bg-background/50 border-t px-3 py-2">
+					<p className="text-muted-foreground line-clamp-3 font-mono text-[10px] leading-relaxed">
 						{state.thinkingText.split("\n").filter(Boolean).at(-1)}
 					</p>
 				</div>
@@ -191,19 +190,19 @@ function SectionRow({ sectionKey, token, expanded, onToggle }: SectionRowProps) 
 
 			{/* Pending change — diff card with Accept/Reject */}
 			{isPending && (
-				<div className="space-y-2.5 border-blue-200 border-t px-3 py-2.5 dark:border-blue-800">
-					<p className="font-medium text-[11px] text-blue-700 dark:text-blue-300">AI proposed a change — review it</p>
+				<div className="space-y-2.5 border-t border-blue-200 px-3 py-2.5 dark:border-blue-800">
+					<p className="text-[11px] font-medium text-blue-700 dark:text-blue-300">AI proposed a change — review it</p>
 					<PendingDiff sectionKey={sectionKey} result={pendingResult} />
 					<div className="flex gap-1.5 pt-0.5">
 						<Button
 							size="sm"
-							className="h-7 flex-1 gap-1 bg-green-600 text-white text-xs hover:bg-green-700"
+							className="h-7 flex-1 gap-1 bg-green-600 text-xs text-white hover:bg-green-700"
 							onClick={handleAccept}
 						>
 							<CheckCircleIcon className="size-3" />
 							Accept
 						</Button>
-						<Button size="sm" variant="outline" className="h-7 flex-1 gap-1 text-xs" onClick={handleReject}>
+						<Button size="sm" variant="secondary" className="h-7 flex-1 gap-1 text-xs" onClick={handleReject}>
 							<ProhibitIcon className="size-3" />
 							Skip
 						</Button>
@@ -213,17 +212,17 @@ function SectionRow({ sectionKey, token, expanded, onToggle }: SectionRowProps) 
 
 			{/* Expanded section: chat input + thinking history + retry */}
 			{expanded && !isActive && (
-				<div className="space-y-2 border-border/60 border-t px-3 py-2.5">
+				<div className="border-border/60 space-y-2 border-t px-3 py-2.5">
 					{/* Full thinking history */}
 					{state?.thinkingText && (
-						<ScrollArea className="max-h-28 rounded border bg-muted/40 p-2">
-							<pre className="whitespace-pre-wrap font-mono text-[10px] text-muted-foreground leading-relaxed">
+						<div className="bg-muted/40 max-h-28 overflow-y-auto rounded border p-2">
+							<pre className="text-muted-foreground font-mono text-[10px] leading-relaxed whitespace-pre-wrap">
 								{state.thinkingText}
 							</pre>
-						</ScrollArea>
+						</div>
 					)}
 
-					{isError && state?.error && <p className="text-[11px] text-destructive">{state.error}</p>}
+					{isError && state?.error && <p className="text-destructive text-[11px]">{state.error}</p>}
 
 					{/* Inline chat / comment */}
 					<div className="flex gap-1.5">
@@ -234,11 +233,11 @@ function SectionRow({ sectionKey, token, expanded, onToggle }: SectionRowProps) 
 							value={comment}
 							onChange={(e) => setComment(e.target.value)}
 							onKeyDown={(e) => e.key === "Enter" && void handleComment()}
-							className="h-7 min-w-0 flex-1 rounded border bg-background px-2 text-xs placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+							className="bg-background placeholder:text-muted-foreground focus:ring-primary h-7 min-w-0 flex-1 rounded border px-2 text-xs focus:ring-1 focus:outline-none"
 						/>
 						<Button
 							size="icon"
-							variant="outline"
+							variant="secondary"
 							className="size-7 shrink-0"
 							disabled={!comment.trim() || sending}
 							onClick={() => void handleComment()}
@@ -254,7 +253,7 @@ function SectionRow({ sectionKey, token, expanded, onToggle }: SectionRowProps) 
 					{(isError || isDone || isRejected) && (
 						<button
 							type="button"
-							className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground"
+							className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-[10px]"
 							onClick={() => void handleRetry()}
 						>
 							<ArrowCounterClockwiseIcon className="size-3" />
@@ -306,7 +305,7 @@ function PendingDiff({ sectionKey, result }: { sectionKey: string; result: unkno
 	return (
 		<div className="space-y-0.5 rounded border border-blue-200 bg-blue-50/50 p-2 dark:border-blue-800 dark:bg-blue-950/30">
 			{lines.map((line, i) => (
-				<p key={i} className="font-mono text-[11px] text-blue-800 leading-snug dark:text-blue-200">
+				<p key={i} className="font-mono text-[11px] leading-snug text-blue-800 dark:text-blue-200">
 					{line}
 				</p>
 			))}
@@ -364,9 +363,9 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 	if (!token) {
 		return (
 			<div className={cn("flex flex-col items-center justify-center gap-3 py-8 text-center", className)}>
-				<SparkleIcon className="size-10 text-muted-foreground/30" />
+				<SparkleIcon className="text-muted-foreground/30 size-10" />
 				<p className="text-muted-foreground text-sm">No active revamp</p>
-				<p className="max-w-[200px] text-muted-foreground text-xs">
+				<p className="text-muted-foreground max-w-[200px] text-xs">
 					Send your CV via the Ajiriwa WhatsApp bot to start a live AI revamp session.
 				</p>
 			</div>
@@ -381,13 +380,13 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 				<div className="flex items-center gap-2">
 					<div className="flex min-w-0 flex-1 items-center gap-1.5">
 						{overallStatus === "connecting" && (
-							<CircleNotchIcon className="size-3.5 shrink-0 animate-spin text-muted-foreground" />
+							<CircleNotchIcon className="text-muted-foreground size-3.5 shrink-0 animate-spin" />
 						)}
-						{overallStatus === "running" && <CircleNotchIcon className="size-3.5 shrink-0 animate-spin text-primary" />}
+						{overallStatus === "running" && <CircleNotchIcon className="text-primary size-3.5 shrink-0 animate-spin" />}
 						{overallStatus === "complete" && <CheckCircleIcon className="size-3.5 shrink-0 text-green-500" />}
-						{overallStatus === "error" && <WarningCircleIcon className="size-3.5 shrink-0 text-destructive" />}
-						{overallStatus === "idle" && <SparkleIcon className="size-3.5 shrink-0 text-muted-foreground" />}
-						<span className="truncate font-medium text-sm">
+						{overallStatus === "error" && <WarningCircleIcon className="text-destructive size-3.5 shrink-0" />}
+						{overallStatus === "idle" && <SparkleIcon className="text-muted-foreground size-3.5 shrink-0" />}
+						<span className="truncate text-sm font-medium">
 							{overallStatus === "connecting"
 								? "Connecting…"
 								: overallStatus === "running"
@@ -403,7 +402,7 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 					</div>
 
 					{paymentStatus === "paid" && (
-						<span className="shrink-0 rounded-full bg-green-100 px-1.5 py-0.5 font-medium text-[10px] text-green-700 dark:bg-green-900/30 dark:text-green-300">
+						<span className="shrink-0 rounded-full bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700 dark:bg-green-900/30 dark:text-green-300">
 							Paid ✓
 						</span>
 					)}
@@ -412,7 +411,7 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 				{/* Progress bar */}
 				{overallStatus !== "idle" && (
 					<div className="space-y-1">
-						<div className="h-1 w-full overflow-hidden rounded-full bg-muted">
+						<div className="bg-muted h-1 w-full overflow-hidden rounded-full">
 							<div
 								className={cn(
 									"h-full transition-all duration-500",
@@ -421,7 +420,7 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 								style={{ width: overallStatus === "complete" ? "100%" : `${progressPct}%` }}
 							/>
 						</div>
-						<div className="flex items-center justify-between text-[10px] text-muted-foreground">
+						<div className="text-muted-foreground flex items-center justify-between text-[10px]">
 							<span>
 								{doneCount}/{totalSections} applied
 							</span>
@@ -439,7 +438,7 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 						type="button"
 						onClick={toggleAutoApply}
 						className={cn(
-							"flex items-center gap-1.5 rounded-md border px-2 py-1 font-medium text-[11px] transition-colors",
+							"flex items-center gap-1.5 rounded-md border px-2 py-1 text-[11px] font-medium transition-colors",
 							autoApply
 								? "border-primary/40 bg-primary/10 text-primary"
 								: "border-border bg-muted/40 text-muted-foreground",
@@ -456,7 +455,7 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 						<Button
 							size="sm"
 							variant="ghost"
-							className="h-6 gap-1 px-2 text-[11px] text-muted-foreground"
+							className="text-muted-foreground h-6 gap-1 px-2 text-[11px]"
 							onClick={() => void handleStop()}
 						>
 							<StopCircleIcon className="size-3" />
@@ -467,7 +466,7 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 						<Button
 							size="sm"
 							variant="ghost"
-							className="h-6 gap-1 px-2 text-[11px] text-muted-foreground"
+							className="text-muted-foreground h-6 gap-1 px-2 text-[11px]"
 							disabled={redoing}
 							onClick={() => void handleRedo()}
 						>
@@ -485,7 +484,7 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 				{paymentStatus === "unpaid" && token && overallStatus === "complete" && (
 					<a
 						href={`/revamp/${token}/`}
-						className="flex items-center justify-center gap-1.5 rounded-md bg-yellow-500 px-3 py-1.5 font-medium text-white text-xs transition-colors hover:bg-yellow-600"
+						className="flex items-center justify-center gap-1.5 rounded-md bg-yellow-500 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-yellow-600"
 					>
 						<LockSimpleOpenIcon className="size-3.5" />
 						Pay to remove watermark
@@ -494,7 +493,7 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 			</div>
 
 			{/* Section list */}
-			<ScrollArea className="max-h-[60vh]">
+			<div className="max-h-[60vh] overflow-y-auto">
 				<div className="space-y-1.5">
 					{SECTION_ORDER.map((key) => (
 						<SectionRow
@@ -508,11 +507,11 @@ export function RevampAgentPanel({ className }: RevampAgentPanelProps) {
 				</div>
 
 				{overallStatus === "complete" && (
-					<p className="pt-2 pb-1 text-center text-[11px] text-muted-foreground">
+					<p className="text-muted-foreground pt-2 pb-1 text-center text-[11px]">
 						All sections complete. Click any section to chat with the AI or retry it.
 					</p>
 				)}
-			</ScrollArea>
+			</div>
 		</div>
 	);
 }

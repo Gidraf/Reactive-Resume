@@ -1,5 +1,6 @@
 import z from "zod";
 import { protectedProcedure } from "../../context";
+import { agentAttachmentSchema } from "../../dto/agent";
 import { storageUploadRateLimit } from "../../middleware/rate-limit";
 import { mapAgentEnvironmentError } from "./routing";
 import { agentService } from "./service";
@@ -16,11 +17,20 @@ export const attachmentsRouter = {
 		.input(
 			z.object({
 				threadId: z.string(),
-				filename: z.string().trim().min(1),
-				mediaType: z.string().trim().min(1),
-				data: z.string().min(1),
+				filename: z.string().trim().min(1).max(255),
+				// Bare type/subtype only: it is stored and quoted to the model.
+				mediaType: z
+					.string()
+					.trim()
+					.max(255)
+					.regex(/^[\w.+-]+\/[\w.+-]+$/),
+				data: z
+					.base64()
+					.min(1)
+					.max(4 * Math.ceil((25 * 1024 * 1024) / 3)),
 			}),
 		)
+		.output(agentAttachmentSchema)
 		.use(storageUploadRateLimit)
 		.use(mapAgentEnvironmentError)
 		.handler(({ context, input }) =>

@@ -1,7 +1,6 @@
 import type { AIProvider } from "@reactive-resume/ai/types";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import type { ModelMessage } from "ai";
-import { inflateRawSync } from "node:zlib";
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { createCerebras } from "@ai-sdk/cerebras";
 import { createCohere } from "@ai-sdk/cohere";
@@ -29,8 +28,10 @@ import {
 import { buildAiExtractionTemplate } from "@reactive-resume/ai/resume/extraction-template";
 import { sanitizeAndParseResumeJson } from "@reactive-resume/ai/resume/sanitize";
 import { AI_PROVIDER_DEFAULT_BASE_URLS, AI_PROVIDER_DISPLAY_NAMES, aiProviderSchema } from "@reactive-resume/ai/types";
-import { supportsProviderNativeWebSearch } from "./capabilities";
-import { resolveAiBaseUrl } from "./url-policy";
+import { ZipEntryTooLargeError, unzipEntries } from "@reactive-resume/import/zip";
+import { isDirectOpenAIProvider } from "./capabilities";
+import { aiDeadline } from "./generate-json";
+import { aiTransport, resolveAiBaseUrl } from "./url-policy";
 
 const aiExtractionTemplate = buildAiExtractionTemplate();
 
@@ -87,38 +88,37 @@ const TEST_CONNECTION_TIMEOUT_MS = z.coerce
 	.catch(30_000)
 	.parse(process.env.AI_TEST_TIMEOUT_MS?.trim() || undefined);
 const DOCX_DOCUMENT_XML_PATH = "word/document.xml";
-const ZIP_LOCAL_FILE_HEADER_SIGNATURE = 0x04034b50;
-const ZIP_CENTRAL_DIRECTORY_SIGNATURE = 0x02014b50;
-const ZIP_END_OF_CENTRAL_DIRECTORY_SIGNATURE = 0x06054b50;
-const ZIP_STORED_METHOD = 0;
-const ZIP_DEFLATED_METHOD = 8;
+// Resume bodies are kilobytes; this leaves room for long documents without trusting the archive's declared size.
+const MAX_DOCX_DOCUMENT_XML_BYTES = 20 * 1024 * 1024;
 
 export function getModel(input: GetModelInput) {
 	const { provider, model, apiKey } = input;
 	const baseURL = resolveAiBaseUrl(input);
+	const settings = { apiKey, baseURL, ...aiTransport() };
 
 	return match(provider)
-		.with("openai", () => createOpenAI({ apiKey, baseURL }).chat(model))
-		.with("anthropic", () => createAnthropic({ apiKey, baseURL }).languageModel(model))
-		.with("gemini", () => createGoogleGenerativeAI({ apiKey, baseURL }).languageModel(model))
-		.with("vercel-ai-gateway", () => createGateway({ apiKey, baseURL }).languageModel(model))
-		.with("openrouter", () => createOpenAICompatible({ name: "openrouter", apiKey, baseURL }).languageModel(model))
-		.with("mistral", () => createMistral({ apiKey, baseURL }).languageModel(model))
-		.with("cohere", () => createCohere({ apiKey, baseURL }).languageModel(model))
-		.with("xai", () => createXai({ apiKey, baseURL }).languageModel(model))
-		.with("groq", () => createGroq({ apiKey, baseURL }).languageModel(model))
-		.with("deepseek", () => createDeepSeek({ apiKey, baseURL }).languageModel(model))
-		.with("togetherai", () => createTogetherAI({ apiKey, baseURL }).languageModel(model))
-		.with("fireworks", () => createFireworks({ apiKey, baseURL }).languageModel(model))
-		.with("cerebras", () => createCerebras({ apiKey, baseURL }).languageModel(model))
-		.with("perplexity", () => createPerplexity({ apiKey, baseURL }).languageModel(model))
+		.with("openai", () => createOpenAI(settings).chat(model))
+		.with("anthropic", () => createAnthropic(settings).languageModel(model))
+		.with("gemini", () => createGoogleGenerativeAI(settings).languageModel(model))
+		.with("vercel-ai-gateway", () => createGateway(settings).languageModel(model))
+		.with("openrouter", () => createOpenAICompatible({ name: "openrouter", ...settings }).languageModel(model))
+		.with("mistral", () => createMistral(settings).languageModel(model))
+		.with("cohere", () => createCohere(settings).languageModel(model))
+		.with("xai", () => createXai(settings).languageModel(model))
+		.with("groq", () => createGroq(settings).languageModel(model))
+		.with("deepseek", () => createDeepSeek(settings).languageModel(model))
+		.with("togetherai", () => createTogetherAI(settings).languageModel(model))
+		.with("fireworks", () => createFireworks(settings).languageModel(model))
+		.with("cerebras", () => createCerebras(settings).languageModel(model))
+		.with("perplexity", () => createPerplexity(settings).languageModel(model))
 		.with("openai-compatible", () =>
-			createOpenAICompatible({ name: "openai-compatible", apiKey, baseURL }).languageModel(model),
+			createOpenAICompatible({ name: "openai-compatible", ...settings }).languageModel(model),
 		)
 		.with("ollama", () => {
 			const ollama = createOllama({
 				name: "ollama",
 				baseURL,
+				...aiTransport(),
 				...(apiKey ? { headers: { Authorization: `Bearer ${apiKey}` } } : {}),
 			});
 
@@ -128,9 +128,12 @@ export function getModel(input: GetModelInput) {
 }
 
 export function getAgentModel(input: GetModelInput) {
-	if (!supportsProviderNativeWebSearch(input)) return getModel(input);
+	if (!isDirectOpenAIProvider(input)) return getModel(input);
 
-	return createOpenAI({ apiKey: input.apiKey, baseURL: resolveAiBaseUrl(input) }).responses(input.model);
+	// Direct OpenAI assistants use Responses for reasoning with function tools.
+	return createOpenAI({ apiKey: input.apiKey, baseURL: resolveAiBaseUrl(input), ...aiTransport() }).responses(
+		input.model,
+	);
 }
 
 const aiCredentialsSchema = z.object({
@@ -142,7 +145,8 @@ const aiCredentialsSchema = z.object({
 
 export const fileInputSchema = z.object({
 	name: z.string(),
-	data: z.string().max(MAX_AI_FILE_BASE64_CHARS, "File is too large. Maximum size is 10MB."),
+	// File bytes only: the AI SDK would download a URL here on the server.
+	data: z.base64().max(MAX_AI_FILE_BASE64_CHARS, "File is too large. Maximum size is 10MB."),
 });
 
 type TestConnectionInput = z.infer<typeof aiCredentialsSchema>;
@@ -253,7 +257,6 @@ export async function testConnection(input: TestConnectionInput): Promise<TestCo
 		result = await generateText({
 			model,
 			maxOutputTokens: TEST_CONNECTION_MAX_OUTPUT_TOKENS,
-			temperature: 0,
 			// A connection test must not silently multiply its own wait by retrying behind the user.
 			maxRetries: 0,
 			abortSignal: AbortSignal.timeout(TEST_CONNECTION_TIMEOUT_MS),
@@ -298,7 +301,7 @@ function buildResumeParsingMessages({ userPrompt, file, mediaType }: BuildResume
 			role: "user",
 			content: [
 				{ type: "text", text: userPrompt },
-				{ type: "file", data: file.data, mediaType, filename: file.name },
+				{ type: "file", data: Buffer.from(file.data, "base64"), mediaType, filename: file.name },
 			],
 		},
 	];
@@ -324,6 +327,7 @@ async function parsePdf(input: ParsePdfInput): Promise<ResumeData> {
 
 	const result = await generateText({
 		model,
+		abortSignal: aiDeadline(),
 		system: buildResumeParsingSystemPrompt(sysPrompt),
 		messages: buildResumeParsingMessages({
 			userPrompt,
@@ -349,68 +353,21 @@ type ParseDocxInput = z.infer<typeof aiCredentialsSchema> & {
 	mediaType: "application/msword" | "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 };
 
-function assertZipRange(buffer: Buffer, offset: number, length: number) {
-	if (offset < 0 || length < 0 || offset + length > buffer.length) throw new Error("Invalid DOCX archive.");
-}
-
-function findEndOfCentralDirectory(buffer: Buffer): number {
-	const minOffset = Math.max(0, buffer.length - 0xffff - 22);
-
-	for (let offset = buffer.length - 22; offset >= minOffset; offset--) {
-		if (buffer.readUInt32LE(offset) === ZIP_END_OF_CENTRAL_DIRECTORY_SIGNATURE) return offset;
+function readDocumentXml(data: string): string {
+	let entries: Record<string, Uint8Array>;
+	try {
+		entries = unzipEntries(
+			Buffer.from(data, "base64"),
+			(name) => name === DOCX_DOCUMENT_XML_PATH,
+			MAX_DOCX_DOCUMENT_XML_BYTES,
+		);
+	} catch (error) {
+		if (error instanceof ZipEntryTooLargeError) throw new Error("DOCX document content is too large.");
+		throw new Error("Invalid DOCX archive.");
 	}
-
-	throw new Error("Invalid DOCX archive.");
-}
-
-function readZipEntry(buffer: Buffer, entryName: string): Buffer {
-	const eocdOffset = findEndOfCentralDirectory(buffer);
-	assertZipRange(buffer, eocdOffset, 22);
-
-	const centralDirectorySize = buffer.readUInt32LE(eocdOffset + 12);
-	const centralDirectoryOffset = buffer.readUInt32LE(eocdOffset + 16);
-	assertZipRange(buffer, centralDirectoryOffset, centralDirectorySize);
-
-	let offset = centralDirectoryOffset;
-	const endOffset = centralDirectoryOffset + centralDirectorySize;
-
-	while (offset < endOffset) {
-		assertZipRange(buffer, offset, 46);
-		if (buffer.readUInt32LE(offset) !== ZIP_CENTRAL_DIRECTORY_SIGNATURE) throw new Error("Invalid DOCX archive.");
-
-		const compressionMethod = buffer.readUInt16LE(offset + 10);
-		const compressedSize = buffer.readUInt32LE(offset + 20);
-		const fileNameLength = buffer.readUInt16LE(offset + 28);
-		const extraFieldLength = buffer.readUInt16LE(offset + 30);
-		const commentLength = buffer.readUInt16LE(offset + 32);
-		const localHeaderOffset = buffer.readUInt32LE(offset + 42);
-		const fileNameOffset = offset + 46;
-		assertZipRange(buffer, fileNameOffset, fileNameLength);
-
-		const fileName = buffer.toString("utf8", fileNameOffset, fileNameOffset + fileNameLength);
-
-		if (fileName === entryName) {
-			assertZipRange(buffer, localHeaderOffset, 30);
-			if (buffer.readUInt32LE(localHeaderOffset) !== ZIP_LOCAL_FILE_HEADER_SIGNATURE) {
-				throw new Error("Invalid DOCX archive.");
-			}
-
-			const localFileNameLength = buffer.readUInt16LE(localHeaderOffset + 26);
-			const localExtraFieldLength = buffer.readUInt16LE(localHeaderOffset + 28);
-			const dataOffset = localHeaderOffset + 30 + localFileNameLength + localExtraFieldLength;
-			assertZipRange(buffer, dataOffset, compressedSize);
-
-			const compressed = buffer.subarray(dataOffset, dataOffset + compressedSize);
-			if (compressionMethod === ZIP_STORED_METHOD) return compressed;
-			if (compressionMethod === ZIP_DEFLATED_METHOD) return inflateRawSync(compressed);
-
-			throw new Error("Unsupported DOCX archive compression.");
-		}
-
-		offset = fileNameOffset + fileNameLength + extraFieldLength + commentLength;
-	}
-
-	throw new Error("DOCX document content not found.");
+	const xml = entries[DOCX_DOCUMENT_XML_PATH];
+	if (!xml) throw new Error("DOCX document content not found.");
+	return new TextDecoder().decode(xml);
 }
 
 function decodeXmlEntities(value: string): string {
@@ -420,24 +377,28 @@ function decodeXmlEntities(value: string): string {
 		if (token === "gt") return ">";
 		if (token === "quot") return '"';
 		if (token === "apos") return "'";
-		if (token.toLowerCase().startsWith("#x")) return String.fromCodePoint(Number.parseInt(token.slice(2), 16));
-		if (token.startsWith("#")) return String.fromCodePoint(Number.parseInt(token.slice(1), 10));
-		return entity;
+		const code = token.toLowerCase().startsWith("#x")
+			? Number.parseInt(token.slice(2), 16)
+			: Number.parseInt(token.slice(1), 10);
+		return code <= 0x10ffff ? String.fromCodePoint(code) : entity;
 	});
 }
 
 function extractDocxText(file: z.infer<typeof fileInputSchema>): string {
-	const documentXml = readZipEntry(Buffer.from(file.data, "base64"), DOCX_DOCUMENT_XML_PATH).toString("utf8");
+	const documentXml = readDocumentXml(file.data);
 	// ponytail: minimal OOXML body-text extraction; add a DOCX parser dependency if tracked changes matter.
 	const text = decodeXmlEntities(
+		// `[^<>]` keeps each match from scanning past the next tag, so malformed markup costs linear time.
 		documentXml
-			.replace(/<w:tab\b[^>]*\/>/g, "\t")
-			.replace(/<w:br\b[^>]*\/>/g, "\n")
+			.replace(/<w:tab\b[^<>]*\/>/g, "\t")
+			.replace(/<w:br\b[^<>]*\/>/g, "\n")
 			.replace(/<\/w:p>/g, "\n")
-			.replace(/<[^>]+>/g, ""),
+			.replace(/<[^<>]*>/g, ""),
 	)
 		.replace(/\r/g, "")
-		.replace(/[ \t]+\n/g, "\n")
+		.split("\n")
+		.map((line) => line.trimEnd())
+		.join("\n")
 		.replace(/\n{3,}/g, "\n\n")
 		.trim();
 
@@ -460,6 +421,7 @@ async function parseDocx(input: ParseDocxInput): Promise<ResumeData> {
 
 	const result = await generateText({
 		model,
+		abortSignal: aiDeadline(),
 		system: buildResumeParsingSystemPrompt(sysPrompt),
 		messages,
 	}).catch((error: unknown) => logAndRethrow("Failed to generate the text with the model", error));

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import { useUpdateResumeData } from "@/features/resume/builder/draft";
 import { useRevampStore } from "../-store/revamp";
 import { applyRevampResult } from "../-utils/revamp-apply";
+import { useUpdateResumeData } from "@/features/resume/builder/draft";
 
 const CVPAP_API = (import.meta.env.VITE_CVPAP_API_URL as string | undefined) ?? "";
 
