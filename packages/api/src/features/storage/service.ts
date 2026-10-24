@@ -1,15 +1,18 @@
+import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
-import { dirname, extname, join } from "node:path";
+import { dirname, extname, join, relative } from "node:path";
 import {
 	DeleteObjectCommand,
 	GetObjectCommand,
-	ListObjectsV2Command,
+	paginateListObjectsV2,
 	PutObjectCommand,
 	S3Client,
 } from "@aws-sdk/client-s3";
+import { ORPCError } from "@orpc/server";
 import sharp from "sharp";
 import { env } from "@reactive-resume/env/server";
 import { getLocalDataDirectory } from "@reactive-resume/utils/monorepo.node";
+import { BlobStorageService } from "./blob";
 
 interface StorageWriteInput {
 	key: string;
@@ -26,7 +29,7 @@ interface StorageReadResult {
 	contentType?: string;
 }
 
-interface StorageService {
+export interface StorageService {
 	list(prefix: string): Promise<string[]>;
 	write(input: StorageWriteInput): Promise<void>;
 	read(key: string): Promise<StorageReadResult | null>;
@@ -36,7 +39,7 @@ interface StorageService {
 
 interface StorageHealthResult {
 	status: "healthy" | "unhealthy";
-	type: "local" | "s3";
+	type: "local" | "s3" | "blob" | "r2";
 	message: string;
 	error?: string;
 }
@@ -55,20 +58,21 @@ const DEFAULT_CONTENT_TYPE = "application/octet-stream";
 
 const IMAGE_MIME_TYPES = ["image/gif", "image/png", "image/jpeg", "image/webp"];
 
-// Key builders for different upload types
-function buildPictureKey(userId: string): string {
-	const timestamp = Date.now();
-	return `uploads/${userId}/pictures/${timestamp}.jpeg`;
-}
+const EXTENSION_BY_CONTENT_TYPE: Record<string, string> = {
+	"image/jpeg": "jpeg",
+	"image/png": "png",
+	"image/webp": "webp",
+	"image/gif": "gif",
+	"application/pdf": "pdf",
+};
 
-function buildScreenshotKey(userId: string, resumeId: string): string {
-	const timestamp = Date.now();
-	return `uploads/${userId}/screenshots/${resumeId}/${timestamp}.jpeg`;
-}
-
-function buildPdfKey(userId: string, resumeId: string): string {
-	const timestamp = Date.now();
-	return `uploads/${userId}/pdfs/${resumeId}/${timestamp}.pdf`;
+// Derive the stored key's extension from the content type so the static handler serves each
+// file correctly instead of mislabeling it. Images normally arrive as JPEG (sharp), but with
+// FLAG_DISABLE_IMAGE_PROCESSING they keep their original type — hence all image types are
+// mapped, not just JPEG. Non-image uploads (e.g. a cover-letter PDF) get their real extension.
+function buildFileKey(userId: string, contentType: string): string {
+	const extension = EXTENSION_BY_CONTENT_TYPE[contentType] ?? "bin";
+	return `uploads/${userId}/pictures/${randomUUID()}.${extension}`;
 }
 
 function buildPublicUrl(path: string): string {
@@ -91,25 +95,60 @@ interface ProcessedImage {
 	contentType: string;
 }
 
+// The real format from the file's first bytes; the client-declared type is never trusted.
+function detectImageType(bytes: Uint8Array): string | undefined {
+	const ascii = (start: number, length: number) => String.fromCharCode(...bytes.subarray(start, start + length));
+	if (ascii(0, 8) === "\x89PNG\r\n\x1a\n") return "image/png";
+	if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return "image/jpeg";
+	if (ascii(0, 6) === "GIF87a" || ascii(0, 6) === "GIF89a") return "image/gif";
+	if (ascii(0, 4) === "RIFF" && ascii(8, 4) === "WEBP") return "image/webp";
+	return undefined;
+}
+
+const SHARP_INPUT_FORMATS = new Set(["jpeg", "png", "webp", "gif"]);
+
+const invalidImage = () => new ORPCError("BAD_REQUEST", { message: "Pictures must be PNG, JPEG, WebP or GIF images." });
+
 export async function processImageForUpload(file: File): Promise<ProcessedImage> {
-	const fileBuffer = await file.arrayBuffer();
+	const data = new Uint8Array(await file.arrayBuffer());
+	const contentType = detectImageType(data);
+	if (!contentType) throw invalidImage();
 
-	if (env.FLAG_DISABLE_IMAGE_PROCESSING) {
-		return {
-			data: new Uint8Array(fileBuffer),
-			contentType: file.type,
-		};
-	}
+	if (env.FLAG_DISABLE_IMAGE_PROCESSING) return { data, contentType };
 
-	const processedBuffer = await sharp(fileBuffer)
+	// The pixel cap stops a small file from decoding into a huge bitmap.
+	const image = sharp(data, { limitInputPixels: 25_000_000 });
+	const { format } = await image.metadata().catch(() => ({ format: undefined }));
+	if (!format || !SHARP_INPUT_FORMATS.has(format)) throw invalidImage();
+
+	const processedBuffer = await image
 		.resize(800, 800, { fit: "inside", withoutEnlargement: true })
 		.jpeg({ quality: 80 })
-		.toBuffer();
+		.toBuffer()
+		.catch(() => {
+			throw invalidImage();
+		});
 
 	return {
 		data: new Uint8Array(processedBuffer),
 		contentType: "image/jpeg",
 	};
+}
+
+/** Public pictures stop serving once their owner is banned or gone. */
+export async function isPublicUploadOwner(userId: string): Promise<boolean> {
+	const [{ db }, { user }, { and, eq }, { ownerIsNotBanned }] = await Promise.all([
+		import("@reactive-resume/db/client"),
+		import("@reactive-resume/db/schema"),
+		import("drizzle-orm"),
+		import("../resume/access-policy"),
+	]);
+	const [owner] = await db
+		.select({ id: user.id })
+		.from(user)
+		.where(and(eq(user.id, userId), ownerIsNotBanned()))
+		.limit(1);
+	return owner !== undefined;
 }
 
 class LocalStorageService implements StorageService {
@@ -121,15 +160,33 @@ class LocalStorageService implements StorageService {
 
 	async list(prefix: string): Promise<string[]> {
 		const fullPath = this.resolvePath(prefix);
+		const normalizedPrefix = prefix.replace(/\\/g, "/").replace(/\/+$/, "");
 
 		try {
-			const files = await fs.readdir(fullPath, { recursive: true });
+			const entries = await fs.readdir(fullPath, { recursive: true, withFileTypes: true });
 
-			return files.map((file) => join(prefix, file));
+			return entries
+				.filter((entry) => entry.isFile())
+				.map((entry) => {
+					const parent = entry.parentPath;
+					const relativePath = relative(fullPath, join(parent, entry.name)).replaceAll("\\", "/");
+					return normalizedPrefix ? `${normalizedPrefix}/${relativePath}` : relativePath;
+				});
 		} catch (error: unknown) {
-			// If directory doesn't exist, return empty array
-			if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
-				return [];
+			if (error && typeof error === "object" && "code" in error) {
+				if (error.code === "ENOENT") {
+					return [];
+				}
+				if (error.code === "ENOTDIR") {
+					try {
+						const stats = await fs.stat(fullPath);
+						if (stats.isFile()) {
+							return [normalizedPrefix || prefix.replace(/\\/g, "/")];
+						}
+					} catch {
+						return [];
+					}
+				}
 			}
 
 			throw error;
@@ -137,16 +194,16 @@ class LocalStorageService implements StorageService {
 	}
 
 	async write({ key, data, private: isPrivate }: StorageWriteInput): Promise<void> {
-		if (isPrivate) {
+		if (isPrivate && !/^uploads\/[A-Za-z0-9_-]+\/agent\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$/.test(key)) {
 			throw new Error(
-				"Private storage writes are not supported by the local filesystem backend. Configure S3 to store private attachments.",
+				"Private local writes must use the assistant attachment namespace, which public upload routes never serve.",
 			);
 		}
 
 		const fullPath = this.resolvePath(key);
 
 		await fs.mkdir(dirname(fullPath), { recursive: true });
-		await fs.writeFile(fullPath, data);
+		await fs.writeFile(fullPath, data, isPrivate ? { mode: 0o600 } : undefined);
 	}
 
 	async read(key: string): Promise<StorageReadResult | null> {
@@ -224,10 +281,7 @@ class LocalStorageService implements StorageService {
 
 class S3StorageService implements StorageService {
 	private readonly bucket: string;
-	private readonly accessKeyId: string;
-	private readonly secretAccessKey: string;
-	private readonly endpoint: string | undefined;
-	private readonly clientPromise: Promise<S3Client>;
+	private readonly client: S3Client;
 
 	constructor() {
 		if (!env.S3_ACCESS_KEY_ID || !env.S3_SECRET_ACCESS_KEY || !env.S3_BUCKET) {
@@ -235,54 +289,44 @@ class S3StorageService implements StorageService {
 		}
 
 		this.bucket = env.S3_BUCKET;
-		this.accessKeyId = env.S3_ACCESS_KEY_ID;
-		this.secretAccessKey = env.S3_SECRET_ACCESS_KEY;
-		this.endpoint = env.S3_ENDPOINT;
-		this.clientPromise = this.createClient();
-	}
-
-	private async createClient(): Promise<S3Client> {
-		return new S3Client({
+		this.client = new S3Client({
 			region: env.S3_REGION,
 			forcePathStyle: env.S3_FORCE_PATH_STYLE,
-			...(this.endpoint ? { endpoint: this.endpoint } : {}),
+			...(env.S3_ENDPOINT ? { endpoint: env.S3_ENDPOINT } : {}),
 			credentials: {
-				accessKeyId: this.accessKeyId,
-				secretAccessKey: this.secretAccessKey,
+				accessKeyId: env.S3_ACCESS_KEY_ID,
+				secretAccessKey: env.S3_SECRET_ACCESS_KEY,
 			},
 		});
 	}
 
-	private async getClient(): Promise<S3Client> {
-		return this.clientPromise;
-	}
-
 	async list(prefix: string): Promise<string[]> {
-		const client = await this.getClient();
-		const command = new ListObjectsV2Command({ Bucket: this.bucket, Prefix: prefix });
-		const response = await client.send(command);
-		if (!response.Contents) return [];
-		return response.Contents.map((object) => object.Key ?? "");
+		const keys: string[] = [];
+		for await (const page of paginateListObjectsV2({ client: this.client }, { Bucket: this.bucket, Prefix: prefix })) {
+			for (const object of page.Contents ?? []) {
+				if (object.Key) keys.push(object.Key);
+			}
+		}
+		return keys;
 	}
 
-	async write({ key, data, contentType, private: isPrivate }: StorageWriteInput): Promise<void> {
-		const client = await this.getClient();
+	async write({ key, data, contentType }: StorageWriteInput): Promise<void> {
+		// BucketOwnerEnforced rejects object ACLs. Public files use the application proxy
+		// with authenticated S3 reads; private attachments retain their access checks.
 		const command = new PutObjectCommand({
 			Bucket: this.bucket,
 			Key: key,
 			Body: data,
-			ACL: isPrivate ? "private" : "public-read",
 			ContentType: contentType,
 		});
 
-		await client.send(command);
+		await this.client.send(command);
 	}
 
 	async read(key: string): Promise<StorageReadResult | null> {
 		try {
-			const client = await this.getClient();
 			const command = new GetObjectCommand({ Bucket: this.bucket, Key: key });
-			const response = await client.send(command);
+			const response = await this.client.send(command);
 			if (!response.Body) return null;
 
 			const arrayBuffer = await response.Body.transformToByteArray();
@@ -301,13 +345,14 @@ class S3StorageService implements StorageService {
 
 	async delete(keyOrPrefix: string): Promise<boolean> {
 		// Use list to find all matching keys (handles both single file and folder/prefix)
-		const [client, keys] = await Promise.all([this.getClient(), this.list(keyOrPrefix)]);
+		const prefix = keyOrPrefix.endsWith("/") ? keyOrPrefix : `${keyOrPrefix}/`;
+		const keys = (await this.list(keyOrPrefix)).filter((key) => key === keyOrPrefix || key.startsWith(prefix));
 
 		if (keys.length === 0) return false;
 
 		// Delete all matching keys using Promise.allSettled
 		const deleteCommands = keys.map((k) => new DeleteObjectCommand({ Bucket: this.bucket, Key: k }));
-		const results = await Promise.allSettled(deleteCommands.map((c) => client.send(c)));
+		const results = await Promise.allSettled(deleteCommands.map((c) => this.client.send(c)));
 
 		// Return true if at least one deletion succeeded
 		return results.some((r) => r.status === "fulfilled");
@@ -315,12 +360,11 @@ class S3StorageService implements StorageService {
 
 	async healthcheck(): Promise<StorageHealthResult> {
 		try {
-			const client = await this.getClient();
 			const putCommand = new PutObjectCommand({ Bucket: this.bucket, Key: "healthcheck", Body: "OK" });
-			await client.send(putCommand);
+			await this.client.send(putCommand);
 
 			const deleteCommand = new DeleteObjectCommand({ Bucket: this.bucket, Key: "healthcheck" });
-			await client.send(deleteCommand);
+			await this.client.send(deleteCommand);
 
 			return {
 				type: "s3",
@@ -338,32 +382,28 @@ class S3StorageService implements StorageService {
 	}
 }
 
-function createStorageService(): StorageService {
-	if (env.S3_ACCESS_KEY_ID && env.S3_SECRET_ACCESS_KEY && env.S3_BUCKET) {
-		return new S3StorageService();
-	}
-
-	return new LocalStorageService();
-}
-
 let cachedService: StorageService | null = null;
 
-export function getStorageService(): StorageService {
-	if (cachedService) return cachedService;
-
-	cachedService = createStorageService();
-	return cachedService;
+/** Platforms with native storage bindings configure their adapter before handling requests. */
+export function configureStorageService(service: StorageService): void {
+	cachedService = service;
 }
 
-// High-level upload types
-type UploadType = "picture" | "screenshot" | "pdf";
+export function getStorageService(): StorageService {
+	if (env.STORAGE_BACKEND === "r2" && !cachedService) throw new Error("R2 storage binding is not configured");
+	cachedService ??=
+		env.STORAGE_BACKEND === "blob"
+			? new BlobStorageService()
+			: env.STORAGE_BACKEND === "s3"
+				? new S3StorageService()
+				: new LocalStorageService();
+	return cachedService;
+}
 
 interface UploadFileInput {
 	userId: string;
 	data: Uint8Array;
 	contentType: string;
-	type: UploadType;
-	resumeId?: string;
 }
 
 interface UploadFileResult {
@@ -372,32 +412,38 @@ interface UploadFileResult {
 }
 
 export async function uploadFile(input: UploadFileInput): Promise<UploadFileResult> {
+	const key = buildFileKey(input.userId, input.contentType);
+	await getStorageService().write({ key, data: input.data, contentType: input.contentType });
+	return { key, url: buildPublicUrl(key) };
+}
+
+/** Copy before linking; caller runs returned cleanup only after ownership commits. */
+export async function migrateUserStorage(fromUserId: string, toUserId: string): Promise<(() => Promise<void>) | void> {
+	if (fromUserId === toUserId) return;
+
 	const storageService = getStorageService();
+	const fromPrefix = `uploads/${fromUserId}/`;
+	const toPrefix = `uploads/${toUserId}/`;
+	const keys = (await storageService.list(fromPrefix)).filter((key) => key.startsWith(fromPrefix));
 
-	let key: string;
-
-	switch (input.type) {
-		case "picture":
-			key = buildPictureKey(input.userId);
-			break;
-		case "screenshot":
-			if (!input.resumeId) throw new Error("resumeId is required for screenshot uploads");
-			key = buildScreenshotKey(input.userId, input.resumeId);
-			break;
-		case "pdf":
-			if (!input.resumeId) throw new Error("resumeId is required for pdf uploads");
-			key = buildPdfKey(input.userId, input.resumeId);
-			break;
+	for (const key of keys) {
+		const file = await storageService.read(key);
+		if (!file) throw new Error(`Could not read storage key ${key}; source files were kept.`);
+		await storageService.write({
+			key: `${toPrefix}${key.slice(fromPrefix.length)}`,
+			data: file.data,
+			contentType: file.contentType ?? inferContentType(key),
+			...(key.startsWith(`${fromPrefix}agent/`) ? { private: true } : {}),
+		});
 	}
 
-	await storageService.write({
-		key,
-		data: input.data,
-		contentType: input.contentType,
-	});
-
-	return {
-		key,
-		url: buildPublicUrl(key),
+	return async () => {
+		// Never delete the prefix: uploads outside this copy snapshot must survive.
+		const results = await Promise.allSettled(keys.map((key) => storageService.delete(key)));
+		for (const [index, result] of results.entries()) {
+			if (result.status === "rejected" || !result.value) {
+				console.warn("Failed to delete migrated storage key %s:", keys[index], result);
+			}
+		}
 	};
 }

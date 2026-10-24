@@ -1,68 +1,57 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vite-plus/test";
 
-vi.mock("@reactive-resume/env/server", () => ({
-	env: {
-		APP_URL: "https://app.example.com/",
-	},
-}));
+vi.mock("@reactive-resume/env/server", () => ({ env: { APP_URL: "https://rxresu.me/" } }));
 
-const { handleLlms, handleRobots, handleSitemap } = await import("./seo");
+const { handleSitemap, handleLlms } = await import("./seo");
 
-describe("SEO static endpoints", () => {
-	it("generates robots.txt from the normalized app URL", async () => {
-		const response = handleRobots();
-		const text = await response.text();
+it("publishes Context7 Ask after the llms title and summary", async () => {
+	const text = await handleLlms().text();
+	expect(text).toMatch(
+		/^# Reactive Resume\n\n> [^\n]+\n\n## Search\n\nThis site has a search endpoint: https:\/\/context7.com\/api\/v2\/ask\?siteKey=ask_b3fd9335a63f1b21b1a814ac&query=<URL-encoded question>\./,
+	);
+	expect(text).toContain(
+		"It returns documentation that answers the question, with a source link for each part. No API key is needed. If nothing matches, it says so.\n\n## Product",
+	);
+	expect(await handleLlms({ head: true }).text()).toBe("");
+});
 
-		expect(response.status).toBe(200);
-		expect(response.headers.get("Content-Type")).toBe("text/plain; charset=UTF-8");
-		expect(text).toContain("User-agent: *");
-		expect(text).toContain("Allow: /");
-		expect(text).toContain("Disallow: /api/rpc");
-		expect(text).toContain("Disallow: /api/auth");
-		expect(text).toContain("Disallow: /mcp");
-		expect(text).toContain("Disallow: /.well-known");
-		expect(text).toContain("Sitemap: https://app.example.com/sitemap.xml");
-		expect(text).toContain("Sitemap: https://docs.rxresu.me/sitemap.xml");
-		expect(text).not.toMatch(/GPTBot|ClaudeBot|PerplexityBot|CCBot|ChatGPT-User/);
-	});
-
-	it("generates an app-domain-only sitemap", async () => {
+describe("localized sitemap", () => {
+	it("gives every localized public page its own entry with reciprocal alternates", async () => {
 		const response = handleSitemap();
-		const text = await response.text();
+		const xml = await response.text();
+		const entries = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => ({
+			loc: match[1]?.match(/<loc>(.*?)<\/loc>/)?.[1],
+			alternates: [...(match[1] ?? "").matchAll(/hreflang="([^"]+)" href="([^"]+)"/g)].map((link) => ({
+				language: link[1],
+				href: link[2],
+			})),
+		}));
+		const locations = entries.map((entry) => entry.loc);
 
-		expect(response.status).toBe(200);
 		expect(response.headers.get("Content-Type")).toBe("application/xml; charset=UTF-8");
-		expect(text).toContain("<loc>https://app.example.com/</loc>");
-		expect(text).not.toContain("docs.rxresu.me");
-		expect(text).not.toContain("/auth");
-		expect(text).not.toContain("/dashboard");
-		expect(text).not.toContain("/builder");
-		expect(text).not.toContain("/templates");
-		expect(text).not.toContain("/schema.json");
+		expect(entries).toHaveLength(162); // Three public pages, 54 real locales; x-default shares English's URL.
+		expect(new Set(locations).size).toBe(entries.length);
+		for (const path of ["/", "/ats-checker", "/resume-templates"]) {
+			const base = `https://rxresu.me${path}`;
+			expect(locations).toContain(base);
+			expect(locations).toContain(`${base}?locale=de-DE`);
+			expect(locations).toContain(`${base}?locale=ar-SA`);
+			expect(locations).toContain(`${base}?locale=en-GB`);
+			const group = entries.filter((entry) => entry.loc?.split("?")[0] === base);
+			expect(group).toHaveLength(54);
+			for (const entry of group) {
+				expect(entry.alternates).toHaveLength(55);
+				expect(entry.alternates).toEqual(group[0]?.alternates);
+				expect(entry.alternates).toContainEqual({ language: "x-default", href: base });
+				expect(entry.alternates).toContainEqual({ language: "sr", href: `${base}?locale=sr-SP` });
+				for (const alternate of entry.alternates) expect(locations).toContain(alternate.href);
+			}
+		}
+		expect(xml).not.toContain("zu-ZA");
+		expect(xml).not.toContain("/dashboard");
 	});
 
-	it("generates a lightweight llms.txt product index", async () => {
-		const response = handleLlms();
-		const text = await response.text();
-
-		expect(response.status).toBe(200);
-		expect(response.headers.get("Content-Type")).toBe("text/plain; charset=UTF-8");
-		expect(text).toContain("# Reactive Resume");
-		expect(text).toContain("- Product: https://app.example.com");
-		expect(text).toContain("- Documentation: https://docs.rxresu.me");
-		expect(text).toContain("- Documentation sitemap: https://docs.rxresu.me/sitemap.xml");
-		expect(text).toContain("- Documentation llms.txt: https://docs.rxresu.me/llms.txt");
-		expect(text).toContain("- API documentation: https://docs.rxresu.me/api-reference");
-		expect(text).toContain("- Resume schema: https://app.example.com/schema.json");
-		expect(text).toContain("- MCP documentation: https://docs.rxresu.me/guides/using-the-mcp-server");
-		expect(text).toContain("- OpenAPI specification: https://app.example.com/api/openapi/spec.json");
-	});
-
-	it("returns headers without a body for HEAD responses", async () => {
-		const response = handleLlms({ head: true });
-
-		expect(response.status).toBe(200);
-		expect(response.headers.get("Content-Type")).toBe("text/plain; charset=UTF-8");
-		expect(await response.text()).toBe("");
+	it("serves HEAD without a body", async () => {
+		expect(await handleSitemap({ head: true }).text()).toBe("");
 	});
 });

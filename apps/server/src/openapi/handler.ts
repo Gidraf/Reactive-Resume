@@ -1,28 +1,17 @@
 import { SmartCoercionPlugin } from "@orpc/json-schema";
-import { OpenAPIGenerator } from "@orpc/openapi";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
-import { onError } from "@orpc/server";
-import { BatchHandlerPlugin, RequestHeadersPlugin, StrictGetMethodPlugin } from "@orpc/server/plugins";
+import { onError, ORPCError } from "@orpc/server";
+import { RequestHeadersPlugin, StrictGetMethodPlugin } from "@orpc/server/plugins";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
-import { downloadResumePdfProcedure } from "@reactive-resume/api/features/resume/export";
-import router from "@reactive-resume/api/routers";
 import { env } from "@reactive-resume/env/server";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
 import { appVersion } from "../app-version";
 import { mergeResponseHeaders } from "../http/headers";
 import { getRequestLocale } from "../rpc/locale";
-
-const openAPIRouter = {
-	...router,
-	resume: {
-		...router.resume,
-		downloadPdf: downloadResumePdfProcedure,
-	},
-};
+import { generateOpenApiSpec, openAPIRouter } from "./generator";
 
 const openAPIHandler = new OpenAPIHandler(openAPIRouter, {
+	filter: ({ contract }) => !contract["~orpc"].route.tags?.includes("Internal"),
 	plugins: [
-		new BatchHandlerPlugin(),
 		new RequestHeadersPlugin(),
 		new StrictGetMethodPlugin(),
 		new SmartCoercionPlugin({
@@ -31,53 +20,38 @@ const openAPIHandler = new OpenAPIHandler(openAPIRouter, {
 	],
 	interceptors: [
 		onError((error) => {
+			// Signed-out or expired callers are routine; their 401 still reaches the client.
+			if (error instanceof ORPCError && error.code === "UNAUTHORIZED") return;
 			console.error("[OpenAPI]", error);
 		}),
 	],
 });
 
-const openAPIGenerator = new OpenAPIGenerator({
-	schemaConverters: [new ZodToJsonSchemaConverter()],
-});
+/** The OpenAPI document at its well-known root address, `/openapi.json`, for API discovery tools. */
+export async function handleOpenApiDocument() {
+	return Response.json(await generateOpenApiSpec({ appUrl: env.APP_URL, version: appVersion }), {
+		headers: { "Cache-Control": "public, max-age=3600" },
+	});
+}
 
-export async function handleOpenApi(request: Request) {
-	if (request.method === "GET" && (request.url.endsWith("/spec.json") || request.url.endsWith("/spec"))) {
-		const spec = await openAPIGenerator.generate(openAPIRouter, {
-			info: {
-				title: "Reactive Resume",
-				version: appVersion,
-				description: "Reactive Resume API",
-				license: { name: "MIT", url: "https://github.com/amruthpillai/reactive-resume/blob/main/LICENSE" },
-				contact: { name: "Amruth Pillai", email: "hello@amruthpillai.com", url: "https://amruthpillai.com" },
-			},
-			servers: [{ url: `${env.APP_URL}/api/openapi` }],
-			externalDocs: { url: "https://docs.rxresu.me", description: "Reactive Resume Documentation" },
-			commonSchemas: {
-				ResumeData: { schema: resumeDataSchema },
-			},
-			components: {
-				securitySchemes: {
-					apiKey: {
-						type: "apiKey",
-						name: "x-api-key",
-						in: "header",
-						description: "The API key to authenticate requests.",
-					},
-				},
-			},
-			security: [{ apiKey: [] }],
-			filter: ({ contract }) => !contract["~orpc"].route.tags?.includes("Internal"),
-		});
-
-		return Response.json(spec);
+export async function handleOpenApi(request: Request, trustedClient: string) {
+	const pathname = new URL(request.url).pathname;
+	if (request.method === "GET" && ["/api/openapi/spec.json", "/api/openapi/spec"].includes(pathname)) {
+		return Response.json(await generateOpenApiSpec({ appUrl: env.APP_URL, version: appVersion }));
 	}
 
 	const resHeaders = new Headers();
 	const { response } = await openAPIHandler.handle(request, {
 		prefix: "/api/openapi",
-		context: { locale: getRequestLocale(request), reqHeaders: request.headers, resHeaders },
+		context: { locale: getRequestLocale(request), reqHeaders: request.headers, resHeaders, trustedClient },
 	});
 
-	if (!response) return new Response("NOT_FOUND", { status: 404 });
+	resHeaders.set("Cache-Control", "no-store");
+	resHeaders.set("X-Content-Type-Options", "nosniff");
+	if (!response)
+		return Response.json(
+			{ defined: false, code: "NOT_FOUND", status: 404, message: "Not found" },
+			{ status: 404, headers: resHeaders },
+		);
 	return mergeResponseHeaders(response, resHeaders);
 }

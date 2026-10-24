@@ -4,22 +4,22 @@
 	"type": "module",
 	"private": true,
 	"exports": {
-		".": "./src/index.ts",
-		"./webfontlist.json": "./src/webfontlist.json"
+		".": "./src/index.ts"
 	},
 	"scripts": {
-		"typecheck": "tsgo --noEmit",
-		"test": "vitest run --passWithNoTests",
-		"test:coverage": "vitest run --coverage --passWithNoTests",
-		"test:ci": "vitest run --coverage --reporter=default --reporter=github-actions --reporter=json --reporter=junit --outputFile.json=reports/vitest-results.json --outputFile.junit=reports/vitest-junit.xml --passWithNoTests",
-		"test:agent": "vitest run --reporter=agent --reporter=json --outputFile.json=reports/vitest-results.json --passWithNoTests"
+		"typecheck": "tsrs --noEmit",
+		"test": "vp test run --passWithNoTests",
+		"test:coverage": "vp test run --coverage --passWithNoTests",
+		"test:ci": "vp test run --reporter=default --reporter=github-actions --reporter=json --reporter=junit --outputFile.json=reports/vitest-results.json --outputFile.junit=reports/vitest-junit.xml --passWithNoTests",
+		"test:agent": "vp test run --reporter=agent --reporter=json --outputFile.json=reports/vitest-results.json --passWithNoTests"
 	},
 	"dependencies": {
 		"@reactive-resume/utils": "workspace:*"
 	},
 	"devDependencies": {
 		"@reactive-resume/config": "workspace:*",
-		"@typescript/native-preview": "7.0.0-dev.20260617.2",
-		"typescript": "^6.0.3"
+		"tsrs": "catalog:",
+		"typescript": "catalog:",
+		"vite-plus": "catalog:"
 	}
 }

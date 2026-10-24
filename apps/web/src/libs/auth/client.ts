@@ -6,35 +6,37 @@ import { oauthProviderResourceClient } from "@better-auth/oauth-provider/resourc
 import { passkeyClient } from "@better-auth/passkey/client";
 import {
 	adminClient,
-	genericOAuthClient,
+	anonymousClient,
 	inferAdditionalFields,
 	twoFactorClient,
 	usernameClient,
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
+import { authSearchSchema } from "@/features/auth/redirect";
 
-const getAuthClient = () => {
-	return createAuthClient({
-		plugins: [
-			dashClient(),
-			adminClient(),
-			apiKeyClient(),
-			passkeyClient(),
-			usernameClient(),
-			twoFactorClient({
-				onTwoFactorRedirect() {
-					// Redirect to 2FA verification page
-					if (typeof window !== "undefined") {
-						window.location.href = "/auth/verify-2fa";
-					}
-				},
-			}),
-			genericOAuthClient(),
-			oauthProviderClient(),
-			oauthProviderResourceClient(),
-			inferAdditionalFields<typeof auth>(),
-		],
-	});
-};
-
-export const authClient = getAuthClient();
+export const authClient = createAuthClient({
+	plugins: [
+		dashClient(),
+		adminClient(),
+		apiKeyClient(),
+		passkeyClient(),
+		usernameClient(),
+		anonymousClient(),
+		twoFactorClient({
+			onTwoFactorRedirect() {
+				// Redirect to 2FA verification page
+				const { callbackURL, reauthenticate } = authSearchSchema.parse({
+					reauthenticate: new URLSearchParams(window.location.search).get("reauthenticate") === "true",
+					callbackURL: new URLSearchParams(window.location.search).get("callbackURL"),
+				});
+				const search = callbackURL
+					? `?${new URLSearchParams({ callbackURL, ...(reauthenticate ? { reauthenticate: "true" } : {}) })}`
+					: "";
+				window.location.href = `/auth/verify-2fa${search}`;
+			},
+		}),
+		oauthProviderClient(),
+		oauthProviderResourceClient(),
+		inferAdditionalFields<typeof auth>(),
+	],
+});
