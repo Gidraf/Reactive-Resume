@@ -45,7 +45,6 @@
 		"test:ci": "turbo run test:ci --concurrency=1",
 		"test:e2e": "playwright test",
 		"test:e2e:ui": "playwright test --ui",
-		"test:agent": "turbo run test:agent --concurrency=1",
 		"pdf:translations": "pnpm --filter @reactive-resume/tooling pdf:translations",
 		"lint": "vp lint --deny-warnings",
 		"lint:fix": "vp lint --fix",
