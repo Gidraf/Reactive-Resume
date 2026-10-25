@@ -1621,7 +1621,7 @@ msgstr "Semua dokumen dan lamaran pekerjaan sebagai JSON, dalam satu zip"
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "Semua dokumen, lamaran pekerjaan, kunci API, dan tautan publik Anda akan dihapus secara permanen. Hal ini tidak dapat dibatalkan."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

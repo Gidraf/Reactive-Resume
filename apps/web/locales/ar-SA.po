@@ -1621,7 +1621,7 @@ msgstr "جميع المستندات وطلبات العمل بصيغة JSON، ف
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "ستُحذف جميع مستنداتك وطلبات العمل ومفاتيح API والروابط العامة الخاصة بك نهائيًا. لا يمكن التراجع عن هذا."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

@@ -1621,7 +1621,7 @@ msgstr "Сви документи и пријаве за посао као JSON,
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "Сви ваши документи, пријаве за посао, API кључеви и јавне везе биће трајно избрисани. Ова радња се не може опозвати."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

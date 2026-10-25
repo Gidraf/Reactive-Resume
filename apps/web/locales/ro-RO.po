@@ -1621,7 +1621,7 @@ msgstr "Toate documentele și cererile de angajare ca JSON, într-un singur zip"
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "Toate documentele, candidaturile, cheile API și linkurile publice ale dvs. vor fi șterse definitiv. Această acțiune nu poate fi anulată."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

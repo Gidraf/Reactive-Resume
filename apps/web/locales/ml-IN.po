@@ -1621,7 +1621,7 @@ msgstr "JSON ആയി എല്ലാ രേഖകളും ജോലി അപ
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "നിങ്ങളുടെ എല്ലാ പ്രമാണങ്ങളും ജോലി അപേക്ഷകളും API കീകളും പൊതു ലിങ്കുകളും ശാശ്വതമായി ഇല്ലാതാക്കപ്പെടും. ഇത് പഴയപടിയാക്കാനാകില്ല."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

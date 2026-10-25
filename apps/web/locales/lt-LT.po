@@ -1621,7 +1621,7 @@ msgstr "Visi dokumentai ir darbo paraiškos kaip JSON, viename užtrauktuku"
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "Visi jūsų dokumentai, darbo paraiškos, API raktai ir viešos nuorodos bus ištrinti visam laikui. To negalima anuliuoti."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

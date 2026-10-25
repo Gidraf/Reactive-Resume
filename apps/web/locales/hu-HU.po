@@ -1621,7 +1621,7 @@ msgstr "Minden dokumentum és munkapályázat JSON formátumban, egy zip-ben"
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "Az összes dokumentuma, állásjelentkezése, API-kulcsa és nyilvános linkje véglegesen törlődik. Ezt nem lehet visszavonni."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

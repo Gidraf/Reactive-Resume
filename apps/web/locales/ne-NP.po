@@ -1621,7 +1621,7 @@ msgstr "JSON को रूपमा सबै कागजातहरू र �
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "तपाईंका सबै कागजातहरू, जागिरका आवेदनहरू, API कुञ्जीहरू र सार्वजनिक लिङ्कहरू स्थायी रूपमा मेटिनेछन्। यसलाई पूर्ववत गर्न सकिँदैन।"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

@@ -1621,7 +1621,7 @@ msgstr "JSON म्हणून सर्व कागदपत्रे आण�
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "तुमची सर्व कागदपत्रे, नोकरीचे अर्ज, API की आणि सार्वजनिक दुवे कायमचे हटवले जातील. हे पूर्ववत केले जाऊ शकत नाही."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

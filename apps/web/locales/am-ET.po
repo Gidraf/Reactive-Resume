@@ -1621,7 +1621,7 @@ msgstr "ሁሉም ሰነዶች እና የስራ ማመልከቻዎች እንደ 
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "ሁሉም ሰነዶችህ፣ የሥራ ማመልከቻዎችህ፣ የAPI ቁልፎችህ እና ይፋዊ አገናኞችህ እስከመጨረሻው ይሰረዛሉ። ይህ ሊቀለበስ አይችልም።"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

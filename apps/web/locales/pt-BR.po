@@ -1621,7 +1621,7 @@ msgstr "Todos os documentos e formulários de emprego como JSON, em um único zi
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "Todos os seus documentos, candidaturas, chaves API e links públicos serão excluídos permanentemente. Isso não pode ser desfeito."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

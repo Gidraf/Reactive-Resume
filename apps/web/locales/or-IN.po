@@ -1621,7 +1621,7 @@ msgstr "ସମସ୍ତ ଡକ୍ୟୁମେଣ୍ଟ ଓ ଚାକିରି �
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "ଆପଣଙ୍କର ସମସ୍ତ ଡକ୍ୟୁମେଣ୍ଟ, ଚାକିରି ଆବେଦନ, API କି ଏବଂ ସାର୍ବଜନୀନ ଲିଙ୍କ୍ ସବୁଦିନ ପାଇଁ ବିଲୋପ ହୋଇଯିବ। ଏହାକୁ ପୂର୍ବବତ୍ କରାଯାଇପାରିବ ନାହିଁ।"
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"

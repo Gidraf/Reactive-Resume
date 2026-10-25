@@ -1621,7 +1621,7 @@ msgstr "JSON 형식의 모든 문서 및 입사 지원서는 하나의 zip으로
 
 #: src/features/settings/account/data.tsx
 msgid "All your documents, applications, API keys and public links are deleted for good. This can't be undone."
-msgstr ""
+msgstr "모든 서류, 입사 지원 내역, API 키 및 공개 링크가 영구적으로 삭제됩니다. 이 작업은 취소할 수 없습니다."
 
 #: src/features/auth/pages/consent.tsx
 msgid "Allow access"
