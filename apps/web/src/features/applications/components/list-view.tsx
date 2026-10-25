@@ -260,11 +260,7 @@ const ApplicationRow = memo(function ApplicationRow({
 	);
 
 	const openButton = (
-		<button
-			type="button"
-			onClick={() => onOpen(application)}
-			className="grid min-w-0 text-start after:absolute after:inset-0"
-		>
+		<button type="button" className="grid min-w-0 cursor-pointer text-start">
 			<span className="truncate font-medium">{application.role}</span>
 			<span className="truncate text-xs text-ink-3">
 				{phone
@@ -276,7 +272,10 @@ const ApplicationRow = memo(function ApplicationRow({
 
 	if (phone) {
 		return (
-			<tr className={cn("relative border-b border-line", selected && "bg-accent-soft/50")}>
+			<tr
+				onClick={() => onOpen(application)}
+				className={cn("cursor-pointer border-b border-line", selected && "bg-accent-soft/50")}
+			>
 				<td className="py-2.5 ps-1">
 					<div className="flex items-center gap-3">
 						{initial}
@@ -290,12 +289,13 @@ const ApplicationRow = memo(function ApplicationRow({
 
 	return (
 		<tr
+			onClick={() => onOpen(application)}
 			className={cn(
-				"relative border-b border-line transition-colors duration-quick hover:bg-hover",
+				"cursor-pointer border-b border-line transition-colors duration-quick hover:bg-hover",
 				selected && "bg-accent-soft/50",
 			)}
 		>
-			<td className="relative z-10 w-10 ps-3">
+			<td onClick={(event) => event.stopPropagation()} className="w-10 cursor-default ps-3">
 				<Checkbox
 					checked={checked}
 					onCheckedChange={() => onCheck(application.id)}
