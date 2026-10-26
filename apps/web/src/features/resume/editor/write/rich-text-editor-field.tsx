@@ -27,7 +27,7 @@ import { useKeyboardInset } from "@reactive-resume/ui/hooks/use-keyboard-inset";
 import { cn } from "@reactive-resume/utils/style";
 import { ImprovePanel, lineAtCaret } from "./improve";
 import { richTextExtensions } from "@/components/input/rich-text-extensions";
-import { hasUnsupportedTableMarkup } from "@/components/input/rich-text-markup";
+import { hasUnsupportedRichMarkup, hasUnsupportedTableMarkup } from "@/components/input/rich-text-markup";
 import { openAssistantFrom } from "@/features/assistant/open";
 import { AiProviderLoadState } from "@/features/settings/integrations/ai-provider-load-state";
 import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";
@@ -206,11 +206,14 @@ export function RichTextEditor({
 	const mobile = useBreakpoint() === "mobile";
 	const keyboardInset = useKeyboardInset();
 	const readOnlyTable = useMemo(() => hasUnsupportedTableMarkup(value), [value]);
+	// Rich content (charts, chips, icons) written as HTML: kept as is, edited through the assistant or the API.
+	const readOnlyRich = useMemo(() => !readOnlyTable && hasUnsupportedRichMarkup(value), [readOnlyTable, value]);
+	const readOnly = readOnlyTable || readOnlyRich;
 
 	const editor = useEditor({
 		extensions: richTextExtensions,
 		content: value,
-		editable: !disabled && !readOnlyTable,
+		editable: !disabled && !readOnly,
 		immediatelyRender: false,
 		shouldRerenderOnTransaction: false,
 		editorProps: {
@@ -251,8 +254,8 @@ export function RichTextEditor({
 	}, [editor, value]);
 
 	useEffect(() => {
-		editor?.setEditable(!disabled && !readOnlyTable, false);
-	}, [editor, disabled, readOnlyTable]);
+		editor?.setEditable(!disabled && !readOnly, false);
+	}, [editor, disabled, readOnly]);
 
 	// The preview took a click or focus while the editor loaded: put the caret there, after the editor's first paint.
 	useEffect(() => {
@@ -344,7 +347,7 @@ export function RichTextEditor({
 		>
 			{/* On phones the toolbar docks above the keyboard, with Done to put the keyboard away. */}
 			{editing &&
-				!readOnlyTable &&
+				!readOnly &&
 				mobile &&
 				createPortal(
 					<div
@@ -379,11 +382,20 @@ export function RichTextEditor({
 				</p>
 			)}
 
+			{readOnlyRich && (
+				<p role="status" className="border-b border-line px-3 py-2 text-xs text-ink-2">
+					<Trans>
+						This content has charts or styled layout the editor can't keep, so it's read-only here. The page shows it as
+						it prints.
+					</Trans>
+				</p>
+			)}
+
 			<EditorContent editor={editor} />
 			{editing && <AiProviderLoadState state={ai} />}
 
 			{/* Under the text, so focusing the field never moves the line you clicked. */}
-			{editing && !readOnlyTable && !mobile && (
+			{editing && !readOnly && !mobile && (
 				<div
 					ref={toolbar}
 					role="toolbar"

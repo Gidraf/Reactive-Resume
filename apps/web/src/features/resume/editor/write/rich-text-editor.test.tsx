@@ -49,3 +49,25 @@ it.each([false, true])(
 		expect(screen.queryByRole("toolbar")).toBeNull();
 	},
 );
+
+it("shows rich content read-only and never rewrites it", async () => {
+	mocks.mobile = false;
+	i18n.load("en", {});
+	i18n.activate("en");
+	const onChange = vi.fn();
+	const value =
+		'<div style="display: flex; flex-direction: row; gap: 6pt"><div style="background-color: #ccfbf1; padding: 3pt 8pt">+38% sales</div></div><svg width="140" height="6" viewBox="0 0 140 6"><rect width="126" height="6" fill="#0d9488"/></svg>';
+	render(
+		<I18nProvider i18n={i18n}>
+			<RichTextEditor label="Summary" value={value} onChange={onChange} />
+		</I18nProvider>,
+	);
+	const editor = await screen.findByRole("textbox", { name: "Summary" });
+	expect(editor.getAttribute("contenteditable")).toBe("false");
+	expect(screen.getByRole("status").textContent).toContain("read-only");
+	await act(async () => {
+		editor.focus();
+	});
+	await userEvent.keyboard("typing");
+	expect(onChange).not.toHaveBeenCalled();
+});

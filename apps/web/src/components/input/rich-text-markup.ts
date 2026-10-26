@@ -428,3 +428,44 @@ export const toPreviewHtml = (html: string) => {
 	for (const child of Array.from(body.children)) clean(child);
 	return body.innerHTML;
 };
+
+// Every tag the editor's schema keeps. Anything else in stored HTML (a `<div>` chip, an `<svg>` skill bar, an `<img>`
+// icon from the rich-content guide) would be dropped the first time the editor re-serialized it.
+const editorTags = new Set([
+	...textBlockTags,
+	...inlineTags,
+	"blockquote",
+	"ul",
+	"ol",
+	"li",
+	"hr",
+	"pre",
+	"table",
+	"thead",
+	"tbody",
+	"tr",
+	"td",
+	"th",
+	"colgroup",
+	"col",
+]);
+// Inline styles the editor keeps on spans and marks: colour from TextStyle, a highlight's background.
+const editorSpanStyles = new Set(["color", "background-color"]);
+
+/**
+ * Whether the HTML holds markup the editor can't keep: tags outside its schema (rich content such as `<div>`,
+ * `<svg>` or `<img>`) or span styles beyond colour. The editor shows such content read-only so opening it never
+ * rewrites what the PDF draws.
+ */
+export const hasUnsupportedRichMarkup = (html: string) => {
+	if (!/<[a-z]/i.test(html)) return false;
+	const body = new DOMParser().parseFromString(html, "text/html").body;
+	for (const element of body.querySelectorAll("*")) {
+		const tag = element.tagName.toLowerCase();
+		if (!editorTags.has(tag)) return true;
+		if (tag !== "span" && tag !== "mark") continue;
+		const declarations = readStyleDeclarations(element);
+		if (declarations === null || declarations.some(({ property }) => !editorSpanStyles.has(property))) return true;
+	}
+	return false;
+};

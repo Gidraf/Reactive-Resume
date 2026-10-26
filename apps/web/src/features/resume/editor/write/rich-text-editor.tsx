@@ -2,7 +2,11 @@ import type { FocusRequest, RichTextEditorProps } from "./rich-text-editor-field
 import { Trans } from "@lingui/react/macro";
 import { lazy, Suspense, useMemo, useState } from "react";
 import { cn } from "@reactive-resume/utils/style";
-import { hasUnsupportedTableMarkup, toPreviewHtml } from "@/components/input/rich-text-markup";
+import {
+	hasUnsupportedRichMarkup,
+	hasUnsupportedTableMarkup,
+	toPreviewHtml,
+} from "@/components/input/rich-text-markup";
 
 // Tiptap and ProseMirror are most of the builder's script. The editor loads when a field first renders (or earlier,
 // see preloadRichTextEditor), and the field shows its text read-only until then, so the first render doesn't wait.
@@ -39,7 +43,8 @@ function RichTextPreview({
 }: RichTextPreviewProps) {
 	const html = useMemo(() => toPreviewHtml(value), [value]);
 	const readOnlyTable = useMemo(() => hasUnsupportedTableMarkup(value), [value]);
-	const editable = !disabled && !readOnlyTable;
+	const readOnlyRich = useMemo(() => !readOnlyTable && hasUnsupportedRichMarkup(value), [readOnlyTable, value]);
+	const editable = !disabled && !readOnlyTable && !readOnlyRich;
 
 	return (
 		<div className={cn("rounded-lg border border-line-2 bg-raised", disabled && "bg-sunken", className)}>
@@ -47,6 +52,14 @@ function RichTextPreview({
 				<p role="status" className="border-b border-line px-3 py-2 text-xs text-ink-2">
 					<Trans>
 						Original table formatting is preserved. This content is read-only because it cannot be edited safely.
+					</Trans>
+				</p>
+			)}
+			{readOnlyRich && (
+				<p role="status" className="border-b border-line px-3 py-2 text-xs text-ink-2">
+					<Trans>
+						This content has charts or styled layout the editor can't keep, so it's read-only here. The page shows it as
+						it prints.
 					</Trans>
 				</p>
 			)}
