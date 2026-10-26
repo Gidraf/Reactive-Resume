@@ -79,6 +79,8 @@ export const crudRouter = {
 				userId: context.user.id,
 				data: createResumeData({
 					withSampleData: input.withSampleData,
+					sampleLength: input.sampleLength,
+					sampleName: input.name,
 					name: context.user.name,
 					locale: context.locale,
 				}),

@@ -29,7 +29,12 @@ import { handleUpload } from "../static/uploads";
 import { handleWebApp, serveWebDistStatic } from "../static/web";
 import { handleAppleAppSiteAssociation, handleAndroidAssetLinks } from "./app-links";
 import { handleAuth, handleOAuth } from "./auth";
+import { handleBillingRoutes } from "./billing";
+import { handleBotLinkRoutes } from "./bot-link";
 import { handleCareerJobs } from "./career-jobs";
+import { handleCvOrderRoutes } from "./cv-orders";
+import { handleCvpapProxy } from "./cvpap-proxy";
+import { handleCvpapSso, handleCvpapSsoLogout } from "./cvpap-sso";
 import { handleHealth } from "./health";
 import { handlePublicResumePdf } from "./public-resume-pdf";
 import { handleResumePdfDownload } from "./resume-pdf";
@@ -107,9 +112,36 @@ export function createApp(options: AppOptions = {}) {
 	app.all("/api/openapi", (c) => handleOpenApi(c.req.raw, client(c)));
 	app.all("/api/openapi/*", (c) => handleOpenApi(c.req.raw, client(c)));
 	app.get("/api/auth/oauth", (c) => handleOAuth(c.req.raw));
+	// Inject username (required by username plugin) if the client didn't send one
+	app.post("/api/auth/sign-up/email", async (c) => {
+		let body: Record<string, unknown> = {};
+		try {
+			body = (await c.req.json()) as Record<string, unknown>;
+		} catch {
+			// malformed body — let Better-Auth handle the error
+		}
+		if (!body.username && typeof body.email === "string") {
+			body.username = body.email.split("@")[0];
+		}
+		const modifiedReq = new Request(c.req.raw.url, {
+			method: "POST",
+			headers: c.req.raw.headers,
+			body: JSON.stringify(body),
+		});
+		return handleAuth(modifiedReq, client(c));
+	});
 	app.all("/api/auth/*", (c) => handleAuth(c.req.raw, client(c)));
 	app.get("/api/health", () => handleHealth());
 	app.on(["GET", "POST"], "/api/career/run", (c) => handleCareerJobs(c.req.raw));
+	// CVPAP is the single login channel; these establish/clear the RR session from it.
+	app.get("/api/sso/cvpap", (c) => handleCvpapSso(c.req.raw));
+	app.get("/api/sso/logout", (c) => handleCvpapSsoLogout(c.req.raw));
+	app.all("/api/v1/*", (c) => handleCvpapProxy(c.req.raw));
+	app.all("/api/billing/*", (c) => handleBillingRoutes(c.req.raw));
+	app.all("/api/cv-orders", (c) => handleCvOrderRoutes(c.req.raw));
+	app.all("/api/cv-orders/*", (c) => handleCvOrderRoutes(c.req.raw));
+	app.post("/api/bot/generate-link", (c) => handleBotLinkRoutes(c.req.raw));
+	app.get("/api/bot/login", (c) => handleBotLinkRoutes(c.req.raw));
 	app.get("/api/resumes/:username/:slug/pdf", (c) =>
 		handlePublicResumePdf(c.req.raw, c.req.param("username"), c.req.param("slug"), client(c)),
 	);

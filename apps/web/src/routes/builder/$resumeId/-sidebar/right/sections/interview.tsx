@@ -1,0 +1,148 @@
+import { ChatCircleTextIcon, CircleNotchIcon, WarningCircleIcon } from "@phosphor-icons/react";
+import { useCallback, useEffect, useState } from "react";
+import { Button } from "@reactive-resume/ui/components/button";
+import { Route } from "../../../route";
+import { SectionBase as RightSectionBase } from "../shared/section-base";
+
+/**
+ * The CVPAP session token, set as a readable cookie by the cards app on this
+ * same domain. Not httpOnly by design — the CVPAP dashboard takes the same
+ * approach — so the browser can present it as a bearer token.
+ */
+function readCvpapToken(): string | null {
+	if (typeof document === "undefined") return null;
+	const match = document.cookie.match(/(?:^|; )cvpap_token=([^;]*)/);
+	return match?.[1] ? decodeURIComponent(match[1]) : null;
+}
+
+type InterviewQuestion = {
+	question: string;
+	category: string;
+	difficulty?: string;
+};
+
+type InterviewQuestionsResponse = {
+	questions: InterviewQuestion[];
+	generated_at?: string;
+};
+
+function groupByCategory(questions: InterviewQuestion[]): Record<string, InterviewQuestion[]> {
+	return questions.reduce<Record<string, InterviewQuestion[]>>((acc, q) => {
+		const cat = q.category ?? "General";
+		if (!acc[cat]) acc[cat] = [];
+		acc[cat].push(q);
+		return acc;
+	}, {});
+}
+
+export function InterviewSectionBuilder() {
+	const { resumeId } = Route.useParams();
+	const [questions, setQuestions] = useState<InterviewQuestion[]>([]);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	const [fetched, setFetched] = useState(false);
+
+	const fetchQuestions = useCallback(
+		async (refresh = false) => {
+			setLoading(true);
+			setError(null);
+			try {
+				// Same-origin, so this goes through the server's CVPAP proxy rather
+				// than cross-origin to the API host. The CVPAP token is a readable
+				// cookie (set by the cards app on this domain) and CVPAP reads JWTs
+				// from the Authorization header only, so pass it explicitly.
+				const token = readCvpapToken();
+				const res = await fetch(`/api/v1/resumes/${resumeId}/interview-questions${refresh ? "?refresh=1" : ""}`, {
+					credentials: "include",
+					headers: token ? { Authorization: `Bearer ${token}` } : {},
+				});
+				if (res.status === 401) throw new Error("Please sign in again");
+				if (!res.ok) {
+					const detail = (await res.json().catch(() => null)) as { error?: string } | null;
+					throw new Error(detail?.error ?? `Server ${res.status}`);
+				}
+				const data = (await res.json()) as InterviewQuestionsResponse;
+				setQuestions(data.questions ?? []);
+				setFetched(true);
+			} catch (e) {
+				setError(e instanceof Error ? e.message : "Failed to load questions");
+			} finally {
+				setLoading(false);
+			}
+		},
+		[resumeId],
+	);
+
+	useEffect(() => {
+		// oxlint-disable-next-line react/set-state-in-effect -- loads from the CVPAP API on mount; the loading flag is part of that fetch.
+		void fetchQuestions();
+	}, [fetchQuestions]);
+
+	const grouped = groupByCategory(questions);
+
+	return (
+		<RightSectionBase type="interview">
+			<div className="space-y-3">
+				<div className="flex items-center justify-between">
+					<p className="text-muted-foreground text-xs">
+						{questions.length > 0
+							? `${questions.length} questions generated for this CV`
+							: fetched
+								? "No questions yet — generate after your CV is revamped."
+								: "Load interview questions for this CV."}
+					</p>
+					<Button
+						size="sm"
+						variant="secondary"
+						className="h-6 gap-1 px-2 text-xs"
+						disabled={loading}
+						onClick={() => void fetchQuestions(true)}
+					>
+						{loading ? <CircleNotchIcon className="size-3 animate-spin" /> : <ChatCircleTextIcon className="size-3" />}
+						{loading ? "Loading…" : "Refresh"}
+					</Button>
+				</div>
+
+				{error && (
+					<div className="text-destructive flex items-center gap-1.5 text-xs">
+						<WarningCircleIcon className="size-3.5 shrink-0" />
+						{error}
+					</div>
+				)}
+
+				{questions.length > 0 && (
+					<div className="max-h-[400px] overflow-y-auto">
+						<div className="space-y-4 pr-1">
+							{Object.entries(grouped).map(([category, qs]) => (
+								<div key={category} className="space-y-1.5">
+									<h3 className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">{category}</h3>
+									<ol className="list-none space-y-2">
+										{qs.map((q, i) => (
+											<li key={i} className="bg-card rounded-md border p-2.5 text-sm leading-snug">
+												<span className="text-muted-foreground mr-1.5 text-xs font-medium">{i + 1}.</span>
+												{q.question}
+												{q.difficulty && (
+													<span
+														className={`ml-2 rounded-full px-1.5 py-0.5 text-xs font-medium ${
+															q.difficulty === "hard"
+																? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"
+																: q.difficulty === "medium"
+																	? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300"
+																	: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
+														}`}
+													>
+														{q.difficulty}
+													</span>
+												)}
+											</li>
+										))}
+									</ol>
+								</div>
+							))}
+						</div>
+					</div>
+				)}
+			</div>
+		</RightSectionBase>
+	);
+}

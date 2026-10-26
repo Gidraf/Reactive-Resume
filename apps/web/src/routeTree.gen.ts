@@ -53,11 +53,13 @@ import { Route as DashboardSettingsIntegrationsRouteRouteImport } from "./routes
 import { Route as DashboardSettingsJobSearchRouteImport } from "./routes/dashboard/settings/job-search";
 import { Route as DashboardSettingsPreferencesRouteImport } from "./routes/dashboard/settings/preferences";
 import { Route as DashboardSettingsProfileRouteImport } from "./routes/dashboard/settings/profile";
+import { Route as RevampTokenIndexRouteImport } from "./routes/revamp/$token/index";
 import { Route as DashboardApplicationsApplicationIdChar123TabChar125RouteImport } from "./routes/dashboard/applications/$applicationId.{-$tab}";
 import { Route as DashboardCareerCoachChar123ConversationIdChar125RouteImport } from "./routes/dashboard/career/coach.{-$conversationId}";
 import { Route as DashboardCareerKnowledgeFactsRouteImport } from "./routes/dashboard/career/knowledge/facts";
 import { Route as DashboardCareerKnowledgePreferencesRouteImport } from "./routes/dashboard/career/knowledge/preferences";
 import { Route as DashboardSettingsAuthenticationIndexRouteImport } from "./routes/dashboard/settings/authentication/index";
+import { Route as RevampLoginTokenIndexRouteImport } from "./routes/revamp/login/$token/index";
 import { Route as DashboardCareerKnowledgeStoriesChar123StoryIdChar125RouteImport } from "./routes/dashboard/career/knowledge/stories.{-$storyId}";
 
 const HomeRouteRoute = HomeRouteRouteImport.update({
@@ -288,6 +290,11 @@ const DashboardSettingsProfileRoute =
     path: "/profile",
     getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
+const RevampTokenIndexRoute = RevampTokenIndexRouteImport.update({
+  id: "/revamp/$token/",
+  path: "/revamp/$token/",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardApplicationsApplicationIdChar123TabChar125Route =
   DashboardApplicationsApplicationIdChar123TabChar125RouteImport.update({
     id: "/applications/$applicationId/{-$tab}",
@@ -318,6 +325,11 @@ const DashboardSettingsAuthenticationIndexRoute =
     path: "/authentication/",
     getParentRoute: () => DashboardSettingsRouteRoute,
   } as any);
+const RevampLoginTokenIndexRoute = RevampLoginTokenIndexRouteImport.update({
+  id: "/revamp/login/$token/",
+  path: "/revamp/login/$token/",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardCareerKnowledgeStoriesChar123StoryIdChar125Route =
   DashboardCareerKnowledgeStoriesChar123StoryIdChar125RouteImport.update({
     id: "/stories/{-$storyId}",
@@ -369,11 +381,13 @@ export interface FileRoutesByFullPath {
   "/dashboard/career/": typeof DashboardCareerIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/dashboard/settings/": typeof DashboardSettingsIndexRoute;
+  "/revamp/$token/": typeof RevampTokenIndexRoute;
   "/dashboard/applications/$applicationId/{-$tab}": typeof DashboardApplicationsApplicationIdChar123TabChar125Route;
   "/dashboard/career/coach/{-$conversationId}": typeof DashboardCareerCoachChar123ConversationIdChar125Route;
   "/dashboard/career/knowledge/facts": typeof DashboardCareerKnowledgeFactsRoute;
   "/dashboard/career/knowledge/preferences": typeof DashboardCareerKnowledgePreferencesRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/revamp/login/$token/": typeof RevampLoginTokenIndexRoute;
   "/dashboard/career/knowledge/stories/{-$storyId}": typeof DashboardCareerKnowledgeStoriesChar123StoryIdChar125Route;
 }
 export interface FileRoutesByTo {
@@ -414,11 +428,13 @@ export interface FileRoutesByTo {
   "/dashboard/career": typeof DashboardCareerIndexRoute;
   "/dashboard/resumes": typeof DashboardResumesIndexRoute;
   "/dashboard/settings": typeof DashboardSettingsIndexRoute;
+  "/revamp/$token": typeof RevampTokenIndexRoute;
   "/dashboard/applications/$applicationId/{-$tab}": typeof DashboardApplicationsApplicationIdChar123TabChar125Route;
   "/dashboard/career/coach/{-$conversationId}": typeof DashboardCareerCoachChar123ConversationIdChar125Route;
   "/dashboard/career/knowledge/facts": typeof DashboardCareerKnowledgeFactsRoute;
   "/dashboard/career/knowledge/preferences": typeof DashboardCareerKnowledgePreferencesRoute;
   "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/revamp/login/$token": typeof RevampLoginTokenIndexRoute;
   "/dashboard/career/knowledge/stories/{-$storyId}": typeof DashboardCareerKnowledgeStoriesChar123StoryIdChar125Route;
 }
 export interface FileRoutesById {
@@ -467,11 +483,13 @@ export interface FileRoutesById {
   "/dashboard/career/": typeof DashboardCareerIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/dashboard/settings/": typeof DashboardSettingsIndexRoute;
+  "/revamp/$token/": typeof RevampTokenIndexRoute;
   "/dashboard/applications/$applicationId/{-$tab}": typeof DashboardApplicationsApplicationIdChar123TabChar125Route;
   "/dashboard/career/coach/{-$conversationId}": typeof DashboardCareerCoachChar123ConversationIdChar125Route;
   "/dashboard/career/knowledge/facts": typeof DashboardCareerKnowledgeFactsRoute;
   "/dashboard/career/knowledge/preferences": typeof DashboardCareerKnowledgePreferencesRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/revamp/login/$token/": typeof RevampLoginTokenIndexRoute;
   "/dashboard/career/knowledge/stories/{-$storyId}": typeof DashboardCareerKnowledgeStoriesChar123StoryIdChar125Route;
 }
 export interface FileRouteTypes {
@@ -520,11 +538,13 @@ export interface FileRouteTypes {
     | "/dashboard/career/"
     | "/dashboard/resumes/"
     | "/dashboard/settings/"
+    | "/revamp/$token/"
     | "/dashboard/applications/$applicationId/{-$tab}"
     | "/dashboard/career/coach/{-$conversationId}"
     | "/dashboard/career/knowledge/facts"
     | "/dashboard/career/knowledge/preferences"
     | "/dashboard/settings/authentication/"
+    | "/revamp/login/$token/"
     | "/dashboard/career/knowledge/stories/{-$storyId}";
   fileRoutesByTo: FileRoutesByTo;
   to:
@@ -565,11 +585,13 @@ export interface FileRouteTypes {
     | "/dashboard/career"
     | "/dashboard/resumes"
     | "/dashboard/settings"
+    | "/revamp/$token"
     | "/dashboard/applications/$applicationId/{-$tab}"
     | "/dashboard/career/coach/{-$conversationId}"
     | "/dashboard/career/knowledge/facts"
     | "/dashboard/career/knowledge/preferences"
     | "/dashboard/settings/authentication"
+    | "/revamp/login/$token"
     | "/dashboard/career/knowledge/stories/{-$storyId}";
   id:
     | "__root__"
@@ -617,11 +639,13 @@ export interface FileRouteTypes {
     | "/dashboard/career/"
     | "/dashboard/resumes/"
     | "/dashboard/settings/"
+    | "/revamp/$token/"
     | "/dashboard/applications/$applicationId/{-$tab}"
     | "/dashboard/career/coach/{-$conversationId}"
     | "/dashboard/career/knowledge/facts"
     | "/dashboard/career/knowledge/preferences"
     | "/dashboard/settings/authentication/"
+    | "/revamp/login/$token/"
     | "/dashboard/career/knowledge/stories/{-$storyId}";
   fileRoutesById: FileRoutesById;
 }
@@ -634,6 +658,8 @@ export interface RootRouteChildren {
   UsernameSlugRoute: typeof UsernameSlugRoute;
   TemplatesSplatRoute: typeof TemplatesSplatRoute;
   BuilderLetterCoverLetterIdRoute: typeof BuilderLetterCoverLetterIdRoute;
+  RevampTokenIndexRoute: typeof RevampTokenIndexRoute;
+  RevampLoginTokenIndexRoute: typeof RevampLoginTokenIndexRoute;
 }
 
 declare module "@tanstack/react-router" {
@@ -946,6 +972,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardSettingsProfileRouteImport;
       parentRoute: typeof DashboardSettingsRouteRoute;
     };
+    "/revamp/$token/": {
+      id: "/revamp/$token/";
+      path: "/revamp/$token";
+      fullPath: "/revamp/$token/";
+      preLoaderRoute: typeof RevampTokenIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/dashboard/applications/$applicationId/{-$tab}": {
       id: "/dashboard/applications/$applicationId/{-$tab}";
       path: "/applications/$applicationId/{-$tab}";
@@ -980,6 +1013,13 @@ declare module "@tanstack/react-router" {
       fullPath: "/dashboard/settings/authentication/";
       preLoaderRoute: typeof DashboardSettingsAuthenticationIndexRouteImport;
       parentRoute: typeof DashboardSettingsRouteRoute;
+    };
+    "/revamp/login/$token/": {
+      id: "/revamp/login/$token/";
+      path: "/revamp/login/$token";
+      fullPath: "/revamp/login/$token/";
+      preLoaderRoute: typeof RevampLoginTokenIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
     };
     "/dashboard/career/knowledge/stories/{-$storyId}": {
       id: "/dashboard/career/knowledge/stories/{-$storyId}";
@@ -1173,6 +1213,8 @@ const rootRouteChildren: RootRouteChildren = {
   UsernameSlugRoute: UsernameSlugRoute,
   TemplatesSplatRoute: TemplatesSplatRoute,
   BuilderLetterCoverLetterIdRoute: BuilderLetterCoverLetterIdRoute,
+  RevampTokenIndexRoute: RevampTokenIndexRoute,
+  RevampLoginTokenIndexRoute: RevampLoginTokenIndexRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

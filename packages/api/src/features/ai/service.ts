@@ -19,11 +19,12 @@ import { createOllama } from "ollama-ai-provider-v2";
 import { match } from "ts-pattern";
 import { z } from "zod";
 import {
-	docxParserSystemPrompt,
-	docxParserUserPrompt,
-	pdfParserSystemPrompt,
-	pdfParserUserPrompt,
-} from "@reactive-resume/ai/prompts";
+	getDocxParserSystemPrompt,
+	getDocxParserUserPrompt,
+	getPdfParserSystemPrompt,
+	getPdfParserUserPrompt,
+	trackGeneration,
+} from "@reactive-resume/ai/langfuse-prompts";
 import { buildAiExtractionTemplate } from "@reactive-resume/ai/resume/extraction-template";
 import { sanitizeAndParseResumeJson } from "@reactive-resume/ai/resume/sanitize";
 import { AI_PROVIDER_DEFAULT_BASE_URLS, AI_PROVIDER_DISPLAY_NAMES, aiProviderSchema } from "@reactive-resume/ai/types";
@@ -322,17 +323,27 @@ function buildResumeParsingTextMessages({ userPrompt, text }: { userPrompt: stri
 
 async function parsePdf(input: ParsePdfInput): Promise<ResumeData> {
 	const model = getModel(input);
+	const [sysPrompt, userPrompt] = await Promise.all([getPdfParserSystemPrompt(), getPdfParserUserPrompt()]);
 
 	const result = await generateText({
 		model,
 		abortSignal: aiDeadline(),
-		system: buildResumeParsingSystemPrompt(pdfParserSystemPrompt),
+		system: buildResumeParsingSystemPrompt(sysPrompt),
 		messages: buildResumeParsingMessages({
-			userPrompt: pdfParserUserPrompt,
+			userPrompt,
 			file: input.file,
 			mediaType: "application/pdf",
 		}),
 	}).catch((error: unknown) => logAndRethrow("Failed to generate the text with the model", error));
+
+	trackGeneration({
+		traceName: "parse-pdf",
+		promptName: "rr_pdf_parser_system",
+		model: `${input.provider}/${input.model}`,
+		input: `[PDF file: ${input.file.name}]`,
+		output: result.text.slice(0, 500),
+		usage: result.usage,
+	});
 
 	return parseAndValidateResumeJson(result.text);
 }
@@ -397,11 +408,13 @@ function extractDocxText(file: z.infer<typeof fileInputSchema>): string {
 
 async function parseDocx(input: ParseDocxInput): Promise<ResumeData> {
 	const model = getModel(input);
+	const [sysPrompt, userPrompt] = await Promise.all([getDocxParserSystemPrompt(), getDocxParserUserPrompt()]);
+
 	const messages =
 		input.mediaType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-			? buildResumeParsingTextMessages({ userPrompt: docxParserUserPrompt, text: extractDocxText(input.file) })
+			? buildResumeParsingTextMessages({ userPrompt, text: extractDocxText(input.file) })
 			: buildResumeParsingMessages({
-					userPrompt: docxParserUserPrompt,
+					userPrompt,
 					file: input.file,
 					mediaType: input.mediaType,
 				});
@@ -409,9 +422,18 @@ async function parseDocx(input: ParseDocxInput): Promise<ResumeData> {
 	const result = await generateText({
 		model,
 		abortSignal: aiDeadline(),
-		system: buildResumeParsingSystemPrompt(docxParserSystemPrompt),
+		system: buildResumeParsingSystemPrompt(sysPrompt),
 		messages,
 	}).catch((error: unknown) => logAndRethrow("Failed to generate the text with the model", error));
+
+	trackGeneration({
+		traceName: "parse-docx",
+		promptName: "rr_docx_parser_system",
+		model: `${input.provider}/${input.model}`,
+		input: `[DOCX file: ${input.file.name}]`,
+		output: result.text.slice(0, 500),
+		usage: result.usage,
+	});
 
 	return parseAndValidateResumeJson(result.text);
 }

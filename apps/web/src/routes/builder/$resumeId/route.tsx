@@ -3,6 +3,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect } from "react";
 import z from "zod";
 import { EditorShell } from "./-components/editor-shell";
+import { useRevampStream } from "./-hooks/use-revamp-stream";
 import { useBuilderResumeUpdateSubscription, useResumeCleanup, useResumeStore } from "@/features/resume/builder/draft";
 import { EDITOR_MODES } from "@/features/resume/editor/store";
 import { orpc } from "@/libs/orpc/client";
@@ -21,12 +22,30 @@ const searchSchema = z.object({
 	applicationId: z.string().optional().catch(undefined),
 	// The file a resume was just imported from; Write says what came in until it's dismissed.
 	imported: z.string().max(255).optional().catch(undefined),
+	// CVpap: a WhatsApp revamp token; the builder streams that revamp's progress onto the page.
+	revamp: z.string().optional().catch(undefined),
 });
+
+const CVPAP_API = (import.meta.env.VITE_CVPAP_API_URL as string | undefined) ?? "";
 
 export const Route = createFileRoute("/builder/$resumeId")({
 	component: RouteComponent,
 	validateSearch: searchSchema,
-	beforeLoad: ({ context, location }) => {
+	beforeLoad: async ({ context, location, search }) => {
+		// WhatsApp users land here via the builder URL but have no RR session.
+		// If the revamp token is valid, redirect them to the dedicated revamp page
+		// so they see live progress without needing an account.
+		if (search.revamp && !context.session) {
+			try {
+				const res = await fetch(`${CVPAP_API}/api/v1/revamp/verify/${search.revamp}`);
+				if (res.ok) {
+					throw redirect({ to: "/revamp/$token/", params: { token: search.revamp }, replace: true });
+				}
+			} catch (e) {
+				// Re-throw TanStack redirect errors; absorb network errors.
+				if (e && typeof e === "object" && "to" in e) throw e;
+			}
+		}
 		if (!context.session) throw redirect({ to: "/auth/login", search: { callbackURL: location.href }, replace: true });
 		return { session: context.session };
 	},
@@ -39,13 +58,17 @@ export const Route = createFileRoute("/builder/$resumeId")({
 	},
 	head: ({ loaderData }) => ({
 		meta: loaderData
-			? [{ title: `${loaderData.name} - Reactive Resume` }, createNoindexFollowMeta()]
+			? [{ title: `${loaderData.name} - CVpap` }, createNoindexFollowMeta()]
 			: [createNoindexFollowMeta()],
 	}),
 });
 
 function RouteComponent() {
 	const { resumeId } = Route.useParams();
+	const { revamp: revampToken } = Route.useSearch();
+
+	// Mount the revamp SSE stream — no-op when revampToken is undefined
+	useRevampStream(revampToken ?? null);
 	const { data: resume } = useSuspenseQuery(orpc.resume.getById.queryOptions({ input: { id: resumeId } }));
 	const initializeResumeStore = useResumeStore((state) => state.initialize);
 	const mergeResumeMetadata = useResumeStore((state) => state.mergeResumeMetadata);

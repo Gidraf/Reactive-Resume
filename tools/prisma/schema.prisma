@@ -1,0 +1,818 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String             @id @default(cuid()) @db.VarChar
+  name             String             @db.VarChar
+  username         String             @unique @db.VarChar
+  email            String             @unique @db.VarChar
+  createdAt        DateTime?          @default(now())
+  updatedAt        DateTime?          @updatedAt
+  provider         String             @db.VarChar
+  whatsappUserId   String?            @db.VarChar
+  picture          String?            @db.VarChar
+  locale           String?            @db.VarChar
+  emailVerified    Boolean?
+  twoFactorEnabled Boolean?
+  resumes          Resume[]
+  secrets          Secrets[]
+  WhatsappUser     WhatsappUser?      @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  account_balances account_balances[]
+  token_top_ups    token_top_ups[]
+}
+
+model Secrets {
+  id                   String    @id @default(cuid()) @db.VarChar
+  password             String?   @db.VarChar
+  lastSignedIn         DateTime? @default(now())
+  twoFactorSecret      String?   @db.VarChar
+  twoFactorBackupCodes String[]  @default([]) @db.VarChar
+  refreshToken         String?   @db.VarChar
+  resetToken           String?   @db.VarChar
+  userId               String    @db.VarChar
+  user                 User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Resume {
+  id              String           @id @default(cuid()) @db.VarChar
+  title           String           @db.VarChar
+  slug            String           @db.VarChar
+  data            Json?            @default("{}")
+  visibility      Visibility?      @default(private)
+  locked          Boolean?         @default(false)
+  userId          String           @db.VarChar
+  createdAt       DateTime?        @default(now())
+  updatedAt       DateTime?        @updatedAt
+  adminId         String?          @db.VarChar
+  processing_type String?          @db.VarChar
+  status          String?          @db.VarChar
+  CVJDTextData    CVJDTextData[]
+  Order           Order[]
+  AdminUser       AdminUser?       @relation(fields: [adminId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ratings         ratings[]
+  resume_errors   resume_errors[]
+  resume_reviews  resume_reviews[]
+}
+
+model AdminSecrets {
+  id                   String    @id @db.VarChar
+  password             String?   @db.VarChar
+  lastSignedIn         DateTime? @db.Timestamp(6)
+  twoFactorSecret      String?   @db.VarChar
+  twoFactorBackupCodes String[]  @db.VarChar
+  refreshToken         String?   @db.VarChar
+  resetToken           String?   @db.VarChar
+  adminId              String    @db.VarChar
+  verificationToken    String?   @db.VarChar
+  AdminUser            AdminUser @relation(fields: [adminId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model AdminUser {
+  id                String              @id @db.VarChar
+  name              String              @db.VarChar
+  username          String              @unique @db.VarChar
+  email             String              @unique @db.VarChar
+  provider          String              @db.VarChar
+  createdAt         DateTime?           @db.Timestamp(6)
+  updatedAt         DateTime?           @db.Timestamp(6)
+  partner_id        String?             @db.VarChar
+  phone_number      String?             @db.VarChar
+  AdminSecrets      AdminSecrets[]
+  partner           partner?            @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Order             Order[]
+  Resume            Resume[]
+  WhatsappUser      WhatsappUser[]
+  admin_role        admin_role[]
+  chat_history      chat_history[]
+  product_groups    product_groups[]
+  whatsapp_channels whatsapp_channels[]
+}
+
+model Order {
+  id                  String          @id @db.VarChar
+  amount              String          @db.VarChar
+  whatsappOrderId     String?         @db.VarChar
+  transactionId       String?         @db.VarChar
+  item                Json?           @default("{}")
+  transactionResponse Json?           @default("{}")
+  status              String?         @default("unpaid") @db.VarChar
+  createdAt           DateTime?       @default(now())
+  updatedAt           DateTime?
+  resumeId            String?         @db.VarChar
+  whatsappUserId      String?         @db.VarChar
+  partner_id          String?         @db.VarChar
+  order_metadata      Json?
+  location_id         String?         @db.VarChar
+  admin_id            String?         @db.VarChar
+  product_group_id    String?         @db.VarChar
+  AdminUser           AdminUser?      @relation(fields: [admin_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  location            location?       @relation(fields: [location_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  partner             partner?        @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product_groups      product_groups? @relation(fields: [product_group_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Resume              Resume?         @relation(fields: [resumeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  WhatsappUser        WhatsappUser?   @relation(fields: [whatsappUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model WhatsappUser {
+  id                      String                    @id @db.VarChar
+  createdAt               DateTime?                 @default(now())
+  updatedAt               DateTime?
+  whatsappName            String?                   @db.VarChar
+  whatsappNumber          String?                   @db.VarChar
+  lastSessionSelection    Json?                     @default("{}")
+  currentSession          Json?                     @default("{}")
+  previewUrl              String?                   @db.VarChar
+  status                  Json?                     @default("{}")
+  lastCvDetails           Json?                     @default("{}")
+  lastjobDescription      Json?                     @default("{}")
+  loginToken              String?                   @db.VarChar
+  adminId                 String?                   @db.VarChar
+  partner_id              String?                   @db.VarChar
+  image_url               String?                   @db.VarChar
+  phone_number            String?                   @db.VarChar
+  is_lid                  Boolean?
+  whatsapp_meta           Json?
+  whatsapp_id             String?                   @db.VarChar
+  email_address           String?                   @db.VarChar
+  CVJDTextData            CVJDTextData[]
+  Order                   Order[]
+  User                    User[]
+  AdminUser               AdminUser?                @relation(fields: [adminId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  partner                 partner?                  @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  cart                    cart[]
+  chat_history            chat_history[]
+  customer_product_groups customer_product_groups[]
+  loyalty_wallets         loyalty_wallets[]
+  mpesa_logs              mpesa_logs[]
+  user_location           user_location[]
+}
+
+model admin_role {
+  id             String       @id @default(dbgenerated("nextval('admin_role_id_seq'::regclass)")) @db.VarChar
+  created_at     DateTime?    @db.Timestamp(6)
+  updated_at     DateTime?    @db.Timestamp(6)
+  role_id        String?      @db.VarChar
+  admin_id       String?      @db.VarChar
+  super_admin_id String?      @db.VarChar
+  AdminUser      AdminUser?   @relation(fields: [admin_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  role           role?        @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  super_admin    super_admin? @relation(fields: [super_admin_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model alembic_version {
+  version_num String @id(map: "alembic_version_pkc") @db.VarChar(32)
+}
+
+model career_profile {
+  id                     Int      @id @default(autoincrement())
+  social_link            String?  @db.VarChar
+  job_title              String?  @db.VarChar
+  profile_summary        String?  @db.VarChar
+  skills                 String?  @db.VarChar
+  education              String?  @db.VarChar
+  work                   String?  @db.VarChar
+  key_achievements       String?  @db.VarChar
+  affiliations           String?  @db.VarChar
+  referees               String?  @db.VarChar
+  certifications         String?  @db.VarChar
+  seminars               String?  @db.VarChar
+  hobbies                String?  @db.VarChar
+  address                String?  @db.VarChar
+  knowledge              String?  @db.VarChar
+  languages              String?  @db.VarChar
+  contributions          String?  @db.VarChar
+  projects               String?  @db.VarChar
+  additonal_informations String?  @db.VarChar
+  profile_completion     String?  @db.VarChar
+  is_public_profile      Boolean?
+  headers_heading        String?  @db.VarChar
+  cv_json_format         String?  @db.VarChar
+  revamp_cv_json_new     String?  @db.VarChar
+  has_generated_template Boolean?
+}
+
+model chat_history {
+  id                String       @id @db.VarChar
+  session_id        String       @db.VarChar
+  message           Json?
+  created_at        DateTime?    @default(now()) @db.Timestamp(6)
+  sender_id         String?      @db.VarChar
+  whatsapp_metadata Json?
+  source            String?      @db.VarChar
+  AdminUser         AdminUser?   @relation(fields: [sender_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  WhatsappUser      WhatsappUser @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model gmail_tokens {
+  id            String    @id @db.VarChar
+  created_at    DateTime? @db.Timestamp(6)
+  updated_at    DateTime? @db.Timestamp(6)
+  auth_code     String?   @db.VarChar
+  admin_id      String?   @db.VarChar
+  is_deleted    Boolean?
+  access_token  String?   @db.VarChar
+  refresh_token String?   @db.VarChar
+}
+
+model integrations {
+  id                String    @id @db.VarChar
+  name              String?   @db.VarChar
+  token             String?   @db.VarChar
+  message_url       String?   @db.VarChar
+  offer_description String?   @db.VarChar
+  wa_bot_id         String?   @db.VarChar
+  updated_at        DateTime? @db.Timestamp(6)
+  created_At        DateTime? @db.Timestamp(6)
+  partner_id        String?   @db.VarChar
+  refresh_token     String?   @db.VarChar
+  expiry_date       DateTime? @db.Timestamp(6)
+  waNumber          String?   @db.VarChar
+  status            String?   @db.VarChar
+  credentials       String?   @db.VarChar
+  gmail             String?   @db.VarChar
+  events            Json?
+  partner           partner?  @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model invoices {
+  id           String    @id @db.VarChar
+  partner_id   String?   @db.VarChar
+  period_start DateTime? @db.Date
+  period_end   DateTime? @db.Date
+  total_amount Decimal?  @db.Decimal(12, 2)
+  paid         Boolean?
+  generated_at DateTime? @db.Timestamp(6)
+  partner      partner?  @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model job_type {
+  id                       Int                        @id @default(autoincrement())
+  name                     String?                    @unique(map: "ix_job_type_name") @db.VarChar
+  description              String?                    @db.VarChar
+  profile_summary_template profile_summary_template[]
+}
+
+model mpesa_logs {
+  id             String        @id @db.VarChar
+  log            String?       @db.VarChar
+  whatsappUserId String?       @db.VarChar
+  response_type  String?       @db.VarChar
+  WhatsappUser   WhatsappUser? @relation(fields: [whatsappUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model mpesa_token {
+  id          String    @id @db.VarChar
+  acess_token String    @db.VarChar
+  created_at  DateTime? @db.Timestamp(6)
+}
+
+model partner {
+  id                   String              @id @db.VarChar
+  removed              Boolean?
+  enabled              Boolean?
+  email_verified       Boolean?
+  name                 String              @db.VarChar(255)
+  phone                String?             @db.VarChar(50)
+  country              String?             @db.VarChar(100)
+  address              String?             @db.VarChar(255)
+  username             String?             @db.VarChar(100)
+  email                String?             @db.VarChar(100)
+  partner_id           String?             @db.VarChar(100)
+  provider             String?             @db.VarChar(100)
+  created              DateTime?           @db.Timestamp(6)
+  updated              DateTime?           @db.Timestamp(6)
+  business_category_id String?             @db.VarChar
+  AdminUser            AdminUser[]
+  Order                Order[]
+  WhatsappUser         WhatsappUser[]
+  account_balances     account_balances[]
+  audit_logs           audit_logs[]
+  cart                 cart[]
+  collections          collections[]
+  customer_groups      customer_groups[]
+  integrations         integrations[]
+  invoices             invoices[]
+  loyalty_wallets      loyalty_wallets[]
+  business_category    business_category?  @relation(fields: [business_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product_groups       product_groups[]
+  product_services     product_services[]
+  promo_codes          promo_codes[]
+  role                 role[]
+  settings             settings?
+  token_top_ups        token_top_ups[]
+  whatsapp_channels    whatsapp_channels[]
+}
+
+model permission {
+  id               String             @id @db.VarChar
+  created_at       DateTime?          @db.Timestamp(6)
+  updated_at       DateTime?          @db.Timestamp(6)
+  url              String?            @db.VarChar
+  name             String?            @db.VarChar
+  permission_type  String?            @db.VarChar
+  role_permissions role_permissions[]
+}
+
+model product_services {
+  id                          String                     @id @db.VarChar
+  name                        String?                    @db.VarChar
+  description                 String?                    @db.VarChar
+  price                       String?                    @db.VarChar
+  image_url                   String?                    @db.VarChar
+  updatedAt                   DateTime?                  @db.Timestamp(6)
+  end_date                    DateTime?                  @db.Timestamp(6)
+  image_string                String?                    @db.VarChar
+  partner_id                  String?                    @db.VarChar
+  whatsapp_id                 String?                    @db.VarChar
+  createdAt                   DateTime?                  @db.Timestamp(6)
+  additional_image_cdn_urls   Json?
+  availability                String?                    @db.VarChar
+  capability_to_review_status Json?
+  checkmark                   Boolean?
+  currency                    String?                    @db.VarChar
+  is_hidden                   Boolean?
+  is_sanctioned               Boolean?
+  max_available               Int?
+  retailer_id                 String?                    @db.VarChar
+  url                         String?                    @db.VarChar
+  videos                      Json?
+  whatsapp_product_can_appeal Boolean?
+  image_hashes_for_whatsapp   Json?
+  image_cdn_urls              Json?
+  is_deleted                  Boolean?
+  it_has_booking              Boolean?
+  cart_item                   cart_item[]
+  collection_product_offer    collection_product_offer[]
+  collections                 collections[]
+  offers                      offers[]
+  product_collection          product_collection[]
+  product_price_rules         product_price_rules[]
+  partner                     partner?                   @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model profile_summary_template {
+  id          Int       @id @default(autoincrement())
+  job_type_id Int?
+  summary     String?   @db.VarChar
+  years       String?   @db.VarChar
+  job_type    job_type? @relation(fields: [job_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model ratings {
+  id             String          @id @db.VarChar
+  resume_id      String?         @db.VarChar
+  review_id      String?         @db.VarChar
+  comments       String?         @db.VarChar
+  score          Float
+  created_at     DateTime?       @db.Timestamp(6)
+  Resume         Resume?         @relation(fields: [resume_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  resume_reviews resume_reviews? @relation(fields: [review_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model resume_errors {
+  id          String    @id @db.VarChar
+  error_json  String    @db.VarChar
+  created_at  DateTime? @db.Timestamp(6)
+  resume_id   String?   @db.VarChar
+  error_stage String?   @db.VarChar
+  Resume      Resume?   @relation(fields: [resume_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model resume_reviews {
+  id                     String                   @id @db.VarChar
+  resume_id              String?                  @db.VarChar
+  created_at             DateTime?                @db.Timestamp(6)
+  overall_feedback       String?                  @db.VarChar
+  overall_score          Float?
+  version                Int?
+  ratings                ratings[]
+  Resume                 Resume?                  @relation(fields: [resume_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  resume_section_reviews resume_section_reviews[]
+}
+
+model resume_section_reviews {
+  id               String         @id @db.VarChar
+  review_id        String         @db.VarChar
+  section_name     String?        @db.VarChar
+  ai_comments      Json?
+  human_comments   String?        @db.VarChar
+  score            Float?
+  issues           Json?
+  revamped_content Json?
+  resume_reviews   resume_reviews @relation(fields: [review_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model role {
+  id               String             @id @db.VarChar
+  created_at       DateTime?          @db.Timestamp(6)
+  updated_at       DateTime?          @db.Timestamp(6)
+  name             String?            @db.VarChar
+  description      String?            @db.VarChar
+  is_deleted       Boolean?
+  partner_id       String?            @db.VarChar
+  admin_role       admin_role[]
+  partner          partner?           @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  role_permissions role_permissions[]
+}
+
+model role_permissions {
+  id            String      @id @db.VarChar
+  created_at    DateTime?   @db.Timestamp(6)
+  updated_at    DateTime?   @db.Timestamp(6)
+  permission_id String?     @db.VarChar
+  role_id       String?     @db.VarChar
+  permission    permission? @relation(fields: [permission_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  role          role?       @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model usage_records {
+  id               String         @id @db.VarChar
+  timestamp        DateTime?      @db.Timestamp(6)
+  top_up_id        String?        @db.VarChar
+  token_quantity   Int?
+  usage_type       String?        @db.VarChar
+  item_name        String?        @db.VarChar
+  previous_balance Int?
+  new_balance      Int?
+  token_top_ups    token_top_ups? @relation(fields: [top_up_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model CVJDTextData {
+  id             String        @id @db.VarChar
+  createdAt      DateTime?     @db.Timestamp(6)
+  updatedAt      DateTime?     @db.Timestamp(6)
+  whatsappUserId String?       @db.VarChar
+  position       String?       @db.VarChar
+  cv_text        String?       @db.VarChar
+  jd_text        String?       @db.VarChar
+  cv_file_url    String?       @db.VarChar
+  jd_file_url    String?       @db.VarChar
+  resumeId       String?       @db.VarChar
+  Resume         Resume?       @relation(fields: [resumeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  WhatsappUser   WhatsappUser? @relation(fields: [whatsappUserId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model settings {
+  id                                String             @id @db.VarChar
+  business_name                     String?            @db.VarChar
+  description                       String?
+  object_name                       String?            @db.VarChar
+  embedding_path                    String?            @db.VarChar
+  whatsapp_channel_url              String?
+  partner_id                        String?            @unique @db.VarChar
+  collection_name                   String?            @db.VarChar
+  should_review_reply_automatically Boolean?
+  business_category_id              String?            @db.VarChar
+  hours                             Json?
+  location                          Json?
+  knowledge_file_url                String?
+  website_url                       String?
+  has_physical_location             Boolean?
+  delivery_contacts_id              Json?
+  business_category                 business_category? @relation(fields: [business_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  partner                           partner?           @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model account_balances {
+  id         String    @id @db.VarChar
+  user_id    String?   @db.VarChar
+  balance    Decimal?  @db.Decimal(12, 2)
+  updated_at DateTime? @db.Timestamp(6)
+  partner_id String?   @db.VarChar
+  partner    partner?  @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User       User?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model token_top_ups {
+  id                    String          @id @db.VarChar
+  user_id               String?         @db.VarChar
+  amount                Decimal?        @db.Decimal(12, 2)
+  currency              String?         @db.VarChar
+  token_value           String?         @db.VarChar
+  description           String?         @db.VarChar
+  timestamp             DateTime?       @db.Timestamp(6)
+  previous_balance      Int?
+  new_balance           Int?
+  top_up_type           String?         @db.VarChar
+  top_up_status         String?         @db.VarChar
+  transaction_reference String?         @db.VarChar
+  partner_id            String?         @db.VarChar
+  partner               partner?        @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User                  User?           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usage_records         usage_records[]
+}
+
+model SuperAdminSecrets {
+  id                   String      @id @db.VarChar
+  password             String?     @db.VarChar
+  lastSignedIn         DateTime?   @db.Timestamp(6)
+  verificationToken    String?     @db.VarChar
+  twoFactorSecret      String?     @db.VarChar
+  twoFactorBackupCodes String[]    @db.VarChar
+  refreshToken         String?     @db.VarChar
+  resetToken           String?     @db.VarChar
+  super_admin_id       String      @db.VarChar
+  super_admin          super_admin @relation(fields: [super_admin_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model audit_logs {
+  id             String   @id @db.VarChar
+  user_id        String?  @db.VarChar
+  partner_id     String?  @db.VarChar
+  action         String   @db.VarChar
+  resource       String   @db.VarChar
+  resource_id    String?  @db.VarChar
+  payload        Json?
+  outcome        String   @db.VarChar
+  error_message  String?  @db.VarChar
+  request_id     String?  @db.VarChar
+  correlation_id String?  @db.VarChar
+  source         String?  @db.VarChar
+  meta           Json?
+  ip_address     String?  @db.VarChar
+  user_agent     String?  @db.VarChar
+  created_at     DateTime @db.Timestamp(6)
+  updated_at     DateTime @db.Timestamp(6)
+  summary        String?  @db.VarChar
+  endpoint_url   String?  @db.VarChar
+  partner        partner? @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([action], map: "ix_audit_logs_action")
+  @@index([correlation_id], map: "ix_audit_logs_correlation_id")
+  @@index([created_at], map: "ix_audit_logs_created_at")
+  @@index([endpoint_url], map: "ix_audit_logs_endpoint_url")
+  @@index([outcome], map: "ix_audit_logs_outcome")
+  @@index([request_id], map: "ix_audit_logs_request_id")
+  @@index([resource], map: "ix_audit_logs_resource")
+  @@index([resource_id], map: "ix_audit_logs_resource_id")
+  @@index([user_id], map: "ix_audit_logs_user_id")
+  @@index([resource, resource_id, partner_id], map: "ix_audit_resource_resourceid_partner")
+}
+
+model business_category {
+  id                       String                     @id @db.VarChar
+  name                     String                     @db.VarChar(255)
+  description              String?
+  created                  DateTime?                  @db.Timestamp(6)
+  updated                  DateTime?                  @db.Timestamp(6)
+  created_by_id            String                     @db.VarChar
+  super_admin              super_admin                @relation(fields: [created_by_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  business_category_config business_category_config[]
+  partner                  partner[]
+  settings                 settings[]
+}
+
+model business_category_config {
+  id                   String            @id @db.VarChar
+  business_category_id String            @db.VarChar
+  config_key           String            @db.VarChar
+  config_value         String?
+  config_type          String?           @db.VarChar
+  created              DateTime?         @db.Timestamp(6)
+  updated              DateTime?         @db.Timestamp(6)
+  groups               String[]          @db.VarChar
+  business_category    business_category @relation(fields: [business_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model cart {
+  id               String       @id @db.VarChar
+  whatsapp_user_id String       @db.VarChar
+  partner_id       String       @db.VarChar
+  created_at       DateTime?    @db.Timestamp(6)
+  updated_at       DateTime?    @db.Timestamp(6)
+  partner          partner      @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  WhatsappUser     WhatsappUser @relation(fields: [whatsapp_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cart_item        cart_item[]
+}
+
+model cart_item {
+  id               String           @id @db.VarChar
+  cart_id          String           @db.VarChar
+  product_id       String           @db.VarChar
+  quantity         Int?
+  price_at_add     Float?
+  cart             cart             @relation(fields: [cart_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product_services product_services @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model collection_product_offer {
+  id               String            @id @db.VarChar
+  created_at       DateTime?         @db.Timestamp(6)
+  updated_at       DateTime?         @db.Timestamp(6)
+  collection_id    String?           @db.VarChar
+  product_id       String?           @db.VarChar
+  offer_id         String?           @db.VarChar
+  collections      collections?      @relation(fields: [collection_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  offers           offers?           @relation(fields: [offer_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product_services product_services? @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model collections {
+  id                       String                     @id @db.VarChar
+  name                     String?                    @db.VarChar
+  whatsapp_id              String?                    @db.VarChar
+  service_id               String?                    @db.VarChar
+  partner_id               String?                    @db.VarChar
+  canAppeal                Boolean?
+  commerceUrl              String?                    @db.VarChar
+  isHidden                 Boolean?
+  rejectReason             String?                    @db.VarChar
+  reviewStatus             String?                    @db.VarChar
+  totalItemsCount          Int?
+  collection_product_offer collection_product_offer[]
+  partner                  partner?                   @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product_services         product_services?          @relation(fields: [service_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  offers                   offers[]
+  product_collection       product_collection[]
+}
+
+model customer_groups {
+  id                      String                    @id @db.VarChar
+  name                    String                    @db.VarChar
+  partner_id              String                    @db.VarChar
+  description             String?                   @db.VarChar
+  created_at              DateTime?                 @db.Timestamp(6)
+  updated_at              DateTime?                 @db.Timestamp(6)
+  partner                 partner                   @relation(fields: [partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  customer_product_groups customer_product_groups[]
+}
+
+model customer_product_groups {
+  id                String           @id @db.VarChar
+  customer_group_id String?          @db.VarChar
+  created_at        DateTime?        @db.Timestamp(6)
+  updated_at        DateTime?        @db.Timestamp(6)
+  whatsapp_user_id  String           @db.VarChar
+  customer_groups   customer_groups? @relation(fields: [customer_group_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  WhatsappUser      WhatsappUser     @relation(fields: [whatsapp_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model location {
+  id              String          @id @db.VarChar
+  name            String?         @db.VarChar
+  address         String?         @db.VarChar
+  google_place_id String?         @unique @db.VarChar
+  latitude        Float
+  longitude       Float
+  created_at      DateTime?       @db.Timestamp(6)
+  Order           Order[]
+  user_location   user_location[]
+}
+
+model loyalty_ledger {
+  id               String           @id @db.VarChar
+  wallet_id        String?          @db.VarChar
+  transaction_type String           @db.VarChar
+  amount           Float
+  description      String?          @db.VarChar
+  reference_id     String?          @db.VarChar
+  created_at       DateTime?        @db.Timestamp(6)
+  loyalty_wallets  loyalty_wallets? @relation(fields: [wallet_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model loyalty_wallets {
+  id             String           @id @db.VarChar
+  user_id        String?          @db.VarChar
+  partner_id     String?          @db.VarChar
+  balance        Float?
+  currency_name  String?          @db.VarChar
+  updated_at     DateTime?        @db.Timestamp(6)
+  loyalty_ledger loyalty_ledger[]
+  partner        partner?         @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  WhatsappUser   WhatsappUser?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, partner_id, currency_name], map: "_user_partner_currency_uc")
+}
+
+model offers {
+  id                       String                     @id @db.VarChar
+  offer_name               String?                    @db.VarChar
+  offer_headline           String?                    @db.VarChar
+  offer_description        String?                    @db.VarChar
+  start_date               DateTime?                  @db.Timestamp(6)
+  end_date                 DateTime?                  @db.Timestamp(6)
+  image_string             String?                    @db.VarChar
+  product_id               String?                    @db.VarChar
+  collection_id            String?                    @db.VarChar
+  collection_product_offer collection_product_offer[]
+  collections              collections?               @relation(fields: [collection_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product_services         product_services?          @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model product_collection {
+  id               String            @id @db.VarChar
+  name             String?           @db.VarChar
+  description      String?           @db.VarChar
+  collection_id    String?           @db.VarChar
+  product_id       String?           @db.VarChar
+  collections      collections?      @relation(fields: [collection_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product_services product_services? @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model product_groups {
+  id                       String                @id @db.VarChar
+  name                     String                @db.VarChar
+  description              String?               @db.VarChar
+  group_type               String?               @db.VarChar
+  priority                 Int?
+  is_active                Boolean?
+  start_date               DateTime?             @db.Timestamp(6)
+  end_date                 DateTime?             @db.Timestamp(6)
+  max_redemptions_total    Int?
+  max_redemptions_per_user Int?
+  partner_id               String?               @db.VarChar
+  admin_id                 String?               @db.VarChar
+  created_at               DateTime?             @db.Timestamp(6)
+  updated_at               DateTime?             @db.Timestamp(6)
+  Order                    Order[]
+  AdminUser                AdminUser?            @relation(fields: [admin_id], references: [id], onUpdate: NoAction)
+  partner                  partner?              @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product_price_rules      product_price_rules[]
+  promo_codes              promo_codes[]
+
+  @@index([group_type], map: "ix_product_groups_group_type")
+}
+
+model product_price_rules {
+  id                    String            @id @db.VarChar
+  product_group_id      String?           @db.VarChar
+  product_service_id    String?           @db.VarChar
+  rule_type             String?           @db.VarChar
+  price_value           Float
+  is_bogo               Boolean?
+  bogo_buy_quantity     Int?
+  bogo_get_quantity     Int?
+  min_quantity_required Int?
+  created_at            DateTime?         @db.Timestamp(6)
+  product_groups        product_groups?   @relation(fields: [product_group_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product_services      product_services? @relation(fields: [product_service_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model promo_codes {
+  id               String          @id @db.VarChar
+  code             String          @unique @db.VarChar
+  product_group_id String?         @db.VarChar
+  usage_count      Int?
+  max_usage        Int?
+  partner_id       String?         @db.VarChar
+  partner          partner?        @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product_groups   product_groups? @relation(fields: [product_group_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model super_admin {
+  id                String              @id @db.VarChar
+  removed           Boolean
+  enabled           Boolean
+  email             String              @unique @db.VarChar(255)
+  name              String              @db.VarChar(255)
+  surname           String?             @db.VarChar(255)
+  photo             String?             @db.VarChar
+  created           DateTime            @db.Timestamp(6)
+  role              String              @db.VarChar(50)
+  username          String              @unique @db.VarChar(100)
+  password          String              @db.VarChar
+  SuperAdminSecrets SuperAdminSecrets[]
+  admin_role        admin_role[]
+  business_category business_category[]
+}
+
+model user_location {
+  id           String       @id @db.VarChar
+  user_id      String       @db.VarChar
+  location_id  String       @db.VarChar
+  is_last_used Boolean?
+  created_at   DateTime?    @db.Timestamp(6)
+  location     location     @relation(fields: [location_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  WhatsappUser WhatsappUser @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model whatsapp_channels {
+  id                  String     @id @db.VarChar
+  createdAt           DateTime?  @db.Timestamp(6)
+  updatedAt           DateTime?  @db.Timestamp(6)
+  channel_name        String?    @db.VarChar
+  whatsapp_channel_id String?    @db.VarChar
+  whatsapp_meta       Json?
+  adminId             String?    @db.VarChar
+  partner_id          String?    @db.VarChar
+  AdminUser           AdminUser? @relation(fields: [adminId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  partner             partner?   @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+enum Visibility {
+  public
+  private
+}
+
+enum Provider {
+  email
+  github
+  google
+}

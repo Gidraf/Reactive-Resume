@@ -156,13 +156,23 @@ Multi-place changes:
 
 ## Environment and database
 
-Host development requires `APP_URL`, `DATABASE_URL`, and non-empty `AUTH_SECRET`. `packages/env/src/server.ts` also loads root `.env` through Node's native `process.loadEnvFile`; existing process variables take precedence. Root dev/database scripts explicitly load `.env.local` through `dotenvx`. Tests and application code can have their own environment loaders; do not assume every command loads `.env.local`.
+Host development requires `APP_URL`, `DATABASE_URL`, and non-empty `AUTH_SECRET`. `packages/env/src/server.ts` also loads the layered `.env` files (see below) through Node's native `process.loadEnvFile`; existing process variables take precedence. Root dev/database scripts explicitly load `.env.local` through `dotenvx`. Tests and application code can have their own environment loaders; do not assume every command loads `.env.local`.
 
 - **Storage**: explicit `STORAGE_BACKEND=local|s3|blob` wins. Otherwise, complete S3 credentials select S3; Vercel selects private Blob; other deployments select local storage. `.env.example` ships SeaweedFS defaults, so either run SeaweedFS or select `local`/remove the S3 credentials. Local storage defaults to `<workspace>/data` in development and `/app/data` in Docker. `LOCAL_STORAGE_PATH` must be absolute and writable; persist it in deployed installations.
 - **`ENCRYPTION_SECRET`** is required for saved AI providers and the assistant. **`REDIS_URL`** is optional outside Vercel; it shares rate limits, cancellation and resumable replies between processes. Vercel deployment preparation requires Redis. Host-run dev uses `REDIS_URL=redis://localhost:6379`; the container-run app uses `redis://redis:6379`.
 - **`drizzle-kit` (used by `pnpm db:migrate`) reads `DATABASE_URL` from `process.env` directly** — it does not auto-load `.env`. The root migration scripts load `.env.local` through `dotenvx` before invoking Drizzle Kit.
 - `DATABASE_MIGRATION_URL` supplies a direct migration connection when runtime `DATABASE_URL` is pooled. Review generated migration SQL before applying it; avoid resetting databases or deleting volumes to fix setup errors.
 - Startup verifies the migrated schema. `STRICT_SCHEMA_CHECK=true` makes detected drift fatal; otherwise the server logs it and continues.
+- **Env files are layered** (Next.js order), loaded by `loadEnvFiles()` in `packages/env/src/load.ts`: `process.env` > `.env.local` > `.env.$NODE_ENV` > `.env`. `packages/env/src/server.ts`, `packages/db/drizzle.config.ts` and `vitest.setup.ts` all call it, so `pnpm db:migrate` and the test suite pick up `.env.local` on their own — keep local/test `DATABASE_URL` there and production's in `.env`, and they can never cross. (`vitest.setup.ts` inlines the loader rather than importing it: `packages/email` does not depend on `@reactive-resume/env`, and Vite resolves the setup file at build time.)
+- **`drizzle-kit generate` needs `--ignore-conflicts` in this fork**, and its output must be read before use. A pre-existing non-commutative pair (our `20260627000000_billing_whatsapp_cv_orders` drops a column on `resume_analysis`; upstream `20260906064202_eminent_prowler` drops the whole table) makes the CLI diff against a stale snapshot, so it re-emits `CREATE TABLE` for the billing tables that already exist. Trim the generated SQL to the change you actually made; the `snapshot.json` written beside it is correct even when the SQL is not. This is a CLI-only guard — the runtime migrator used at boot has no commutativity check and applies every migration cleanly from scratch (verified against an empty database: 31 tables, no error).
+
+## CVPAP single sign-on (fork-specific)
+
+`apps/server/src/http/cvpap-sso.ts` is the only login channel in the CVpap deployment: it reads the shared `cvpap_token` cookie, asks CVPAP `/api/v1/cards/me` who it belongs to, then resolves a Reactive Resume account and starts a session by minting and immediately redeeming a magic link (Better Auth 1.7 has no server-side create-session API — `bot-link.ts` uses the same trick).
+
+- **The tenant key is `user.cvpap_partner_id`, never the email.** A partner's contact email is not unique per partner and is not ours to control. Keying on it let a partner sign in and land in whatever account already held that address — confirmed in testing to hand a partner an existing `role: admin` account. If no row matches the partner id, a new account is created; the partner's own address is used only when no other account holds it, otherwise it falls back to `partner-<id>@cvpap.internal`.
+- **Never auto-adopt a row whose `cvpap_partner_id` is NULL.** Those are direct-signup or admin accounts, not tenants.
+- One account per CVPAP partner, so a partner's staff share one resume library — the same boundary the cards app enforces via `partner_id`.
 
 ## Testing and checks
 

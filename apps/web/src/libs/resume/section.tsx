@@ -17,7 +17,10 @@ export type RightSidebarSection =
 	| "notes"
 	| "sharing"
 	| "statistics"
-	| "export";
+	| "export"
+	// CVpap: AI revamp and interview questions, served by the CVPAP API.
+	| "revamp"
+	| "interview";
 
 export type SidebarSection = LeftSidebarSection | RightSidebarSection;
 
@@ -56,6 +59,8 @@ export const getSectionTitle = (type: SidebarSection | CustomOnlyType): string =
 			.with("sharing", () => t`Sharing`)
 			.with("statistics", () => t`Statistics`)
 			.with("export", () => t`Export`)
+			.with("revamp", () => t`AI Revamp`)
+			.with("interview", () => t`Interview Questions`)
 
 			.exhaustive()
 	);

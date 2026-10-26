@@ -1,21 +1,35 @@
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { SampleLength } from "@reactive-resume/schema/resume/sample-lengths";
 import type { Locale } from "@reactive-resume/utils/locale";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { createSampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { createSampleResumeOfLength } from "@reactive-resume/schema/resume/sample-lengths";
 import { EMPTY_SEMANTIC_CSS_SOURCE } from "@reactive-resume/schema/resume/stylesheet";
 
 type CreateResumeDataOptions = {
 	withSampleData?: boolean;
+	/** Sizes the sample to a printed length, for showing a client what they'll get. */
+	// Explicitly `| undefined`: the repo runs exactOptionalPropertyTypes, so an
+	// optional field passed through from a Zod `.optional()` must accept it.
+	sampleLength?: SampleLength | undefined;
+	/** The name a sized sample's persona carries (CVPAP names it after the client it is for). */
+	sampleName?: string | undefined;
 	/** The person the resume is for, printed as its name: the account holder's name, not the document's. */
 	name?: string;
 	locale?: Locale;
 };
 
+function sampleFor(options: CreateResumeDataOptions): ResumeData {
+	if (options.sampleLength) return createSampleResumeOfLength(options.sampleLength, options.sampleName);
+	return createSampleResumeData(options.name);
+}
+
 export function createResumeData(options: CreateResumeDataOptions): ResumeData {
-	const data = structuredClone(options.withSampleData ? sampleResumeData : defaultResumeData);
+	const useSample = options.withSampleData || Boolean(options.sampleLength);
+	const data = structuredClone(useSample ? sampleFor(options) : defaultResumeData);
 
 	const name = options.name?.trim();
-	if (name) data.basics.name = name;
+	if (name && !options.sampleLength) data.basics.name = name;
 	if (options.locale) data.metadata.page.locale = options.locale;
 	data.metadata.stylesheet = {
 		mode: "semantic",

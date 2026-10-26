@@ -11,6 +11,7 @@ import { cn } from "@reactive-resume/utils/style";
 import { DesignSheet } from "./design-panel";
 import { EditorBar } from "./editor-bar";
 import { ModePanel } from "./mode-panels";
+import { RevampOverlay } from "./revamp-overlay";
 import { ShareSheet } from "./share-sheet";
 import { useEditorHotkeys } from "./use-editor-hotkeys";
 import { MobileTabIndicator } from "@/components/layout/mobile-tab-indicator";
@@ -83,6 +84,7 @@ export function EditorShell() {
 
 				<ShareSheet />
 				<EditorHotkeys onModeChange={setMode} />
+				<RevampOverlay />
 			</div>
 		</Tabs>
 	);

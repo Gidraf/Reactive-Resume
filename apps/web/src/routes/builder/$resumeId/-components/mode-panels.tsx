@@ -1,4 +1,5 @@
 import type { EditorMode } from "@/features/resume/editor/store";
+import { CvpapPanel, RevampProcessingBanner } from "./cvpap-panel";
 import { DesignPanel } from "./design-panel";
 import { CheckPanel } from "@/features/resume/editor/check/check-panel";
 import { OfflineBanner } from "@/features/resume/editor/save-status";
@@ -29,7 +30,17 @@ export function ModePanel({ mode }: { mode: EditorMode }) {
 	return (
 		<>
 			<OfflineBanner className="mx-4 mt-4 w-auto" />
-			{mode === "design" ? <DesignPanel /> : mode === "check" ? <CheckPanel /> : <WriteMode />}
+			{mode === "write" && <RevampProcessingBanner />}
+			{mode === "design" ? (
+				<DesignPanel />
+			) : mode === "check" ? (
+				<>
+					<CheckPanel />
+					<CvpapPanel />
+				</>
+			) : (
+				<WriteMode />
+			)}
 		</>
 	);
 }

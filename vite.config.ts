@@ -30,6 +30,9 @@ export default defineConfig({
 			"**/coverage/**",
 			"**/reports/**",
 			"**/routeTree.gen.ts",
+			// CVpap fork: legacy v4 billing screens kept for reference, outside every workspace (biome ignored them too).
+			"apps/client/**",
+			"libs/**",
 		],
 		rules: {
 			"typescript/no-explicit-any": "error",
@@ -175,6 +178,8 @@ export default defineConfig({
 			"**/coverage/**",
 			"**/reports/**",
 			"**/routeTree.gen.ts",
+			"apps/client/**",
+			"libs/**",
 			"packages/pdf/src/semantic/__fixtures__/**/*.css",
 			"pnpm-lock.yaml",
 			"migrations/**",

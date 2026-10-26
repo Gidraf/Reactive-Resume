@@ -1,4 +1,5 @@
 import type { ImportKind } from "@/features/resume/import/read-file";
+import type { SampleLength } from "@reactive-resume/schema/resume/sample-lengths";
 import type { CSSProperties, Dispatch, SetStateAction } from "react";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -6,6 +7,7 @@ import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useId, useRef, useState } from "react";
+import { SAMPLE_LENGTH_LABELS, SAMPLE_LENGTHS } from "@reactive-resume/schema/resume/sample-lengths";
 import { Button } from "@reactive-resume/ui/components/button";
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@reactive-resume/ui/components/dialog";
 import { Icon } from "@reactive-resume/ui/components/icon";
@@ -308,6 +310,21 @@ export function NewDocumentDialog({ data }: { data?: NewDocumentDialogData | und
 							<Trans>Try with a sample resume</Trans>
 						</button>
 					</div>
+					{/* CVpap: sized samples show a client what a filled-in CV looks like at each printed length. */}
+					<div className="flex flex-wrap items-center gap-1.5 text-[13px] text-ink-2">
+						<Trans>Sample at a printed length:</Trans>
+						{SAMPLE_LENGTHS.map((length) => (
+							<button
+								key={length}
+								type="button"
+								className="rounded-md border border-line px-2 py-0.5 hover:bg-hover hover:text-ink"
+								disabled={creating}
+								onClick={() => void trySample(length)}
+							>
+								{SAMPLE_LENGTH_LABELS[length]}
+							</button>
+						))}
+					</div>
 				</div>
 			)}
 		</DialogContent>
@@ -454,9 +471,14 @@ export function useStartDocument(applicationId?: string) {
 				failed(error);
 			}
 		},
-		trySample: async () => {
+		trySample: async (sampleLength?: SampleLength) => {
 			try {
-				const resumeId = await createResume({ name: generateRandomName(), tags: [], withSampleData: true });
+				const resumeId = await createResume({
+					name: generateRandomName(),
+					tags: [],
+					withSampleData: true,
+					...(sampleLength ? { sampleLength } : {}),
+				});
 				await created(resumeId, "resume");
 				toast.add({ description: t`Sample resume added. Delete it anytime.` });
 				void navigate({ to: "/builder/$resumeId", params: { resumeId } });

@@ -12,6 +12,7 @@ import { APIError, betterAuth } from "better-auth";
 import { createAuthMiddleware } from "better-auth/api";
 import { admin, anonymous, jwt, openAPI } from "better-auth/plugins";
 import { genericOAuth } from "better-auth/plugins/generic-oauth";
+import { magicLink } from "better-auth/plugins/magic-link";
 import { twoFactor } from "better-auth/plugins/two-factor";
 import { username } from "better-auth/plugins/username";
 import { and, eq, gt, ne, sql } from "drizzle-orm";
@@ -622,6 +623,15 @@ const getAuthConfig = () => {
 			openAPI({ disableDefaultReference: true }),
 			jwt({ disableSettingJwtHeader: true }),
 			admin(),
+			// CVPAP bot links: the WhatsApp bot delivers the link itself, so instead of
+			// emailing we hand the freshly minted token to takeBotMagicLinkToken().
+			// See apps/server/src/http/bot-link.ts.
+			magicLink({
+				expiresIn: BOT_MAGIC_LINK_TTL_SECONDS,
+				sendMagicLink: ({ email, token }) => {
+					botMagicLinkTokens.set(email, { token, expiresAt: Date.now() + BOT_MAGIC_LINK_TTL_SECONDS * 1000 });
+				},
+			}),
 			passkey(),
 			genericOAuth({ config: authConfigs }),
 			twoFactor({ issuer: "Reactive Resume" }),
@@ -689,6 +699,23 @@ const getAuthConfig = () => {
 	});
 };
 
+/**
+ * Short-lived magic-link tokens minted for CVPAP bot links.
+ *
+ * `sendMagicLink` is the only place Better Auth hands us the token, and the
+ * bot (not email) delivers the link, so the token is parked here for the
+ * redemption handler to pick up immediately afterwards. Entries are single-use
+ * and expire with the link itself.
+ */
+const BOT_MAGIC_LINK_TTL_SECONDS = 120;
+const botMagicLinkTokens = new Map<string, { token: string; expiresAt: number }>();
+
+export function takeBotMagicLinkToken(email: string): string | null {
+	const entry = botMagicLinkTokens.get(email);
+	botMagicLinkTokens.delete(email);
+	if (!entry || entry.expiresAt < Date.now()) return null;
+	return entry.token;
+}
 type Auth = ReturnType<typeof getAuthConfig>;
 
 let authInstance: Auth | undefined;

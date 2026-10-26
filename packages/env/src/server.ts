@@ -1,22 +1,13 @@
 import { isIP } from "node:net";
-import { isAbsolute, join } from "node:path";
+import { isAbsolute } from "node:path";
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 import { aiProviderSchema } from "@reactive-resume/ai/types";
-import { findWorkspaceRoot } from "@reactive-resume/utils/monorepo.node";
 import { deploymentEnvironment } from "./deployment";
+import { loadEnvFiles } from "./load";
 
-const workspaceRoot = process.env.CLOUDFLARE === "1" ? null : findWorkspaceRoot();
-
-if (workspaceRoot) {
-	try {
-		// Native stand-in for dotenv: existing process.env still wins over file values.
-		process.loadEnvFile(join(workspaceRoot, ".env"));
-	} catch (error) {
-		// A missing .env is expected (e.g. production with injected env); anything else is a real problem.
-		if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) throw error;
-	}
-}
+// Layered .env loading (see ./load); Cloudflare has no workspace on disk to read from.
+if (process.env.CLOUDFLARE !== "1") loadEnvFiles();
 
 // ioredis authenticates as `AUTH <username> <password>`; a bare "redis://value@host" (userinfo with no colon) puts
 // that value in the username slot and Redis rejects the resulting auth. Password-only servers (redis-server
@@ -221,6 +212,24 @@ export const env = createEnv({
 		FLAG_DISABLE_API_RATE_LIMIT: z.stringbool().default(false),
 		FLAG_ALLOW_UNSAFE_AI_BASE_URL: z.stringbool().default(false),
 		FLAG_ALLOW_UNSAFE_OAUTH_REDIRECT_URI: z.stringbool().default(false),
+
+		// Crowdin (optional, for translation tooling)
+		CROWDIN_PROJECT_ID: z.string().optional(),
+		CROWDIN_API_TOKEN: z.string().optional(),
+		GOOGLE_CLOUD_API_KEY: z.string().optional(),
+
+		// CVPAP Integration (optional)
+		WORKER_URL: z.url({ protocol: /https?/ }).optional(),
+		VERIFICATION_ID: z.string().optional(),
+		MPESA_CALLBACK_SECRET: z.string().optional(),
+		INTERNAL_SERVICE_SECRET: z.string().optional(),
+
+		// CV Orders
+		CV_PRICE_WITHOUT_IMAGE: z.coerce.number().int().min(0).default(100),
+		CV_PRICE_WITH_IMAGE: z.coerce.number().int().min(0).default(250),
+		CV_REVISION_PRICE: z.coerce.number().int().min(0).default(50),
+		CV_MAX_FREE_REVISIONS: z.coerce.number().int().min(0).default(5),
+		CV_EXPIRY_DAYS: z.coerce.number().int().min(1).default(90),
 	},
 	runtimeEnv: deploymentEnvironment(process.env),
 	emptyStringAsUndefined: true,
