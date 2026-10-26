@@ -37,7 +37,6 @@ import { Route as DashboardCareerRouteRouteImport } from "./routes/dashboard/car
 import { Route as DashboardCoverLettersRouteImport } from "./routes/dashboard/cover-letters";
 import { Route as DashboardSettingsRouteRouteImport } from "./routes/dashboard/settings/route";
 import { Route as DashboardTrashRouteImport } from "./routes/dashboard/trash";
-import { Route as TemplatesSplatRouteImport } from "./routes/templates/$";
 import { Route as BuilderResumeIdIndexRouteImport } from "./routes/builder/$resumeId/index";
 import { Route as BuilderLetterCoverLetterIdRouteImport } from "./routes/builder/letter/$coverLetterId";
 import { Route as DashboardApplicationsIndexRouteImport } from "./routes/dashboard/applications/index";
@@ -201,11 +200,6 @@ const DashboardTrashRoute = DashboardTrashRouteImport.update({
   path: "/trash",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
-const TemplatesSplatRoute = TemplatesSplatRouteImport.update({
-  id: "/templates/$",
-  path: "/templates/$",
-  getParentRoute: () => rootRouteImport,
-} as any);
 const BuilderResumeIdIndexRoute = BuilderResumeIdIndexRouteImport.update({
   id: "/",
   path: "/",
@@ -362,7 +356,6 @@ export interface FileRoutesByFullPath {
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/dashboard/cover-letters": typeof DashboardCoverLettersRoute;
   "/dashboard/trash": typeof DashboardTrashRoute;
-  "/templates/$": typeof TemplatesSplatRoute;
   "/agent/": typeof AgentIndexRoute;
   "/auth/": typeof AuthIndexRoute;
   "/dashboard/": typeof DashboardIndexRoute;
@@ -408,7 +401,6 @@ export interface FileRoutesByTo {
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/dashboard/cover-letters": typeof DashboardCoverLettersRoute;
   "/dashboard/trash": typeof DashboardTrashRoute;
-  "/templates/$": typeof TemplatesSplatRoute;
   "/": typeof HomeIndexRoute;
   "/agent": typeof AgentIndexRoute;
   "/auth": typeof AuthIndexRoute;
@@ -463,7 +455,6 @@ export interface FileRoutesById {
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/dashboard/cover-letters": typeof DashboardCoverLettersRoute;
   "/dashboard/trash": typeof DashboardTrashRoute;
-  "/templates/$": typeof TemplatesSplatRoute;
   "/_home/": typeof HomeIndexRoute;
   "/agent/": typeof AgentIndexRoute;
   "/auth/": typeof AuthIndexRoute;
@@ -519,7 +510,6 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa-backup"
     | "/dashboard/cover-letters"
     | "/dashboard/trash"
-    | "/templates/$"
     | "/agent/"
     | "/auth/"
     | "/dashboard/"
@@ -565,7 +555,6 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa-backup"
     | "/dashboard/cover-letters"
     | "/dashboard/trash"
-    | "/templates/$"
     | "/"
     | "/agent"
     | "/auth"
@@ -619,7 +608,6 @@ export interface FileRouteTypes {
     | "/auth/verify-2fa-backup"
     | "/dashboard/cover-letters"
     | "/dashboard/trash"
-    | "/templates/$"
     | "/_home/"
     | "/agent/"
     | "/auth/"
@@ -656,7 +644,6 @@ export interface RootRouteChildren {
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
   BuilderResumeIdRouteRoute: typeof BuilderResumeIdRouteRouteWithChildren;
   UsernameSlugRoute: typeof UsernameSlugRoute;
-  TemplatesSplatRoute: typeof TemplatesSplatRoute;
   BuilderLetterCoverLetterIdRoute: typeof BuilderLetterCoverLetterIdRoute;
   RevampTokenIndexRoute: typeof RevampTokenIndexRoute;
   RevampLoginTokenIndexRoute: typeof RevampLoginTokenIndexRoute;
@@ -859,13 +846,6 @@ declare module "@tanstack/react-router" {
       fullPath: "/dashboard/trash";
       preLoaderRoute: typeof DashboardTrashRouteImport;
       parentRoute: typeof DashboardRouteRoute;
-    };
-    "/templates/$": {
-      id: "/templates/$";
-      path: "/templates/$";
-      fullPath: "/templates/$";
-      preLoaderRoute: typeof TemplatesSplatRouteImport;
-      parentRoute: typeof rootRouteImport;
     };
     "/builder/$resumeId/": {
       id: "/builder/$resumeId/";
@@ -1211,7 +1191,6 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   BuilderResumeIdRouteRoute: BuilderResumeIdRouteRouteWithChildren,
   UsernameSlugRoute: UsernameSlugRoute,
-  TemplatesSplatRoute: TemplatesSplatRoute,
   BuilderLetterCoverLetterIdRoute: BuilderLetterCoverLetterIdRoute,
   RevampTokenIndexRoute: RevampTokenIndexRoute,
   RevampLoginTokenIndexRoute: RevampLoginTokenIndexRoute,

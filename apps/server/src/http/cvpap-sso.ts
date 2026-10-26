@@ -23,7 +23,8 @@ import { auth, takeBotMagicLinkToken } from "@reactive-resume/auth/config";
 import { db } from "@reactive-resume/db/client";
 import { user } from "@reactive-resume/db/schema";
 import { env } from "@reactive-resume/env/server";
-import { generateId, slugify } from "@reactive-resume/utils/string";
+import { slugify } from "@reactive-resume/utils/slug";
+import { generateId } from "@reactive-resume/utils/string";
 
 const CVPAP_API_URL = process.env.WORKER_URL ?? process.env.CVPAP_API_URL ?? "https://api.ajiriwa.gidraf.dev";
 const CVPAP_TOKEN_COOKIE = "cvpap_token";
